@@ -1,0 +1,6 @@
+node_modules
+.next
+.vercel
+cypress
+src/types/**
+src/**/*.feature*

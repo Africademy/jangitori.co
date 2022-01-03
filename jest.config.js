@@ -1,0 +1,51 @@
+const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: './src',
+})
+
+// "package.json:jest" config cannot be used alongside this config, all Jest config must be centralised in this file - See https://github.com/facebook/jest/issues/10123#issuecomment-638796267
+const customJestConfig = {
+  rootDir: '.',
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  globals: {
+    // XXX we must specify a custom tsconfig for tests because we need the typescript transform
+    //  to transform jsx into js rather than leaving it jsx such as the next build requires.  you
+    //  can see this setting in tsconfig.jest.json -> "jsx": "react"
+    //  See https://github.com/vercel/next.js/issues/8663
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
+  },
+
+  /**
+   * Map our module path aliases, so that Jest can understand modules loaded using "@/modules" and load the proper file.
+   * Required, or Jest will fail to import dependencies from tests.
+   *
+   * XXX The below list must match `tsconfig.json:compilerOptions.paths`, so the Next.js app and Jest resolve all aliases the same way.
+   *
+   * @see https://nextjs.org/docs/advanced-features/module-path-aliases
+   * @see https://github.com/ilearnio/module-alias/issues/46#issuecomment-546154015
+   */
+  moduleNameMapper: {
+    '^@/common/(.*)$': '<rootDir>/src/common/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/app/(.*)$': '<rootDir>/src/app/$1',
+    '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
+    '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
+    '^@/api/(.*)$': '<rootDir>/src/api/$1',
+  },
+  modulePathIgnorePatterns: ['.next/'],
+  runner: 'groups', // Allow to use jest-runner-groups - See https://github.com/eugene-manuilov/jest-runner-groups#update-jest-config
+  setupFilesAfterEnv: [
+    'jest-extended', // Extends native "expect" abilities - See https://github.com/jest-community/jest-extended
+    'jest-expect-message', // Allows to add additional message when test fails - See https://github.com/mattphillips/jest-expect-message
+    './jest.setup.js',
+    './jest.extends.ts',
+  ],
+}
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+module.exports = createJestConfig(customJestConfig)

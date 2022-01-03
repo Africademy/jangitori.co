@@ -1,0 +1,21 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "target": "es5",
+    "module": "CommonJS",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "./node_modules/",
+    "./.next/",
+    "./.vercel/"
+  ], 
+  "files": [
+    "src/types"
+  ]
+}
