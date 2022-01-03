@@ -1,7 +1,7 @@
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds'
+import parseISO from 'date-fns/parseISO'
 
-import { TimeCardEntry } from '@/common/models/TimeCard'
-import { pgTimeToDate } from '@/modules/lib/pgTime'
+import { TimesheetEntry } from '@/common/models/TimesheetEntry'
 
 export interface RawData {
   start: Date
@@ -9,26 +9,28 @@ export interface RawData {
   totalMs: number
 }
 
-export function aggregateTimeEntryData(
-  timeCardEntries: TimeCardEntry[],
+export function aggregateTimesheetEntryData(
+  entries: TimesheetEntry[],
 ): Array<RawData> {
   const newRows: RawData[] = []
 
-  function getNextEntry(index: number): TimeCardEntry {
-    const nextEntry = timeCardEntries.at(index + 1)
+  const getNextEntry = (index: number): TimesheetEntry => {
+    if (entries.length <= 1)
+      throw new Error('getNextEntry() failed - must have at least 2 entries')
+
+    const nextEntry = entries[index + 1]
     if (!nextEntry)
       throw new Error(`failed to get next entry to index ${index}`)
     return nextEntry
   }
 
-  timeCardEntries
-    .map((entry) => entry.time)
-    .map(pgTimeToDate)
+  entries
+    .map((entry) => parseISO(entry.timestamp))
     .forEach((time, index) => {
       if (index % 2 === 0) {
         const end =
-          index < timeCardEntries.length - 1
-            ? pgTimeToDate(getNextEntry(index).time)
+          index < entries.length - 1
+            ? parseISO(getNextEntry(index).timestamp)
             : null
         newRows[index] = {
           start: time,
