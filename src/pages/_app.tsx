@@ -1,4 +1,4 @@
-import '@/app/theme/styles/global.css'
+import '@/modules/theme/styles/global.css'
 
 import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
@@ -6,7 +6,7 @@ import { ReactElement } from 'react'
 import { MyAppProps } from '@/app/MyAppProps'
 import { rootStoreInstance } from '@/modules/stores/RootStore/RootStoreProvider'
 const AppLayout = dynamic(() => import('@/app/AppLayout'))
-const AuthListener = dynamic(() => import('@/app/AuthListener'))
+const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
 const AppProviders = dynamic(() => import('@/app/AppProviders'))
 
 export default function MyApp({ Component, pageProps }: MyAppProps) {

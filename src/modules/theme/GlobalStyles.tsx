@@ -2,7 +2,6 @@ import { css, Global } from '@emotion/react'
 
 import { pseudo } from '@/common/utils/pseudo'
 
-import { animateCss3Styles } from './animateCss3'
 import { colors } from './colors'
 import { typography } from './typography'
 import { utilities } from './utilities'
@@ -122,9 +121,6 @@ const globalStyles = css`
     font-weight: ${typography.fontWeights.medium};
     line-height: ${typography.lineHeights.shorter};
   }
-
-  // ----------- Animations utilities -----------
-  ${animateCss3Styles}
 `
 
 export default function GlobalStyles() {
