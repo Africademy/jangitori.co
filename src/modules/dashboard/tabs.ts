@@ -22,22 +22,25 @@ export function getIndexOfTabKey(key: TabKey): number {
   return Object.values(TabKeys).indexOf(key)
 }
 
-export function parseTabKeyQueryParam(query: ParsedUrlQuery): TabKey | null {
+export function parseTabKeyQueryParam(query: ParsedUrlQuery): TabKey {
   const tabKey =
     'tabKey' in query ? normalizeQueryParam<TabKey>(query.tabKey) : null
   if (!isTabKey(tabKey)) {
-    console.log(`WARNING: Invalid [tabKey] query param - ${tabKey}`)
+    const error = new Error(`Invalid [tabKey] query param - ${tabKey}`)
+    console.error(error)
+    throw error
   }
   return tabKey
 }
 
 export function getTabKeyForIndex(index: number): TabKey {
   const tabKey = Object.keys(TabKeys).at(index)
-  console.log(
-    'getTabKeyForIndex() for index=' + index + ' got tabKey=' + tabKey,
-  )
 
-  if (!tabKey) throw new Error('Invalid tabKey index ' + index)
+  if (!tabKey) {
+    const error = new Error('Invalid tabKey index ' + index)
+    console.error(error)
+    throw error
+  }
 
   return tabKey as TabKey
 }
