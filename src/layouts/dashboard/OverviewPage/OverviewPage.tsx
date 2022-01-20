@@ -8,7 +8,7 @@ import { SmallTitle } from '@/ui/small-title'
 
 const StatWidget = dynamic(() => import('@/ui/StatWidget'))
 
-import { timesheetQueryKeys } from '@/db/timesheets/timesheetQueryKeys'
+import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
 import { Section } from '@/ui/components/Section'

@@ -1,6 +1,6 @@
 import { Session, User as AuthUser, UserCredentials } from '@supabase/gotrue-js'
 
-import { NullResponsePropertyError } from '@/common/utils/errors'
+import { NullResponsePropertyError } from '@/modules/lib/errors'
 import { createLogger } from '@/modules/logging/logger'
 import supabase from '@/modules/supabase'
 

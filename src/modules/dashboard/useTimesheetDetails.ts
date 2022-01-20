@@ -1,9 +1,9 @@
 import useSWR, { SWRResponse } from 'swr'
 
+import { timeEntryQueryKeys } from '@/db/api/time-entries/timeEntryQueryKeys'
+import { TimesheetQuery } from '@/db/api/timesheets/timesheetQueryKeys'
 import { TimeEntry } from '@/db/models/TimeEntry'
 import { Timesheet } from '@/db/models/Timesheet'
-import { timeEntryQueryKeys } from '@/db/time-entries/timeEntryQueryKeys'
-import { TimesheetQuery } from '@/db/timesheets/timesheetQueryKeys'
 import { useServices } from '@/modules/services'
 export function useTimesheetDetails(args: TimesheetQuery[2]): {
   timesheet: SWRResponse<Timesheet, Error>

@@ -1,6 +1,6 @@
 import { ParsedUrlQuery } from 'querystring'
 
-import { normalizeQueryParam } from '@/common/utils/normalizeApiQuery'
+import { normalizeQueryParam } from '@/modules/lib/normalizeQueryParam'
 
 export const TabKeys = {
   overview: 'overview',

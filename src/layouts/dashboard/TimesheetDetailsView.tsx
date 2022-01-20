@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 
-import { TimesheetQuery } from '@/db/timesheets/timesheetQueryKeys'
+import { TimesheetQuery } from '@/db/api/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { shouldClockIn } from '@/modules/lib/shouldClockIn'
