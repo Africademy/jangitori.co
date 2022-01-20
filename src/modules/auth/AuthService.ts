@@ -1,8 +1,8 @@
 import { Session, User as AuthUser, UserCredentials } from '@supabase/gotrue-js'
 
 import { NullResponsePropertyError } from '@/modules/lib/errors'
+import { createLogger } from '@/modules/lib/logger'
 import supabase from '@/modules/lib/supabase'
-import { createLogger } from '@/modules/logging/logger'
 
 const logger = createLogger({ fileLabel: 'modules/auth/auth-service' })
 

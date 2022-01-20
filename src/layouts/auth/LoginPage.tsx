@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 
 import { EmailPasswordCreds } from '@/modules/auth/types'
+import { createLogger } from '@/modules/lib/logger'
 import { useMobXStore } from '@/modules/lib/mobx/useMobXStore'
 import { routes } from '@/modules/lib/routes'
-import { createLogger } from '@/modules/logging/logger'
 import { useServices } from '@/modules/services'
 
 const AuthFormCard = dynamic(() => import('./AuthForm/AuthFormCard'))

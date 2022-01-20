@@ -4,8 +4,8 @@ import Downshift, { GetRootPropsOptions } from 'downshift'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
+import { createLogger } from '@/modules/lib/logger'
 import { routes } from '@/modules/lib/routes'
-import { createLogger } from '@/modules/logging/logger'
 import { useService } from '@/modules/services'
 import { useRootStore } from '@/modules/stores/useRootStore'
 
