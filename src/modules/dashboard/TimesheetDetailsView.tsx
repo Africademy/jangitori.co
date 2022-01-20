@@ -77,7 +77,6 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
 
       timesheet.mutate()
     } catch (error) {
-      console.error('Failed to add time entry.', error)
       Sentry.captureException(error)
       alert((error as Error).message)
     } finally {
