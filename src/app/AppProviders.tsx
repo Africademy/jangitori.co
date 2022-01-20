@@ -10,7 +10,7 @@ const RootStoreProvider = dynamic(
 
 import { ChakraProvider } from '@chakra-ui/provider'
 
-import { fetcher } from '@/app/fetcher'
+import { fetcher } from '@/modules/lib/fetcher'
 import { theme } from '@/modules/theme/theme'
 
 const GlobalStyles = dynamic(() => import('@/modules/theme/GlobalStyles'))

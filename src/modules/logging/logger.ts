@@ -1,6 +1,6 @@
 import createSimpleLogger, { SimpleLogger } from '@unly/simple-logger'
 
-import { isBrowser } from '../environment'
+import { isBrowser } from '@/modules/lib/environment'
 
 /**
  * Custom logger proxy.

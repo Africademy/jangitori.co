@@ -1,13 +1,13 @@
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
-import { createLogger } from '@/common/utils/logging/logger'
 import { omit } from '@/common/utils/object'
 import { waitFor } from '@/common/utils/waitFor'
 import { AccountUpdateData } from '@/db/models/Account'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { routes } from '@/modules/lib/routes'
+import { createLogger } from '@/modules/logging/logger'
 import { Services } from '@/modules/services/services'
 
 import { UnauthorizedUserCredentialsError } from './signUpErrors'

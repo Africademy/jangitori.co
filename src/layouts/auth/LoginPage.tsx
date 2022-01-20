@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 
-import { createLogger } from '@/common/utils/logging/logger'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { routes } from '@/modules/lib/routes'
+import { createLogger } from '@/modules/logging/logger'
 import { useMobXStore } from '@/modules/mobx/useMobXStore'
 import { useServices } from '@/modules/services'
 

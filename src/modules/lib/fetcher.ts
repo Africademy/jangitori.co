@@ -1,7 +1,7 @@
-import { createLogger } from '../common/utils/logging/logger'
+import { createLogger } from '@/modules/logging/logger'
 
 const logger = createLogger({
-  fileLabel: 'common/utils/fetcher',
+  fileLabel: 'modules/lib/fetcher',
 })
 export async function fetcher<JSON = any>(
   input: RequestInfo,

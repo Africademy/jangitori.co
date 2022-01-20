@@ -1,7 +1,7 @@
 import { enableLogging } from 'mobx-logger'
 import { createContext } from 'react'
 
-import { isDevelopment } from '@/common/utils/environment'
+import { isDevelopment } from '@/modules/lib/environment'
 
 import { RootStore } from './RootStore'
 
