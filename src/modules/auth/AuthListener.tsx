@@ -3,7 +3,7 @@ import { when } from 'mobx'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
-import { useRootStore } from '@/app/appContext'
+import { useRootStore } from '@/app/store'
 import { createLogger } from '@/lib/logger'
 import { isAuthRequiredPathname, routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'

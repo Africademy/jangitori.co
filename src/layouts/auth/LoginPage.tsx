@@ -8,7 +8,7 @@ import { EmailPasswordCreds } from '@/modules/auth/types'
 const AuthFormCard = dynamic(() => import('./AuthForm/AuthFormCard'))
 import dynamic from 'next/dynamic'
 
-import { useRootStore, useServices } from '@/app/appContext'
+import { useRootStore, useServices } from '@/app/store'
 
 import { AuthFormVM } from './AuthForm/AuthFormVM'
 import { AuthPageProps } from './types'

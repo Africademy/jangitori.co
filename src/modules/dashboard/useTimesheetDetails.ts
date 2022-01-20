@@ -1,6 +1,6 @@
 import useSWR, { SWRResponse } from 'swr'
 
-import { useServices } from '@/app/appContext'
+import { useServices } from '@/app/store'
 import { timeEntryQueryKeys } from '@/db/api/time-entries/timeEntryQueryKeys'
 import { TimesheetQuery } from '@/db/api/timesheets/timesheetQueryKeys'
 import { TimeEntry } from '@/db/models/TimeEntry'

@@ -1,7 +1,8 @@
-import { useContext } from 'react'
+import { createContext, useContext } from 'react'
 
-import { RootStoreContext } from './RootStoreContext'
-import { Services } from './services'
+import { RootStore } from './RootStore'
+
+export const RootStoreContext = createContext<RootStore | undefined>(undefined)
 
 export function useRootStore() {
   const context = useContext(RootStoreContext)
@@ -11,6 +12,8 @@ export function useRootStore() {
 
   return context
 }
+
+import { Services } from '@/modules/services'
 
 export function useServices<K extends keyof Services>(
   ...keys: K[]

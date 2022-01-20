@@ -2,7 +2,7 @@ import { Flex, Heading, VStack } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
 import useSWR from 'swr'
 
-import { useServices } from '@/app/appContext'
+import { useServices } from '@/app/store'
 import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import { Timesheet } from '@/db/models/Timesheet'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'

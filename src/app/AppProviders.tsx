@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import { SWRConfig, SWRConfiguration } from 'swr'
 
-const RootStoreProvider = dynamic(() => import('./RootStoreProvider'))
+const RootStoreProvider = dynamic(() => import('./store/RootStoreProvider'))
 
 import { ChakraProvider } from '@chakra-ui/provider'
 

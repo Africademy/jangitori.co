@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
 
 import { MyAppProps } from '@/app/MyAppProps'
-import { rootStoreInstance } from '@/app/RootStoreProvider'
+import { rootStoreInstance } from '@/app/store'
+
 const AppLayout = dynamic(() => import('@/app/AppLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
 const AppProviders = dynamic(() => import('@/app/AppProviders'))

@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 
-import { useRootStore } from '@/app/appContext'
+import { useRootStore } from '@/app/store'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'

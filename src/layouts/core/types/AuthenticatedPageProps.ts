@@ -1,4 +1,4 @@
-import { RootStore } from '@/app/RootStore'
+import { RootStore } from '@/app/store'
 import { Account } from '@/db/models/Account'
 
 export type AuthenticatedPageProps<P = {}> = {

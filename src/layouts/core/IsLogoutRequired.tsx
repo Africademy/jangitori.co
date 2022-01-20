@@ -1,7 +1,7 @@
 import { computed } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
-import { useRootStore } from '@/app/appContext'
+import { useRootStore } from '@/app/store'
 import { routes } from '@/lib/routes'
 import { RedirectIf } from '@/ui/components/Redirect/RedirectIf'
 
