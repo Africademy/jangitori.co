@@ -126,6 +126,7 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
               colorScheme="blue"
               size="sm"
               onClick={handleNewTimeEntry}
+              _disabled={{ background: theme }}
             >
               {isClockIn ? 'Clock in' : 'Clock out'}
             </Button>

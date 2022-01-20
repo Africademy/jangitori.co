@@ -65,6 +65,7 @@
     "swr": "^1.1.2"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^1.7.0",
     "@emotion/babel-plugin": "^11.7.2",
     "@next/bundle-analyzer": "^12.0.7",
     "@testing-library/jest-dom": "^5.16.1",
