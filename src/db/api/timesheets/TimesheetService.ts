@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { Timesheet } from '@/db/models/Timesheet'
+import { Timesheet, TimesheetStatus } from '@/db/models/Timesheet'
 import { TableKeys } from '@/db/tables'
 import supabase from '@/lib/supabase'
 
@@ -42,7 +42,13 @@ export class TimesheetService {
 
     const { data, error } = await this.client
       .from<Timesheet>(TableKeys.Timesheets)
-      .insert({ ...args })
+      .insert({
+        ...args,
+        hours: 0,
+        status: TimesheetStatus.IN_PROGRESS,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      })
 
     if (error) throw error
 

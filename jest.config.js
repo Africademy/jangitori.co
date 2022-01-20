@@ -21,7 +21,7 @@ const customJestConfig = {
   },
 
   /**
-   * Map our module path aliases, so that Jest can understand modules loaded using "@/modules" and load the proper file.
+   * Map our module path aliases, so that Jest can understand features loaded using "@/modules" and load the proper file.
    * Required, or Jest will fail to import dependencies from tests.
    *
    * XXX The below list must match `tsconfig.json:compilerOptions.paths`, so the Next.js app and Jest resolve all aliases the same way.
@@ -31,7 +31,7 @@ const customJestConfig = {
    */
   moduleNameMapper: {
     '^@/app/(.*)$': '<rootDir>/src/app/$1',
-    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/core/$1',
     '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
     '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
     '^@/db/(.*)$': '<rootDir>/src/api/$1',
