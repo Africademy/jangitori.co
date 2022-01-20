@@ -20,10 +20,14 @@ export class TimeEntryService {
     return data ?? []
   }
 
-  async createEntry(args: { timesheet: Timesheet['id'] }): Promise<TimeEntry> {
+  async createEntry(args: Partial<TimeEntry>): Promise<TimeEntry> {
+    const defaultTimeEntryData: Partial<TimeEntry> = {
+      location: {},
+      timestamp: new Date().toLocaleString(),
+    }
     const { data, error } = await this.client
       .from<TimeEntry>(TableKeys.TimeEntries)
-      .insert({ ...args, location: {}, timestamp: new Date().toLocaleString() })
+      .insert({ ...defaultTimeEntryData, ...args })
 
     if (error) throw error
 

@@ -15,6 +15,10 @@ import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
+export const getUserLocation = () => {
+  return { latitude: 'LATITUDE', longitude: 'LONGITUDE' }
+}
+
 export const TimesheetDetailsView = ({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) => {
@@ -38,8 +42,11 @@ export const TimesheetDetailsView = ({
     setIsBusy(true)
 
     try {
+      const location = getUserLocation()
+
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheet.data!.id,
+        location,
       })
       const lastEntry = timeEntries.data!.at(-1)
 
