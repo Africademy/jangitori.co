@@ -1,4 +1,4 @@
-import { Button, Flex, VStack } from '@chakra-ui/react'
+import { Button, Flex, Tooltip, VStack } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import Sentry from '@sentry/nextjs'
@@ -111,9 +111,14 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
         {timeEntries.data && (
           <div className="flex items-center gap-3">
             {!isAddTimeEntryAllowed(timeEntries.data) && (
-              <IconBox>
-                <QuestionIcon />
-              </IconBox>
+              <Tooltip
+                label="You must wait at least 15 minutes between time punches."
+                fontSize="md"
+              >
+                <IconBox>
+                  <QuestionIcon />
+                </IconBox>
+              </Tooltip>
             )}
             <Button
               disabled={isBusy || !isAddTimeEntryAllowed(timeEntries.data)}
