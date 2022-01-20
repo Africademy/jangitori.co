@@ -14,7 +14,7 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />
 }
 
-export type MyErrorProps = ErrorProps & { hasGetInitialPropsRun: boolean }
+export type MyErrorProps = ErrorProps & { hasGetInitialPropsRun?: boolean }
 
 MyError.getInitialProps = async ({ res, err, asPath }) => {
   const errorInitialProps: MyErrorProps =
@@ -25,8 +25,11 @@ MyError.getInitialProps = async ({ res, err, asPath }) => {
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
-  if ('hasGetInitialPropsRun' in errorInitialProps) {
-    errorInitialProps.hasGetInitialPropsRun = true
+  errorInitialProps.hasGetInitialPropsRun = true
+
+  // Returning early because we don't want to log 404 errors to Sentry.
+  if (res?.statusCode === 404) {
+    return errorInitialProps
   }
 
   // Running on the server, the response object (`res`) is available.
