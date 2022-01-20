@@ -13,7 +13,15 @@ export interface TimesheetDetailsTableProps {
 export const TimesheetDetailsTable: React.FunctionComponent<
   TimesheetDetailsTableProps
 > = ({ data }) => {
-  const rows = useMemo(() => buildTimesheetDetailsRows(data), [data])
+  const rows = useMemo(
+    () =>
+      buildTimesheetDetailsRows(data).map((entry) => ({
+        start: entry.start.toString(),
+        end: entry.end?.toString() ?? '--',
+        minutes: `${entry.minutes} minutes`,
+      })),
+    [data],
+  )
 
   return (
     <Table variant="simple" bg="white" shadow="sm" borderRadius="md">
