@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react'
+import parseISO from 'date-fns/parseISO'
 import React from 'react'
 
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
@@ -39,7 +40,7 @@ export const CurrentTimesheetPreview: React.FunctionComponent<
       <Flex direction="column" gap="3">
         <Typography>
           Most recent entry:{' '}
-          {new Date(timeEntries.data[0].timestamp).toString()}
+          {parseISO(timeEntries.data[0].timestamp).toLocaleString()}
         </Typography>
         <Typography>Total hours: {timesheet.data.hours}</Typography>
       </Flex>
