@@ -12,9 +12,15 @@ export type TimesheetDetailsTableRow = {
 export const buildTimesheetDetailsTableRows = (
   timeEntries: TimeEntry[],
 ): TimesheetDetailsTableRow[] => {
-  const rows: TimesheetDetailsTableRow[] = aggregateTimeEntryData(
-    timeEntries,
-  ).map((data) => ({
+  console.log('RAW:')
+  console.table(timeEntries)
+
+  const aggregated = aggregateTimeEntryData(timeEntries)
+
+  console.log('AGGREGATED:')
+  console.table(aggregated)
+
+  const rows: TimesheetDetailsTableRow[] = aggregated.map((data) => ({
     start: new Date(data.start).toISOString(),
     end: data.end ? new Date(data.end).toISOString() : '--',
     totalTime:
