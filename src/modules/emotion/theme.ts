@@ -1,4 +1,4 @@
-import { ChakraTheme, extendTheme } from '@chakra-ui/react'
+import { extendTheme } from '@chakra-ui/react'
 
 import { colors } from './colors'
 import { radii } from './radii'
