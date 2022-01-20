@@ -1,10 +1,10 @@
 import { action, makeAutoObservable, reaction, transaction } from 'mobx'
 import Router from 'next/router'
 
+import { TimesheetsQuery } from '@/api/timesheets/timesheetQueryKeys'
 import { RoleID } from '@/common/models/Role'
 import { routes } from '@/modules/lib/routes'
 
-import { TimesheetsQuery } from '../timesheets/timesheetsQueryBuilder'
 import { getIndexOfTabKey, getTabKeyForIndex, TabKey } from './tabs'
 
 export default class DashboardStore {

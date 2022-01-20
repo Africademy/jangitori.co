@@ -3,13 +3,13 @@ import { css, useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 
+import { TimesheetQuery } from '@/api/timesheets/timesheetQueryKeys'
 import { LoadingVStack } from '@/common/components/LoadingVStack'
 import { only } from '@/common/utils/breakpoints'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { shouldClockIn } from '@/modules/lib/shouldClockIn'
 import { useServices } from '@/modules/services/useServices'
-import { TimesheetDetailsQuery } from '@/modules/timesheets/timesheetsQueryBuilder'
 import { ErrorMessage } from '@/ui/error-message'
 import Typography from '@/ui/Typography'
 
@@ -17,7 +17,7 @@ import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
 export const TimesheetDetailsView = ({
   query,
-}: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) => {
+}: AuthenticatedPageProps & { query: TimesheetQuery }) => {
   const services = useServices('TimeEntry', 'timesheet')
   const { timesheet, entries } = useTimesheetDetails(query[2])
 

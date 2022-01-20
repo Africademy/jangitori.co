@@ -8,10 +8,10 @@ import { SmallTitle } from '@/ui/small-title'
 
 const StatWidget = dynamic(() => import('@/ui/StatWidget'))
 
+import { timesheetQueryKeys } from '@/api/timesheets/timesheetQueryKeys'
 import { Section } from '@/common/components/Section'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
-import { timesheetsQueryBuilder } from '@/modules/timesheets/timesheetsQueryBuilder'
 
 import { DashboardHomeCopy } from './constants'
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
@@ -25,7 +25,7 @@ export const OverviewPage = function OverviewPage({
 
   const switchToCurrentTimesheetDetailsTab = () => {
     dashboardStore.setQuery(
-      timesheetsQueryBuilder.detail({
+      timesheetQueryKeys.detail({
         employee: account.uid,
         payPeriodEnd,
       }),

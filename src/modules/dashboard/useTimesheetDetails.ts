@@ -1,11 +1,11 @@
 import useSWR, { SWRResponse } from 'swr'
 
+import { timeEntryQueryKeys } from '@/api/time-entries/timeEntryQueryKeys'
+import { TimesheetQuery } from '@/api/timesheets/timesheetQueryKeys'
 import { TimeEntry } from '@/common/models/TimeEntry'
 import { Timesheet } from '@/common/models/Timesheet'
 import { useServices } from '@/modules/services'
-import { timeEntryQueryKeys } from '@/modules/time-entries/timeEntryQueryKeys'
-import { TimesheetDetailsQuery } from '@/modules/timesheets/timesheetsQueryBuilder'
-export function useTimesheetDetails(args: TimesheetDetailsQuery[2]): {
+export function useTimesheetDetails(args: TimesheetQuery[2]): {
   timesheet: SWRResponse<Timesheet, Error>
   entries: SWRResponse<TimeEntry[], Error>
 } {

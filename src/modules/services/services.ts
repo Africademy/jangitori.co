@@ -1,8 +1,8 @@
-import { AccountService } from '@/modules/accounts/AccountService'
+import { AccountService } from '@/api/accounts/AccountService'
+import { TimeEntryService } from '@/api/time-entries/TimeEntryService'
+import { TimesheetService } from '@/api/timesheets/TimesheetService'
 import { AuthService } from '@/modules/auth/AuthService'
 import supabase from '@/modules/supabase'
-import { TimeEntryService } from '@/modules/time-entries/TimeEntryService'
-import { TimesheetService } from '@/modules/timesheets/TimesheetService'
 
 export type Services = {
   auth: AuthService
