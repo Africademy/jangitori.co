@@ -10,7 +10,7 @@ const StatWidget = dynamic(() => import('@/ui/StatWidget'))
 
 import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
-import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
+import { useLocalMobXStore } from '@/modules/lib/mobx/LocalStoreProvider'
 import { Section } from '@/ui/components/Section'
 
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'

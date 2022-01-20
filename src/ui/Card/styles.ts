@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 
-import { StyledProps } from '@/modules/emotion/types'
+import { StyledProps } from '@/modules/lib/emotion/types'
 import { spacing } from '@/ui/utils/spacing'
 
 export const baseCardStyles = ({ theme }: StyledProps) =>

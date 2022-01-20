@@ -13,8 +13,8 @@ import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
-import { LocalStoreProvider } from '@/modules/mobx/LocalStoreProvider'
-import { useMobXStore } from '@/modules/mobx/useMobXStore'
+import { LocalStoreProvider } from '@/modules/lib/mobx/LocalStoreProvider'
+import { useMobXStore } from '@/modules/lib/mobx/useMobXStore'
 import { only } from '@/ui/utils/breakpoints'
 
 const TimesheetsView = dynamic(

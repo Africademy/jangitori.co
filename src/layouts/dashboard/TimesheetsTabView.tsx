@@ -1,7 +1,7 @@
 import { isTimesheetQuery } from '@/db/api/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
-import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
+import { useLocalMobXStore } from '@/modules/lib/mobx/LocalStoreProvider'
 
 import { TimesheetDetailsView } from './TimesheetDetailsView'
 import TimesheetsView from './TimesheetsView'

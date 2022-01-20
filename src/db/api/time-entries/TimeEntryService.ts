@@ -3,7 +3,7 @@ import { SupabaseClient } from '@supabase/supabase-js'
 import { TimeEntry } from '@/db/models/TimeEntry'
 import { Timesheet } from '@/db/models/Timesheet'
 import { TableKeys } from '@/db/tables'
-import supabase from '@/modules/supabase'
+import supabase from '@/modules/lib/supabase'
 
 export class TimeEntryService {
   constructor(private client: SupabaseClient = supabase) {}

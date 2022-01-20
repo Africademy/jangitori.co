@@ -6,9 +6,9 @@ import { ReactNode } from 'react'
 import updateAuthCookie from '@/modules/auth/updateAuthCookie'
 import { getTabKeyForIndex } from '@/modules/dashboard/tabs'
 import { isAuthRequiredPathname, routes } from '@/modules/lib/routes'
+import supabase from '@/modules/lib/supabase'
 import { createLogger } from '@/modules/logging/logger'
 import { useRootStore } from '@/modules/stores/useRootStore'
-import supabase from '@/modules/supabase'
 
 const logger = createLogger({ fileLabel: 'app/AuthListener' })
 
