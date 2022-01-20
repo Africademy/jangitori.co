@@ -58,22 +58,23 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
         timesheet: timesheet.data!.id,
         location,
       })
+      timeEntries.mutate()
+
       const lastEntry = timeEntries.data!.at(-1)
-
-      if (!lastEntry) return timeEntries.mutate()
-
-      const hours =
-        differenceInMinutes(
-          new Date(newEntry.timestamp),
-          new Date(lastEntry.timestamp),
-        ) / 60
-      const newHours = parseFloat(hours.toFixed(2))
+      if (!lastEntry) return
 
       await services.timesheet.updateTimesheetHours({
         id: timesheet.data!.id,
-        hours: newHours,
+        hours: parseFloat(
+          (
+            differenceInMinutes(
+              new Date(newEntry.timestamp),
+              new Date(lastEntry.timestamp),
+            ) / 60
+          ).toFixed(2),
+        ),
       })
-      timeEntries.mutate()
+
       timesheet.mutate()
     } catch (error) {
       console.error('Failed to add time entry.', error)
