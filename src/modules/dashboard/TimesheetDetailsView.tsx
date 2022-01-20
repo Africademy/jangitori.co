@@ -7,6 +7,11 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
+import { toDateString } from '@/lib/date'
+import {
+  calendarDateToDate,
+  truncateCalendarDate,
+} from '@/lib/date/calendarDate'
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
@@ -108,7 +113,9 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   return (
     <VStack minW="100%">
       <Flex align="center" minW="100%" py={2} pb={5} justify="space-between">
-        <SText>Timesheet for pay period {query[2].payPeriodEnd}</SText>
+        <SText>
+          Pay period end {truncateCalendarDate(query[2].payPeriodEnd)}
+        </SText>
         {timeEntries.data && (
           <div className="flex items-center gap-3">
             {!isAddTimeEntryAllowed(timeEntries.data) && (
@@ -169,9 +176,9 @@ const SText = styled.div`
   ${({ theme }) =>
     css`
       font-weight: ${theme.fontWeights.semibold};
-      font-size: ${theme.fontSizes.lbase};
+      font-size: ${theme.fontSizes['xl']};
       ${largerThan('mobile')} {
-        font-size: ${theme.fontSizes.lg};
+        font-size: ${theme.fontSizes['2xl']};
       }
     `}
 `

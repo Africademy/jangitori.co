@@ -16,6 +16,11 @@ export function isCalendarDateObject(o: any): o is CalendarDateObject {
   )
 }
 
+export function calendarDateToDate(date: string): Date {
+  const [year, month, day] = date.split('/').map((v) => parseInt(v))
+  return calendarDateObjectToDate({ year, month, day })
+}
+
 export function calendarDateObjectToDate({
   year,
   month,
@@ -55,3 +60,6 @@ export function toPgCalendarDateQuery(
   }
   return toDateString(date)
 }
+
+export const truncateCalendarDate = (date: CalendarDate): string =>
+  date.split('/').slice(0, 2).join('/')
