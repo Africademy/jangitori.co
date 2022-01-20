@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { TableKeys } from '@/common/constants/tables'
+import { TableKeys } from '@/api/tables'
 import { Timesheet } from '@/common/models/Timesheet'
 import supabase from '@/modules/supabase'
 

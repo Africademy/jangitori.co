@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { TableKeys } from '@/common/constants/tables'
+import { TableKeys } from '@/api/tables'
 import { Account, AccountUpdateData } from '@/common/models/Account'
 import { NullResponsePropertyError } from '@/common/utils/errors'
 
