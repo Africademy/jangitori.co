@@ -3,9 +3,9 @@ import styled from '@emotion/styled'
 import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
-import { useServices } from '@/app/store'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
+import { useServices } from '@/modules/stores'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
@@ -25,7 +25,7 @@ import {
 } from '@/ui/components/Form'
 const Typography = dynamic(() => import('@/ui/atoms/Typography/Typography'))
 
-import { useRootStore } from '@/app/store'
+import { useRootStore } from '@/modules/stores'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 
 import { SignUpStore } from './SignUpStore'

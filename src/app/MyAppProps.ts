@@ -3,7 +3,7 @@ import {
   AppProps as NextAppProps,
 } from 'next/app'
 
-import { NextPageWithLayout } from '@/layouts/core/types/NextPagePropsWithLayout'
+import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
 
 export interface MyAppInitialProps extends NextAppInitialProps {
   initialState: any

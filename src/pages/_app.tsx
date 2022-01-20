@@ -1,10 +1,10 @@
-import '@/app/theme/styles/global.css'
+import '@/modules/theme/styles/global.css'
 
 import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
 
 import { MyAppProps } from '@/app/MyAppProps'
-import { rootStoreInstance } from '@/app/store'
+import { rootStoreInstance } from '@/modules/stores'
 
 const AppLayout = dynamic(() => import('@/app/AppLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))

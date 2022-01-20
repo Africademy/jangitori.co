@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 
 const AdminDashboardPage = dynamic(
   () => import('@/modules/dashboard/AdminDashboardPage'),

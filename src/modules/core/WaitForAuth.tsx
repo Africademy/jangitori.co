@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-import { useRootStore } from '@/app/store'
+import { useRootStore } from '@/modules/stores'
 
 const LoadingScreen = dynamic(() => import('@/ui/components/LoadingScreen'))
 

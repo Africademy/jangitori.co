@@ -1,8 +1,8 @@
-const LoginPage = dynamic(() => import('@/layouts/auth/LoginPage'))
+const LoginPage = dynamic(() => import('@/modules/auth/LoginPage'))
 import dynamic from 'next/dynamic'
 
 const IsLogoutRequired = dynamic(
-  () => import('@/layouts/core/IsLogoutRequired'),
+  () => import('@/modules/core/IsLogoutRequired'),
 )
 
 const LoginRoute = function LoginRoute(props) {

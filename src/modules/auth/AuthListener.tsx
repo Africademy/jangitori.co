@@ -3,12 +3,12 @@ import { when } from 'mobx'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
-import { useRootStore } from '@/app/store'
 import { createLogger } from '@/lib/logger'
 import { isAuthRequiredPathname, routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
 import updateAuthCookie from '@/modules/auth/updateAuthCookie'
 import { getTabKeyForIndex } from '@/modules/dashboard/tabs'
+import { useRootStore } from '@/modules/stores'
 
 const logger = createLogger({ fileLabel: 'app/AuthListener' })
 

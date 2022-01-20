@@ -8,12 +8,12 @@ import { EmailPasswordCreds } from '@/modules/auth/types'
 const AuthFormCard = dynamic(() => import('./AuthForm/AuthFormCard'))
 import dynamic from 'next/dynamic'
 
-import { useRootStore, useServices } from '@/app/store'
+import { useRootStore, useServices } from '@/modules/stores'
 
 import { AuthFormVM } from './AuthForm/AuthFormVM'
 import { AuthPageProps } from './types'
 
-const fileLabel = 'layouts/auth/LoginPage'
+const fileLabel = 'modules/auth/LoginPage'
 const logger = createLogger({ fileLabel })
 
 const LoginPageCopy = {

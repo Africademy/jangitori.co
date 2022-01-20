@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
-import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { SmallTitle } from '@/ui/atoms/Typography/SmallTitle'
 import { ArrowRightSm, CalendarIcon } from '@/ui/icons'

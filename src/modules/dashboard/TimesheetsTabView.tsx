@@ -1,5 +1,5 @@
-import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { isTimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
