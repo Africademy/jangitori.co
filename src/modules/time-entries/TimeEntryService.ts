@@ -23,7 +23,7 @@ export class TimeEntryService {
   async createEntry(args: { timesheet: Timesheet['id'] }): Promise<TimeEntry> {
     const { data, error } = await this.client
       .from<TimeEntry>(TableKeys.TimeEntries)
-      .insert({ ...args, location: {} })
+      .insert({ ...args, location: {}, timestamp: new Date().toLocaleString() })
 
     if (error) throw error
 

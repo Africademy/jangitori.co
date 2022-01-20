@@ -16,8 +16,8 @@ export const TimesheetDetailsTable: React.FunctionComponent<
   const rows = useMemo(
     () =>
       buildTimesheetDetailsRows(data).map((entry) => ({
-        start: entry.start.toString(),
-        end: entry.end?.toString() ?? '--',
+        start: entry.start.toISOString(),
+        end: entry.end?.toISOString() ?? '--',
         minutes: `${entry.minutes} minutes`,
       })),
     [data],
