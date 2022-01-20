@@ -1,5 +1,5 @@
-import { UserType } from '@/common/utils/interfaces/UserType'
 import { PrimaryKeyOf } from '@/db/tables'
+import { UserType } from '@/modules/lib/types/UserType'
 
 import { RoleID } from './Role'
 

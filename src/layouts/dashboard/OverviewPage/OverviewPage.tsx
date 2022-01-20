@@ -1,21 +1,34 @@
 import { Flex } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
-import { usePayPeriodEnd } from '@/common/hooks/usePayPeriodEnd'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
+import { usePayPeriodEnd } from '@/modules/payroll/usePayPeriodEnd'
 import { ArrowRightSm, CalendarIcon } from '@/ui/icons'
 import { SmallTitle } from '@/ui/small-title'
 
 const StatWidget = dynamic(() => import('@/ui/StatWidget'))
 
-import { Section } from '@/common/components/Section'
 import { timesheetQueryKeys } from '@/db/timesheets/timesheetQueryKeys'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
+import { Section } from '@/ui/components/Section'
 
-import { DashboardHomeCopy } from './constants'
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
 import { RouterButton } from './RouterButton'
+
+const OverviewPageCopy = {
+  title: 'Home',
+  Upcoming: {
+    title: 'Upcoming',
+    PayPeriod: {
+      title: 'Payday',
+    },
+  },
+  LatestActivity: {
+    title: 'Latest',
+    CurrentTimesheetLink: 'View timesheet',
+  },
+}
 
 export const OverviewPage = function OverviewPage({
   account,
@@ -37,10 +50,10 @@ export const OverviewPage = function OverviewPage({
     <>
       <Section>
         <Section.Top>
-          <SmallTitle>{DashboardHomeCopy.LatestActivity.title}</SmallTitle>
+          <SmallTitle>{OverviewPageCopy.LatestActivity.title}</SmallTitle>
           <RouterButton onClick={switchToCurrentTimesheetDetailsTab}>
             <Flex>
-              {DashboardHomeCopy.LatestActivity.CurrentTimesheetLink}
+              {OverviewPageCopy.LatestActivity.CurrentTimesheetLink}
               <ArrowRightSm />
             </Flex>
           </RouterButton>
@@ -51,7 +64,7 @@ export const OverviewPage = function OverviewPage({
       </Section>
       <Section>
         <Section.Top>
-          <SmallTitle>{DashboardHomeCopy.Upcoming.title}</SmallTitle>
+          <SmallTitle>{OverviewPageCopy.Upcoming.title}</SmallTitle>
         </Section.Top>
         <Section.Body>
           <StatWidget {...getStatWidgetProps(payPeriodEnd)} />
@@ -63,7 +76,7 @@ export const OverviewPage = function OverviewPage({
 
 function getStatWidgetProps(payPeriodEnd: string) {
   return {
-    name: DashboardHomeCopy.Upcoming.PayPeriod.title,
+    name: OverviewPageCopy.Upcoming.PayPeriod.title,
     stat: payPeriodEnd,
     icon: CalendarIcon,
   }

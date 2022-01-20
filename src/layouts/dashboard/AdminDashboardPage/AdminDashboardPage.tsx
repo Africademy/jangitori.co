@@ -6,7 +6,7 @@ const OverviewPage = dynamic(() => import('@/layouts/dashboard/OverviewPage'))
 
 import { css } from '@emotion/react'
 
-const StyledTab = dynamic(() => import('@/common/components/StyledTab'))
+const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
 import { only } from '@/common/utils/breakpoints'
 import { RoleIDs } from '@/db/models/Role'

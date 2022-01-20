@@ -1,4 +1,4 @@
-import { toDateString } from '@/common/utils/date-fns'
+import { toDateString } from '@/modules/lib/date'
 
 export interface CalendarDateObject {
   year: number

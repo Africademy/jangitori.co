@@ -1,7 +1,4 @@
-import {
-  GenericAccount,
-  getFullName,
-} from '@/common/utils/interfaces/GenericAccount'
+import { GenericAccount, getFullName } from '@/modules/lib/types/GenericAccount'
 
 import { AccountDropdownProps } from './AccountDropdown'
 

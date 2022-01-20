@@ -22,11 +22,11 @@ import {
   FormFields,
   FormHeader,
   FormSubmit,
-} from '@/common/components/Form'
+} from '@/ui/components/Form'
 const Typography = dynamic(() => import('@/ui/Typography'))
 
-import { defaultFields, FieldID } from '@/common/components/Form/defaultFields'
 import { useRootStore } from '@/modules/stores/useRootStore'
+import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 
 import { SignUpStore } from './SignUpStore'
 
