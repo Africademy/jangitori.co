@@ -3,9 +3,9 @@ import { css, useTheme } from '@emotion/react'
 import useSWR from 'swr'
 
 import { useServices } from '@/app/store'
-import { Timesheet } from '@/domains/models/Timesheet'
-import { timesheetQueryKeys } from '@/domains/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
+import { Timesheet } from '@/modules/models/Timesheet'
+import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { only } from '@/ui/utils/breakpoints'
 

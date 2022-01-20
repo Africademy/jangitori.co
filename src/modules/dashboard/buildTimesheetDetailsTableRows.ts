@@ -1,7 +1,7 @@
 import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
 
-import { TimeEntry } from '@/domains/models/TimeEntry'
-import { aggregateTimeEntryData } from '@/domains/time-entries/aggregateTimeEntryData'
+import { TimeEntry } from '@/modules/models/TimeEntry'
+import { aggregateTimeEntryData } from '@/modules/time-entries/aggregateTimeEntryData'
 
 export type TimesheetDetailsTableRow = {
   start: string

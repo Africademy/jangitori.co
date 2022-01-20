@@ -1,8 +1,8 @@
 import faker from 'faker'
 import times from 'lodash.times'
 
-import { TimeEntry } from '@/domains/models/TimeEntry'
-import { Timesheet } from '@/domains/models/Timesheet'
+import { TimeEntry } from '@/modules/models/TimeEntry'
+import { Timesheet } from '@/modules/models/Timesheet'
 
 export const generateEntry =
   (timesheet: Timesheet['id']) =>

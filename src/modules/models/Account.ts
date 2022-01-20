@@ -1,5 +1,5 @@
-import { PrimaryKeyOf } from '@/domains/tables'
 import { UserType } from '@/lib/types/UserType'
+import { PrimaryKeyOf } from '@/modules/tables'
 
 import { RoleID } from './Role'
 

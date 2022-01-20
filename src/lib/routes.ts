@@ -1,5 +1,5 @@
-import { RoleID } from '@/domains/models/Role'
 import { TabKey } from '@/modules/dashboard/tabs'
+import { RoleID } from '@/modules/models/Role'
 
 export const routes = {
   landing: '/' as const,

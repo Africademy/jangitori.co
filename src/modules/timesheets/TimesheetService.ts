@@ -1,8 +1,8 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { Timesheet, TimesheetStatus } from '@/domains/models/Timesheet'
-import { TableKeys } from '@/domains/tables'
 import supabase from '@/lib/supabase'
+import { Timesheet, TimesheetStatus } from '@/modules/models/Timesheet'
+import { TableKeys } from '@/modules/tables'
 
 export class TimesheetService {
   constructor(private client: SupabaseClient = supabase) {}

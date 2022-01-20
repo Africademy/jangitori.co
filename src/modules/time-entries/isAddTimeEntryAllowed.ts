@@ -1,7 +1,7 @@
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import parseISO from 'date-fns/parseISO'
 
-import { TimeEntry } from '@/domains/models/TimeEntry'
+import { TimeEntry } from '@/modules/models/TimeEntry'
 
 const MIN_TIME_BETWEEN_TIME_ENTRIES = 15
 

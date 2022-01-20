@@ -1,8 +1,8 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 
-import { TimeEntry } from '@/domains/models/TimeEntry'
 import { buildTimesheetDetailsTableRows } from '@/modules/dashboard/buildTimesheetDetailsTableRows'
+import { TimeEntry } from '@/modules/models/TimeEntry'
 
 const fields = ['start', 'end', 'total']
 

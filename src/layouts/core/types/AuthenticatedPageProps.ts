@@ -1,5 +1,5 @@
 import { RootStore } from '@/app/store'
-import { Account } from '@/domains/models/Account'
+import { Account } from '@/modules/models/Account'
 
 export type AuthenticatedPageProps<P = {}> = {
   account: Account

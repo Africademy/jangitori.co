@@ -1,6 +1,6 @@
-import { Account } from '@/domains/models/Account'
 import { PageProps } from '@/layouts/core/types/PageProps'
 import { EmailPasswordCreds } from '@/modules/auth/types'
+import { Account } from '@/modules/models/Account'
 
 export type AuthPageProps = PageProps<{ account?: Account }>
 

@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
 
-import { usePayPeriodEnd } from '@/domains/payrolls/usePayPeriodEnd'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
+import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'

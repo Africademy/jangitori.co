@@ -1,4 +1,4 @@
-import { TimeEntry } from '@/domains/models/TimeEntry'
+import { TimeEntry } from '@/modules/models/TimeEntry'
 
 export const mockTimeEntries: TimeEntry[] = [
   {
