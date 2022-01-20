@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 
-import { IComponent } from '../types'
+import { IComponent } from '@/ui/types'
 
 const CardBody: IComponent = ({ children, ...props }) => {
   return (

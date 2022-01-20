@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 
 import { useRootStore } from '@/app/appContext'
 import { routes } from '@/lib/routes'
-import { RedirectIf } from '@/ui/RedirectIf'
+import { RedirectIf } from '@/ui/components/Redirect/RedirectIf'
 
 const IsLogoutRequired = observer(function IsLogoutRequired({ children }) {
   const { authStore } = useRootStore()

@@ -3,9 +3,9 @@ import React from 'react'
 
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { usePayPeriodEnd } from '@/modules/payroll/usePayPeriodEnd'
+import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import Typography from '@/ui/Typography'
 
 export interface CurrentTimesheetPreviewProps {
   employee: string

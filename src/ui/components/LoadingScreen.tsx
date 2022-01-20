@@ -1,7 +1,7 @@
 import { Container, Flex, Skeleton } from '@chakra-ui/react'
 import React from 'react'
 
-export const LoadingScreen: React.FunctionComponent = () => {
+const LoadingScreen: React.FunctionComponent = () => {
   return (
     <Container>
       <Flex width="100%" alignItems="center" gap="1.5rem">
@@ -12,3 +12,5 @@ export const LoadingScreen: React.FunctionComponent = () => {
     </Container>
   )
 }
+
+export default LoadingScreen

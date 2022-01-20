@@ -10,7 +10,7 @@ import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
-const LabeledInput = dynamic(() => import('@/ui/Input/LabeledInput'))
+const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 
 import { FormFieldProps } from './AuthForm/AuthForm'
 const AuthForm = dynamic(() => import('./AuthForm/AuthForm'))
@@ -23,7 +23,7 @@ import {
   FormHeader,
   FormSubmit,
 } from '@/ui/components/Form'
-const Typography = dynamic(() => import('@/ui/Typography'))
+const Typography = dynamic(() => import('@/ui/atoms/Typography/Typography'))
 
 import { useRootStore } from '@/app/appContext'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'

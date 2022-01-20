@@ -8,7 +8,7 @@ import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
 
-const LoadingScreen = dynamic(() => import('@/ui/LoadingScreen'))
+const LoadingScreen = dynamic(() => import('@/ui/components/LoadingScreen'))
 
 const DashboardLayout = observer(function DashboardLayout({ children }) {
   const { authStore } = useRootStore()

@@ -4,7 +4,7 @@ import React from 'react'
 
 import { useRootStore } from '@/app/appContext'
 
-const LoadingScreen = dynamic(() => import('@/ui/LoadingScreen'))
+const LoadingScreen = dynamic(() => import('@/ui/components/LoadingScreen'))
 
 export interface WaitForAuthProps {
   children: React.ReactNode

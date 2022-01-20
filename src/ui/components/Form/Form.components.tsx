@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 import { pseudo } from '@/ui/utils/pseudo'
 import { spacing } from '@/ui/utils/spacing'
 
-const WideButton = dynamic(() => import('@/ui/Button/WideButton'))
+const WideButton = dynamic(() => import('@/ui/atoms/Button/WideButton'))
 
 import dynamic from 'next/dynamic'
 
@@ -13,7 +13,7 @@ import {
   baseCardFooterStyles,
   baseCardHeaderStyles,
   baseCardSubtitleStyles,
-} from '@/ui/Card/styles'
+} from '@/ui/components/Card/styles'
 import { IComponent, ParentComponentProps } from '@/ui/types'
 
 export const FormSubmit: IComponent<ButtonProps> = ({ children, ...props }) => {

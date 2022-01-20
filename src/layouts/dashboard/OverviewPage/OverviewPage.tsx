@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { usePayPeriodEnd } from '@/modules/payroll/usePayPeriodEnd'
+import { SmallTitle } from '@/ui/atoms/Typography/SmallTitle'
 import { ArrowRightSm, CalendarIcon } from '@/ui/icons'
-import { SmallTitle } from '@/ui/small-title'
 
-const StatWidget = dynamic(() => import('@/ui/StatWidget'))
+const StatWidget = dynamic(() => import('@/ui/components/StatWidget'))
 
 import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'

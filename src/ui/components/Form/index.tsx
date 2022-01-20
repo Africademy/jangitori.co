@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-import { baseCardStyles } from '@/ui/Card/styles'
+import { baseCardStyles } from '@/ui/components/Card/styles'
 import { largerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 

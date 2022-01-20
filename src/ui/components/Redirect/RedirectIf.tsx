@@ -1,4 +1,4 @@
-import { Redirect } from './redirect'
+import { Redirect } from './Redirect'
 
 interface RedirectIfProps {
   getTo: () => string

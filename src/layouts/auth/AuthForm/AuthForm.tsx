@@ -15,7 +15,7 @@ import {
 } from '@/ui/components/Form'
 import { spacing } from '@/ui/utils/spacing'
 
-const LabeledInput = dynamic(() => import('@/ui/Input/LabeledInput'))
+const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 
 export type FormFieldProps<K extends string | number | symbol = any> = {
   id: K

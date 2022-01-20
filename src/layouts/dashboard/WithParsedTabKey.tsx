@@ -6,7 +6,7 @@ import {
   parseTabKeyQueryParam,
   TabKey,
 } from '@/modules/dashboard/tabs'
-import LoadingScreen from '@/ui/LoadingScreen'
+import LoadingScreen from '@/ui/components/LoadingScreen'
 
 type WithParsedTabKeyProps = {
   children: (props: { tabKey: TabKey }) => JSX.Element
