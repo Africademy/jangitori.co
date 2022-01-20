@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { isProduction } from './environment'
-
 const options = {
   enableHighAccuracy: true,
   timeout: 5000,
@@ -29,18 +27,5 @@ export const useGeolocationPosition = () => {
     }
   }, [])
 
-  const getCoordinates = (): { latitude: any; longitude: any } => {
-    if (!geolocationPosition)
-      throw new Error(
-        'Could not get coordinates for GeolocationPosition because it is null',
-      )
-
-    const { latitude, longitude } = geolocationPosition.coords
-
-    !isProduction() && console.log('Got coordinates: ', { latitude, longitude })
-
-    return { latitude, longitude }
-  }
-
-  return { geolocationPosition, getCoordinates }
+  return { geolocationPosition }
 }

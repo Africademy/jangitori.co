@@ -1,14 +1,13 @@
 import { Button, Flex, VStack } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
+import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 
-import { isProduction } from '@/lib/environment'
 import { shouldClockIn } from '@/lib/shouldClockIn'
-import { useGeolocationPosition } from '@/lib/useGeolocationPosition'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
-import { useServices } from '@/modules/stores'
+import { useRootStore, useServices } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
@@ -17,13 +16,12 @@ import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
-export const TimesheetDetailsView = ({
+export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   query,
-}: AuthenticatedPageProps & { query: TimesheetQuery }) => {
-  const { getCoordinates } = useGeolocationPosition()
-
+}: AuthenticatedPageProps & { query: TimesheetQuery }) {
   const services = useServices('timeEntry', 'timesheet')
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
+  const { geolocationStore } = useRootStore()
 
   const theme = useTheme()
   const [isBusy, setIsBusy] = useState(false)
@@ -42,7 +40,7 @@ export const TimesheetDetailsView = ({
     setIsBusy(true)
 
     try {
-      const location = getCoordinates()
+      const location = geolocationStore.coordinates
 
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheet.data!.id,
@@ -108,4 +106,4 @@ export const TimesheetDetailsView = ({
       </>
     </VStack>
   )
-}
+})
