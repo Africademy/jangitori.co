@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from 'react'
 
-import { initializeStore } from './RootStore'
+import { initializeStore } from './initializeRootStore'
 import { RootStoreContext } from './RootStoreContext'
 
 export default function RootStoreProvider({

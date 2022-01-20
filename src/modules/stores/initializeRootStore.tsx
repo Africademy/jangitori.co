@@ -2,8 +2,6 @@ import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
 
 import { isBrowser, isDevelopment, isServer } from '@/lib/environment'
-import { AuthStore } from '@/modules/auth/AuthStore'
-import { initServices, Services } from '@/modules/services'
 
 enableStaticRendering(isServer())
 
@@ -15,14 +13,10 @@ configure({
 
 import { enableLogging } from 'mobx-logger'
 
+import { RootStore } from './RootStore'
+
 if (isDevelopment()) {
   enableLogging()
-}
-
-export class RootStore {
-  services: Services = initServices()
-  /* Domain Stores */
-  authStore: AuthStore = new AuthStore(this)
 }
 
 export let rootStoreInstance: RootStore
