@@ -57,6 +57,13 @@ const globalStyles = css`
     font-smoothing: antialiased;
   }
 
+  * {
+    transition-property: background-color, border-color, color, fill, stroke,
+      opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
   html {
     font-size: 16px;
   }

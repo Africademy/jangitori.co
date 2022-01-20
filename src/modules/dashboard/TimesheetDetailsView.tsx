@@ -1,5 +1,6 @@
 import { Button, Flex, VStack } from '@chakra-ui/react'
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import Sentry from '@sentry/nextjs'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { observer } from 'mobx-react-lite'
@@ -14,7 +15,9 @@ import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { only } from '@/ui/utils/breakpoints'
+import { QuestionIcon } from '@/ui/icons/QuestionIcon'
+import { largerThan, only } from '@/ui/utils/breakpoints'
+import { pseudo } from '@/ui/utils/pseudo'
 
 import { isAddTimeEntryAllowed } from '../time-entries/isAddTimeEntryAllowed'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
@@ -35,7 +38,6 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
   const { geolocationStore } = useRootStore()
 
-  const theme = useTheme()
   const [isBusy, setIsBusy] = useState(false)
 
   if (timesheet.error || timeEntries.error) {
@@ -105,28 +107,24 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   return (
     <VStack minW="100%">
       <Flex align="center" minW="100%" py={2} pb={5} justify="space-between">
-        <Typography
-          textAlign="left"
-          fontWeight={theme.fontWeights.semibold}
-          css={css`
-            font-size: ${theme.fontSizes['lg']};
-            ${only('mobile')} {
-              font-size: ${theme.fontSizes['base']};
-            }
-          `}
-        >
-          Timesheet for pay period {query[2].payPeriodEnd}
-        </Typography>
+        <SText>Timesheet for pay period {query[2].payPeriodEnd}</SText>
         {timeEntries.data && (
-          <Button
-            disabled={isBusy || !isAddTimeEntryAllowed(timeEntries.data)}
-            variant="solid"
-            colorScheme="blue"
-            size="sm"
-            onClick={handleNewTimeEntry}
-          >
-            {isClockIn ? 'Clock in' : 'Clock out'}
-          </Button>
+          <div className="flex items-center gap-3">
+            {!isAddTimeEntryAllowed(timeEntries.data) && (
+              <IconBox>
+                <QuestionIcon />
+              </IconBox>
+            )}
+            <Button
+              disabled={isBusy || !isAddTimeEntryAllowed(timeEntries.data)}
+              variant="solid"
+              colorScheme="blue"
+              size="sm"
+              onClick={handleNewTimeEntry}
+            >
+              {isClockIn ? 'Clock in' : 'Clock out'}
+            </Button>
+          </div>
         )}
       </Flex>
       <>
@@ -135,3 +133,30 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     </VStack>
   )
 })
+
+const IconBox = styled.div`
+  font-size: 1rem;
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.gray[500]};
+      ${pseudo('_hover')} {
+        color: ${theme.colors.gray[800]};
+      }
+    `}
+
+  svg {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+`
+
+const SText = styled.div`
+  ${({ theme }) =>
+    css`
+      font-weight: ${theme.fontWeights.semibold};
+      font-size: ${theme.fontSizes.lbase};
+      ${largerThan('mobile')} {
+        font-size: ${theme.fontSizes.lg};
+      }
+    `}
+`
