@@ -1,6 +1,6 @@
 import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
 
-import { TimeEntry } from '@/db/models/TimeEntry'
+import { TimeEntry } from '@/domains/models/TimeEntry'
 
 import { aggregateTimeEntryData } from './aggregateTimeEntryData'
 

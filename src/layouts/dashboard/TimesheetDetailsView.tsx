@@ -4,7 +4,7 @@ import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 
 import { useServices } from '@/app/store'
-import { TimesheetQuery } from '@/db/api/timesheets/timesheetQueryKeys'
+import { TimesheetQuery } from '@/domains/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'

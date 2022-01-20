@@ -1,7 +1,7 @@
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
-import { AccountUpdateData } from '@/db/models/Account'
+import { AccountUpdateData } from '@/domains/models/Account'
 import { createLogger } from '@/lib/logger'
 import { omit } from '@/lib/object'
 import { routes } from '@/lib/routes'

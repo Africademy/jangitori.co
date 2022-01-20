@@ -8,7 +8,7 @@ import { css } from '@emotion/react'
 
 const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
-import { RoleIDs } from '@/db/models/Role'
+import { RoleIDs } from '@/domains/models/Role'
 import { LocalStoreProvider } from '@/lib/mobx/LocalStoreProvider'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'

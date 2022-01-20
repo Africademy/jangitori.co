@@ -1,6 +1,6 @@
-import { AccountService } from '@/db/api/accounts/AccountService'
-import { TimeEntryService } from '@/db/api/time-entries/TimeEntryService'
-import { TimesheetService } from '@/db/api/timesheets/TimesheetService'
+import { AccountService } from '@/domains/accounts/AccountService'
+import { TimeEntryService } from '@/domains/time-entries/TimeEntryService'
+import { TimesheetService } from '@/domains/timesheets/TimesheetService'
 import supabase from '@/lib/supabase'
 import { AuthService } from '@/modules/auth/AuthService'
 

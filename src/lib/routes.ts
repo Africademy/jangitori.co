@@ -1,4 +1,4 @@
-import { RoleID } from '@/db/models/Role'
+import { RoleID } from '@/domains/models/Role'
 import { TabKey } from '@/modules/dashboard/tabs'
 
 export const routes = {

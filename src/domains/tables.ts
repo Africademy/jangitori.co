@@ -1,7 +1,7 @@
-import { AccountTableConfig } from '@/db/models/Account'
-import { RoleTableConfig } from '@/db/models/Role'
-import { EntryTableConfig } from '@/db/models/TimeEntry'
-import { TimesheetTableConfig } from '@/db/models/Timesheet'
+import { AccountTableConfig } from '@/domains/models/Account'
+import { RoleTableConfig } from '@/domains/models/Role'
+import { EntryTableConfig } from '@/domains/models/TimeEntry'
+import { TimesheetTableConfig } from '@/domains/models/Timesheet'
 
 export enum TablesEnum {
   ACCOUNTS = 'Accounts',

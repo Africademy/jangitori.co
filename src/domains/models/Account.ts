@@ -1,4 +1,4 @@
-import { PrimaryKeyOf } from '@/db/tables'
+import { PrimaryKeyOf } from '@/domains/tables'
 import { UserType } from '@/lib/types/UserType'
 
 import { RoleID } from './Role'

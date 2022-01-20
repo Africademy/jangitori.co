@@ -1,4 +1,4 @@
-import { Account } from '@/db/models/Account'
+import { Account } from '@/domains/models/Account'
 import { PageProps } from '@/layouts/core/types/PageProps'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 

@@ -1,14 +1,14 @@
 import { Flex } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
+import { usePayPeriodEnd } from '@/domains/payrolls/usePayPeriodEnd'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
-import { usePayPeriodEnd } from '@/modules/payroll/usePayPeriodEnd'
 import { SmallTitle } from '@/ui/atoms/Typography/SmallTitle'
 import { ArrowRightSm, CalendarIcon } from '@/ui/icons'
 
 const StatWidget = dynamic(() => import('@/ui/components/StatWidget'))
 
-import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
+import { timesheetQueryKeys } from '@/domains/timesheets/timesheetQueryKeys'
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { Section } from '@/ui/components/Section'

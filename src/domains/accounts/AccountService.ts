@@ -1,7 +1,7 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { Account, AccountUpdateData } from '@/db/models/Account'
-import { TableKeys } from '@/db/tables'
+import { Account, AccountUpdateData } from '@/domains/models/Account'
+import { TableKeys } from '@/domains/tables'
 import { NullResponsePropertyError } from '@/lib/errors'
 
 export class AccountService {
