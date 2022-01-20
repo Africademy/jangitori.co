@@ -12,6 +12,8 @@ declare global {
     interface ProcessEnv {
       NEXT_PUBLIC_SUPABASE_URL: string
       NEXT_PUBLIC_SUPABASE_API_KEY: string
+      SENTRY_DSN: string
+      NEXT_PUBLIC_SENTRY_DSN: string
       NEXT_PUBLIC_APP_STAGE: string
     }
   }
