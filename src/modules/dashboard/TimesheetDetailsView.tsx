@@ -1,5 +1,5 @@
 import { Button, Flex, Tooltip, VStack } from '@chakra-ui/react'
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import Sentry from '@sentry/nextjs'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
@@ -39,6 +39,7 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   const { geolocationStore } = useRootStore()
 
   const [isBusy, setIsBusy] = useState(false)
+  const theme = useTheme()
 
   if (timesheet.error || timeEntries.error) {
     return (
@@ -124,8 +125,17 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
               disabled={isBusy || !isAddTimeEntryAllowed(timeEntries.data)}
               variant="solid"
               colorScheme="blue"
-              size="sm"
+              size="md"
               onClick={handleNewTimeEntry}
+              _disabled={{
+                background: theme.colors.gray[200],
+                color: theme.colors.gray[400],
+              }}
+              _hover={{
+                _notDisabled: {
+                  background: theme.colors.primary[700],
+                },
+              }}
             >
               {isClockIn ? 'Clock in' : 'Clock out'}
             </Button>
