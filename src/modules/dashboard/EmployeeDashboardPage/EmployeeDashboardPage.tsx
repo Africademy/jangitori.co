@@ -2,7 +2,7 @@ import { Container, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 
-const OverviewPage = dynamic(() => import('@/layouts/dashboard/OverviewPage'))
+const OverviewPage = dynamic(() => import('@/modules/dashboard/OverviewPage'))
 
 import { css } from '@emotion/react'
 

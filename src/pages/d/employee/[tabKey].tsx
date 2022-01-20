@@ -1,16 +1,16 @@
 import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
-import { getDashboardLayout } from '@/layouts/dashboard/DashboardLayout/getDashboardLayout'
+import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
 const EmployeeDashboardPage = dynamic(
-  () => import('@/layouts/dashboard/EmployeeDashboardPage'),
+  () => import('@/modules/dashboard/EmployeeDashboardPage'),
 )
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 
 const WithParsedTabKey = dynamic(
-  () => import('@/layouts/dashboard/WithParsedTabKey'),
+  () => import('@/modules/dashboard/WithParsedTabKey'),
 )
 const EmployeeDashboardRoute = (props: AuthenticatedPageProps) => {
   return (

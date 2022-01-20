@@ -11,7 +11,7 @@ import { routes } from '@/lib/routes'
 import { Avatar } from './Avatar'
 
 const logger = createLogger({
-  fileLabel: 'layouts/dashboard/dashboard-layout/account-dropdown',
+  fileLabel: 'modules/dashboard/dashboard-layout/account-dropdown',
 })
 
 interface Item {

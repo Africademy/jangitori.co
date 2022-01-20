@@ -3,14 +3,14 @@ import dynamic from 'next/dynamic'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 
 const AdminDashboardPage = dynamic(
-  () => import('@/layouts/dashboard/AdminDashboardPage'),
+  () => import('@/modules/dashboard/AdminDashboardPage'),
 )
 
-import { getDashboardLayout } from '@/layouts/dashboard/DashboardLayout/getDashboardLayout'
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
+import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
 const WithParsedTabKey = dynamic(
-  () => import('@/layouts/dashboard/WithParsedTabKey'),
+  () => import('@/modules/dashboard/WithParsedTabKey'),
 )
 
 const AdminDashboardRoute = (props: AuthenticatedPageProps) => {
