@@ -12,8 +12,11 @@ const options = {
 export class GeolocationStore {
   geolocationPosition: GeolocationPosition | null = null
 
+  updatedAt: Date | null = null
+
   setGeolocationPosition(value: GeolocationPosition | null) {
     this.geolocationPosition = value
+    this.updatedAt = new Date()
   }
 
   get coordinates(): Coordinates {
