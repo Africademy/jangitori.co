@@ -18,7 +18,9 @@ export const TimesheetDetailsTable: React.FunctionComponent<
       buildTimesheetDetailsRows(data).map((entry) => ({
         start: entry.start.toISOString(),
         end: entry.end?.toISOString() ?? '--',
-        minutes: `${entry.minutes} minutes`,
+        minutes: isNaN(entry.minutes)
+          ? '0 minutes'
+          : `${entry.minutes} minutes`,
       })),
     [data],
   )
