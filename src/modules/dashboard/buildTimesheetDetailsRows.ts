@@ -1,17 +1,13 @@
-import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
-
 import { TimeEntry } from '@/modules/models/TimeEntry'
 import { aggregateTimeEntryData } from '@/modules/time-entries/aggregateTimeEntryData'
 
 export type TimesheetDetailsRow = {
-  start: string
-  end: string
-  minutes: string
+  start: Date | string
+  end: Date | string | null
+  minutes: number
 }
 
-export const buildTimesheetDetailsRows = (
-  timeEntries: TimeEntry[],
-): TimesheetDetailsRow[] => {
+export const buildTimesheetDetailsRows = (timeEntries: TimeEntry[]) => {
   console.log('RAW:')
   console.table(timeEntries)
 
@@ -20,14 +16,5 @@ export const buildTimesheetDetailsRows = (
   console.log('AGGREGATED:')
   console.table(aggregated)
 
-  const rows: TimesheetDetailsRow[] = aggregated.map((data) => ({
-    start: new Date(data.start).toISOString(),
-    end: data.end ? new Date(data.end).toISOString() : '--',
-    minutes:
-      data.totalMs >= 0
-        ? `${millisecondsToMinutes(data.totalMs)} minutes`
-        : '--',
-  }))
-
-  return rows
+  return aggregated
 }

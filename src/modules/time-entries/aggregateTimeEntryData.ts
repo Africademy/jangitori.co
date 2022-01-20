@@ -1,4 +1,4 @@
-import differenceInMilliseconds from 'date-fns/differenceInMilliseconds'
+import differenceInMinutes from 'date-fns/differenceInMinutes'
 import parseISO from 'date-fns/parseISO'
 
 import { TimeEntry } from '@/modules/models/TimeEntry'
@@ -6,7 +6,7 @@ import { TimeEntry } from '@/modules/models/TimeEntry'
 export interface RawData {
   start: Date
   end: Date | null
-  totalMs: number
+  minutes: number
 }
 
 export function aggregateTimeEntryData(
@@ -29,6 +29,7 @@ export function aggregateTimeEntryData(
   timeEntries
     .map((entry) => parseISO(entry.timestamp))
     .forEach((time, index) => {
+      if (index > timeEntries.length - 2) return
       if (index % 2 === 0) {
         const end =
           index < timeEntries.length - 1
@@ -37,13 +38,13 @@ export function aggregateTimeEntryData(
         newRows[index] = {
           start: time,
           end,
-          totalMs: -1,
+          minutes: -1,
         }
       } else {
         const { start } = newRows[index - 1]
         const end = time
-        const ms = differenceInMilliseconds(end, start)
-        newRows[index - 1] = { start, end, totalMs: ms }
+        const ms = differenceInMinutes(end, start)
+        newRows[index - 1] = { start, end, minutes: ms }
       }
     })
 

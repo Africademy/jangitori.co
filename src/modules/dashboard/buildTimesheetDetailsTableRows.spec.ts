@@ -1,3 +1,4 @@
+import parseISO from 'date-fns/parseISO'
 import faker from 'faker'
 
 import { TimeEntry } from '@/modules/models/TimeEntry'
@@ -30,35 +31,32 @@ const mockTimeEntryWithInitialData = (
 
 describe('buildTimesheetDetailsRows', () => {
   it('should list of props needed to render TimesheetDetailsTable given a list of time timeEntries', () => {
-    const timeEntries: TimeEntry[] = [
-      mockTimeEntryWithInitialData({
-        timestamp: '2022-01-03 01:00:00.000000',
-      }),
-      mockTimeEntryWithInitialData({
-        timestamp: '2022-01-03 03:00:00.000000',
-      }),
-      mockTimeEntryWithInitialData({
-        timestamp: '2022-01-03 05:00:00.000000',
-      }),
-      mockTimeEntryWithInitialData({
-        timestamp: '2022-01-03 07:00:00.000000',
-      }),
+    const dates = [
+      new Date(2000, 1, 1, 1, 0, 0, 0),
+      new Date(2000, 1, 1, 3, 0, 0, 0),
+      new Date(2000, 1, 1, 5, 0, 0, 0),
+      new Date(2000, 1, 1, 7, 0, 0, 0),
     ]
+
+    const timeEntries: TimeEntry[] = dates.map((date) =>
+      mockTimeEntryWithInitialData({ timestamp: date.toISOString() }),
+    )
 
     const expectedRows: TimesheetDetailsRow[] = [
       {
-        start: '2022-01-03 01:00:00.000000',
-        end: '2022-01-03 03:00:00.000000',
-        minutes: `120`,
+        start: dates[0],
+        end: dates[1],
+        minutes: 120,
       },
       {
-        start: '2022-01-03 05:00:00.000000',
-        end: '2022-01-03 07:00:00.000000',
-        minutes: `120`,
+        start: dates[2],
+        end: dates[3],
+        minutes: 120,
       },
     ]
 
     const result = buildTimesheetDetailsRows(timeEntries)
+    expect(result).toHaveLength(2)
     expect(result).toEqual(expectedRows)
   })
 })
