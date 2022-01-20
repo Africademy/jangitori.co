@@ -4,6 +4,7 @@ import Sentry from '@sentry/nextjs'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -48,7 +49,7 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   if (!timesheet.data || !timeEntries.data || !geolocationStore.isReady)
     return <LoadingVStack />
 
-  const handleNewEntry = async () => {
+  const createNewEntry = async () => {
     setIsBusy(true)
 
     try {
@@ -84,6 +85,23 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     }
   }
 
+  const isClockIn = shouldClockIn(timeEntries.data)
+
+  const handleNewTimeEntry = () => {
+    const task = createNewEntry()
+
+    toast.promise(task, {
+      loading: `${isClockIn ? 'Clocking in' : 'Clocking out'}`,
+      success: (index) => {
+        return `Successfully ${isClockIn ? 'clocked in' : 'clocked out'}`
+      },
+      error: (err) => {
+        console.warn('Failed to create index: ', err.message)
+        return `Failed to ${isClockIn ? 'clock in' : 'clock out'}`
+      },
+    })
+  }
+
   return (
     <VStack minW="100%">
       <Flex align="center" minW="100%" py={2} pb={5} justify="space-between">
@@ -105,9 +123,9 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
             variant="solid"
             colorScheme="blue"
             size="sm"
-            onClick={handleNewEntry}
+            onClick={handleNewTimeEntry}
           >
-            {shouldClockIn(timeEntries.data) ? 'Clock in' : 'Clock out'}
+            {isClockIn ? 'Clock in' : 'Clock out'}
           </Button>
         )}
       </Flex>
