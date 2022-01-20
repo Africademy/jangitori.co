@@ -1,5 +1,6 @@
 import { Button, Flex, VStack } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
+import Sentry from '@sentry/nextjs'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
@@ -49,10 +50,7 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
       })
       const lastEntry = timeEntries.data!.at(-1)
 
-      if (!lastEntry) {
-        timeEntries.mutate()
-        return
-      }
+      if (!lastEntry) return timeEntries.mutate()
 
       const hours =
         differenceInMinutes(
@@ -68,7 +66,8 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
       timeEntries.mutate()
       timesheet.mutate()
     } catch (error) {
-      console.log(error)
+      console.error('Failed to add time entry.', error)
+      Sentry.captureException(error)
       alert((error as Error).message)
     } finally {
       setIsBusy(false)

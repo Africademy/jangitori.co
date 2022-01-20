@@ -1,3 +1,4 @@
+import Sentry from '@sentry/nextjs'
 import { useRouter } from 'next/router'
 
 import { createLogger } from '@/lib/logger'
@@ -47,6 +48,7 @@ const LoginPage: React.FC<AuthPageProps> = () => {
       authStore.setAccount(account)
       router.push(newRoute)
     } catch (err) {
+      Sentry.captureException(error)
       authFormVM.setError((err as Error).message)
     } finally {
       authFormVM.setIsLoading(false)

@@ -14,10 +14,6 @@ export function useSyncTabStateWithRoute(
       const tabKey = getTabKey()
       const newTabKey = url.split('/')[3] as TabKey
       const shouldSetTab = newTabKey !== tabKey
-      console.log(
-        'Current tabIndex ' +
-          (!shouldSetTab ? 'SHOULD NOT be set' : 'SHOULD be set'),
-      )
       if (shouldSetTab) {
         setTabKey(newTabKey)
       }
