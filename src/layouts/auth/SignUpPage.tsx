@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import { useServices } from '@/app/appContext'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
-import { ErrorMessage } from '@/ui/error-message'
+import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 

@@ -6,7 +6,7 @@ import { useServices } from '@/app/appContext'
 import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import { Timesheet } from '@/db/models/Timesheet'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
-import { ErrorMessage } from '@/ui/error-message'
+import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { only } from '@/ui/utils/breakpoints'
 
 import TimesheetsTable from './TimesheetsTable'

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ChangeEvent } from 'react'
 
 import { EmailPasswordCreds } from '@/modules/auth/types'
-import { ErrorMessage } from '@/ui/error-message'
+import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
 import { AuthFormFieldName } from '../types'
 import { AuthFormVM } from './AuthFormVM'

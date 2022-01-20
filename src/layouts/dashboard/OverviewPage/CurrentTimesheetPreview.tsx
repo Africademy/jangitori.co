@@ -3,8 +3,8 @@ import React from 'react'
 
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { usePayPeriodEnd } from '@/modules/payroll/usePayPeriodEnd'
+import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { ErrorMessage } from '@/ui/error-message'
 import Typography from '@/ui/Typography'
 
 export interface CurrentTimesheetPreviewProps {
