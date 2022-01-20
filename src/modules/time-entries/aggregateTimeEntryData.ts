@@ -12,41 +12,24 @@ export interface RawData {
 export function aggregateTimeEntryData(
   timeEntries: TimeEntry[],
 ): Array<RawData> {
-  const newRows: RawData[] = []
+  let newRows: RawData[] = []
 
-  const getNextEntry = (index: number): TimeEntry => {
-    if (timeEntries.length <= 1)
-      throw new Error(
-        'getNextEntry() failed - must have at least 2 timeEntries',
-      )
+  const timestamps = timeEntries.map((entry) => parseISO(entry.timestamp))
 
-    const nextEntry = timeEntries[index + 1]
-    if (!nextEntry)
-      throw new Error(`failed to get next entry to index ${index}`)
-    return nextEntry
-  }
+  timestamps.forEach((time, index) => {
+    if (index % 2 === 0) {
+      const start = time
+      let end: Date | null = null
+      let minutes = 0
 
-  timeEntries
-    .map((entry) => parseISO(entry.timestamp))
-    .forEach((time, index) => {
-      if (index > timeEntries.length - 2) return
-      if (index % 2 === 0) {
-        const end =
-          index < timeEntries.length - 1
-            ? parseISO(getNextEntry(index).timestamp)
-            : null
-        newRows[index] = {
-          start: time,
-          end,
-          minutes: -1,
-        }
-      } else {
-        const { start } = newRows[index - 1]
-        const end = time
-        const ms = differenceInMinutes(end, start)
-        newRows[index - 1] = { start, end, minutes: ms }
+      if (index <= timeEntries.length - 1) {
+        end = parseISO(timeEntries[index + 1].timestamp)
+        minutes = differenceInMinutes(end, start)
       }
-    })
+
+      newRows = [...newRows, { start, end, minutes }]
+    }
+  })
 
   return newRows
 }

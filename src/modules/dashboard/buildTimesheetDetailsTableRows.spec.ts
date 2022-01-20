@@ -32,10 +32,10 @@ const mockTimeEntryWithInitialData = (
 describe('buildTimesheetDetailsRows', () => {
   it('should list of props needed to render TimesheetDetailsTable given a list of time timeEntries', () => {
     const dates = [
-      new Date(2000, 1, 1, 1, 0, 0, 0),
-      new Date(2000, 1, 1, 3, 0, 0, 0),
-      new Date(2000, 1, 1, 5, 0, 0, 0),
-      new Date(2000, 1, 1, 7, 0, 0, 0),
+      new Date(2000, 0, 0, 1, 0, 0, 0),
+      new Date(2000, 0, 0, 3, 0, 0, 0),
+      new Date(2000, 0, 0, 5, 0, 0, 0),
+      new Date(2000, 0, 0, 7, 0, 0, 0),
     ]
 
     const timeEntries: TimeEntry[] = dates.map((date) =>
