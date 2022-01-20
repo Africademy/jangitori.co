@@ -95,8 +95,8 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
       success: (index) => {
         return `Successfully ${isClockIn ? 'clocked in' : 'clocked out'}`
       },
-      error: (err) => {
-        console.warn('Failed to create index: ', err.message)
+      error: (error) => {
+        console.warn('Failed to create index: ', error.message)
         return `Failed to ${isClockIn ? 'clock in' : 'clock out'}`
       },
     })

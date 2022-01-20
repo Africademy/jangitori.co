@@ -47,9 +47,9 @@ const LoginPage: React.FC<AuthPageProps> = () => {
       authStore.setSession(session)
       authStore.setAccount(account)
       router.push(newRoute)
-    } catch (err) {
+    } catch (error) {
       Sentry.captureException(error)
-      authFormVM.setError((err as Error).message)
+      authFormVM.setError((error as Error).message)
     } finally {
       authFormVM.setIsLoading(false)
     }

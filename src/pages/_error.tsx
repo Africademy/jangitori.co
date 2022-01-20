@@ -2,12 +2,12 @@ import * as Sentry from '@sentry/nextjs'
 import { NextPageContext } from 'next'
 import NextErrorComponent, { ErrorProps } from 'next/error'
 
-const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
-  if (!hasGetInitialPropsRun && err) {
+const MyError = ({ statusCode, hasGetInitialPropsRun, error }) => {
+  if (!hasGetInitialPropsRun && error) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
-    // err via _app.js so it can be captured
-    Sentry.captureException(err)
+    // error via _app.js so it can be captured
+    Sentry.captureException(error)
     // Flushing is not required in this case as it only happens on the client
   }
 
@@ -16,12 +16,13 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
 
 export type MyErrorProps = ErrorProps & { hasGetInitialPropsRun?: boolean }
 
-MyError.getInitialProps = async ({ res, err, asPath }) => {
+MyError.getInitialProps = async (ctx: NextPageContext) => {
+  const { res, err, asPath } = ctx
+
   const errorInitialProps: MyErrorProps =
     (await NextErrorComponent.getInitialProps({
-      res,
-      err,
-    } as NextPageContext)) as MyErrorProps
+      ...ctx,
+    })) as MyErrorProps
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
@@ -34,10 +35,10 @@ MyError.getInitialProps = async ({ res, err, asPath }) => {
 
   // Running on the server, the response object (`res`) is available.
   //
-  // Next.js will pass an err on the server if a page's data fetching methods
+  // Next.js will pass an error on the server if a page's data fetching methods
   // threw or returned a Promise that rejected
   //
-  // Running on the client (browser), Next.js will provide an err if:
+  // Running on the client (browser), Next.js will provide an error if:
   //
   //  - a page's `getInitialProps` threw or returned a Promise that rejected
   //  - an exception was thrown somewhere in the React lifecycle (render,

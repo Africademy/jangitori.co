@@ -38,9 +38,9 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
       await services.auth.signOut()
       authStore.reset()
       router.push(routes.authPage('login'))
-    } catch (err) {
-      logger.error(err)
-      alert(`Failed to sign out: ${(err as Error).message}`)
+    } catch (error) {
+      logger.error(error)
+      alert(`Failed to sign out: ${(error as Error).message}`)
     } finally {
       setIsLoading(false)
     }

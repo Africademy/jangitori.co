@@ -8,9 +8,9 @@ const RootStoreProvider = dynamic(
 import { ChakraProvider } from '@chakra-ui/provider'
 
 import { fetcher } from '@/lib/fetcher'
-import { theme } from '@/modules/theme/theme'
+import { theme } from '@/modules/emotion/theme'
 
-const GlobalStyles = dynamic(() => import('@/modules/theme/GlobalStyles'))
+const GlobalStyles = dynamic(() => import('@/modules/emotion/GlobalStyles'))
 
 export const defaultSWRConfig: SWRConfiguration = {
   revalidateOnFocus: false,
