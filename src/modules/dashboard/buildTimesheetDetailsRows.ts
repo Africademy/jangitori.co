@@ -3,15 +3,15 @@ import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
 import { TimeEntry } from '@/modules/models/TimeEntry'
 import { aggregateTimeEntryData } from '@/modules/time-entries/aggregateTimeEntryData'
 
-export type TimesheetDetailsTableRow = {
+export type TimesheetDetailsRow = {
   start: string
   end: string
-  totalTime: string
+  minutes: string
 }
 
-export const buildTimesheetDetailsTableRows = (
+export const buildTimesheetDetailsRows = (
   timeEntries: TimeEntry[],
-): TimesheetDetailsTableRow[] => {
+): TimesheetDetailsRow[] => {
   console.log('RAW:')
   console.table(timeEntries)
 
@@ -20,10 +20,10 @@ export const buildTimesheetDetailsTableRows = (
   console.log('AGGREGATED:')
   console.table(aggregated)
 
-  const rows: TimesheetDetailsTableRow[] = aggregated.map((data) => ({
+  const rows: TimesheetDetailsRow[] = aggregated.map((data) => ({
     start: new Date(data.start).toISOString(),
     end: data.end ? new Date(data.end).toISOString() : '--',
-    totalTime:
+    minutes:
       data.totalMs >= 0
         ? `${millisecondsToMinutes(data.totalMs)} minutes`
         : '--',

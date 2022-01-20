@@ -31,10 +31,9 @@ const customJestConfig = {
    */
   moduleNameMapper: {
     '^@/app/(.*)$': '<rootDir>/src/app/$1',
-    '^@/modules/(.*)$': '<rootDir>/src/core/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
-    '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
-    '^@/modules/(.*)$': '<rootDir>/src/api/$1',
+    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   modulePathIgnorePatterns: ['.next/'],
   runner: 'groups', // Allow to use jest-runner-groups - See https://github.com/eugene-manuilov/jest-runner-groups#update-jest-config

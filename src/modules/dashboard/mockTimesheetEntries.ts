@@ -37,14 +37,14 @@ export const expectedRows = [
   {
     start: '2021-05-22T05:33:46.858Z',
     end: '2021-04-06T22:45:00.436Z',
-    totalTime: '--',
+    minutes: '--',
   },
   undefined,
   {
     start: '2021-10-16T11:00:27.223Z',
     end: '2021-05-21T21:57:22.146Z',
-    totalTime: '--',
+    minutes: '--',
   },
   undefined,
-  { start: '2021-08-21T22:43:15.546Z', end: '--', totalTime: '--' },
+  { start: '2021-08-21T22:43:15.546Z', end: '--', minutes: '--' },
 ]

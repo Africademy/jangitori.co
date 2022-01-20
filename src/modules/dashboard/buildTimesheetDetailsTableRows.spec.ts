@@ -1,26 +1,64 @@
 import faker from 'faker'
-import times from 'lodash.times'
 
 import { TimeEntry } from '@/modules/models/TimeEntry'
-import { Timesheet } from '@/modules/models/Timesheet'
 
-import { buildTimesheetDetailsTableRows } from './buildTimesheetDetailsTableRows'
+import {
+  buildTimesheetDetailsRows,
+  TimesheetDetailsRow,
+} from './buildTimesheetDetailsRows'
 
-export const generateEntry =
-  (timesheet: Timesheet['id']) =>
-  (index: number): TimeEntry => ({
-    id: index,
-    location: {},
-    timestamp: faker.datatype.datetime().toISOString(),
-    timesheet,
-  })
+export const mockTimeEntry = (): TimeEntry => ({
+  id: faker.datatype.number(),
+  location: {},
+  timestamp: faker.datatype.datetime().toISOString(),
+  timesheet: faker.datatype.number(),
+})
 
-describe('buildTimesheetDetailsTableRows', () => {
+const mockTimeEntryWithInitialData = (
+  initialData?: Partial<TimeEntry>,
+): TimeEntry => ({
+  ...mockTimeEntry(),
+  ...initialData,
+})
+
+/**
+ * @group dashboard
+ * @group unit
+ * @group utils
+ * @group modules
+ */
+
+describe('buildTimesheetDetailsRows', () => {
   it('should list of props needed to render TimesheetDetailsTable given a list of time timeEntries', () => {
-    const timesheetId = 0
-    const timeEntries: TimeEntry[] = times(10, generateEntry(timesheetId))
+    const timeEntries: TimeEntry[] = [
+      mockTimeEntryWithInitialData({
+        timestamp: '2022-01-03 01:00:00.000000',
+      }),
+      mockTimeEntryWithInitialData({
+        timestamp: '2022-01-03 03:00:00.000000',
+      }),
+      mockTimeEntryWithInitialData({
+        timestamp: '2022-01-03 05:00:00.000000',
+      }),
+      mockTimeEntryWithInitialData({
+        timestamp: '2022-01-03 07:00:00.000000',
+      }),
+    ]
 
-    const result = buildTimesheetDetailsTableRows(timeEntries)
-    // expect(result).toContainAllValues(expectedRows)
+    const expectedRows: TimesheetDetailsRow[] = [
+      {
+        start: '2022-01-03 01:00:00.000000',
+        end: '2022-01-03 03:00:00.000000',
+        minutes: `120`,
+      },
+      {
+        start: '2022-01-03 05:00:00.000000',
+        end: '2022-01-03 07:00:00.000000',
+        minutes: `120`,
+      },
+    ]
+
+    const result = buildTimesheetDetailsRows(timeEntries)
+    expect(result).toEqual(expectedRows)
   })
 })
