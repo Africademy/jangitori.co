@@ -18,6 +18,15 @@ import { only } from '@/ui/utils/breakpoints'
 import { isAddTimeEntryAllowed } from '../time-entries/isAddTimeEntryAllowed'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
+export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
+  const filteredErrors: Error[] = errors.filter(
+    (error) => error instanceof Error,
+  ) as Error[]
+
+  const msg = filteredErrors.map((error) => error.message).join('\n')
+  return msg
+}
+
 export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) {
@@ -28,21 +37,22 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   const theme = useTheme()
   const [isBusy, setIsBusy] = useState(false)
 
-  if (timesheet.error) {
-    return <ErrorMessage>{timesheet.error.message}</ErrorMessage>
+  if (timesheet.error || timeEntries.error) {
+    return (
+      <ErrorMessage>
+        {mergeErrorMessages(timesheet.error, timeEntries.error)}
+      </ErrorMessage>
+    )
   }
 
-  if (timeEntries.error) {
-    return <ErrorMessage>{timeEntries.error.message}</ErrorMessage>
-  }
-
-  if (!timesheet.data || !timeEntries.data) return <LoadingVStack />
+  if (!timesheet.data || !timeEntries.data || !geolocationStore.isReady)
+    return <LoadingVStack />
 
   const handleNewEntry = async () => {
     setIsBusy(true)
 
     try {
-      const location = geolocationStore.coordinates
+      const location = geolocationStore.getCoordinatesOrThrow()
 
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheet.data!.id,

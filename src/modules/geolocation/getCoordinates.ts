@@ -4,10 +4,11 @@ import { Coordinates } from './Coordinates'
 
 export const getCoordinates = (
   geolocationPosition: GeolocationPosition | Falsy,
-): Coordinates => {
-  if (!geolocationPosition)
-    throw new Error('Could not get coordinates, GeolocationPosition was null.')
-
+): Coordinates | null => {
+  if (!geolocationPosition) {
+    console.warn('Could not get coordinates, GeolocationPosition was null.')
+    return null
+  }
   const { latitude, longitude } = geolocationPosition.coords
 
   !isProduction() && console.log('Got coordinates: ', { latitude, longitude })
