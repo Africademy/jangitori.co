@@ -40,7 +40,7 @@
       "@/app/*": ["./src/app/*"],
       "@/ui/*": ["./src/ui/*"],
       "@/layouts/*": ["./src/layouts/*"],
-      "@/api/*": ["./src/api/*"],
+      "@/db/*": ["./src/db/*"],
     },
     "incremental": true,
   },

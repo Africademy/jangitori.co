@@ -1,8 +1,8 @@
 import { Table, Tag, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
-import { Timesheet, TimesheetStatus } from '@/common/models/Timesheet'
 import { only } from '@/common/utils/breakpoints'
+import { Timesheet, TimesheetStatus } from '@/db/models/Timesheet'
 export const timesheetsTableFields = ['payPeriodEnd', 'hours', 'status']
 
 export const TimesheetColumnLabel = {

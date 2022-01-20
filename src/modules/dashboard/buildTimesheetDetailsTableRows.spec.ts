@@ -1,8 +1,8 @@
 import faker from 'faker'
 import times from 'lodash.times'
 
-import { TimeEntry } from '@/common/models/TimeEntry'
-import { Timesheet } from '@/common/models/Timesheet'
+import { TimeEntry } from '@/db/models/TimeEntry'
+import { Timesheet } from '@/db/models/Timesheet'
 
 import { buildTimesheetDetailsTableRows } from './buildTimesheetDetailsTableRows'
 

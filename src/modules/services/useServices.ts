@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { TimesheetService } from '@/api/timesheets/TimesheetService'
+import { TimesheetService } from '@/db/timesheets/TimesheetService'
 
 import { Services } from './services'
 import { ServicesContext } from './ServicesContext'

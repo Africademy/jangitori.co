@@ -1,7 +1,7 @@
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds'
 import parseISO from 'date-fns/parseISO'
 
-import { TimeEntry } from '@/common/models/TimeEntry'
+import { TimeEntry } from '@/db/models/TimeEntry'
 
 export interface RawData {
   start: Date

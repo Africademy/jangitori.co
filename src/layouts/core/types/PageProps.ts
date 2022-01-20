@@ -1,3 +1,3 @@
-import { Account } from '@/common/models/Account'
+import { Account } from '@/db/models/Account'
 
 export type PageProps<P extends {} = {}> = { account?: Account } & P

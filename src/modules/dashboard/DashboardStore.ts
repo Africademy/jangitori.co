@@ -1,8 +1,8 @@
 import { action, makeAutoObservable, reaction, transaction } from 'mobx'
 import Router from 'next/router'
 
-import { TimesheetsQuery } from '@/api/timesheets/timesheetQueryKeys'
-import { RoleID } from '@/common/models/Role'
+import { RoleID } from '@/db/models/Role'
+import { TimesheetsQuery } from '@/db/timesheets/timesheetQueryKeys'
 import { routes } from '@/modules/lib/routes'
 
 import { getIndexOfTabKey, getTabKeyForIndex, TabKey } from './tabs'

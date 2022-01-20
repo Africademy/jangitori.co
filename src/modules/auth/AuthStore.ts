@@ -1,7 +1,7 @@
 import { Session } from '@supabase/gotrue-js'
 import { makeAutoObservable } from 'mobx'
 
-import { Account } from '@/common/models/Account'
+import { Account } from '@/db/models/Account'
 import { RootStore } from '@/modules/stores/RootStore/RootStore'
 
 import supabase from '../supabase'

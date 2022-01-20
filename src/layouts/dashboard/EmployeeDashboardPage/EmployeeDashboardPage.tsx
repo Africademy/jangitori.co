@@ -8,8 +8,8 @@ import { css } from '@emotion/react'
 
 const StyledTab = dynamic(() => import('@/common/components/StyledTab'))
 
-import { RoleIDs } from '@/common/models/Role'
 import { only } from '@/common/utils/breakpoints'
+import { RoleIDs } from '@/db/models/Role'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { tabLabels } from '@/modules/dashboard/tabs'

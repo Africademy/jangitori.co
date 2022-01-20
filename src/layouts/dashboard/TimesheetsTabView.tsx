@@ -1,4 +1,4 @@
-import { isTimesheetQuery } from '@/api/timesheets/timesheetQueryKeys'
+import { isTimesheetQuery } from '@/db/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'

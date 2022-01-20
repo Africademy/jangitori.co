@@ -1,4 +1,4 @@
-import { Timesheet } from '@/common/models/Timesheet'
+import { Timesheet } from '@/db/models/Timesheet'
 
 export const timeEntryQueryKeys = {
   all: ['entries'] as const,

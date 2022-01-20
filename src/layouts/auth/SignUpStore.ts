@@ -1,10 +1,10 @@
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
-import { AccountUpdateData } from '@/common/models/Account'
 import { createLogger } from '@/common/utils/logging/logger'
 import { omit } from '@/common/utils/object'
 import { waitFor } from '@/common/utils/waitFor'
+import { AccountUpdateData } from '@/db/models/Account'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { routes } from '@/modules/lib/routes'

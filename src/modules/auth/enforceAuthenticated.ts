@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 
-import { TableKeys } from '@/api/tables'
-import { Account } from '@/common/models/Account'
+import { Account } from '@/db/models/Account'
+import { TableKeys } from '@/db/tables'
 import { routes } from '@/modules/lib/routes'
 import supabase from '@/modules/supabase'
 

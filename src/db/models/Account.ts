@@ -1,5 +1,5 @@
-import { PrimaryKeyOf } from '@/api/tables'
 import { UserType } from '@/common/utils/interfaces/UserType'
+import { PrimaryKeyOf } from '@/db/tables'
 
 import { RoleID } from './Role'
 

@@ -8,8 +8,8 @@ import { SmallTitle } from '@/ui/small-title'
 
 const StatWidget = dynamic(() => import('@/ui/StatWidget'))
 
-import { timesheetQueryKeys } from '@/api/timesheets/timesheetQueryKeys'
 import { Section } from '@/common/components/Section'
+import { timesheetQueryKeys } from '@/db/timesheets/timesheetQueryKeys'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useLocalMobXStore } from '@/modules/mobx/LocalStoreProvider'
 
