@@ -3,12 +3,12 @@ import styled from '@emotion/styled'
 import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 
-import { smallerThan } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
 import { routes } from '@/modules/lib/routes'
 import { useMobXStore } from '@/modules/mobx/useMobXStore'
 import { useServices } from '@/modules/services'
 import { ErrorMessage } from '@/ui/error-message'
+import { smallerThan } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 const LabeledInput = dynamic(() => import('@/ui/Input/LabeledInput'))
 

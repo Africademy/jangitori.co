@@ -2,12 +2,12 @@ import { Flex, Heading, VStack } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
 import useSWR from 'swr'
 
-import { only } from '@/common/utils/breakpoints'
 import { Timesheet } from '@/db/models/Timesheet'
 import { timesheetQueryKeys } from '@/db/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { useTimesheetService } from '@/modules/services'
 import { ErrorMessage } from '@/ui/error-message'
+import { only } from '@/ui/utils/breakpoints'
 
 import TimesheetsTable from './TimesheetsTable'
 

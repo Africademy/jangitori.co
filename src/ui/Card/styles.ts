@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
-import { spacing } from '@/common/utils/spacing'
 import { StyledProps } from '@/modules/emotion/types'
+import { spacing } from '@/ui/utils/spacing'
 
 export const baseCardStyles = ({ theme }: StyledProps) =>
   css`
@@ -22,7 +22,7 @@ export const baseCardHeaderStyles = css`
   gap: ${spacing(2)};
 `
 
-import { smallerThan } from '@/common/utils/breakpoints'
+import { smallerThan } from '@/ui/utils/breakpoints'
 
 export const baseCardSubtitleStyles = css`
   font-size: 1.125rem;

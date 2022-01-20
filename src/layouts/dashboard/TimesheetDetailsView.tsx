@@ -3,7 +3,6 @@ import { css, useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 
-import { only } from '@/common/utils/breakpoints'
 import { TimesheetQuery } from '@/db/timesheets/timesheetQueryKeys'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
@@ -12,6 +11,7 @@ import { useServices } from '@/modules/services/useServices'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { ErrorMessage } from '@/ui/error-message'
 import Typography from '@/ui/Typography'
+import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 

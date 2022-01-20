@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
-import { largerThan } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
+import { largerThan } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 export const utilities = css`
   .h-header {

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 
-import { largerThan } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
 import { baseCardStyles } from '@/ui/Card/styles'
+import { largerThan } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 import {
   FormField,

@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { ChangeEvent } from 'react'
 
-import { spacing } from '@/common/utils/spacing'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import {
   Form,
@@ -14,6 +13,7 @@ import {
   FormSubmit,
 } from '@/ui/components/Form'
 import { ErrorMessage } from '@/ui/error-message'
+import { spacing } from '@/ui/utils/spacing'
 
 const LabeledInput = dynamic(() => import('@/ui/Input/LabeledInput'))
 

@@ -3,7 +3,7 @@ import { transparentize } from '@chakra-ui/theme-tools'
 import styled from '@emotion/styled'
 import React from 'react'
 
-import { pseudo } from '@/common/utils/pseudo'
+import { pseudo } from '@/ui/utils/pseudo'
 
 export interface RouterButtonProps {
   onClick: () => void

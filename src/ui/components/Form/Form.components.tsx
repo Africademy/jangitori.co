@@ -2,8 +2,8 @@ import { ButtonProps } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { pseudo } from '@/common/utils/pseudo'
-import { spacing } from '@/common/utils/spacing'
+import { pseudo } from '@/ui/utils/pseudo'
+import { spacing } from '@/ui/utils/spacing'
 
 const WideButton = dynamic(() => import('@/ui/Button/WideButton'))
 

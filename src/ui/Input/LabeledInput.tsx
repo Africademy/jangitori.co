@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { only } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
+import { only } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 interface ILabeledInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -1,4 +1,4 @@
-import { objectKeys } from './object'
+import { objectKeys } from '@/common/utils/object'
 
 const group = {
   hover: (selector: string) => `${selector}:hover &, ${selector}[data-hover] &`,

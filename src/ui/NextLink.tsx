@@ -3,8 +3,8 @@ import styled from '@emotion/styled'
 import Link, { LinkProps } from 'next/link'
 import { PropsWithChildren } from 'react'
 
-import { pseudo } from '@/common/utils/pseudo'
-import { spacing } from '@/common/utils/spacing'
+import { pseudo } from '@/ui/utils/pseudo'
+import { spacing } from '@/ui/utils/spacing'
 
 export function NextLink({ children, ...props }: PropsWithChildren<LinkProps>) {
   return (

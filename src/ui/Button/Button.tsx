@@ -2,10 +2,10 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { forwardRef, Ref } from 'react'
 
-import { pseudo } from '@/common/utils/pseudo'
-import { spacing } from '@/common/utils/spacing'
 import { darken, transparentize } from '@/layouts/core/theming/color'
 import { StyledProps } from '@/modules/emotion/types'
+import { pseudo } from '@/ui/utils/pseudo'
+import { spacing } from '@/ui/utils/spacing'
 
 export type BtnVariant = 'primary' | 'secondary' | 'default'
 

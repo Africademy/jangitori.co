@@ -2,9 +2,9 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ComponentType } from 'react'
 
-import { largerThan, only } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
 import { StyledProps } from '@/modules/emotion/types'
+import { largerThan, only } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 export interface StatWidgetProps {
   name: string

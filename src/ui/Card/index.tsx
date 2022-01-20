@@ -3,8 +3,8 @@ export * from './styles'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { spacing } from '@/common/utils/spacing'
 import { IComponent } from '@/ui/types'
+import { spacing } from '@/ui/utils/spacing'
 
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'

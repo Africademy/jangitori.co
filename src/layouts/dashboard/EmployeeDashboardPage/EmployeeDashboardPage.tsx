@@ -8,7 +8,6 @@ import { css } from '@emotion/react'
 
 const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
-import { only } from '@/common/utils/breakpoints'
 import { RoleIDs } from '@/db/models/Role'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
@@ -16,6 +15,7 @@ import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
 import { LocalStoreProvider } from '@/modules/mobx/LocalStoreProvider'
 import { useMobXStore } from '@/modules/mobx/useMobXStore'
+import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetsTabView } from '../TimesheetsTabView'
 

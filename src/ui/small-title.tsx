@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactNode } from 'react'
 
-import { largerThan } from '@/common/utils/breakpoints'
+import { largerThan } from '@/ui/utils/breakpoints'
 
 export interface SmallTitleProps {
   children: ReactNode

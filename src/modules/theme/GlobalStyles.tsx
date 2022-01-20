@@ -1,6 +1,6 @@
 import { css, Global } from '@emotion/react'
 
-import { pseudo } from '@/common/utils/pseudo'
+import { pseudo } from '@/ui/utils/pseudo'
 
 import { colors } from './colors'
 import { typography } from './typography'

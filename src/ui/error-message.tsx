@@ -3,8 +3,8 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import classnames from 'classnames'
 
-import { smallerThan } from '@/common/utils/breakpoints'
-import { spacing } from '@/common/utils/spacing'
+import { smallerThan } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 export interface ErrorMessageProps {
   children: string | Falsy
