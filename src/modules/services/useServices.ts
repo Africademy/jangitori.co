@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { TimesheetService } from '@/modules/timesheets/TimesheetService'
 
 import { Services } from './services'
-import { ServicesContext } from './services-context'
+import { ServicesContext } from './ServicesContext'
 
 const useServicesContext = () => useContext(ServicesContext)
 

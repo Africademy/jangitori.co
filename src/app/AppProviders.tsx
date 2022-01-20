@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import { SWRConfig, SWRConfiguration } from 'swr'
 
 const ServicesProvider = dynamic(
-  () => import('@/modules/services/services-context'),
+  () => import('@/modules/services/ServicesContext'),
 )
 const RootStoreProvider = dynamic(
   () => import('@/modules/stores/RootStore/RootStoreProvider'),

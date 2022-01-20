@@ -1,7 +1,7 @@
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds'
 import parseISO from 'date-fns/parseISO'
 
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
+import { TimeEntry } from '@/common/models/TimeEntry'
 
 export interface RawData {
   start: Date
@@ -9,12 +9,10 @@ export interface RawData {
   totalMs: number
 }
 
-export function aggregateTimesheetEntryData(
-  entries: TimesheetEntry[],
-): Array<RawData> {
+export function aggregateTimeEntryData(entries: TimeEntry[]): Array<RawData> {
   const newRows: RawData[] = []
 
-  const getNextEntry = (index: number): TimesheetEntry => {
+  const getNextEntry = (index: number): TimeEntry => {
     if (entries.length <= 1)
       throw new Error('getNextEntry() failed - must have at least 2 entries')
 

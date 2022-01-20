@@ -1,18 +1,16 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
 import { TableKeys } from '@/common/constants/tables'
+import { TimeEntry } from '@/common/models/TimeEntry'
 import { Timesheet } from '@/common/models/Timesheet'
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
 import supabase from '@/modules/supabase'
 
-export class TimesheetEntryService {
+export class TimeEntryService {
   constructor(private client: SupabaseClient = supabase) {}
 
-  async getTimesheetEntriesByTimesheet(
-    timesheet: Timesheet['id'],
-  ): Promise<TimesheetEntry[]> {
+  async getTimeEntries(timesheet: Timesheet['id']): Promise<TimeEntry[]> {
     const { data, error } = await this.client
-      .from<TimesheetEntry>(TableKeys.TimesheetEntries)
+      .from<TimeEntry>(TableKeys.TimeEntries)
       .select('*')
       .eq('timesheet', timesheet)
       .order('timestamp')
@@ -22,11 +20,9 @@ export class TimesheetEntryService {
     return data ?? []
   }
 
-  async createTimesheetEntry(args: {
-    timesheet: Timesheet['id']
-  }): Promise<TimesheetEntry> {
+  async createEntry(args: { timesheet: Timesheet['id'] }): Promise<TimeEntry> {
     const { data, error } = await this.client
-      .from<TimesheetEntry>(TableKeys.TimesheetEntries)
+      .from<TimeEntry>(TableKeys.TimeEntries)
       .insert({ ...args, location: {} })
 
     if (error) throw error

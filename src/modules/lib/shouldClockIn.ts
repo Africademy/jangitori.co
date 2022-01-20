@@ -1,5 +1,5 @@
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
+import { TimeEntry } from '@/common/models/TimeEntry'
 
-export function shouldClockIn(entries: TimesheetEntry[]) {
+export function shouldClockIn(entries: TimeEntry[]) {
   return Boolean(entries.length % 2 === 0)
 }

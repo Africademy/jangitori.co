@@ -1,14 +1,14 @@
 import { AccountService } from '@/modules/accounts/AccountService'
 import { AuthService } from '@/modules/auth/AuthService'
 import supabase from '@/modules/supabase'
-import { TimesheetEntryService } from '@/modules/timesheet-entries/TimesheetEntryService'
+import { TimeEntryService } from '@/modules/time-entries/TimeEntryService'
 import { TimesheetService } from '@/modules/timesheets/TimesheetService'
 
 export type Services = {
   auth: AuthService
   account: AccountService
   timesheet: TimesheetService
-  timesheetEntry: TimesheetEntryService
+  TimeEntry: TimeEntryService
 }
 
 const initServices = (): Services => {
@@ -16,7 +16,7 @@ const initServices = (): Services => {
     auth: new AuthService(supabase),
     account: new AccountService(supabase),
     timesheet: new TimesheetService(supabase),
-    timesheetEntry: new TimesheetEntryService(supabase),
+    TimeEntry: new TimeEntryService(supabase),
   }
 }
 

@@ -18,7 +18,7 @@ import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 export const TimesheetDetailsView = ({
   query,
 }: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) => {
-  const services = useServices('timesheetEntry', 'timesheet')
+  const services = useServices('TimeEntry', 'timesheet')
   const { timesheet, entries } = useTimesheetDetails(query[2])
 
   const theme = useTheme()
@@ -38,7 +38,7 @@ export const TimesheetDetailsView = ({
     setIsBusy(true)
 
     try {
-      const newEntry = await services.timesheetEntry.createTimesheetEntry({
+      const newEntry = await services.TimeEntry.createEntry({
         timesheet: timesheet.data!.id,
       })
       const lastEntry = entries.data!.at(-1)

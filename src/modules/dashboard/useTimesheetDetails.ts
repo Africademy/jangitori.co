@@ -1,15 +1,15 @@
 import useSWR, { SWRResponse } from 'swr'
 
+import { TimeEntry } from '@/common/models/TimeEntry'
 import { Timesheet } from '@/common/models/Timesheet'
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
 import { useServices } from '@/modules/services'
-import { timesheetEntriesApi } from '@/modules/timesheet-entries/timesheetsQueryBuilder'
+import { timeEntryQueryKeys } from '@/modules/time-entries/timeEntryQueryKeys'
 import { TimesheetDetailsQuery } from '@/modules/timesheets/timesheetsQueryBuilder'
 export function useTimesheetDetails(args: TimesheetDetailsQuery[2]): {
   timesheet: SWRResponse<Timesheet, Error>
-  entries: SWRResponse<TimesheetEntry[], Error>
+  entries: SWRResponse<TimeEntry[], Error>
 } {
-  const services = useServices('timesheetEntry', 'timesheet')
+  const services = useServices('TimeEntry', 'timesheet')
 
   const timesheetSWR = useSWR<Timesheet, Error>(
     `/getOrCreateTimesheet?employee=${args.employee}&payPeriodEnd=${args.payPeriodEnd}`,
@@ -18,12 +18,10 @@ export function useTimesheetDetails(args: TimesheetDetailsQuery[2]): {
     },
   )
 
-  const entriesSWR = useSWR<TimesheetEntry[], Error>(
-    timesheetSWR.data ? timesheetEntriesApi.detail(args) : null,
+  const entriesSWR = useSWR<TimeEntry[], Error>(
+    timesheetSWR.data ? timeEntryQueryKeys.detail(args) : null,
     async () => {
-      return await services.timesheetEntry.getTimesheetEntriesByTimesheet(
-        timesheetSWR.data!.id,
-      )
+      return await services.TimeEntry.getTimeEntries(timesheetSWR.data!.id)
     },
   )
 

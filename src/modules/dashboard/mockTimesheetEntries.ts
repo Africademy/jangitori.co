@@ -1,6 +1,6 @@
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
+import { TimeEntry } from '@/common/models/TimeEntry'
 
-export const mockTimesheetEntries: TimesheetEntry[] = [
+export const mockTimeEntries: TimeEntry[] = [
   {
     id: 0,
     location: {},

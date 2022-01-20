@@ -1,13 +1,13 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useMemo } from 'react'
 
-import { TimesheetEntry } from '@/common/models/TimesheetEntry'
+import { TimeEntry } from '@/common/models/TimeEntry'
 import { buildTimesheetDetailsTableRows } from '@/modules/dashboard/buildTimesheetDetailsTableRows'
 
 const fields = ['start', 'end', 'total']
 
 export interface TimesheetDetailsTableProps {
-  data: TimesheetEntry[]
+  data: TimeEntry[]
 }
 
 export const TimesheetDetailsTable: React.FunctionComponent<

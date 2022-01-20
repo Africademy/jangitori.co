@@ -1,20 +1,20 @@
 import { AccountTableConfig } from '@/common/models/Account'
 import { RoleTableConfig } from '@/common/models/Role'
+import { EntryTableConfig } from '@/common/models/TimeEntry'
 import { TimesheetTableConfig } from '@/common/models/Timesheet'
-import { TimesheetEntryTableConfig } from '@/common/models/TimesheetEntry'
 
 export enum TablesEnum {
   ACCOUNTS = 'Accounts',
   ROLES = 'Roles',
   TIMESHEETS = 'Timesheets',
-  TIMESHEET_ENTRIES = 'TimesheetEntries',
+  TIMESHEET_ENTRIES = 'TimeEntries',
 }
 
 export const TableKeys = {
   [TablesEnum.ACCOUNTS]: 'accounts',
   [TablesEnum.ROLES]: 'roles',
   [TablesEnum.TIMESHEETS]: 'timesheets',
-  [TablesEnum.TIMESHEET_ENTRIES]: 'timesheet-entries',
+  [TablesEnum.TIMESHEET_ENTRIES]: 'entries',
 } as const
 
 export type TableName = typeof TableKeys[keyof typeof TableKeys]
@@ -23,7 +23,7 @@ export type TableConfigs = {
   [TableKeys.Accounts]: AccountTableConfig
   [TableKeys.Roles]: RoleTableConfig
   [TableKeys.Timesheets]: TimesheetTableConfig
-  [TableKeys.TimesheetEntries]: TimesheetEntryTableConfig
+  [TableKeys.TimeEntries]: EntryTableConfig
 }
 
 export type PrimaryKeyOf<T extends TableName> = TableConfigs[T]['primaryKey']
