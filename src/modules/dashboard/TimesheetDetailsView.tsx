@@ -14,6 +14,7 @@ import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { only } from '@/ui/utils/breakpoints'
 
+import { isAddTimeEntryAllowed } from '../time-entries/isAddTimeEntryAllowed'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
 export const TimesheetDetailsView = observer(function TimesheetDetailsView({
@@ -91,7 +92,7 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
         </Typography>
         {timeEntries.data && (
           <Button
-            disabled={isBusy}
+            disabled={isBusy || !isAddTimeEntryAllowed(timeEntries.data)}
             variant="solid"
             colorScheme="blue"
             size="sm"
