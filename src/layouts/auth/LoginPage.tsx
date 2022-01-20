@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router'
 
+import { createLogger } from '@/lib/logger'
+import { useMobXStore } from '@/lib/mobx/useMobXStore'
+import { routes } from '@/lib/routes'
 import { EmailPasswordCreds } from '@/modules/auth/types'
-import { createLogger } from '@/modules/lib/logger'
-import { useMobXStore } from '@/modules/lib/mobx/useMobXStore'
-import { routes } from '@/modules/lib/routes'
-import { useServices } from '@/modules/services'
 
 const AuthFormCard = dynamic(() => import('./AuthForm/AuthFormCard'))
 import dynamic from 'next/dynamic'
 
-import { useRootStore } from '@/modules/stores/useRootStore'
+import { useRootStore, useServices } from '@/app/appContext'
 
 import { AuthFormVM } from './AuthForm/AuthFormVM'
 import { AuthPageProps } from './types'

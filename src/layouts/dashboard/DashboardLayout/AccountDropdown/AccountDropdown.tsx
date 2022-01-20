@@ -4,10 +4,10 @@ import Downshift, { GetRootPropsOptions } from 'downshift'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-import { createLogger } from '@/modules/lib/logger'
-import { routes } from '@/modules/lib/routes'
-import { useService } from '@/modules/services'
-import { useRootStore } from '@/modules/stores/useRootStore'
+import { useServices } from '@/app/appContext'
+import { useRootStore } from '@/app/appContext'
+import { createLogger } from '@/lib/logger'
+import { routes } from '@/lib/routes'
 
 import { Avatar } from './Avatar'
 
@@ -30,13 +30,13 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
   const router = useRouter()
 
   const { authStore } = useRootStore()
-  const authService = useService('auth')
+  const services = useServices('auth')
   const [isLoading, setIsLoading] = useState(false)
 
   async function signOut() {
     setIsLoading(true)
     try {
-      await authService.signOut()
+      await services.auth.signOut()
       authStore.reset()
       router.push(routes.authPage('login'))
     } catch (err) {

@@ -1,9 +1,9 @@
 import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
 
+import { Services, services } from '@/app/services'
+import { isBrowser, isServer } from '@/lib/environment'
 import { AuthStore } from '@/modules/auth/AuthStore'
-import { isBrowser, isServer } from '@/modules/lib/environment'
-import services, { Services } from '@/modules/services/services'
 
 enableStaticRendering(isServer())
 

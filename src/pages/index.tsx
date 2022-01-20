@@ -1,4 +1,4 @@
-import { routes } from '@/modules/lib/routes'
+import { routes } from '@/lib/routes'
 import { Redirect } from '@/ui/redirect'
 
 const IndexRoute = () => {

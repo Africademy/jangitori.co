@@ -1,9 +1,9 @@
 import { Session } from '@supabase/gotrue-js'
 import { makeAutoObservable } from 'mobx'
 
+import { RootStore } from '@/app/RootStore'
 import { Account } from '@/db/models/Account'
-import supabase from '@/modules/lib/supabase'
-import { RootStore } from '@/modules/stores/RootStore/RootStore'
+import supabase from '@/lib/supabase'
 
 export class AuthStore {
   session: Session | null

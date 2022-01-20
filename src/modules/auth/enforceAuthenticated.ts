@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next'
 
 import { Account } from '@/db/models/Account'
 import { TableKeys } from '@/db/tables'
-import { routes } from '@/modules/lib/routes'
-import supabase from '@/modules/lib/supabase'
+import { routes } from '@/lib/routes'
+import supabase from '@/lib/supabase'
 
 export interface AuthRequiredProps {
   account: Account

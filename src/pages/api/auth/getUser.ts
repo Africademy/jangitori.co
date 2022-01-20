@@ -1,7 +1,7 @@
 import type { User as AuthUser } from '@supabase/gotrue-js'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import supabase from '@/modules/lib/supabase'
+import supabase from '@/lib/supabase'
 
 type Err = {
   error: string

@@ -2,10 +2,10 @@ import { Flex, Heading, VStack } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
 import useSWR from 'swr'
 
+import { useServices } from '@/app/appContext'
 import { timesheetQueryKeys } from '@/db/api/timesheets/timesheetQueryKeys'
 import { Timesheet } from '@/db/models/Timesheet'
 import { AuthenticatedPageProps } from '@/layouts/core/types/AuthenticatedPageProps'
-import { useTimesheetService } from '@/modules/services'
 import { ErrorMessage } from '@/ui/error-message'
 import { only } from '@/ui/utils/breakpoints'
 
@@ -14,12 +14,12 @@ import TimesheetsTable from './TimesheetsTable'
 export const TimesheetsView = function TimesheetsView({
   account,
 }: AuthenticatedPageProps) {
-  const timesheetService = useTimesheetService()
+  const services = useServices('timesheet')
 
   const { data: timesheets, error } = useSWR<Timesheet[], Error>(
     timesheetQueryKeys.list(account.uid),
     async (): Promise<Timesheet[]> => {
-      return await timesheetService.getTimesheetsByEmployee(account.uid)
+      return await services.timesheet.getTimesheetsByEmployee(account.uid)
     },
   )
 

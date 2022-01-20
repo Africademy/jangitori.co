@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ComponentType } from 'react'
 
-import { StyledProps } from '@/modules/lib/emotion/types'
+import { StyledProps } from '@/lib/emotion/types'
 import { largerThan, only } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 

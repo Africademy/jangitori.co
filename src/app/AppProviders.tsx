@@ -1,19 +1,14 @@
 import dynamic from 'next/dynamic'
 import { SWRConfig, SWRConfiguration } from 'swr'
 
-const ServicesProvider = dynamic(
-  () => import('@/modules/services/ServicesContext'),
-)
-const RootStoreProvider = dynamic(
-  () => import('@/modules/stores/RootStore/RootStoreProvider'),
-)
+const RootStoreProvider = dynamic(() => import('./RootStoreProvider'))
 
 import { ChakraProvider } from '@chakra-ui/provider'
 
-import { fetcher } from '@/modules/lib/fetcher'
-import { theme } from '@/modules/theme/theme'
+import { theme } from '@/app/theme/theme'
+import { fetcher } from '@/lib/fetcher'
 
-const GlobalStyles = dynamic(() => import('@/modules/theme/GlobalStyles'))
+const GlobalStyles = dynamic(() => import('@/app/theme/GlobalStyles'))
 
 export const defaultSWRConfig: SWRConfiguration = {
   revalidateOnFocus: false,
@@ -22,16 +17,14 @@ export const defaultSWRConfig: SWRConfiguration = {
 
 function AppProviders({ children }) {
   return (
-    <ServicesProvider>
-      <RootStoreProvider>
-        <ChakraProvider resetCSS theme={theme}>
-          <GlobalStyles />
-          <SWRConfig value={{ fetcher, ...defaultSWRConfig }}>
-            {children}
-          </SWRConfig>
-        </ChakraProvider>
-      </RootStoreProvider>
-    </ServicesProvider>
+    <RootStoreProvider>
+      <ChakraProvider resetCSS theme={theme}>
+        <GlobalStyles />
+        <SWRConfig value={{ fetcher, ...defaultSWRConfig }}>
+          {children}
+        </SWRConfig>
+      </ChakraProvider>
+    </RootStoreProvider>
   )
 }
 

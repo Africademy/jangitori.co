@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { toDateString } from '@/modules/lib/date'
+import { toDateString } from '@/lib/date'
 import { computePayPeriod } from '@/modules/payroll/computePayPeriod'
 
 export function usePayPeriodEnd() {

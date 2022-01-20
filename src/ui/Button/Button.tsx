@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { forwardRef, Ref } from 'react'
 
 import { darken, transparentize } from '@/layouts/core/theming/color'
-import { StyledProps } from '@/modules/lib/emotion/types'
+import { StyledProps } from '@/lib/emotion/types'
 import { pseudo } from '@/ui/utils/pseudo'
 import { spacing } from '@/ui/utils/spacing'
 

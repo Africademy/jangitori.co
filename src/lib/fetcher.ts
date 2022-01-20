@@ -1,4 +1,4 @@
-import { createLogger } from '@/modules/lib/logger'
+import { createLogger } from '@/lib/logger'
 
 const logger = createLogger({
   fileLabel: 'modules/lib/fetcher',

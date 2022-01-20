@@ -30,9 +30,8 @@ const customJestConfig = {
    * @see https://github.com/ilearnio/module-alias/issues/46#issuecomment-546154015
    */
   moduleNameMapper: {
-    '^@/common/(.*)$': '<rootDir>/src/common/$1',
-    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@/app/(.*)$': '<rootDir>/src/app/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
     '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
     '^@/db/(.*)$': '<rootDir>/src/api/$1',

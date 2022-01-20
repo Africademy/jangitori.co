@@ -9,12 +9,12 @@ import { css } from '@emotion/react'
 const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
 import { RoleIDs } from '@/db/models/Role'
+import { LocalStoreProvider } from '@/lib/mobx/LocalStoreProvider'
+import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
-import { LocalStoreProvider } from '@/modules/lib/mobx/LocalStoreProvider'
-import { useMobXStore } from '@/modules/lib/mobx/useMobXStore'
 import { only } from '@/ui/utils/breakpoints'
 
 const TimesheetsView = dynamic(

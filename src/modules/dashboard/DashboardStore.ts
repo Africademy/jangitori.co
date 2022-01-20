@@ -3,7 +3,7 @@ import Router from 'next/router'
 
 import { TimesheetsQuery } from '@/db/api/timesheets/timesheetQueryKeys'
 import { RoleID } from '@/db/models/Role'
-import { routes } from '@/modules/lib/routes'
+import { routes } from '@/lib/routes'
 
 import { getIndexOfTabKey, getTabKeyForIndex, TabKey } from './tabs'
 

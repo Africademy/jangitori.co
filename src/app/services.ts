@@ -1,8 +1,8 @@
 import { AccountService } from '@/db/api/accounts/AccountService'
 import { TimeEntryService } from '@/db/api/time-entries/TimeEntryService'
 import { TimesheetService } from '@/db/api/timesheets/TimesheetService'
+import supabase from '@/lib/supabase'
 import { AuthService } from '@/modules/auth/AuthService'
-import supabase from '@/modules/lib/supabase'
 
 export type Services = {
   auth: AuthService
@@ -20,6 +20,4 @@ const initServices = (): Services => {
   }
 }
 
-const services = initServices()
-
-export default services
+export const services = initServices()
