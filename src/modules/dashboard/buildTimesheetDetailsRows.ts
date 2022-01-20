@@ -1,20 +1,35 @@
-import { TimeEntry } from '@/modules/models/TimeEntry'
-import { aggregateTimeEntryData } from '@/modules/time-entries/aggregateTimeEntryData'
+import differenceInMinutes from 'date-fns/differenceInMinutes'
+import parseISO from 'date-fns/parseISO'
 
-export type TimesheetDetailsRow = {
-  start: Date | string
-  end: Date | string | null
+import { TimeEntry } from '@/modules/models/TimeEntry'
+
+export interface TimesheetDetailsRow {
+  start: Date
+  end: Date | null
   minutes: number
 }
 
-export const buildTimesheetDetailsRows = (timeEntries: TimeEntry[]) => {
-  console.log('RAW:')
-  console.table(timeEntries)
+export function buildTimesheetDetailsRows(
+  timeEntries: TimeEntry[],
+): Array<TimesheetDetailsRow> {
+  let newRows: TimesheetDetailsRow[] = []
 
-  const aggregated = aggregateTimeEntryData(timeEntries)
+  const timestamps = timeEntries.map((entry) => parseISO(entry.timestamp))
 
-  console.log('AGGREGATED:')
-  console.table(aggregated)
+  timestamps.forEach((time, index) => {
+    if (index % 2 === 0) {
+      const start = time
+      let end: Date | null = null
+      let minutes = 0
 
-  return aggregated
+      if (index <= timestamps.length - 1) {
+        end = timestamps[index + 1]
+        minutes = differenceInMinutes(end, start)
+      }
+
+      newRows = [...newRows, { start, end, minutes }]
+    }
+  })
+
+  return newRows
 }

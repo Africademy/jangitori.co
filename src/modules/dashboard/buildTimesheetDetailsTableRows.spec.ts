@@ -1,4 +1,3 @@
-import parseISO from 'date-fns/parseISO'
 import faker from 'faker'
 
 import { TimeEntry } from '@/modules/models/TimeEntry'

@@ -3,7 +3,9 @@ import { css, useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 
+import { isProduction } from '@/lib/environment'
 import { shouldClockIn } from '@/lib/shouldClockIn'
+import { useGeolocationPosition } from '@/lib/useGeolocationPosition'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { useServices } from '@/modules/stores'
@@ -15,13 +17,11 @@ import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
-export const getUserLocation = () => {
-  return { latitude: 'LATITUDE', longitude: 'LONGITUDE' }
-}
-
 export const TimesheetDetailsView = ({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) => {
+  const { getCoordinates } = useGeolocationPosition()
+
   const services = useServices('timeEntry', 'timesheet')
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
 
@@ -42,7 +42,7 @@ export const TimesheetDetailsView = ({
     setIsBusy(true)
 
     try {
-      const location = getUserLocation()
+      const location = getCoordinates()
 
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheet.data!.id,
