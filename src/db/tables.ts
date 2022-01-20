@@ -14,7 +14,7 @@ export const TableKeys = {
   [TablesEnum.ACCOUNTS]: 'accounts',
   [TablesEnum.ROLES]: 'roles',
   [TablesEnum.TIMESHEETS]: 'timesheets',
-  [TablesEnum.TIMESHEET_ENTRIES]: 'entries',
+  [TablesEnum.TIMESHEET_ENTRIES]: 'time-entries',
 } as const
 
 export type TableName = typeof TableKeys[keyof typeof TableKeys]

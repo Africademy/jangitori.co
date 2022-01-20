@@ -1,5 +1,5 @@
 import { TimeEntry } from '@/db/models/TimeEntry'
 
-export function shouldClockIn(entries: TimeEntry[]) {
-  return Boolean(entries.length % 2 === 0)
+export function shouldClockIn(timeEntries: TimeEntry[]) {
+  return Boolean(timeEntries.length % 2 === 0)
 }

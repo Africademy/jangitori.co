@@ -18,8 +18,8 @@ import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 export const TimesheetDetailsView = ({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) => {
-  const services = useServices('TimeEntry', 'timesheet')
-  const { timesheet, entries } = useTimesheetDetails(query[2])
+  const services = useServices('timeEntry', 'timesheet')
+  const { timesheet, timeEntries } = useTimesheetDetails(query[2])
 
   const theme = useTheme()
   const [isBusy, setIsBusy] = useState(false)
@@ -28,23 +28,23 @@ export const TimesheetDetailsView = ({
     return <ErrorMessage>{timesheet.error.message}</ErrorMessage>
   }
 
-  if (entries.error) {
-    return <ErrorMessage>{entries.error.message}</ErrorMessage>
+  if (timeEntries.error) {
+    return <ErrorMessage>{timeEntries.error.message}</ErrorMessage>
   }
 
-  if (!timesheet.data || !entries.data) return <LoadingVStack />
+  if (!timesheet.data || !timeEntries.data) return <LoadingVStack />
 
   const handleNewEntry = async () => {
     setIsBusy(true)
 
     try {
-      const newEntry = await services.TimeEntry.createEntry({
+      const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheet.data!.id,
       })
-      const lastEntry = entries.data!.at(-1)
+      const lastEntry = timeEntries.data!.at(-1)
 
       if (!lastEntry) {
-        entries.mutate()
+        timeEntries.mutate()
         return
       }
 
@@ -59,7 +59,7 @@ export const TimesheetDetailsView = ({
         id: timesheet.data!.id,
         hours: newHours,
       })
-      entries.mutate()
+      timeEntries.mutate()
       timesheet.mutate()
     } catch (error) {
       console.log(error)
@@ -84,7 +84,7 @@ export const TimesheetDetailsView = ({
         >
           Timesheet for pay period {query[2].payPeriodEnd}
         </Typography>
-        {entries.data && (
+        {timeEntries.data && (
           <Button
             disabled={isBusy}
             variant="solid"
@@ -92,11 +92,13 @@ export const TimesheetDetailsView = ({
             size="sm"
             onClick={handleNewEntry}
           >
-            {shouldClockIn(entries.data) ? 'Clock in' : 'Clock out'}
+            {shouldClockIn(timeEntries.data) ? 'Clock in' : 'Clock out'}
           </Button>
         )}
       </Flex>
-      <>{entries.data && <TimesheetDetailsTable data={entries.data} />}</>
+      <>
+        {timeEntries.data && <TimesheetDetailsTable data={timeEntries.data} />}
+      </>
     </VStack>
   )
 }

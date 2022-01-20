@@ -8,7 +8,7 @@ export type Services = {
   auth: AuthService
   account: AccountService
   timesheet: TimesheetService
-  TimeEntry: TimeEntryService
+  timeEntry: TimeEntryService
 }
 
 const initServices = (): Services => {
@@ -16,7 +16,7 @@ const initServices = (): Services => {
     auth: new AuthService(supabase),
     account: new AccountService(supabase),
     timesheet: new TimesheetService(supabase),
-    TimeEntry: new TimeEntryService(supabase),
+    timeEntry: new TimeEntryService(supabase),
   }
 }
 

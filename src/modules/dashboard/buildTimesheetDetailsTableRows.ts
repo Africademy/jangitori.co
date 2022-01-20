@@ -10,18 +10,18 @@ export type TimesheetDetailsTableRow = {
 }
 
 export const buildTimesheetDetailsTableRows = (
-  entries: TimeEntry[],
+  timeEntries: TimeEntry[],
 ): TimesheetDetailsTableRow[] => {
-  const rows: TimesheetDetailsTableRow[] = aggregateTimeEntryData(entries).map(
-    (data) => ({
-      start: new Date(data.start).toISOString(),
-      end: data.end ? new Date(data.end).toISOString() : '--',
-      totalTime:
-        data.totalMs >= 0
-          ? `${millisecondsToMinutes(data.totalMs)} minutes`
-          : '--',
-    }),
-  )
+  const rows: TimesheetDetailsTableRow[] = aggregateTimeEntryData(
+    timeEntries,
+  ).map((data) => ({
+    start: new Date(data.start).toISOString(),
+    end: data.end ? new Date(data.end).toISOString() : '--',
+    totalTime:
+      data.totalMs >= 0
+        ? `${millisecondsToMinutes(data.totalMs)} minutes`
+        : '--',
+  }))
 
   return rows
 }

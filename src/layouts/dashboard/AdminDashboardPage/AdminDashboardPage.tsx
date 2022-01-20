@@ -57,7 +57,7 @@ export const AdminDashboardPage = observer(function AdminDashboardPage(
             colorScheme="messenger"
           >
             <TabList>
-              {tabs.map((tab, i) => (
+              {tabs.map((tab) => (
                 <StyledTab id={tab.id} key={tab.id}>
                   {tab.label}
                 </StyledTab>

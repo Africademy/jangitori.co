@@ -8,9 +8,9 @@ import { Timesheet } from '@/db/models/Timesheet'
 
 export function useTimesheetDetails(args: TimesheetQuery[2]): {
   timesheet: SWRResponse<Timesheet, Error>
-  entries: SWRResponse<TimeEntry[], Error>
+  timeEntries: SWRResponse<TimeEntry[], Error>
 } {
-  const services = useServices('TimeEntry', 'timesheet')
+  const services = useServices('timeEntry', 'timesheet')
 
   const timesheetSWR = useSWR<Timesheet, Error>(
     `/getOrCreateTimesheet?employee=${args.employee}&payPeriodEnd=${args.payPeriodEnd}`,
@@ -22,12 +22,12 @@ export function useTimesheetDetails(args: TimesheetQuery[2]): {
   const entriesSWR = useSWR<TimeEntry[], Error>(
     timesheetSWR.data ? timeEntryQueryKeys.detail(args) : null,
     async () => {
-      return await services.TimeEntry.getTimeEntries(timesheetSWR.data!.id)
+      return await services.timeEntry.getTimeEntries(timesheetSWR.data!.id)
     },
   )
 
   return {
     timesheet: timesheetSWR,
-    entries: entriesSWR,
+    timeEntries: entriesSWR,
   }
 }

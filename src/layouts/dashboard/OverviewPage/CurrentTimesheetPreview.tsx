@@ -16,26 +16,30 @@ export const CurrentTimesheetPreview: React.FunctionComponent<
 > = ({ employee }) => {
   const payPeriodEnd = usePayPeriodEnd()
 
-  const { timesheet, entries } = useTimesheetDetails({ employee, payPeriodEnd })
+  const { timesheet, timeEntries } = useTimesheetDetails({
+    employee,
+    payPeriodEnd,
+  })
 
   if (timesheet.error) {
     return <ErrorMessage>{timesheet.error.message}</ErrorMessage>
   }
 
-  if (entries.error) {
-    return <ErrorMessage>{entries.error.message}</ErrorMessage>
+  if (timeEntries.error) {
+    return <ErrorMessage>{timeEntries.error.message}</ErrorMessage>
   }
 
-  if (!timesheet.data || !entries.data) return <LoadingVStack numRows={3} />
+  if (!timesheet.data || !timeEntries.data) return <LoadingVStack numRows={3} />
 
-  if (entries.data.length === 0)
+  if (timeEntries.data.length === 0)
     return <Typography>{"You haven't clocked in yet"}</Typography>
 
   return (
     <>
       <Flex direction="column" gap="3">
         <Typography>
-          Most recent entry: {new Date(entries.data[0].timestamp).toString()}
+          Most recent entry:{' '}
+          {new Date(timeEntries.data[0].timestamp).toString()}
         </Typography>
         <Typography>Total hours: {timesheet.data.hours}</Typography>
       </Flex>
