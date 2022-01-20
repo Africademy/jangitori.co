@@ -22,8 +22,8 @@ export function aggregateTimeEntryData(
       let end: Date | null = null
       let minutes = 0
 
-      if (index <= timeEntries.length - 1) {
-        end = parseISO(timeEntries[index + 1].timestamp)
+      if (index <= timestamps.length - 1) {
+        end = timestamps[index + 1]
         minutes = differenceInMinutes(end, start)
       }
 
