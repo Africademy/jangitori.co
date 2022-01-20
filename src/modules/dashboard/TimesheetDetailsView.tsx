@@ -176,9 +176,9 @@ const SText = styled.div`
   ${({ theme }) =>
     css`
       font-weight: ${theme.fontWeights.semibold};
-      font-size: ${theme.fontSizes['xl']};
+      font-size: ${theme.fontSizes['lg']};
       ${largerThan('mobile')} {
-        font-size: ${theme.fontSizes['2xl']};
+        font-size: ${theme.fontSizes['xl']};
       }
     `}
 `
