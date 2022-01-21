@@ -48,11 +48,16 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
 
   const { payPeriodEnd } = timesheetData
 
+  const pages = [
+    { name: 'Timesheets', href: '#', current: false },
+    { name: '[INSERT_ID]', href: '#', current: true },
+  ]
+
   return (
     <>
       <PageHeading>
         <VStack align="flex-start" py={3} gap={2} w="100%">
-          <Breadcrumbs />
+          <Breadcrumbs pages={pages} />
           <Flex justify="space-between" pb={3} w="100%">
             <PageTitle>Timesheet</PageTitle>
             <StatusTag status={timesheetData.status} />
@@ -75,13 +80,6 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
     </>
   )
 })
-
-/* This example requires Tailwind CSS v2.0+ */
-
-const pages = [
-  { name: 'Timesheets', href: '#', current: false },
-  { name: '[INSERT_ID]', href: '#', current: true },
-]
 
 export const HomeIcon = (props) => {
   return (
@@ -117,7 +115,11 @@ export const ChevronRightIcon = (props) => {
   )
 }
 
-export function Breadcrumbs() {
+export function Breadcrumbs({
+  pages,
+}: {
+  pages: Array<{ name: string; href: string; current: boolean }>
+}) {
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-3 list-none p-0 m-0">
