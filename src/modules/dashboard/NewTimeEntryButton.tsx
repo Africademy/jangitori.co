@@ -83,9 +83,9 @@ export const NewTimeEntryButtonComponent = ({
       variant="solid"
       bg={theme.colors.indigo[600]}
       color={'#fff'}
-      {...(!wide ? { size: 'md' } : { size: 'lg', minW: '100%' })}
+      size="md"
+      {...(!wide ? {} : { minW: '100%' })}
       px={6}
-      height="44px"
       onClick={handleNewTimeEntry}
       _disabled={{
         background: theme.colors.gray[200],

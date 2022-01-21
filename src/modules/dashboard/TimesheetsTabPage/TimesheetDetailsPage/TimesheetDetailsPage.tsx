@@ -76,7 +76,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Flex>
         </VStack>
         <PageTopActions>
-          <VStack w="100%">
+          <VStack w="100%" gap={2}>
             <Button
               color={'#fff'}
               bg={theme.colors.indigo[600]}
