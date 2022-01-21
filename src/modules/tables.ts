@@ -3,6 +3,8 @@ import { RoleTableConfig } from '@/modules/models/Role'
 import { EntryTableConfig } from '@/modules/models/TimeEntry'
 import { TimesheetTableConfig } from '@/modules/models/Timesheet'
 
+import { ShiftsTableConfig } from './timeClock/shiftService'
+
 export enum TablesEnum {
   ACCOUNTS = 'Accounts',
   ROLES = 'Roles',
