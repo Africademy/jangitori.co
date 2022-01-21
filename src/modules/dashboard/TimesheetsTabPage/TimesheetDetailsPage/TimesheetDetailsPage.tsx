@@ -77,6 +77,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         </VStack>
         <PageTopActions>
           <VStack w="100%" gap={2}>
+            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
             <Button
               color={'#fff'}
               bg={theme.colors.indigo[600]}
@@ -85,7 +86,6 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
             >
               Request to Edit
             </Button>
-            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
           </VStack>
         </PageTopActions>
       </PageHeading>
