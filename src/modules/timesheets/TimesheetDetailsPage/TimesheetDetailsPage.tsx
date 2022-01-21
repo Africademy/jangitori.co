@@ -16,19 +16,19 @@ import { useRootStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
-import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
+import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
 import { TimesheetCalendar } from './TimesheetCalendar'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
-}: AuthenticatedPageProps & { query: TimesheetQuery }) {
-  const { timesheet, timeEntries } = useTimesheetDetails(query[2])
+}: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) {
+  const { timesheet, timeEntries } = useTimesheetDetails(query)
   const { geolocationStore } = useRootStore()
 
   if (timesheet.error || timeEntries.error) {

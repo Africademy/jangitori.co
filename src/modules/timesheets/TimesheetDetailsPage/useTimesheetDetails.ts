@@ -4,9 +4,10 @@ import { TimeEntry } from '@/modules/models/TimeEntry'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
 import { timeEntryQueryKeys } from '@/modules/time-entries/timeEntryQueryKeys'
-import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
-export function useTimesheetDetails(args: TimesheetQuery[2]): {
+import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
+
+export function useTimesheetDetails(args: TimesheetDetailsQuery): {
   timesheet: SWRResponse<Timesheet, Error>
   timeEntries: SWRResponse<TimeEntry[], Error>
 } {

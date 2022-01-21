@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite'
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useRootStore } from '@/modules/stores'
-import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import DashboardStore from '../DashboardStore'
@@ -22,12 +21,10 @@ const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
   if (!employee) return null
 
   const switchToCurrentTimesheetDetailsTab = () => {
-    dashboardStore.setQuery(
-      timesheetQueryKeys.detail({
-        employee,
-        payPeriodEnd,
-      }),
-    )
+    dashboardStore.setTimesheetDetailsQuery({
+      employee,
+      payPeriodEnd,
+    })
     dashboardStore.setTabKey(EmployeeTabKey.TIMESHEETS)
   }
 

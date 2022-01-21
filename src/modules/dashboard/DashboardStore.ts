@@ -3,16 +3,16 @@ import Router from 'next/router'
 
 import { routes } from '@/lib/routes'
 import { RoleID } from '@/modules/models/Role'
-import { TimesheetsQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
+import { TimesheetDetailsQuery } from '../timesheets/timesheetDetailsQuery'
 import { getIndexOfTabKey, getTabKeyForIndex } from './tabs'
 
 export default class DashboardStore<TabKey extends string = string> {
   tabIndex = 0
-  query: TimesheetsQuery | null = null
+  timesheetDetailsQuery: TimesheetDetailsQuery | null = null
 
-  setQuery(query: TimesheetsQuery | null) {
-    this.query = query
+  setTimesheetDetailsQuery(query: TimesheetDetailsQuery | null) {
+    this.timesheetDetailsQuery = query
   }
 
   setTab(value: number) {
