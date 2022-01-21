@@ -1,5 +1,6 @@
 import { Flex, Heading, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
+import { useState } from 'react'
 
 import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -20,6 +21,7 @@ import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
+import { TimesheetCalendar } from './TimesheetCalendar'
 import { TimesheetDetails } from './TimesheetDetails'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
@@ -64,10 +66,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         </PageTopActions>
       </PageHeading>
       <PageBody>
-        <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
-          Time Entries
-        </Heading>
-        <TimesheetDetails data={timeEntriesData} />
+        <TimesheetCalendar />
       </PageBody>
     </>
   )
