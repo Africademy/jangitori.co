@@ -9,16 +9,8 @@ const AdminDashboardPage = dynamic(
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
-const WithParsedTabKey = dynamic(
-  () => import('@/modules/dashboard/WithParsedTabKey'),
-)
-
 const AdminDashboardRoute = (props: AuthenticatedPageProps) => {
-  return (
-    <WithParsedTabKey>
-      {({ tabKey }) => <AdminDashboardPage {...props} tabKey={tabKey} />}
-    </WithParsedTabKey>
-  )
+  return <AdminDashboardPage {...props} />
 }
 
 AdminDashboardRoute.getLayout = getDashboardLayout
