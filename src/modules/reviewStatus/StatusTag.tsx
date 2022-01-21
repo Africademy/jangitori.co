@@ -14,21 +14,25 @@ interface StatusTagProps {
   status: ReviewStatus
 }
 
-const ReviewStatusIcon: Record<ReviewStatus, React.ReactNode> = {
-  [ReviewStatus.PENDING]: <RefreshIconSolid />,
-  [ReviewStatus.APPROVED]: <CheckIconSolid />,
-  [ReviewStatus.CHANGE_REQUESTED]: <AnnotateIcon />,
+const renderLeftIcon = (status: ReviewStatus): JSX.Element => {
+  switch (status) {
+    case ReviewStatus.PENDING:
+      return <RefreshIconSolid />
+    case ReviewStatus.APPROVED:
+      return <CheckIconSolid />
+    case ReviewStatus.CHANGE_REQUESTED:
+      return <AnnotateIcon />
+  }
 }
 
 export const StatusTag = ({ status }: StatusTagProps) => {
   const colorScheme = ReviewStatusColor[status]
   const label = ReviewStatusLabel[status]
-  const leftIcon = ReviewStatusIcon[status]
 
   return (
     <Tag colorScheme={colorScheme}>
       <Flex display="flex" gap={1.5}>
-        {leftIcon}
+        {renderLeftIcon(status)}
         {label}
       </Flex>
     </Tag>
