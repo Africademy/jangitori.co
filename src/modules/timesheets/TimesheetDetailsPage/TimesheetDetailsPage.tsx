@@ -38,6 +38,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const { timesheet, timeEntries } = useTimesheetDetails(query)
   const { geolocationStore, authStore } = useRootStore()
   const dashboardStore = useDashboardStore()
+
   const role = authStore.account?.role
   if (timesheet.error || timeEntries.error || !role) {
     return (

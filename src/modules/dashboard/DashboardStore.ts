@@ -73,7 +73,9 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
     const tabKeys = this.tabKeys
     const tab = value
     const payPeriodEnd = filter?.payPeriodEnd
-    const filterUrl = filter ? `?payPeriodEnd=${filter.payPeriodEnd}` : ``
+    const filterUrl = filter
+      ? `?employee=${account.uid}&payPeriodEnd=${filter.payPeriodEnd}`
+      : ``
     const newView = payPeriodEnd
       ? dashboardViews.timesheetDetails({
           employee: account.uid,
