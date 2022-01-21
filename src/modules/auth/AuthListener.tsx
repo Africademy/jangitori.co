@@ -7,7 +7,6 @@ import { createLogger } from '@/lib/logger'
 import { isAuthRequiredPathname, routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
 import updateAuthCookie from '@/modules/auth/updateAuthCookie'
-import { getTabKeyForIndex } from '@/modules/dashboard/tabs'
 import { useRootStore } from '@/modules/stores'
 
 const logger = createLogger({ fileLabel: 'app/AuthListener' })
@@ -38,9 +37,7 @@ const AuthListener = function AuthListener({ children }: AuthListenerProps) {
         const isAuthRequiredPath = isAuthRequiredPathname(router.pathname)
 
         if (!isAuthRequiredPath) {
-          router.push(
-            routes.dashboardPage(authStore.account!.role, getTabKeyForIndex(0)),
-          )
+          router.push(routes.dashboardPage(authStore.account!.role, 'overview'))
         }
       },
     ),

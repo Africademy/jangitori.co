@@ -2,39 +2,25 @@ import { ParsedUrlQuery } from 'querystring'
 
 import { normalizeQueryParam } from '@/lib/normalizeQueryParam'
 
-export const TabKeys = {
-  overview: 'overview',
-  timesheets: 'timesheets',
+export const isTabKey = <TabKey extends string>(
+  o: any,
+  tabKeys: Record<TabKey, TabKey>,
+): o is TabKey => {
+  return typeof o === 'string' && Object.values(tabKeys).includes(o)
 }
 
-export const tabLabels = {
-  [TabKeys.overview]: 'Overview',
-  [TabKeys.timesheets]: 'Timesheets',
-} as const
-
-export type TabKey = 'overview' | 'timesheets'
-
-export const isTabKey = (o: any): o is TabKey => {
-  return typeof o === 'string' && Object.values(TabKeys).includes(o)
+export function getIndexOfTabKey<TabKey extends string>(
+  key: TabKey,
+  tabKeys: Record<TabKey, TabKey>,
+): number {
+  return Object.values(tabKeys).indexOf(key)
 }
 
-export function getIndexOfTabKey(key: TabKey): number {
-  return Object.values(TabKeys).indexOf(key)
-}
-
-export function parseTabKeyQueryParam(query: ParsedUrlQuery): TabKey {
-  const tabKey =
-    'tabKey' in query ? normalizeQueryParam<TabKey>(query.tabKey) : null
-  if (!isTabKey(tabKey)) {
-    const error = new Error(`Invalid [tabKey] query param - ${tabKey}`)
-    console.error(error)
-    throw error
-  }
-  return tabKey
-}
-
-export function getTabKeyForIndex(index: number): TabKey {
-  const tabKey = Object.keys(TabKeys)[index]
+export function getTabKeyForIndex<TabKey extends string>(
+  index: number,
+  tabKeys: Record<TabKey, TabKey>,
+): TabKey {
+  const tabKey = Object.keys(tabKeys)[index]
 
   if (!tabKey) {
     const error = new Error('Invalid tabKey index ' + index)
@@ -43,4 +29,18 @@ export function getTabKeyForIndex(index: number): TabKey {
   }
 
   return tabKey as TabKey
+}
+
+export function parseTabKeyQueryParam<TabKey extends string>(
+  query: ParsedUrlQuery,
+  tabKeys: Record<TabKey, TabKey>,
+): TabKey {
+  const tabKey =
+    'tabKey' in query ? normalizeQueryParam<TabKey>(query.tabKey) : null
+  if (!isTabKey(tabKey, tabKeys)) {
+    const error = new Error(`Invalid [tabKey] query param - ${tabKey}`)
+    console.error(error)
+    throw error
+  }
+  return tabKey
 }

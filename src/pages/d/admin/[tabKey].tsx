@@ -7,13 +7,14 @@ const AdminDashboardPage = dynamic(
 )
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
+import { AdminTabKeys } from '@/modules/dashboard/AdminDashboardPage'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
 const AdminDashboardRoute = (props: AuthenticatedPageProps) => {
   return <AdminDashboardPage {...props} />
 }
 
-AdminDashboardRoute.getLayout = getDashboardLayout
+AdminDashboardRoute.getLayout = getDashboardLayout(AdminTabKeys)
 
 export default AdminDashboardRoute
 

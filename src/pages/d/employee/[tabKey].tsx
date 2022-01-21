@@ -8,12 +8,13 @@ const EmployeeDashboardPage = dynamic(
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
+import { EmployeeTabKeys } from '@/modules/dashboard/EmployeeDashboardPage'
 
 const EmployeeDashboardRoute = (props: AuthenticatedPageProps) => {
   return <EmployeeDashboardPage {...props} />
 }
 
-EmployeeDashboardRoute.getLayout = getDashboardLayout
+EmployeeDashboardRoute.getLayout = getDashboardLayout(EmployeeTabKeys)
 
 export default EmployeeDashboardRoute
 
