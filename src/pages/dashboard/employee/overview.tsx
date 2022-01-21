@@ -5,12 +5,9 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
-const OverviewTabPage = dynamic(
-  () => import('@/modules/dashboard/OverviewTabPage'),
-)
+const OverviewPage = dynamic(() => import('@/modules/dashboard/OverviewPage'))
 
-const OverviewRoute: NextPageWithLayout<AuthenticatedPageProps> =
-  OverviewTabPage
+const OverviewRoute: NextPageWithLayout<AuthenticatedPageProps> = OverviewPage
 
 OverviewRoute.getLayout = getDashboardLayout
 

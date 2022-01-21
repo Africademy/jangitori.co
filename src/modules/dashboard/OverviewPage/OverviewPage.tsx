@@ -8,7 +8,7 @@ import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 import ViewTimesheetButton from './ViewTimesheetButton'
 
-export const OverviewTabPage = ({}: AuthenticatedPageProps) => {
+export const OverviewPage = ({}: AuthenticatedPageProps) => {
   const theme = useTheme()
   return (
     <>
