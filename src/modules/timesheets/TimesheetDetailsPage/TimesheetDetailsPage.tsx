@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 
 import {
   calendarDateToDate,
-  prettyCalendarDateAbbr,
+  prettyCalendarDate,
   prettyCalendarDateWithoutYear,
 } from '@/lib/date/calendarDate'
 import { mergeErrorMessages } from '@/lib/errors'
@@ -55,7 +55,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const pages = [
     { name: 'Timesheets', href: '#', current: false },
     {
-      name: `${prettyCalendarDateAbbr(payPeriodEnd)}`,
+      name: `${prettyCalendarDate(payPeriodEnd)}`,
       href: '#',
       current: true,
     },
