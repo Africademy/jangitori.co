@@ -7,10 +7,10 @@ import { OverviewPageCopy } from './OverviewPageCopy'
 import { PageSection } from './PageSection'
 import { Stat } from './Stat'
 
-export interface CurrentPayPeriodSectionProps {}
+export interface UpcomingSectionProps {}
 
-export const CurrentPayPeriodSection: React.FunctionComponent<
-  CurrentPayPeriodSectionProps
+export const UpcomingSection: React.FunctionComponent<
+  UpcomingSectionProps
 > = () => {
   const payPeriodEnd = usePayPeriodEnd()
 

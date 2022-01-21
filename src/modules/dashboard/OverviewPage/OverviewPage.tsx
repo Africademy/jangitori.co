@@ -17,9 +17,9 @@ import { pseudo } from '@/ui/utils/pseudo'
 import { NewTimeEntryButton } from '../NewTimeEntryButton'
 import { mergeErrorMessages } from '../TimesheetDetailsView'
 import { useTimesheetDetails } from '../useTimesheetDetails'
-import { CurrentPayPeriodSection } from './CurrentPayPeriodSection'
-import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
 import { OverviewPageCopy } from './OverviewPageCopy'
+import { SummarySection } from './SummarySection'
+import { UpcomingSection } from './UpcomingSection'
 
 export const OverviewPage = function OverviewPage({
   account,
@@ -83,8 +83,8 @@ export const OverviewPage = function OverviewPage({
       </PageHeading>
       <PageBody>
         <VStack gap={3}>
-          <CurrentTimesheetPreview employee={account.uid} />
-          <CurrentPayPeriodSection />
+          <SummarySection employee={account.uid} />
+          <UpcomingSection />
         </VStack>
       </PageBody>
     </>

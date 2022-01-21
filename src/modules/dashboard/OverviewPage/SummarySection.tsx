@@ -12,13 +12,13 @@ import { ClockIcon } from '@/ui/icons/ClockIcon'
 import { PageSection } from './PageSection'
 import { Stat } from './Stat'
 
-export interface CurrentTimesheetPreviewProps {
+export interface SummarySectionProps {
   employee: string
 }
 
-export const CurrentTimesheetPreview: React.FunctionComponent<
-  CurrentTimesheetPreviewProps
-> = ({ employee }) => {
+export const SummarySection: React.FunctionComponent<SummarySectionProps> = ({
+  employee,
+}) => {
   const payPeriodEnd = usePayPeriodEnd()
 
   const { timesheet, timeEntries } = useTimesheetDetails({
