@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, VStack } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -17,7 +17,7 @@ import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { Section } from '@/ui/components/Section'
-import { only } from '@/ui/utils/breakpoints'
+import { largerThan, only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import { Avatar } from '../DashboardLayout/AccountDropdown/Avatar'
@@ -46,17 +46,33 @@ export const OverviewPage = function OverviewPage({
   return (
     <>
       <PageHeading>
-        <Flex align="center" justify="space-between" width="85vw" mx="auto">
-          <VStack align="start" gap={0}>
-            <Heading
-              as="h3"
-              size="lg"
-              lineHeight={1}
-              fontWeight="medium"
-            >{`${account.firstName} ${account.lastName}`}</Heading>
-          </VStack>
-          <ViewTimesheetButton />
-        </Flex>
+        <Box
+          width="85vw"
+          mx="auto"
+          css={css`
+            ${largerThan('mobile')} {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            }
+          `}
+        >
+          <Heading
+            as="h3"
+            size="lg"
+            lineHeight={1}
+            fontWeight="medium"
+          >{`${account.firstName} ${account.lastName}`}</Heading>
+          <Box
+            css={css`
+              ${only('mobile')} {
+                padding-top: 1.25rem;
+              }
+            `}
+          >
+            <ViewTimesheetButton />
+          </Box>
+        </Box>
       </PageHeading>
       <PageBody>
         <Section>
@@ -81,20 +97,14 @@ const PageHeading = styled.div`
   background: #fff;
   line-height: none !important;
   width: 100vw;
-  height: 16vh;
+  height: 18vh;
   padding: 1.75rem 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  ${only('mobile')} {
-    flex-direction: column;
-    justify-content: start;
-  }
-  gap: 0.75rem;
   ${({ theme }) =>
     css`
       border-bottom: 0.8px solid ${theme.colors.gray[200]};
-    `}
+    `};
 `
 
 const PageBody = styled.div`
