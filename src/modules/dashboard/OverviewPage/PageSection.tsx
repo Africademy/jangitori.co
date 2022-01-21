@@ -14,7 +14,7 @@ export const PageSection: React.FunctionComponent<PageSectionProps> = ({
   const theme = useTheme()
   return (
     <>
-      <Flex direction="column" gap={5} minW="100%">
+      <Flex direction="column" gap={5} minW="100%" py={3}>
         <Heading
           as="h4"
           size="md"
@@ -24,7 +24,7 @@ export const PageSection: React.FunctionComponent<PageSectionProps> = ({
         >
           {title}
         </Heading>
-        <VStack align="start" gap={1.5}>
+        <VStack align="start" gap={2}>
           {body}
         </VStack>
       </Flex>
