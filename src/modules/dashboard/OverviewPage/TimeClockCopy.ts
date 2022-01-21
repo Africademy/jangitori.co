@@ -1,7 +1,7 @@
 export const InitialTimeClockCopy = {
   HoursToday: 'Hours worked today',
   StartShift: 'Start shift',
-  ViewTimesheet: 'Timesheet',
+  ViewTimesheet: 'View timesheet',
 }
 
 export const StartedShiftCopy = {

@@ -1,25 +1,32 @@
-import { Box, Button, Container, Flex, VStack } from '@chakra-ui/react'
+import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { Typography } from '@/ui/atoms/Typography'
-import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
-import { InitialTimeClockCopy } from './TimeClockCopy'
-import ViewTimesheetButton from './ViewTimesheetButton'
+import { CurrentTimesheetButton } from './CurrentTimesheetButton'
+import { HoursToday } from './HoursToday'
+import { StartShiftButton } from './StartShiftButton'
 
-export const OverviewPage = ({}: AuthenticatedPageProps) => {
-  const theme = useTheme()
+export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
   return (
     <>
       <MapBackdrop>
         <Overlay>
           <HoursToday />
-          <VStack w="100%" position="absolute" bottom={12}>
-            <Button colorScheme="blue">
-              {InitialTimeClockCopy.StartShift}
-            </Button>
-            <ViewTimesheetButton />
+          <VStack
+            w="100%"
+            position="absolute"
+            bottom={0}
+            bg={'#fff'}
+            pt={5}
+            minH={72}
+            flexGrow={1}
+            display="flex"
+            direction="column"
+            px={5}
+          >
+            <StartShiftButton />
+            <CurrentTimesheetButton employee={account.uid} />
           </VStack>
         </Overlay>
       </MapBackdrop>
@@ -29,8 +36,16 @@ export const OverviewPage = ({}: AuthenticatedPageProps) => {
 
 export const Overlay = ({ children }) => {
   return (
-    <Container position="absolute" zIndex={50} minW="100%" minH="100%">
-      <Flex align="center" justify="space-between" direction="column">
+    <Container
+      position="absolute"
+      zIndex={50}
+      minW="100%"
+      minH="100%"
+      pt={5}
+      px={0}
+      mx={0}
+    >
+      <Flex align="center" justify="space-between" direction="column" w="100%">
         {children}
       </Flex>
     </Container>
@@ -50,31 +65,6 @@ export const MapBackdrop = ({ children }) => {
       zIndex={1}
     >
       {children}
-    </Box>
-  )
-}
-
-export const HoursToday = () => {
-  const theme = useTheme()
-
-  return (
-    <Box
-      shadow={theme.shadows.md}
-      borderRadius={theme.radii.lg}
-      bg={'#fff'}
-      p={3}
-      px={5}
-      w="70%"
-      position="absolute"
-      top={0}
-    >
-      <Flex align="center" justify="space-between" gap={6}>
-        <Flex align="center" gap={2}>
-          <ClockIconSolid />
-          <Typography>{InitialTimeClockCopy.HoursToday}</Typography>
-        </Flex>
-        <Typography fontWeight="semibold">{'2hr 15min'}</Typography>
-      </Flex>
     </Box>
   )
 }
