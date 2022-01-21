@@ -89,7 +89,7 @@ export const OverviewPage = function OverviewPage({
           <Box
             css={css`
               ${only('mobile')} {
-                padding-top: 1.25rem;
+                padding-top: 1.75rem;
                 display: flex;
                 align-items: center;
                 gap: 1rem;
@@ -124,7 +124,7 @@ const PageHeading = styled.div`
   background: #fff;
   line-height: none !important;
   width: 100vw;
-  height: 18vh;
+  height: 21vh;
   padding: 1.75rem 1.5rem;
   display: flex;
   align-items: center;
