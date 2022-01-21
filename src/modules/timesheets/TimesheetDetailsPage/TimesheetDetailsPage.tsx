@@ -85,11 +85,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </PageTopActions>
         </VStack>
       </PageHeading>
-      <PageBody>
-        <TimesheetCalendar
-          payPeriod={computePayPeriod(calendarDateToDate(payPeriodEnd))}
-        />
-      </PageBody>
+      <PageBody></PageBody>
     </>
   )
 })
