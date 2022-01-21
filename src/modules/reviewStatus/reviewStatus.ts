@@ -1,20 +1,17 @@
 export enum ReviewStatus {
-  IN_PROGRESS = 'in-progress',
-  SUBMITTED = 'submitted',
+  PENDING = 'pending',
   APPROVED = 'approved',
   CHANGE_REQUESTED = 'change-requested',
 }
 
 export const ReviewStatusLabel = {
-  [ReviewStatus.IN_PROGRESS]: 'In progress',
-  [ReviewStatus.SUBMITTED]: 'Submitted',
+  [ReviewStatus.PENDING]: 'Pending',
   [ReviewStatus.APPROVED]: 'Approved',
   [ReviewStatus.CHANGE_REQUESTED]: 'Change requested',
 }
 
 export const ReviewStatusColor = {
-  [ReviewStatus.IN_PROGRESS]: 'gray',
-  [ReviewStatus.SUBMITTED]: 'blue',
+  [ReviewStatus.PENDING]: 'gray',
   [ReviewStatus.APPROVED]: 'green',
   [ReviewStatus.CHANGE_REQUESTED]: 'orange',
 }

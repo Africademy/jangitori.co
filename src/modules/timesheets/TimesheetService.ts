@@ -45,7 +45,7 @@ export class TimesheetService {
       .insert({
         ...args,
         hours: 0,
-        status: ReviewStatus.IN_PROGRESS,
+        status: ReviewStatus.PENDING,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       })

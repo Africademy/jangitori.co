@@ -12,6 +12,7 @@ import {
 } from '@/modules/dashboard/Page'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { ReviewStatus, ReviewStatusColor } from '@/modules/reviewStatus'
+import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
@@ -20,7 +21,6 @@ import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
 import { Meta } from '@/ui/molecules/Meta'
-import { StatusTag } from '@/ui/molecules/StatusTag'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
@@ -49,12 +49,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
       <PageHeading>
         <Flex justify="space-between" pb={3}>
           <PageTitle>Timesheet</PageTitle>
-          <StatusTag
-            leftIcon={RefreshIconSolid}
-            colorScheme={ReviewStatusColor[timesheetData.status]}
-          >
-            {ReviewStatus[timesheetData.status]}
-          </StatusTag>
+          <StatusTag status={timesheetData.status} />
         </Flex>
         <VStack align="flex-start" py={3} gap={2}>
           <Meta
