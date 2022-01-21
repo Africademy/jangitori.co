@@ -1,4 +1,4 @@
-import { Box, Button, Heading, VStack } from '@chakra-ui/react'
+import { Button, VStack } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
@@ -11,10 +11,10 @@ import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { largerThan, only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import { NewTimeEntryButton } from '../NewTimeEntryButton'
+import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
 import { mergeErrorMessages } from '../TimesheetDetailsView'
 import { useTimesheetDetails } from '../useTimesheetDetails'
 import { OverviewPageCopy } from './OverviewPageCopy'
@@ -49,65 +49,19 @@ export const OverviewPage = function OverviewPage({
   return (
     <>
       <PageHeading>
-        <Box
-          width="85vw"
-          mx="auto"
-          css={css`
-            ${largerThan('mobile')} {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-            }
-          `}
-        >
-          <Heading
-            as="h3"
-            size="xl"
-            lineHeight={1}
-            fontWeight="medium"
-          >{`${account.firstName} ${account.lastName}`}</Heading>
-          <Box
-            css={css`
-              ${only('mobile')} {
-                padding-top: 1.75rem;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-              }
-            `}
-          >
-            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-            <ViewTimesheetButton />
-          </Box>
-        </Box>
+        <PageTitle>{`${account.firstName} ${account.lastName}`}</PageTitle>
+        <PageTopActions>
+          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
+          <ViewTimesheetButton />
+        </PageTopActions>
       </PageHeading>
       <PageBody>
-        <VStack gap={3}>
-          <SummarySection employee={account.uid} />
-          <UpcomingSection />
-        </VStack>
+        <SummarySection employee={account.uid} />
+        <UpcomingSection />
       </PageBody>
     </>
   )
 }
-
-const PageHeading = styled.div`
-  background: #fff;
-  line-height: none !important;
-  width: 100vw;
-  height: 21vh;
-  padding: 1.75rem 1.5rem;
-  display: flex;
-  align-items: center;
-  ${({ theme }) =>
-    css`
-      border-bottom: 0.8px solid ${theme.colors.gray[200]};
-    `};
-`
-
-const PageBody = styled.div`
-  padding: 1.5rem;
-`
 
 const SButton = styled(Button)`
   opacity: 0.8;
