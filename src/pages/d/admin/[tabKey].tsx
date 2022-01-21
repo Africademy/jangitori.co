@@ -34,7 +34,7 @@ const AdminDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
         {...getTabsProps({
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
-            dashboardStore.routeTo(adminTabKeys[index])
+            dashboardStore.routeToTab(adminTabKeys[index])
           },
         })}
       >

@@ -37,7 +37,7 @@ const EmployeeDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
         {...getTabsProps({
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
-            dashboardStore.routeTo(employeeTabKeys[index])
+            dashboardStore.routeToTab(employeeTabKeys[index])
           },
         })}
       >

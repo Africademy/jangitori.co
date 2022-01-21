@@ -19,7 +19,7 @@ const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
   if (!employee) return null
 
   const switchToCurrentTimesheetDetailsTab = () => {
-    dashboardStore.routeTo(EmployeeTabKey.TIMESHEETS, {
+    dashboardStore.routeToTab(EmployeeTabKey.TIMESHEETS, {
       employee,
       payPeriodEnd,
     })

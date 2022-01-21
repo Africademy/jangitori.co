@@ -23,8 +23,10 @@ const ChevronRightIcon = (props) => {
 
 function Breadcrumbs({
   pages,
+  onLinkClick,
 }: {
   pages: Array<{ name: string; href: string; current: boolean }>
+  onLinkClick: (url: string) => void
 }) {
   return (
     <nav className="flex" aria-label="Breadcrumb">
@@ -38,17 +40,16 @@ function Breadcrumbs({
                   aria-hidden="true"
                 />
               )}
-              <Link href={page.href}>
-                <a
-                  className={classNames(
-                    index && 'ml-3',
-                    'text-sm font-medium text-gray-500 hover:text-gray-700',
-                  )}
-                  aria-current={page.current ? 'page' : undefined}
-                >
-                  {page.name}
-                </a>
-              </Link>
+              <button
+                className={classNames(
+                  index && 'ml-3',
+                  'text-sm font-medium text-gray-500 hover:text-gray-700',
+                )}
+                aria-current={page.current ? 'page' : undefined}
+                onClick={() => onLinkClick(page.href)}
+              >
+                {page.name}
+              </button>
             </div>
           </li>
         ))}

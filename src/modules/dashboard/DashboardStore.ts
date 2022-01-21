@@ -7,12 +7,49 @@ import { RootStore } from '../stores'
 import { TimesheetDetailsQuery } from '../timesheets/timesheetDetailsQuery'
 import { BaseTabKey, getDashboardTabsForRole, getTabKeyForIndex } from './tabs'
 
+export const dashboardViews = {
+  overview: 'overview' as const,
+  timesheets: 'timesheets' as const,
+  timesheetDetails: (filter: TimesheetDetailsQuery) =>
+    [dashboardViews.timesheets, 'details', filter] as const,
+}
+
+export type DashboardView =
+  | typeof dashboardViews['overview']
+  | typeof dashboardViews['timesheets']
+  | ReturnType<typeof dashboardViews['timesheetDetails']>
+
+export function isTimesheetDetailsKey(
+  o: any,
+): o is ReturnType<typeof dashboardViews['timesheetDetails']> {
+  return (
+    o &&
+    Array.isArray(o) &&
+    o.length === 3 &&
+    o[0] === 'timesheets' &&
+    o[1] === 'details' &&
+    typeof o[2] === 'object' &&
+    'payPeriodEnd' in o[2] &&
+    'employee' in o[2]
+  )
+}
+
 export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
+  view: DashboardView = dashboardViews.overview
+
+  setView(value: DashboardView) {
+    this.view = value
+  }
+
   tabIndex = 0
-  timesheetDetailsQuery: TimesheetDetailsQuery | Falsy = null
+
+  get timesheetDetailsQuery(): TimesheetDetailsQuery | null {
+    const view = this.view
+    return isTimesheetDetailsKey(view) ? view[2] : null
+  }
 
   get tabKeys(): TabKey[] {
-    const role = this.root.getAccountRole()
+    const role = this.root.invariantAccount.role
     return getDashboardTabsForRole(role) as TabKey[]
   }
 
@@ -21,28 +58,43 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
     return tabs[this.tabIndex]
   }
 
-  routeTo(value: TabKey, filter?: TimesheetDetailsQuery) {
+  routeTo(href: string) {
     if (!Router.router?.isReady) {
       console.log(
-        '❗ WARNING: Router is not ready but called DashboardStore.routeTo()',
+        '❗ WARNING: Router is not ready but called DashboardStore.routeToTab()',
       )
     }
 
-    const role = this.root.getAccountRole()
+    Router.router?.push(href)
+  }
+
+  routeToTab(value: TabKey, filter?: TimesheetDetailsQuery) {
+    const account = this.root.invariantAccount
     const tabKeys = this.tabKeys
     const tab = value
-
+    const payPeriodEnd = filter?.payPeriodEnd
     const filterUrl = filter ? `?payPeriodEnd=${filter.payPeriodEnd}` : ``
-    this.timesheetDetailsQuery = filter
+    const newView = payPeriodEnd
+      ? dashboardViews.timesheetDetails({
+          employee: account.uid,
+          payPeriodEnd,
+        })
+      : null
+
+    newView && this.setView(newView)
+
     if (typeof tab === 'number') {
       this.tabIndex = tab
 
-      Router.router?.push(
-        routes.dashboardPage(role, getTabKeyForIndex(tab, tabKeys) + filterUrl),
+      this.routeTo(
+        routes.dashboardPage(
+          account.role,
+          getTabKeyForIndex(tab, tabKeys) + filterUrl,
+        ),
       )
     } else {
       this.tabIndex = tabKeys.indexOf(tab)
-      Router.router?.push(routes.dashboardPage(role, tab) + filterUrl)
+      this.routeTo(routes.dashboardPage(account.role, tab) + filterUrl)
     }
   }
 
@@ -51,7 +103,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
 
     makeAutoObservable(
       this,
-      { routeTo: action.bound },
+      { routeToTab: action.bound },
       { name: 'DashboardStore' },
     )
   }

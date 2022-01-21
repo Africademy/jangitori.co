@@ -3,7 +3,7 @@ export const timesheetQueryKeys = {
   lists: () => [...timesheetQueryKeys.all, 'list'] as const,
   list: (employee: string) =>
     [...timesheetQueryKeys.lists(), { employee }] as const,
-  details: () => [...timesheetQueryKeys.all, 'detail'] as const,
+  details: () => [...timesheetQueryKeys.all, 'details'] as const,
   detail: (args: { employee: string; payPeriodEnd: string }) =>
     [...timesheetQueryKeys.details(), args] as const,
 }

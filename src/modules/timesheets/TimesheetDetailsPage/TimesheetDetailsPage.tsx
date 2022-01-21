@@ -1,5 +1,6 @@
 import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 
 import {
   prettyCalendarDate,
@@ -15,7 +16,7 @@ import {
   PageTopActions,
 } from '@/modules/dashboard/Page'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
-import { useRootStore } from '@/modules/stores'
+import { useDashboardStore, useRootStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
@@ -32,8 +33,11 @@ import { TimeEntriesTable } from './TimeEntriesTable'
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) {
+  const router = useRouter()
+
   const { timesheet, timeEntries } = useTimesheetDetails(query)
   const { geolocationStore, authStore } = useRootStore()
+  const dashboardStore = useDashboardStore()
   const role = authStore.account?.role
   if (timesheet.error || timeEntries.error || !role) {
     return (
@@ -59,16 +63,25 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
     },
     {
       name: `${prettyCalendarDate(payPeriodEnd)}`,
-      href: routes.timesheetDetailsPage(role, query),
+      href:
+        routes.dashboardPage(role, 'timesheets') +
+        `?payPeriodEnd=${query.payPeriodEnd}`,
       current: true,
     },
   ]
+
+  const handleLinkClick = (url: string) => {
+    console.log('handleLinkClick - url: ' + url)
+
+    router.push(url)
+    dashboardStore.setView('timesheets')
+  }
 
   return (
     <>
       <PageHeading>
         <VStack w="100%" align="start" gap={1}>
-          <Breadcrumbs pages={pages} />
+          <Breadcrumbs pages={pages} onLinkClick={handleLinkClick} />
           <Flex justify="space-between" w="100%">
             <PageTitle>Timesheet Details</PageTitle>
             <StatusTag status={timesheetData.status} />

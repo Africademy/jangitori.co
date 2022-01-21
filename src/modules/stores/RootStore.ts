@@ -6,7 +6,7 @@ import { initServices, Services } from '@/modules/stores/services'
 
 import DashboardStore from '../dashboard/DashboardStore'
 import { getDashboardTabsForRole } from '../dashboard/tabs'
-import { Role } from '../models/Role'
+import { Account } from '../models/Account'
 
 export class RootStore {
   services: Services = initServices()
@@ -17,14 +17,14 @@ export class RootStore {
 
   dashboardStore: DashboardStore = new DashboardStore(this)
 
-  getAccountRole(): Role['id'] {
-    const role = this.authStore.account?.role
-    invariant(role, 'AuthStore account not found')
-    return role
+  get invariantAccount(): Account {
+    const account = this.authStore.account
+    invariant(account, 'AuthStore account not found')
+    return account
   }
 
   getDashboardTabs(): string[] {
-    const role = this.getAccountRole()
+    const role = this.invariantAccount.role
 
     const tabs = getDashboardTabsForRole(role)
 
