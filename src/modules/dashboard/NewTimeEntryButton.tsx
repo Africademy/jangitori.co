@@ -1,14 +1,11 @@
-import { Button, Flex, Tooltip } from '@chakra-ui/react'
-import { css, useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { Button } from '@chakra-ui/react'
+import { useTheme } from '@emotion/react'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { useRootStore, useServices } from '@/modules/stores'
-import { QuestionIcon } from '@/ui/icons'
-import { pseudo } from '@/ui/utils/pseudo'
 
 import { TimeEntry } from '../models/TimeEntry'
 import { Timesheet } from '../models/Timesheet'
@@ -21,7 +18,7 @@ export const NewTimeEntryButtonComponent = ({
   isDisabled,
   onSuccess,
   updateTimesheet,
-  mobile = false,
+  wide = false,
 }) => {
   const services = useServices('timeEntry')
   const { timeEntries } = useTimesheetDetails(timesheetId)
@@ -77,60 +74,29 @@ export const NewTimeEntryButtonComponent = ({
   }
 
   return (
-    <Flex
-      {...(mobile ? { minW: '100%', position: 'absolute', bottom: 32 } : {})}
-      alignItems="center"
-      gap={3}
+    <Button
+      disabled={isBusy || isDisabled}
+      variant="solid"
+      bg={theme.colors.indigo[600]}
+      color={'#fff'}
+      {...(!wide ? { size: 'md' } : { size: 'lg', minW: '100%' })}
       px={6}
+      height="44px"
+      onClick={handleNewTimeEntry}
+      _disabled={{
+        background: theme.colors.gray[200],
+        color: theme.colors.gray[500],
+      }}
+      _hover={{
+        _notDisabled: {
+          background: theme.colors.primary[700],
+        },
+      }}
     >
-      {isDisabled && !mobile && (
-        <Tooltip
-          label="You must wait at least 15 minutes between time punches."
-          fontSize="md"
-        >
-          <IconBox>
-            <QuestionIcon />
-          </IconBox>
-        </Tooltip>
-      )}
-      <Button
-        disabled={isBusy || isDisabled}
-        variant="solid"
-        colorScheme="blue"
-        {...(!mobile ? { size: 'md' } : { size: 'lg', minW: '100%' })}
-        px={6}
-        onClick={handleNewTimeEntry}
-        _disabled={{
-          background: theme.colors.gray[200],
-          color: theme.colors.gray[500],
-        }}
-        _hover={{
-          _notDisabled: {
-            background: theme.colors.primary[700],
-          },
-        }}
-      >
-        {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
-      </Button>
-    </Flex>
+      {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
+    </Button>
   )
 }
-
-const IconBox = styled.div`
-  font-size: 1rem;
-  ${({ theme }) =>
-    css`
-      color: ${theme.colors.gray[500]};
-      ${pseudo('_hover')} {
-        color: ${theme.colors.gray[800]};
-      }
-    `}
-
-  svg {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-`
 
 export function useGetNewTimeEntryButtonProps({
   timesheetId,

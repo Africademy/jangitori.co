@@ -90,6 +90,9 @@ export const OverviewPage = function OverviewPage({
             css={css`
               ${only('mobile')} {
                 padding-top: 1.25rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
               }
             `}
           >
