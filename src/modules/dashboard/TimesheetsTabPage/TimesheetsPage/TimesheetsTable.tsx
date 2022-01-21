@@ -1,8 +1,8 @@
-import { Table, Tag, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
 import { Timesheet } from '@/modules/models/Timesheet'
-import { ReviewStatusColor, ReviewStatusLabel } from '@/modules/reviewStatus'
+import { StatusTag } from '@/modules/reviewStatus'
 import { only } from '@/ui/utils/breakpoints'
 export const timesheetsTableFields = ['payPeriodEnd', 'hours', 'status']
 
@@ -60,9 +60,7 @@ const TimesheetsTable = ({ data }: { data: Timesheet[] }) => {
             <Td>{formatPayPeriodEnd(item.payPeriodEnd)}</Td>
             <Td maxW="6rem">{item.hours}</Td>
             <Td>
-              <Tag colorScheme={ReviewStatusColor[item.status]}>
-                {ReviewStatusLabel[item.status]}
-              </Tag>
+              <StatusTag status={item.status} />
             </Td>
           </Tr>
         ))}

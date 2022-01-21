@@ -11,7 +11,6 @@ import {
   PageTopActions,
 } from '@/modules/dashboard/Page'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
-import { ReviewStatus, ReviewStatusColor } from '@/modules/reviewStatus'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
@@ -19,7 +18,6 @@ import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
-import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
