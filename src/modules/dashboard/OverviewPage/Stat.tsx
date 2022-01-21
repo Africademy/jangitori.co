@@ -29,8 +29,8 @@ export const Stat: React.FunctionComponent<StatProps> = ({
 
 const SBody = styled.div`
   display: flex;
-  align-items: center;
-
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   min-width: 100%;
   gap: ${spacing(4)};
 
@@ -42,7 +42,7 @@ const SBody = styled.div`
 `
 
 const IconBox = styled.div`
-  font-size: 2.125rem;
+  font-size: 2rem;
   height: 1.5em;
   width: 1.5em;
   display: flex;
@@ -57,7 +57,7 @@ const IconBox = styled.div`
 const StatTextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing(2)};
+  gap: ${spacing(1)};
 
   dt,
   dd {
@@ -76,7 +76,7 @@ const StatTitle = styled.dt`
     css`
       font-size: ${theme.fontSizes.md};
       font-weight: ${theme.fontWeights.medium};
-      color: ${theme.colors.gray[600]};
+      color: ${theme.colors.gray[500]};
       ${truncateStyles}
 
       line-height: 1.25;
@@ -90,14 +90,14 @@ const StatTitle = styled.dt`
 const StatData = styled.dd`
   ${({ theme }) =>
     css`
-      font-weight: ${theme.fontWeights.medium};
+      font-weight: ${theme.fontWeights.semibold};
       color: ${theme.colors.gray[900]};
       line-height: 1;
       ${only('mobile')} {
-        font-size: ${theme.fontSizes['xl']};
+        font-size: ${theme.fontSizes['2xl']};
       }
       ${largerThan('mobile')} {
-        font-size: ${theme.fontSizes['2xl']};
+        font-size: ${theme.fontSizes['3xl']};
       }
     `}
 `
