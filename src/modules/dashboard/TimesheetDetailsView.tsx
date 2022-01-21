@@ -1,4 +1,3 @@
-import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -10,6 +9,7 @@ import { HideForMobile, MobileOnly } from '@/ui/components/HideForMobile'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
 import { NewTimeEntryButton } from './NewTimeEntryButton'
+import { PageBody, PageHeading, PageTitle, PageTopActions } from './Page'
 import { PayPeriodSelect } from './PayPeriodSelect'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
@@ -43,24 +43,28 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     return <LoadingVStack />
 
   return (
-    <VStack minW="100%">
-      <Flex align="center" minW="100%" py={2} pb={5} justify="space-between">
-        <PayPeriodSelect
-          payPeriodEnd={timesheetData.payPeriodEnd}
-          onSelect={(newPayPeriodEnd) =>
-            console.log('newPayPeriodEnd: ', newPayPeriodEnd)
-          }
-        />
-        <HideForMobile>
-          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-        </HideForMobile>
-      </Flex>
-      <>
+    <>
+      <PageHeading>
+        <PageTitle>Timesheet</PageTitle>
+        <PageTopActions>
+          <PayPeriodSelect
+            payPeriodEnd={timesheetData.payPeriodEnd}
+            onSelect={(newPayPeriodEnd) =>
+              console.log('newPayPeriodEnd: ', newPayPeriodEnd)
+            }
+          />
+          <HideForMobile>
+            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
+          </HideForMobile>
+        </PageTopActions>
+      </PageHeading>
+
+      <PageBody>
         <TimesheetDetailsTable data={timeEntriesData} />
-      </>
-      <MobileOnly>
-        <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-      </MobileOnly>
-    </VStack>
+        <MobileOnly>
+          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
+        </MobileOnly>
+      </PageBody>
+    </>
   )
 })
