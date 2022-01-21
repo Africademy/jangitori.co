@@ -70,7 +70,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
             <PageTitle>Timesheet Details</PageTitle>
             <StatusTag status={timesheetData.status} />
           </Flex>
-          <VStack w="100%" align="start" gap={1}>
+          <VStack w="100%" align="start" gap={0}>
             <Meta
               leftIcon={CalendarIconSolid}
               text={`Due ${prettyCalendarDateWithoutYear(payPeriodEnd)}`}
