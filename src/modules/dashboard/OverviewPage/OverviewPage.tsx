@@ -1,45 +1,25 @@
-import { Box, Button, Heading } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
-
-import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
-import { SmallTitle } from '@/ui/atoms/Typography/SmallTitle'
-import { CalendarIcon } from '@/ui/icons'
-
-const StatWidget = dynamic(() => import('@/ui/components/StatWidget'))
-
+import { Box, Button, Heading, VStack } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
+import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { Section } from '@/ui/components/Section'
 import { largerThan, only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import { NewTimeEntryButton } from '../NewTimeEntryButton'
 import { mergeErrorMessages } from '../TimesheetDetailsView'
 import { useTimesheetDetails } from '../useTimesheetDetails'
+import { CurrentPayPeriodSection } from './CurrentPayPeriodSection'
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
-
-const OverviewPageCopy = {
-  title: 'Home',
-  Upcoming: {
-    title: 'Upcoming',
-    PayPeriod: {
-      title: 'Payday',
-    },
-  },
-  LatestActivity: {
-    title: 'Latest',
-    CurrentTimesheetLink: 'View timesheet',
-  },
-}
+import { OverviewPageCopy } from './OverviewPageCopy'
 
 export const OverviewPage = function OverviewPage({
   account,
@@ -102,19 +82,10 @@ export const OverviewPage = function OverviewPage({
         </Box>
       </PageHeading>
       <PageBody>
-        <Section>
-          <Section.Body>
-            <CurrentTimesheetPreview employee={account.uid} />
-          </Section.Body>
-        </Section>
-        <Section>
-          <Section.Top>
-            <SmallTitle>{OverviewPageCopy.Upcoming.title}</SmallTitle>
-          </Section.Top>
-          <Section.Body>
-            <StatWidget {...getStatWidgetProps(payPeriodEnd)} />
-          </Section.Body>
-        </Section>
+        <VStack gap={3}>
+          <CurrentPayPeriodSection />
+          <CurrentTimesheetPreview employee={account.uid} />
+        </VStack>
       </PageBody>
     </>
   )
@@ -137,14 +108,6 @@ const PageHeading = styled.div`
 const PageBody = styled.div`
   padding: 1.5rem;
 `
-
-function getStatWidgetProps(payPeriodEnd: string) {
-  return {
-    name: OverviewPageCopy.Upcoming.PayPeriod.title,
-    stat: payPeriodEnd,
-    icon: CalendarIcon,
-  }
-}
 
 const SButton = styled(Button)`
   opacity: 0.8;

@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import React from 'react'
 
@@ -7,6 +7,8 @@ import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
+
+import { PageSection } from './PageSection'
 
 export interface CurrentTimesheetPreviewProps {
   employee: string
@@ -36,14 +38,22 @@ export const CurrentTimesheetPreview: React.FunctionComponent<
     return <Typography>{"You haven't clocked in yet"}</Typography>
 
   return (
-    <>
-      <Flex direction="column" gap="3">
-        <Typography>
-          Most recent entry:{' '}
-          {parseISO(timeEntries.data[0].timestamp).toLocaleString()}
-        </Typography>
-        <Typography>Total hours: {timesheet.data.hours}</Typography>
-      </Flex>
-    </>
+    <PageSection
+      title="Summary"
+      body={
+        <>
+          <Typography lineHeight={1}>
+            {'Last clocked in: '}
+            {format(parseISO(timeEntries.data[0].timestamp), 'MMMM dd')}
+            {' at '}
+            {format(parseISO(timeEntries.data[0].timestamp), 'h:mm aa')}
+            {'.'}
+          </Typography>
+          <Typography lineHeight={1}>
+            Total hours: {timesheet.data.hours}
+          </Typography>
+        </>
+      }
+    />
   )
 }

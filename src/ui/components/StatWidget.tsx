@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'
+import { Box } from '@chakra-ui/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ComponentType } from 'react'
 
@@ -17,8 +18,18 @@ const StatWidget: React.FunctionComponent<StatWidgetProps> = ({
   stat,
   icon: IconComponent,
 }) => {
+  const theme = useTheme()
   return (
-    <StyledStat hasIcon={Boolean(IconComponent)}>
+    <Box
+      bg="#fff"
+      css={css`
+        border: 1px solid ${theme.colors.gray[200]};
+        border-radius: ${theme.radii.DEFAULT};
+        width: 100%;
+      `}
+      px={5}
+      py={6}
+    >
       {IconComponent && (
         <div className="icon-container">
           <IconComponent />
@@ -28,7 +39,7 @@ const StatWidget: React.FunctionComponent<StatWidgetProps> = ({
         <StatTitle>{name}</StatTitle>
         <StatData>{stat}</StatData>
       </StatTextContainer>
-    </StyledStat>
+    </Box>
   )
 }
 
