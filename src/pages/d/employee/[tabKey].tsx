@@ -9,11 +9,16 @@ import {
   employeeTabKeys,
   employeeTabs,
 } from '@/modules/dashboard/EmployeeDashboardPage'
-import OverviewTabPage from '@/modules/dashboard/OverviewTabPage'
-import TimesheetsTabPage from '@/modules/dashboard/TimesheetsTabPage'
-import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
-import StyledTab from '@/ui/components/StyledTab'
 
+const OverviewTabPage = dynamic(
+  () => import('@/modules/dashboard/OverviewTabPage'),
+)
+const TimesheetsTabPage = dynamic(
+  () => import('@/modules/dashboard/TimesheetsTabPage'),
+)
+const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
+
+import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
 const EmployeeDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   const props: DashboardPageProps = { tabs: employeeTabs, account }
 

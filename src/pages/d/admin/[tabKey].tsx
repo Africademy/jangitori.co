@@ -6,10 +6,15 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import { adminTabKeys, adminTabs } from '@/modules/dashboard/AdminDashboardPage'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
-import OverviewTabPage from '@/modules/dashboard/OverviewTabPage'
-import TimesheetsTabPage from '@/modules/dashboard/TimesheetsTabPage'
 import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
-import StyledTab from '@/ui/components/StyledTab'
+
+const OverviewTabPage = dynamic(
+  () => import('@/modules/dashboard/OverviewTabPage'),
+)
+const TimesheetsTabPage = dynamic(
+  () => import('@/modules/dashboard/TimesheetsTabPage'),
+)
+const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
 
 const AdminDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   const props: DashboardPageProps = { tabs: adminTabs, account }
