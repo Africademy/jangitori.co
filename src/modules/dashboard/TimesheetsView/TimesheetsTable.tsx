@@ -1,7 +1,11 @@
 import { Table, Tag, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
-import { Timesheet, TimesheetStatus } from '@/modules/models/Timesheet'
+import { Timesheet } from '@/modules/models/Timesheet'
+import {
+  TimesheetStatusColor,
+  TimesheetStatusLabel,
+} from '@/modules/timesheets/TimesheetStatus'
 import { only } from '@/ui/utils/breakpoints'
 export const timesheetsTableFields = ['payPeriodEnd', 'hours', 'status']
 
@@ -11,20 +15,6 @@ export const TimesheetColumnLabel = {
   updatedAt: 'Updated At',
   hours: 'Hours',
   status: 'Status',
-}
-
-export const TimesheetStatusLabel = {
-  [TimesheetStatus.IN_PROGRESS]: 'In progress',
-  [TimesheetStatus.SUBMITTED]: 'Submitted',
-  [TimesheetStatus.APPROVED]: 'Approved',
-  [TimesheetStatus.CHANGE_REQUESTED]: 'Change requested',
-}
-
-export const TimesheetStatusColor = {
-  [TimesheetStatus.IN_PROGRESS]: 'gray',
-  [TimesheetStatus.SUBMITTED]: 'blue',
-  [TimesheetStatus.APPROVED]: 'green',
-  [TimesheetStatus.CHANGE_REQUESTED]: 'orange',
 }
 
 function normalizeDoubleDigitString(monthOrDayString: string): string {
