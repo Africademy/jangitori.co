@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'
+import { Box } from '@chakra-ui/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import React from 'react'
 
@@ -16,18 +17,31 @@ export const Stat: React.FunctionComponent<StatProps> = ({
   icon,
   data,
 }) => {
+  const theme = useTheme()
   return (
-    <SBody>
-      <IconBox>{icon}</IconBox>
-      <StatTextContainer>
-        <StatTitle>{title}</StatTitle>
-        <StatData>{data}</StatData>
-      </StatTextContainer>
-    </SBody>
+    <Box
+      bg="#fff"
+      css={css`
+        border: 0.8px solid ${theme.colors.gray[100]};
+        border-radius: ${theme.radii.md};
+        box-shadow: ${theme.shadows.sm};
+        width: 100%;
+      `}
+      px={4}
+      py={3}
+    >
+      <Container>
+        <IconBox>{icon}</IconBox>
+        <StatTextContainer>
+          <StatTitle>{title}</StatTitle>
+          <StatData>{data}</StatData>
+        </StatTextContainer>
+      </Container>
+    </Box>
   )
 }
 
-const SBody = styled.div`
+const Container = styled.div`
   display: flex;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -57,7 +71,7 @@ const IconBox = styled.div`
 const StatTextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacing(1)};
+  gap: ${spacing(2)};
 
   dt,
   dd {
@@ -74,16 +88,13 @@ const truncateStyles = css`
 const StatTitle = styled.dt`
   ${({ theme }) =>
     css`
-      font-size: ${theme.fontSizes.md};
+      font-size: ${theme.fontSizes['base']};
+
       font-weight: ${theme.fontWeights.medium};
       color: ${theme.colors.gray[500]};
       ${truncateStyles}
 
       line-height: 1.25;
-
-      ${largerThan('mobile')} {
-        font-size: ${theme.fontSizes['base']};
-      }
     `}
 `
 

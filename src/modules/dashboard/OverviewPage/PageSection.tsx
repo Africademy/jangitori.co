@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, VStack } from '@chakra-ui/react'
-import { css, useTheme } from '@emotion/react'
+import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { useTheme } from '@emotion/react'
 import React from 'react'
 
 export interface PageSectionProps {
@@ -24,21 +24,9 @@ export const PageSection: React.FunctionComponent<PageSectionProps> = ({
         >
           {title}
         </Heading>
-        <Box
-          bg="#fff"
-          css={css`
-            border: 0.8px solid ${theme.colors.gray[100]};
-            border-radius: ${theme.radii.md};
-            box-shadow: ${theme.shadows.sm};
-            width: 100%;
-          `}
-          px={5}
-          py={6}
-        >
-          <VStack align="start" gap={1}>
-            {body}
-          </VStack>
-        </Box>
+        <VStack align="start" gap={1.5}>
+          {body}
+        </VStack>
       </Flex>
     </>
   )
