@@ -3,19 +3,17 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 
-import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
-import { useRootStore } from '@/modules/stores'
+import { useAuthStore, useDashboardStore } from '@/modules/stores'
 import { pseudo } from '@/ui/utils/pseudo'
 
-import DashboardStore from '../DashboardStore'
 import { EmployeeTabKey } from '../EmployeeDashboardPage'
 import { OverviewTabCopy } from './OverviewTabCopy'
 
 const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
-  const { authStore } = useRootStore()
+  const authStore = useAuthStore()
   const employee = authStore.account?.uid
-  const dashboardStore = useLocalMobXStore<DashboardStore<EmployeeTabKey>>()
+  const dashboardStore = useDashboardStore()
   const payPeriodEnd = usePayPeriodEnd()
 
   if (!employee) return null

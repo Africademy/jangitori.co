@@ -6,7 +6,6 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import {
-  EmployeeTabKey,
   employeeTabKeys,
   employeeTabs,
 } from '@/modules/dashboard/EmployeeDashboardPage'
@@ -21,15 +20,14 @@ const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
 
 import { observer } from 'mobx-react-lite'
 
-import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
-import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
+import { useDashboardStore } from '@/modules/stores'
 
 const EmployeeDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
   observer(function EmployeeDashboardRoute({ account }) {
     const props: DashboardPageProps = { tabs: employeeTabs, account }
-    const dashboardStore = useLocalMobXStore<DashboardStore<EmployeeTabKey>>()
+    const dashboardStore = useDashboardStore()
 
     const { getTabsProps, getTabListProps, getTabProps, getTabPanelProps } =
       useTabsComponent()

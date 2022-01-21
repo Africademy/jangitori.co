@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router'
+import { observer } from 'mobx-react-lite'
 
-import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
-import DashboardStore from '@/modules/dashboard/DashboardStore'
+import { useDashboardStore } from '@/modules/stores'
 import TimesheetDetailsPage from '@/modules/timesheets/TimesheetDetailsPage'
 import TimesheetsPage from '@/modules/timesheets/TimesheetsPage'
 
-export const TimesheetsTabPage = (props: DashboardPageProps) => {
-  const router = useRouter()
-  const dashboardStore = useLocalMobXStore<DashboardStore>()
+export const TimesheetsTabPage = observer(function TimesheetsTabPage(
+  props: DashboardPageProps,
+) {
+  const dashboardStore = useDashboardStore()
 
   if (dashboardStore.timesheetDetailsQuery) {
     return (
@@ -20,4 +20,4 @@ export const TimesheetsTabPage = (props: DashboardPageProps) => {
   }
 
   return <TimesheetsPage {...props} />
-}
+})

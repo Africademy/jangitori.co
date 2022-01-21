@@ -3,11 +3,7 @@ import dynamic from 'next/dynamic'
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import {
-  AdminTabKey,
-  adminTabKeys,
-  adminTabs,
-} from '@/modules/dashboard/AdminDashboardPage'
+import { adminTabKeys, adminTabs } from '@/modules/dashboard/AdminDashboardPage'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 
@@ -21,15 +17,14 @@ const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
 
 import { observer } from 'mobx-react-lite'
 
-import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
-import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
+import { useDashboardStore } from '@/modules/stores'
 
 const AdminDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
   observer(function AdminDashboardRoute({ account }) {
     const props: DashboardPageProps = { tabs: adminTabs, account }
-    const dashboardStore = useLocalMobXStore<DashboardStore<AdminTabKey>>()
+    const dashboardStore = useDashboardStore()
 
     const { getTabsProps, getTabListProps, getTabProps, getTabPanelProps } =
       useTabsComponent()

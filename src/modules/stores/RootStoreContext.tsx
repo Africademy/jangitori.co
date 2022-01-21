@@ -14,6 +14,14 @@ export function useRootStore() {
   return context
 }
 
+export function useAuthStore() {
+  return useRootStore().authStore
+}
+
+export function useDashboardStore() {
+  return useRootStore().dashboardStore
+}
+
 export function useServices<K extends keyof Services>(
   ...keys: K[]
 ): Pick<Services, K> {
