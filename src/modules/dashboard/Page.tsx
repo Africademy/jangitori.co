@@ -53,7 +53,7 @@ export const PageTopActions = ({ children }) => (
 )
 
 export const PageTitle = ({ children }) => (
-  <Heading as="h3" size="xl" lineHeight={1} fontWeight="medium">
+  <Heading as="h3" size="xl" lineHeight={1} fontWeight="bold">
     {children}
   </Heading>
 )
