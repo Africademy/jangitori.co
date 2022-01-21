@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-import { DashboardPageProps } from '@/modules/dashboard/DashboardPage'
+import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import { PageBody, PageHeading, PageTitle } from '@/modules/dashboard/Page'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'

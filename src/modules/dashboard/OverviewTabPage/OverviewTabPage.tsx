@@ -5,7 +5,7 @@ import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/u
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
-import { DashboardPageProps } from '../DashboardPage'
+import { DashboardPageProps } from '../DashboardPageProps'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
 import { SummarySection } from './SummarySection'
 import { UpcomingSection } from './UpcomingSection'

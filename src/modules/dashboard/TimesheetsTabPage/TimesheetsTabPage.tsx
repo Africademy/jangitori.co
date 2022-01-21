@@ -1,5 +1,5 @@
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
-import { DashboardPageProps } from '@/modules/dashboard/DashboardPage'
+import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import TimesheetDetailsPage from '@/modules/timesheets/TimesheetDetailsPage'
 import { isTimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'

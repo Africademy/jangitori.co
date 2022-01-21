@@ -1,4 +1,3 @@
-import { DashboardPageProps } from './DashboardPage/DashboardPage'
 import DashboardStore from './DashboardStore'
 
 export enum EmployeeTabKey {
@@ -16,11 +15,11 @@ export const employeeTabLabels = {
   [EmployeeTabKey.TIMESHEETS]: 'Timesheets',
 } as const
 
-export const employeeDashboardPageProps: Omit<DashboardPageProps, 'account'> = {
-  tabs: Object.entries(employeeTabLabels).map(([tabKey, tabLabel]) => ({
+export const employeeTabs = Object.entries(employeeTabLabels).map(
+  ([tabKey, tabLabel]) => ({
     id: tabKey,
     label: tabLabel,
-  })),
-}
+  }),
+)
 
 export class EmployeeDashboardStore extends DashboardStore<EmployeeTabKey> {}
