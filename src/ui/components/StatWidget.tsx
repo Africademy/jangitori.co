@@ -79,6 +79,7 @@ const StyledStat = styled.div<{ hasIcon: boolean }>`
     `}
   ${({ hasIcon }) => hasIcon && withIconStyles}
 `
+
 const StatTextContainer = styled.div`
   display: flex;
   flex-direction: column;
