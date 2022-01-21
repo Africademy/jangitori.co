@@ -1,8 +1,5 @@
 import { Flex, Tag } from '@chakra-ui/react'
-
-import { AnnotateIcon } from '@/ui/icons/AnnotateIcon'
-import { CheckIconSolid } from '@/ui/icons/CheckIcon'
-import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
+import { css, useTheme } from '@emotion/react'
 
 import {
   ReviewStatus,
@@ -10,29 +7,50 @@ import {
   ReviewStatusLabel,
 } from './reviewStatus'
 
+// import { AnnotateIcon } from '@/ui/icons/AnnotateIcon'
+// import { CheckIconSolid } from '@/ui/icons/CheckIcon'
+// import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
+
+// const renderLeftIcon = (status: ReviewStatus): JSX.Element => {
+//   switch (status) {
+//     case ReviewStatus.PENDING:
+//       return <RefreshIconSolid />
+//     case ReviewStatus.APPROVED:
+//       return <CheckIconSolid />
+//     case ReviewStatus.CHANGE_REQUESTED:
+//       return <AnnotateIcon />
+//   }
+// }
 interface StatusTagProps {
   status: ReviewStatus
-}
-
-const renderLeftIcon = (status: ReviewStatus): JSX.Element => {
-  switch (status) {
-    case ReviewStatus.PENDING:
-      return <RefreshIconSolid />
-    case ReviewStatus.APPROVED:
-      return <CheckIconSolid />
-    case ReviewStatus.CHANGE_REQUESTED:
-      return <AnnotateIcon />
-  }
 }
 
 export const StatusTag = ({ status }: StatusTagProps) => {
   const colorScheme = ReviewStatusColor[status]
   const label = ReviewStatusLabel[status]
+  const theme = useTheme()
 
   return (
-    <Tag colorScheme={colorScheme}>
-      <Flex display="flex" gap={1.5}>
-        {renderLeftIcon(status)}
+    <Tag
+      colorScheme={colorScheme}
+      borderRadius={theme.radii['3xl']}
+      fontSize="sm"
+      px={3}
+      lineHeight={1}
+    >
+      <Flex
+        display="flex"
+        align="center"
+        gap={1}
+        css={css`
+          svg {
+            color: ${theme.colors.cyan[700]} !important;
+            height: 0.875rem !important;
+            width: 0.875rem !important;
+          }
+        `}
+      >
+        {/* {renderLeftIcon(status)} */}
         {label}
       </Flex>
     </Tag>

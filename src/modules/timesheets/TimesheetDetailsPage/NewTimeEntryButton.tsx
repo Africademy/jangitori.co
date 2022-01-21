@@ -9,6 +9,7 @@ import { Timesheet } from '@/modules/models/Timesheet'
 import { useRootStore, useServices } from '@/modules/stores'
 import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { Typography } from '@/ui/atoms/Typography'
+import { ClockIcon } from '@/ui/icons/ClockIcon'
 
 import { useTimesheetDetails } from './useTimesheetDetails'
 
@@ -88,13 +89,18 @@ export const NewTimeEntryButtonComponent = ({
         </Flex>
       )}
       <Button
+        display="flex"
+        align="center"
+        gap={2}
         disabled={isBusy || isDisabled}
         variant="solid"
+        fontWeight="medium"
+        fontSize="sm"
         bg={theme.colors.indigo[600]}
         color={'#fff'}
         size="md"
         {...(!wide ? {} : { minW: '100%' })}
-        px={6}
+        px={3}
         onClick={handleNewTimeEntry}
         _disabled={{
           background: theme.colors.gray[200],
@@ -106,6 +112,7 @@ export const NewTimeEntryButtonComponent = ({
           },
         }}
       >
+        <ClockIcon />
         {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
       </Button>
     </>

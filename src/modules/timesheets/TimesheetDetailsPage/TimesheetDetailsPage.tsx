@@ -56,21 +56,23 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   return (
     <>
       <PageHeading>
-        <VStack align="flex-start" py={3} gap={2} w="100%">
+        <VStack w="100%" align="start" gap={1}>
           <Breadcrumbs pages={pages} />
-          <Flex justify="space-between" pb={3} w="100%">
-            <PageTitle>Timesheet</PageTitle>
+          <Flex justify="space-between" w="100%">
+            <PageTitle>Timesheet Details</PageTitle>
             <StatusTag status={timesheetData.status} />
           </Flex>
-          <Meta leftIcon={CalendarIconSolid} text={`Due ${payPeriodEnd}`} />
-          <Meta
-            leftIcon={CalculatorIconSolid}
-            text={`Total ${computeHoursWorked(timeEntriesData)} hours`}
-          />
+          <VStack w="100%" align="start" gap={1}>
+            <Meta leftIcon={CalendarIconSolid} text={`Due ${payPeriodEnd}`} />
+            <Meta
+              leftIcon={CalculatorIconSolid}
+              text={`Total ${computeHoursWorked(timeEntriesData)} hours`}
+            />
+          </VStack>
+          <PageTopActions>
+            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
+          </PageTopActions>
         </VStack>
-        <PageTopActions>
-          <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
-        </PageTopActions>
       </PageHeading>
       <PageBody>
         <TimesheetCalendar

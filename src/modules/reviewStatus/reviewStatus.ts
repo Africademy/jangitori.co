@@ -15,7 +15,7 @@ export const ReviewStatusLabel = {
 }
 
 export const ReviewStatusColor = {
-  [ReviewStatus.PENDING]: 'gray',
+  [ReviewStatus.PENDING]: 'cyan',
   [ReviewStatus.APPROVED]: 'green',
   [ReviewStatus.CHANGE_REQUESTED]: 'orange',
 }

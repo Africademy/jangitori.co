@@ -41,7 +41,7 @@ export const PageTopActions = ({ children }) => (
   <Box
     css={css`
       ${only('mobile')} {
-        padding-top: 1.75rem;
+        padding-top: 0.5rem;
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -53,7 +53,7 @@ export const PageTopActions = ({ children }) => (
 )
 
 export const PageTitle = ({ children }) => (
-  <Heading as="h3" size="xl" lineHeight={1} fontWeight="bold">
+  <Heading as="h3" fontSize="26px" lineHeight={1} fontWeight="semibold">
     {children}
   </Heading>
 )
