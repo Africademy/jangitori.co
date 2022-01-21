@@ -10,7 +10,7 @@ const MIN_TIME_BETWEEN_TIME_ENTRIES = 15
  * 15 minutes ago.
  */
 export function isAddTimeEntryAllowed(timeEntries: TimeEntry[]): boolean {
-  if (timeEntries.length <= 1) return true
+  if (!timeEntries.length) return true
   const lastEntry = timeEntries[timeEntries.length - 1]
   const now = new Date()
   const diff = differenceInMinutes(now, parseISO(lastEntry.timestamp))

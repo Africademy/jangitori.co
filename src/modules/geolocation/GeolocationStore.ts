@@ -3,7 +3,6 @@ import { autorun, computed, makeAutoObservable } from 'mobx'
 import { isProduction } from '@/lib/environment'
 
 import { Coordinates } from './Coordinates'
-import { getCoordinates } from './getCoordinates'
 
 const options = {
   enableHighAccuracy: true,
@@ -62,16 +61,24 @@ export class GeolocationStore {
   private syncPosition() {
     if (typeof navigator === 'undefined') return
 
-    autorun(() => {
-      navigator.geolocation.watchPosition(
-        (position) => {
-          this.setGeolocationPosition(position)
-        },
-        (error) => {
-          console.log('Failed to get current position: ', error)
-        },
-        options,
-      )
-    })
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const coords = position.coords
+        const currentCoords = this.coordinates
+        if (!currentCoords) return this.setGeolocationPosition(position)
+
+        if (
+          coords.latitude === currentCoords.latitude &&
+          coords.longitude === currentCoords.longitude
+        )
+          return
+
+        this.setGeolocationPosition(position)
+      },
+      (error) => {
+        console.log('Failed to get current position: ', error)
+      },
+      options,
+    )
   }
 }
