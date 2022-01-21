@@ -54,7 +54,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   return (
     <>
       <PageHeading>
-        <Flex justify="space-between" py={3}>
+        <Flex justify="space-between" pb={3}>
           <PageTitle>Timesheet</PageTitle>
           <Tag colorScheme={TimesheetStatusColor[timesheetData.status]}>
             <Flex display="flex" gap={1.5}>

@@ -70,7 +70,7 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
             <TabPanel padding={0}>
               <OverviewPage {...props} />
             </TabPanel>
-            <TabPanel>
+            <TabPanel padding={0}>
               <TimesheetsTabView {...props} />
             </TabPanel>
           </TabPanels>
