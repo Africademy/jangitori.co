@@ -36,7 +36,11 @@ export const NewTimeEntryButtonComponent = ({
         location,
       })
 
-      const lastEntry = timeEntries.data?.at(-1)
+      const timeEntriesData = timeEntries.data
+      const lastEntry =
+        timeEntriesData && timeEntriesData.length
+          ? timeEntriesData[timeEntriesData.length - 1]
+          : null
       if (!isClockIn || !lastEntry) return onSuccess(newEntry)
 
       await updateTimesheet({

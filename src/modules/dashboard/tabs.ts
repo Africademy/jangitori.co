@@ -34,7 +34,7 @@ export function parseTabKeyQueryParam(query: ParsedUrlQuery): TabKey {
 }
 
 export function getTabKeyForIndex(index: number): TabKey {
-  const tabKey = Object.keys(TabKeys).at(index)
+  const tabKey = Object.keys(TabKeys)[index]
 
   if (!tabKey) {
     const error = new Error('Invalid tabKey index ' + index)
