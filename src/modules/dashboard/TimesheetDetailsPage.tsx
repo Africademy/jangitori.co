@@ -22,7 +22,7 @@ export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
   return msg
 }
 
-export const TimesheetDetailsView = observer(function TimesheetDetailsView({
+export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) {
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])

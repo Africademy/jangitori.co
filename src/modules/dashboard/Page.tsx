@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 import { largerThan, only } from '@/ui/utils/breakpoints'
 
-export const PageHeadingBox = styled.div`
+const PageHeadingBox = styled.div`
   background: #fff;
   line-height: none !important;
   width: 100vw;
@@ -12,6 +12,7 @@ export const PageHeadingBox = styled.div`
   padding: 1.75rem 1.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   ${({ theme }) =>
     css`
       border-bottom: 0.8px solid ${theme.colors.gray[200]};
@@ -57,8 +58,11 @@ export const PageTitle = ({ children }) => (
   </Heading>
 )
 
-export const PageBodyBox = styled.div`
-  padding: 1.5rem;
+const PageBodyBox = styled.div`
+  padding: 1.5rem 0.25rem;
+  ${largerThan('mobile')} {
+    padding: 1.5rem;
+  }
 `
 export const PageBody = ({ children }) => (
   <PageBodyBox>

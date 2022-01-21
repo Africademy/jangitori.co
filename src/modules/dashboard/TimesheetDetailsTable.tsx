@@ -27,7 +27,14 @@ export const TimesheetDetailsTable: React.FunctionComponent<
   )
 
   return (
-    <Table variant="simple" bg="white" shadow="sm" borderRadius="md">
+    <Table
+      width="100%"
+      margin="none"
+      variant="simple"
+      bg="white"
+      shadow="sm"
+      borderRadius="md"
+    >
       <Thead>
         <Tr>
           {fields.map((field) => (

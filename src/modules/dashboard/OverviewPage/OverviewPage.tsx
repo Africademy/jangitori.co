@@ -15,7 +15,7 @@ import { pseudo } from '@/ui/utils/pseudo'
 
 import { NewTimeEntryButton } from '../NewTimeEntryButton'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
-import { mergeErrorMessages } from '../TimesheetDetailsView'
+import { mergeErrorMessages } from '../TimesheetDetailsPage'
 import { useTimesheetDetails } from '../useTimesheetDetails'
 import { OverviewPageCopy } from './OverviewPageCopy'
 import { SummarySection } from './SummarySection'

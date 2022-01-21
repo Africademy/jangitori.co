@@ -3,14 +3,14 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { isTimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
-import { TimesheetDetailsView } from './TimesheetDetailsView'
+import { TimesheetDetailsPage } from './TimesheetDetailsPage'
 import TimesheetsView from './TimesheetsView'
 
 export const TimesheetsTabView = (props: AuthenticatedPageProps) => {
   const dashboardStore = useLocalMobXStore<DashboardStore>()
 
   if (isTimesheetQuery(dashboardStore.query)) {
-    return <TimesheetDetailsView {...props} query={dashboardStore.query} />
+    return <TimesheetDetailsPage {...props} query={dashboardStore.query} />
   }
 
   return <TimesheetsView {...props} />
