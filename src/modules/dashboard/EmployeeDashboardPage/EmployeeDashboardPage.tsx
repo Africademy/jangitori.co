@@ -15,7 +15,6 @@ import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
 import { RoleIDs } from '@/modules/models/Role'
-import { only } from '@/ui/utils/breakpoints'
 
 import { TimesheetsTabView } from '../TimesheetsTabView'
 
@@ -40,11 +39,8 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
       <Container
         maxW="100%"
         css={css`
-          min-width: 80vw;
-          ${only('mobile')} {
-            min-width: 100vw;
-            padding: 0;
-          }
+          min-width: 100vw;
+          padding: 0;
         `}
       >
         <Tabs
@@ -61,7 +57,7 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
             ))}
           </TabList>
           <TabPanels>
-            <TabPanel>
+            <TabPanel padding={0}>
               <OverviewPage {...props} />
             </TabPanel>
             <TabPanel>

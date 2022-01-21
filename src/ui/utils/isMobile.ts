@@ -6,8 +6,8 @@ export const isMobile = (): boolean => {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent,
       )
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error)
 
       return false
     }

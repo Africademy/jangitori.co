@@ -22,7 +22,6 @@ const DashboardLayout = observer(function DashboardLayout({ children }) {
         align="center"
         minW="100vw"
         py={3}
-        px={8}
         bg="white"
         boxShadow="sm"
       >

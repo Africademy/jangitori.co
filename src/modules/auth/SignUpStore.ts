@@ -52,6 +52,7 @@ export class SignUpStore {
       '❌ failed to fetch employee. Error: ' + (error as Error).message,
     )
     Sentry.captureException(error)
+    alert((error as Error).message)
     this.setError((error as Error).message)
   }
 

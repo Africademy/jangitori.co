@@ -1,4 +1,5 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import format from 'date-fns/format'
 import React, { useMemo } from 'react'
 
 import { buildTimesheetDetailsRows } from '@/modules/dashboard/buildTimesheetDetailsRows'
@@ -16,8 +17,8 @@ export const TimesheetDetailsTable: React.FunctionComponent<
   const rows = useMemo(
     () =>
       buildTimesheetDetailsRows(data).map((entry) => ({
-        start: entry.start.toISOString(),
-        end: entry.end?.toISOString() ?? '--',
+        start: format(entry.start, 'h:m aaa'),
+        end: entry.end?.toLocaleString() ?? '--',
         minutes: isNaN(entry.minutes)
           ? '0 minutes'
           : `${entry.minutes} minutes`,
