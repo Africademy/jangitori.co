@@ -8,6 +8,8 @@ import { HoursToday } from './HoursToday'
 import { StartShiftButton } from './StartShiftButton'
 
 export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
+  const theme = useTheme()
+
   return (
     <>
       <MapBackdrop>
@@ -17,8 +19,9 @@ export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
             w="100%"
             position="absolute"
             bottom={0}
+            pt={8}
             bg={'#fff'}
-            pt={5}
+            shadow="md"
             minH={72}
             flexGrow={1}
             display="flex"

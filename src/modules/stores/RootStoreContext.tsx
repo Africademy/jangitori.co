@@ -22,6 +22,10 @@ export function useDashboardStore() {
   return useRootStore().dashboardStore
 }
 
+export function useTimeClockStore() {
+  return useRootStore().timeClockStore
+}
+
 export function useServices<K extends keyof Services>(
   ...keys: K[]
 ): Pick<Services, K> {
