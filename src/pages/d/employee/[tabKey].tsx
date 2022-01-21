@@ -39,7 +39,6 @@ const EmployeeDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
             dashboardStore.setTab(index)
-            dashboardStore.clearQueries()
           },
         })}
       >

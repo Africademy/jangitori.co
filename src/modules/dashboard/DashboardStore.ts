@@ -5,12 +5,7 @@ import { routes } from '@/lib/routes'
 
 import { RootStore } from '../stores'
 import { TimesheetDetailsQuery } from '../timesheets/timesheetDetailsQuery'
-import {
-  BaseTabKey,
-  getDashboardTabsForRole,
-  getIndexOfTabKey,
-  getTabKeyForIndex,
-} from './tabs'
+import { BaseTabKey, getDashboardTabsForRole, getTabKeyForIndex } from './tabs'
 
 export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
   tabIndex = 0
@@ -22,11 +17,6 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
 
   setTab(value: number) {
     this.tabIndex = value
-  }
-
-  setTabKey(key: TabKey) {
-    const index = getIndexOfTabKey<TabKey>(key, this.tabKeys)
-    this.setTab(index)
   }
 
   clearQueries() {
@@ -43,20 +33,26 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
     return tabs[this.tabIndex]
   }
 
-  routeToIndex(tab: number) {
-    this.setTab(tab)
+  routeTo(tab: TabKey | number) {
+    if (!Router.router?.isReady) {
+      console.log(
+        '❗ WARNING: Router is not ready but called DashboardStore.routeTo()',
+      )
+    }
     const role = this.root.getAccountRole()
     const tabKeys = this.tabKeys
-    Router.router?.push(
-      routes.dashboardPage(role, getTabKeyForIndex(tab, tabKeys)),
-    )
-  }
-
-  routeTo(tab: TabKey | number) {
-    if (typeof tab === 'number') return this.routeToIndex(tab)
-    this.setTabKey(tab)
-    const role = this.root.getAccountRole()
-    Router.router?.push(routes.dashboardPage(role, tab))
+    let path = ''
+    let newTabIndex = this.tabIndex
+    if (typeof tab === 'number') {
+      newTabIndex = tab
+      path = getTabKeyForIndex(tab, tabKeys)
+    } else {
+      path = tab
+      newTabIndex = tabKeys.indexOf(tab)
+    }
+    this.setTab(newTabIndex)
+    this.clearQueries()
+    Router.router?.push(routes.dashboardPage(role, path))
   }
 
   constructor(private root: RootStore) {
@@ -64,7 +60,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
 
     makeAutoObservable(
       this,
-      { setTab: action.bound, setTabKey: action.bound },
+      { setTab: action.bound, routeTo: action.bound },
       { name: 'DashboardStore' },
     )
   }
