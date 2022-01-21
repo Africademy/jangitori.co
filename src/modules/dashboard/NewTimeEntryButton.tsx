@@ -61,7 +61,7 @@ export const NewTimeEntryButton = ({
 
     toast.promise(task, {
       loading: `${isClockIn ? 'Clocking in' : 'Clocking out'}`,
-      success: (index) => {
+      success: () => {
         return `Successfully ${isClockIn ? 'clocked in' : 'clocked out'}`
       },
       error: (error) => {
@@ -73,7 +73,7 @@ export const NewTimeEntryButton = ({
 
   return (
     <div className="flex items-center gap-3">
-      {!isDisabled && (
+      {isDisabled && (
         <Tooltip
           label="You must wait at least 15 minutes between time punches."
           fontSize="md"

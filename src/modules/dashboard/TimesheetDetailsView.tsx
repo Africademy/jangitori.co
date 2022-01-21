@@ -9,6 +9,7 @@ import { useRootStore, useServices } from '@/modules/stores'
 import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
+import { HideForMobile } from '@/ui/components/HideForMobile'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
 import { NewTimeEntryButton } from './NewTimeEntryButton'
@@ -39,11 +40,29 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     )
   }
 
-  if (!timesheet.data || !timeEntries.data || !geolocationStore.isReady)
+  const timesheetId = timesheet.data ? timesheet.data.id : null
+  const timeEntriesData = timeEntries.data
+
+  if (!timesheetId || !timeEntriesData || !geolocationStore.isReady)
     return <LoadingVStack />
 
-  const isClockIn = shouldClockIn(timeEntries.data)
-  const timesheetId = timesheet.data ? timesheet.data.id : null
+  const isClockIn = shouldClockIn(timeEntriesData)
+
+  const getNewTimeEntryButtonProps = () => ({
+    timesheetId,
+    isClockIn,
+    isDisabled: !isAddTimeEntryAllowed(timeEntriesData),
+    updateTimesheet: (updateData: Partial<Timesheet>) => {
+      services.timesheet.updateTimesheet({
+        id: timesheetId,
+        ...updateData,
+      })
+    },
+    onSuccess: () => {
+      timeEntries.mutate()
+      timesheet.mutate()
+    },
+  })
 
   return (
     <VStack minW="100%">
@@ -54,27 +73,14 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
             console.log('newPayPeriodEnd: ', newPayPeriodEnd)
           }
         />
-        {timesheetId !== null && (
-          <NewTimeEntryButton
-            timesheetId={timesheetId}
-            isClockIn={isClockIn}
-            isDisabled={!isAddTimeEntryAllowed(timeEntries.data)}
-            updateTimesheet={(updateData: Partial<Timesheet>) => {
-              services.timesheet.updateTimesheet({
-                id: timesheetId,
-                ...updateData,
-              })
-            }}
-            onSuccess={() => {
-              timeEntries.mutate()
-              timesheet.mutate()
-            }}
-          />
-        )}
+        <HideForMobile>
+          <NewTimeEntryButton {...getNewTimeEntryButtonProps()} />
+        </HideForMobile>
       </Flex>
       <>
         {timeEntries.data && <TimesheetDetailsTable data={timeEntries.data} />}
       </>
+      <NewTimeEntryButton {...getNewTimeEntryButtonProps()} />
     </VStack>
   )
 })
