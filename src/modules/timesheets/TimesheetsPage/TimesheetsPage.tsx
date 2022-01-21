@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { PageBody, PageHeading, PageTitle } from '@/modules/dashboard/Page'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
@@ -9,7 +9,7 @@ import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
 import TimesheetsTable from './TimesheetsTable'
 
-export const TimesheetsPage = ({ account }: DashboardPageProps) => {
+export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
   const services = useServices('timesheet')
 
   const { data: timesheets, error } = useSWR<Timesheet[], Error>(

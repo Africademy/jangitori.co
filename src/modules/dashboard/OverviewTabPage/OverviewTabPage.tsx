@@ -1,14 +1,14 @@
 import { Box, Button, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 
+import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { Typography } from '@/ui/atoms/Typography'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
-import { DashboardPageProps } from '../DashboardPageProps'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 import ViewTimesheetButton from './ViewTimesheetButton'
 
-export const OverviewTabPage = ({ account }: DashboardPageProps) => {
+export const OverviewTabPage = ({}: AuthenticatedPageProps) => {
   const theme = useTheme()
   return (
     <>
