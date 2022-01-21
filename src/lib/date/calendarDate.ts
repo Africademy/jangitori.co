@@ -66,10 +66,28 @@ export function toPgCalendarDateQuery(
 export const truncateCalendarDate = (date: CalendarDate): string =>
   date.split('-').slice(0, 2).join('-')
 
-export function prettyCalendarDate(calendarDate: CalendarDate): string {
+export function prettyCalendarDateWithoutYear(
+  calendarDate: CalendarDate,
+): string {
+  const date = calendarDateToDate(calendarDate)
+
+  const dateString = format(date, 'MMMM dd')
+
+  return dateString
+}
+
+export function prettyCalendarDateAbbr(calendarDate: CalendarDate): string {
   const date = calendarDateToDate(calendarDate)
 
   const dateString = format(date, "MMM dd ''yy'")
+
+  return dateString
+}
+
+export function prettyCalendarDate(calendarDate: CalendarDate): string {
+  const date = calendarDateToDate(calendarDate)
+
+  const dateString = format(date, 'MMMM dd, yyyy')
 
   return dateString
 }

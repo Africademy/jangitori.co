@@ -1,7 +1,11 @@
 import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
-import { calendarDateToDate, prettyCalendarDate } from '@/lib/date/calendarDate'
+import {
+  calendarDateToDate,
+  prettyCalendarDateAbbr,
+  prettyCalendarDateWithoutYear,
+} from '@/lib/date/calendarDate'
 import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import {
@@ -50,7 +54,11 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
 
   const pages = [
     { name: 'Timesheets', href: '#', current: false },
-    { name: `${prettyCalendarDate(payPeriodEnd)}`, href: '#', current: true },
+    {
+      name: `${prettyCalendarDateAbbr(payPeriodEnd)}`,
+      href: '#',
+      current: true,
+    },
   ]
 
   return (
@@ -63,7 +71,10 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
             <StatusTag status={timesheetData.status} />
           </Flex>
           <VStack w="100%" align="start" gap={1}>
-            <Meta leftIcon={CalendarIconSolid} text={`Due ${payPeriodEnd}`} />
+            <Meta
+              leftIcon={CalendarIconSolid}
+              text={`Due ${prettyCalendarDateWithoutYear(payPeriodEnd)}`}
+            />
             <Meta
               leftIcon={CalculatorIconSolid}
               text={`Total ${computeHoursWorked(timeEntriesData)} hours`}
