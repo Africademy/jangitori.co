@@ -23,7 +23,7 @@ export const createLogger = ({
 
   return createSimpleLogger({
     prefix: fileLabel,
-    shouldPrint: (mode) => {
+    shouldPrint: () => {
       // Only hide browser errors in production
       return !(
         process.env.NEXT_PUBLIC_APP_STAGE === 'production' && isBrowser()

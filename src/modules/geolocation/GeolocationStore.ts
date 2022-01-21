@@ -1,4 +1,4 @@
-import { autorun, computed, makeAutoObservable } from 'mobx'
+import { computed, makeAutoObservable } from 'mobx'
 
 import { isProduction } from '@/lib/environment'
 

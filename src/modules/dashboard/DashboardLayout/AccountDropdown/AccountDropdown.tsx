@@ -30,7 +30,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
 
   const { authStore } = useRootStore()
   const services = useServices('auth')
-  const [isLoading, setIsLoading] = useState(false)
+  const [, setIsLoading] = useState(false)
 
   async function signOut() {
     setIsLoading(true)

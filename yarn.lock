@@ -7588,7 +7588,6 @@ __metadata:
     jest-to-match-shape-of: ^1.3.1
     lint-staged: ^12.1.4
     lodash.times: ^4.3.2
-    memoize-one: ^6.0.0
     mobx: ^6.3.10
     mobx-logger: ^0.7.1
     mobx-react-lite: ^3.2.2
@@ -7600,6 +7599,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     react-hot-toast: ^2.1.1
+    rimraf: ^3.0.2
     swr: ^1.1.2
     tailwindcss: ^3.0.8
     tiny-invariant: ^1.2.0
@@ -8813,13 +8813,6 @@ __metadata:
   dependencies:
     object-visit: ^1.0.0
   checksum: c27045a5021c344fc19b9132eb30313e441863b2951029f8f8b66f79d3d8c1e7e5091578075a996f74e417479506fe9ede28c44ca7bc351a61c9d8073daec36a
-  languageName: node
-  linkType: hard
-
-"memoize-one@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "memoize-one@npm:6.0.0"
-  checksum: f185ea69f7cceae5d1cb596266dcffccf545e8e7b4106ec6aa93b71ab9d16460dd118ac8b12982c55f6d6322fcc1485de139df07eacffaae94888b9b3ad7675f
   languageName: node
   linkType: hard
 

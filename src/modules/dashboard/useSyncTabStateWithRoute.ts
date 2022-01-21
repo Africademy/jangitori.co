@@ -26,5 +26,5 @@ export function useSyncTabStateWithRoute(
     return () => {
       router.events.off('routeChangeComplete', handleRouteChangeComplete)
     }
-  }, [getTabKey, setTabKey])
+  }, [getTabKey, router.events, setTabKey])
 }

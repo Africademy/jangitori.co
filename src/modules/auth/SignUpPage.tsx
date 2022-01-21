@@ -16,6 +16,8 @@ import { FormFieldProps } from './AuthForm/AuthForm'
 const AuthForm = dynamic(() => import('./AuthForm/AuthForm'))
 import dynamic from 'next/dynamic'
 
+import { useRootStore } from '@/modules/stores'
+import { Typography } from '@/ui/atoms/Typography'
 import {
   Form,
   FormField,
@@ -23,9 +25,6 @@ import {
   FormHeader,
   FormSubmit,
 } from '@/ui/components/Form'
-const Typography = dynamic(() => import('@/ui/atoms/Typography/Typography'))
-
-import { useRootStore } from '@/modules/stores'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 
 import { SignUpStore } from './SignUpStore'
