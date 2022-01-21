@@ -5,7 +5,6 @@ import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
 import { DashboardPageProps } from '../DashboardPageProps'
-import { NewTimeEntryButton } from '../NewTimeEntryButton'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
 import { useTimesheetDetails } from '../useTimesheetDetails'
 import { SummarySection } from './SummarySection'
@@ -42,7 +41,6 @@ export const OverviewTabPage = function OverviewTabPage({
       <PageHeading>
         <PageTitle>{`${account.firstName} ${account.lastName}`}</PageTitle>
         <PageTopActions>
-          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
           <ViewTimesheetButton />
         </PageTopActions>
       </PageHeading>

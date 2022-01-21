@@ -38,7 +38,13 @@ export const SummarySection: React.FunctionComponent<SummarySectionProps> = ({
 
   if (timeEntries.data.length === 0)
     return <Typography>{"You haven't clocked in yet"}</Typography>
-  const lastClockedIn = parseISO(timeEntries.data[0].timestamp)
+
+  const lastClockedIn = parseISO(
+    timeEntries.data.sort(
+      (a, b) =>
+        parseISO(b.timestamp).getTime() - parseISO(a.timestamp).getTime(),
+    )[0].timestamp,
+  )
 
   return (
     <PageSection

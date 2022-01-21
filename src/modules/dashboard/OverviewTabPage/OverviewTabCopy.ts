@@ -8,6 +8,6 @@ export const OverviewTabCopy = {
   },
   LatestActivity: {
     title: 'Latest',
-    CurrentTimesheetLink: 'View timesheet',
+    CurrentTimesheetLink: 'View current timesheet',
   },
 }

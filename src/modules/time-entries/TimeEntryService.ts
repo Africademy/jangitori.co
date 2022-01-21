@@ -13,7 +13,6 @@ export class TimeEntryService {
       .from<TimeEntry>(TableKeys.TimeEntries)
       .select('*')
       .eq('timesheet', timesheet)
-      .order('timestamp')
 
     if (error) throw error
 
