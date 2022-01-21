@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Tag, VStack } from '@chakra-ui/react'
+import { Flex, Heading, Tag, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
@@ -20,7 +20,6 @@ import {
 } from '@/modules/timesheets/TimesheetStatus'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { HideForMobile } from '@/ui/components/HideForMobile'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalendarIconSolid } from '@/ui/icons'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
@@ -78,20 +77,12 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         <PageTopActions>
           <VStack w="100%" gap={2}>
             <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
-            <Button
-              color={'#fff'}
-              bg={theme.colors.indigo[600]}
-              disabled={timesheetData.status !== 'in-progress'}
-              w="100%"
-            >
-              Request to Edit
-            </Button>
           </VStack>
         </PageTopActions>
       </PageHeading>
 
       <PageBody>
-        <Flex justify="start" w="100%">
+        <Flex justify="space-between" align="center" w="100%">
           <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
             Time Entries
           </Heading>
