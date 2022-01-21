@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
 
 import { MyAppProps } from '@/app/MyAppProps'
-import { rootStoreInstance } from '@/modules/stores'
 
 const AppLayout = dynamic(() => import('@/app/AppLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
@@ -16,9 +15,7 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
   return (
     <AppProviders>
       <AuthListener>
-        <AppLayout>
-          {getLayout(<Component {...pageProps} store={rootStoreInstance} />)}
-        </AppLayout>
+        <AppLayout>{getLayout(<Component {...pageProps} />)}</AppLayout>
       </AuthListener>
     </AppProviders>
   )

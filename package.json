@@ -18,7 +18,8 @@
     "test": "jest --clearCache && NODE_ENV=test jest",
     "test:utils": "jest --clearCache && NODE_ENV=test jest --group=utils --watchAll",
     "test:api": "jest --clearCache && NODE_ENV=test jest --group=api --watchAll",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "type-check": "tsc --pretty --noEmit"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [

@@ -1,6 +1,6 @@
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { GeolocationStore } from '@/modules/geolocation/GeolocationStore'
-import { initServices, Services } from '@/modules/services'
+import { initServices, Services } from '@/modules/stores/services'
 
 export class RootStore {
   services: Services = initServices()
