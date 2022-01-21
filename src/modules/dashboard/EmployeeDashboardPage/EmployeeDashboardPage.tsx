@@ -48,11 +48,15 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
           isLazy
           onChange={dashboardStore.setTab}
           index={dashboardStore.tabIndex}
-          colorScheme="messenger"
+          colorScheme="gray"
         >
           <TabList bg={'#fff'} shadow="none">
             {tabs.map((tab, i) => (
-              <StyledTab id={tab.id} key={tab.id}>
+              <StyledTab
+                id={tab.id}
+                key={tab.id}
+                isSelected={dashboardStore.tabIndex === i}
+              >
                 {tab.label}
               </StyledTab>
             ))}
