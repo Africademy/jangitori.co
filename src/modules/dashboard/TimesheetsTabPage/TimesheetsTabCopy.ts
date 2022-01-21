@@ -2,8 +2,8 @@ export const TimesheetsTabCopy = {
   title: 'Timesheets',
 }
 
-export const TimeClockStartCopy = {
-  HoursToday: 'Hours worked so far',
+export const InitialTimeClockCopy = {
+  HoursToday: 'Hours worked today',
   StartShift: 'Start shift',
   ViewTimesheet: 'Timesheet',
 }

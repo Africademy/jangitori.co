@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Toaster } from 'react-hot-toast'
 
@@ -11,13 +12,21 @@ interface Props {
 
 export function AppLayout({ children }: Props): ReactElement {
   return (
-    <div className="overflow-x-hidden">
+    <>
       <CoreHead />
-      {children}
+      <Main>{children}</Main>
       <Toaster
         position="bottom-left"
         toastOptions={{ duration: TOAST_DURATION }}
       />
-    </div>
+    </>
   )
 }
+
+const Main = styled.main`
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 100vw;
+  max-width: 100vh;
+  overflow: hidden;
+`

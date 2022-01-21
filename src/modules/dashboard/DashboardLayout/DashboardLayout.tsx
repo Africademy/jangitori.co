@@ -13,7 +13,7 @@ const DashboardLayout = function DashboardLayout({
   children,
 }: React.PropsWithChildren<DashboardLayoutProps>) {
   return (
-    <Box>
+    <Box maxH="100vh">
       <DashboardHeader />
       <Container maxW="100%" minW="100vw" p={0}>
         {children}
