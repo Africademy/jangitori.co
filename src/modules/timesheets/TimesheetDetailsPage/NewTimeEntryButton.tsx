@@ -6,6 +6,7 @@ import toast from 'react-hot-toast'
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { TimeEntry } from '@/modules/models/TimeEntry'
 import { Timesheet } from '@/modules/models/Timesheet'
+import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useRootStore, useServices } from '@/modules/stores'
 import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { Typography } from '@/ui/atoms/Typography'
@@ -122,9 +123,19 @@ export const NewTimeEntryButton = ({
   timeEntriesData: TimeEntry[]
   wide?: boolean
 }) => {
-  const getNewTimeEntryButtonProps = useGetNewTimeEntryButtonProps({
+  const payPeriodEnd = usePayPeriodEnd()
+  const employee = useRootStore().authStore.account?.uid ?? ''
+  const { timeEntries } = useTimesheetDetails({ employee, payPeriodEnd })
+
+  const isClockIn = shouldClockIn(timeEntriesData)
+
+  const getNewTimeEntryButtonProps = () => ({
     timesheetId: timesheetData.id,
-    timeEntriesData,
+    isClockIn,
+    isDisabled: !isAddTimeEntryAllowed(timeEntriesData),
+    onSuccess: () => {
+      timeEntries.mutate()
+    },
   })
 
   return (
@@ -145,24 +156,5 @@ export const DisabledStateExplanation = () => {
         Must wait at least 15 minutes between entries.
       </Typography>
     </Flex>
-  )
-}
-
-export const InfoIcon = (props) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
   )
 }

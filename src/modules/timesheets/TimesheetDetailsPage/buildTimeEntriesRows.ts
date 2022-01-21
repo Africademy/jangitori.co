@@ -9,7 +9,7 @@ export interface TimesheetDetailsRow {
   minutes: number
 }
 
-export function buildTimesheetDetailsRows(
+export function buildTimeEntriesRows(
   timeEntries: TimeEntry[],
 ): Array<TimesheetDetailsRow> {
   let newRows: TimesheetDetailsRow[] = []

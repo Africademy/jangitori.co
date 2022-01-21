@@ -2,7 +2,6 @@ import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
 import {
-  calendarDateToDate,
   prettyCalendarDate,
   prettyCalendarDateWithoutYear,
 } from '@/lib/date/calendarDate'
@@ -14,7 +13,6 @@ import {
   PageTitle,
   PageTopActions,
 } from '@/modules/dashboard/Page'
-import { computePayPeriod } from '@/modules/payrolls/computePayPeriod'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
@@ -28,7 +26,7 @@ import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
 import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
-import { TimesheetCalendar } from './TimesheetCalendar'
+import { TimeEntriesTable } from './TimeEntriesTable'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
@@ -86,9 +84,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         </VStack>
       </PageHeading>
       <PageBody>
-        <TimesheetCalendar
-          payPeriod={computePayPeriod(calendarDateToDate(payPeriodEnd))}
-        />
+        <TimeEntriesTable data={timeEntriesData} />
       </PageBody>
     </>
   )

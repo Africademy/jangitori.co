@@ -1,12 +1,12 @@
 import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
 
 import { TimeEntry } from '@/modules/models/TimeEntry'
-import { buildTimesheetDetailsRows } from '@/modules/timesheets/TimesheetDetailsPage/buildTimesheetDetailsRows'
+import { buildTimeEntriesRows } from '@/modules/timesheets/TimesheetDetailsPage/buildTimeEntriesRows'
 
 export function computeMinutesWorked(timeEntries: TimeEntry[]): number {
   if (!timeEntries.length) return 0
 
-  const minutes = buildTimesheetDetailsRows(timeEntries)
+  const minutes = buildTimeEntriesRows(timeEntries)
     .map((entry) => entry.minutes)
     .reduce((total, entry) => total + entry)
   return millisecondsToMinutes(minutes)

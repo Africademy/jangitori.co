@@ -8,12 +8,12 @@ import { buildTimeEntriesRows } from './buildTimeEntriesRows'
 
 const fields = ['start', 'end', 'total']
 
-export interface TimesheetDetailsProps {
+export interface TimeEntriesTableProps {
   data: TimeEntry[]
 }
 
-export const TimesheetDetails: React.FunctionComponent<
-  TimesheetDetailsProps
+export const TimeEntriesTable: React.FunctionComponent<
+  TimeEntriesTableProps
 > = ({ data }) => {
   const rows = useMemo(
     () =>

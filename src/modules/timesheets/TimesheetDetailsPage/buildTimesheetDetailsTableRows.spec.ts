@@ -3,9 +3,9 @@ import faker from 'faker'
 import { TimeEntry } from '@/modules/models/TimeEntry'
 
 import {
-  buildTimesheetDetailsRows,
+  buildTimeEntriesRows,
   TimesheetDetailsRow,
-} from './buildTimesheetDetailsRows'
+} from './buildTimeEntriesRows'
 
 export const mockTimeEntry = (): TimeEntry => ({
   id: faker.datatype.number(),
@@ -28,7 +28,7 @@ const mockTimeEntryWithInitialData = (
  * @group modules
  */
 
-describe('buildTimesheetDetailsRows', () => {
+describe('buildTimeEntriesRows', () => {
   it('should list of props needed to render TimesheetDetails given a list of time timeEntries', () => {
     const dates = [
       new Date(2000, 0, 0, 1, 0, 0, 0),
@@ -54,7 +54,7 @@ describe('buildTimesheetDetailsRows', () => {
       },
     ]
 
-    const result = buildTimesheetDetailsRows(timeEntries)
+    const result = buildTimeEntriesRows(timeEntries)
     expect(result).toHaveLength(2)
     expect(result).toEqual(expectedRows)
   })
