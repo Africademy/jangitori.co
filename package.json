@@ -1,4 +1,5 @@
 {
+  "name": "jangitori",
   "private": true,
   "scripts": {
     "dev": "next",
