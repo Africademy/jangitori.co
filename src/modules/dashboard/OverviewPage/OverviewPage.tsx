@@ -82,7 +82,7 @@ export const OverviewPage = function OverviewPage({
         >
           <Heading
             as="h3"
-            size="lg"
+            size="xl"
             lineHeight={1}
             fontWeight="medium"
           >{`${account.firstName} ${account.lastName}`}</Heading>
