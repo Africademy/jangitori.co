@@ -1,4 +1,4 @@
-import { Tab, TabProps } from '@chakra-ui/react'
+import { Tab } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { HTMLAttributes } from 'react'
 

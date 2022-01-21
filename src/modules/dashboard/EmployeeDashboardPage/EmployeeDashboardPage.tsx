@@ -50,7 +50,12 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
           index={dashboardStore.tabIndex}
           colorScheme="gray"
         >
-          <TabList bg={'#fff'} shadow="none">
+          <TabList
+            bg={'#fff'}
+            shadow="none"
+            px={8}
+            borderBottom={`0.8px solid ${theme.colors.gray[300]}`}
+          >
             {tabs.map((tab, i) => (
               <StyledTab
                 id={tab.id}

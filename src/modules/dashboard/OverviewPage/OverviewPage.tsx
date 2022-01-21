@@ -16,7 +16,6 @@ import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
-import Typography from '@/ui/atoms/Typography/Typography'
 import { Section } from '@/ui/components/Section'
 import { only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
@@ -47,14 +46,7 @@ export const OverviewPage = function OverviewPage({
   return (
     <>
       <PageHeading>
-        <Flex align="center" gap={3}>
-          <Avatar
-            size="md"
-            lineHeight="none"
-            bg={theme.colors.gray[400]}
-            fontWeight={theme.fontWeights.bold}
-            name={`${account.firstName} ${account.lastName}`}
-          />
+        <Flex align="center" justify="space-between" width="85vw" mx="auto">
           <VStack align="start" gap={0}>
             <Heading
               as="h3"
@@ -62,18 +54,9 @@ export const OverviewPage = function OverviewPage({
               lineHeight={1}
               fontWeight="medium"
             >{`${account.firstName} ${account.lastName}`}</Heading>
-            <Typography
-              lineHeight={1}
-              textTransform="uppercase"
-              fontSize="sm"
-              fontWeight="medium"
-              color={theme.colors.gray[600]}
-            >
-              {account.role}
-            </Typography>
           </VStack>
+          <ViewTimesheetButton />
         </Flex>
-        <ViewTimesheetButton />
       </PageHeading>
       <PageBody>
         <Section>
@@ -97,7 +80,7 @@ export const OverviewPage = function OverviewPage({
 const PageHeading = styled.div`
   background: #fff;
   line-height: none !important;
-  min-width: 100vwh;
+  width: 100vw;
   height: 16vh;
   padding: 1.75rem 1.5rem;
   display: flex;
@@ -110,7 +93,7 @@ const PageHeading = styled.div`
   gap: 0.75rem;
   ${({ theme }) =>
     css`
-      border-bottom: 1px solid ${theme.colors.gray[200]};
+      border-bottom: 0.8px solid ${theme.colors.gray[200]};
     `}
 `
 
@@ -129,7 +112,8 @@ function getStatWidgetProps(payPeriodEnd: string) {
 const SButton = styled(Button)`
   opacity: 0.8;
   height: 44px;
-  max-width: 220px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background: transparent;
   font-size: 1rem;
 
@@ -137,16 +121,11 @@ const SButton = styled(Button)`
     css`
       font-weight: ${theme.fontWeights.medium};
       color: ${theme.colors.gray[700]};
-      border: 1px solid ${theme.colors.gray[200]};
+      border: 0.8px solid ${theme.colors.gray[200]};
       ${pseudo('_hover')} {
         box-shadow: ${theme.shadows.sm};
-        border: 1px solid ${theme.colors.gray[300]};
+        border: 0.8px solid ${theme.colors.gray[300]};
         background: transparent;
-      }
-
-      svg {
-        height: 1.375rem !important;
-        width: 1.375rem !important;
       }
     `}
 `
