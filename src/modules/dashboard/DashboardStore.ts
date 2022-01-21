@@ -4,10 +4,13 @@ import Router from 'next/router'
 import { routes } from '@/lib/routes'
 import { RoleID } from '@/modules/models/Role'
 
+import { RootStore } from '../stores'
 import { TimesheetDetailsQuery } from '../timesheets/timesheetDetailsQuery'
 import { getIndexOfTabKey } from './tabs'
 
-export default class DashboardStore<TabKey extends string = string> {
+export type BaseTabKey = 'overview' | string
+
+export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
   tabIndex = 0
   timesheetDetailsQuery: TimesheetDetailsQuery | null = null
 
@@ -20,7 +23,7 @@ export default class DashboardStore<TabKey extends string = string> {
   }
 
   setTabKey(key: TabKey) {
-    const index = getIndexOfTabKey<TabKey>(key, this.props.tabKeys)
+    const index = getIndexOfTabKey<TabKey>(key, this.tabKeys)
     this.setTab(index)
   }
 
@@ -29,14 +32,18 @@ export default class DashboardStore<TabKey extends string = string> {
   }
 
   get tabKey(): TabKey {
-    return this.props.tabKeys[this.tabIndex]
+    return this.tabKeys[this.tabIndex]
+  }
+
+  routeTo(tab: TabKey) {
+    this.setTabKey(tab)
+    const role = this.root.getAccountRole()
+    Router.router?.push(routes.dashboardPage(role, tab))
   }
 
   constructor(
-    private props: {
-      role: RoleID
-      tabKeys: TabKey[]
-    },
+    private root: RootStore,
+    private tabKeys = ['overview'] as TabKey[],
   ) {
     this.tabIndex = 0
 
@@ -44,22 +51,6 @@ export default class DashboardStore<TabKey extends string = string> {
       this,
       { setTab: action.bound, setTabKey: action.bound },
       { name: 'DashboardStore' },
-    )
-
-    reaction(
-      () => this.tabIndex,
-      (tabIndex) => {
-        const currentUrl = Router.router?.asPath
-        if (!currentUrl) throw new Error('Router.router was null')
-
-        Router.router?.push(
-          routes.dashboardPage(this.props.role, this.tabKey),
-          undefined,
-          {
-            shallow: true,
-          },
-        )
-      },
     )
   }
 

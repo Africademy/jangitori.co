@@ -1,24 +1,16 @@
 import { useTheme } from '@emotion/react'
 
-import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
-
-import DashboardStore from './DashboardStore'
-import { TabButtonProps } from './TabButtonProps'
-
 export function useTabsComponent() {
   const theme = useTheme()
-  const dashboardStore = useLocalMobXStore<DashboardStore>()
 
-  const getTabsProps = (props = {}) => {
+  const getTabsProps = (
+    props = { tabIndex: 0, onChange: (i) => console.log(i) },
+  ) => {
     return {
       isLazy: true,
       colorScheme: 'gray',
-      index: dashboardStore.tabIndex,
-      onChange: (index: number) => {
-        dashboardStore.setTab(index)
-        dashboardStore.clearQueries()
-      },
-      ...props,
+      index: props.tabIndex,
+      onChange: (index: number) => props.onChange(index),
     }
   }
 
@@ -32,10 +24,10 @@ export function useTabsComponent() {
     }
   }
 
-  const getTabProps = (props: { tab: TabButtonProps; index: number }) => {
+  const getTabProps = (props: { id: string; isSelected: boolean }) => {
     return {
-      id: props.tab.id,
-      isSelected: dashboardStore.tabIndex === props.index,
+      id: props.id,
+      isSelected: props.isSelected,
     }
   }
 

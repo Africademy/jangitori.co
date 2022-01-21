@@ -25,7 +25,7 @@ const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
       employee,
       payPeriodEnd,
     })
-    dashboardStore.setTabKey(EmployeeTabKey.TIMESHEETS)
+    dashboardStore.routeTo(EmployeeTabKey.TIMESHEETS)
   }
 
   return (

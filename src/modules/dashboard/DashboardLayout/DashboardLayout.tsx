@@ -8,7 +8,6 @@ import { LocalStoreProvider } from '@/lib/mobx/LocalStoreProvider'
 import { useRootStore } from '@/modules/stores'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
-import DashboardStore from '../DashboardStore'
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
 
 export function useSyncTabStateWithRoute<TabKey extends string>(
@@ -37,15 +36,12 @@ export function useSyncTabStateWithRoute<TabKey extends string>(
   }, [getTabKey, router.events, setTabKey])
 }
 
-export interface DashboardLayoutProps {
-  initStore: () => DashboardStore
-}
+export interface DashboardLayoutProps {}
 
 const DashboardLayout = function DashboardLayout({
   children,
-  initStore,
 }: React.PropsWithChildren<DashboardLayoutProps>) {
-  const dashboardStore = initStore()
+  const { dashboardStore } = useRootStore()
 
   useSyncTabStateWithRoute(
     () => dashboardStore.tabKey,
