@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, VStack } from '@chakra-ui/react'
+import { Box, Button, Heading } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -8,7 +8,7 @@ import { CalendarIcon } from '@/ui/icons'
 
 const StatWidget = dynamic(() => import('@/ui/components/StatWidget'))
 
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 
@@ -16,11 +16,15 @@ import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
+import { ErrorMessage } from '@/ui/components/ErrorMessage'
+import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { Section } from '@/ui/components/Section'
 import { largerThan, only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
 
-import { Avatar } from '../DashboardLayout/AccountDropdown/Avatar'
+import { NewTimeEntryButton } from '../NewTimeEntryButton'
+import { mergeErrorMessages } from '../TimesheetDetailsView'
+import { useTimesheetDetails } from '../useTimesheetDetails'
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
 
 const OverviewPageCopy = {
@@ -41,7 +45,26 @@ export const OverviewPage = function OverviewPage({
   account,
 }: AuthenticatedPageProps) {
   const payPeriodEnd = usePayPeriodEnd()
-  const theme = useTheme()
+
+  const { timesheet, timeEntries } = useTimesheetDetails({
+    employee: account.uid,
+    payPeriodEnd,
+  })
+  const { geolocationStore } = useRootStore()
+
+  if (timesheet.error || timeEntries.error) {
+    return (
+      <ErrorMessage>
+        {mergeErrorMessages(timesheet.error, timeEntries.error)}
+      </ErrorMessage>
+    )
+  }
+
+  const timesheetData = timesheet.data
+  const timeEntriesData = timeEntries.data
+
+  if (!timesheetData || !timeEntriesData || !geolocationStore.isReady)
+    return <LoadingVStack />
 
   return (
     <>
@@ -70,6 +93,7 @@ export const OverviewPage = function OverviewPage({
               }
             `}
           >
+            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
             <ViewTimesheetButton />
           </Box>
         </Box>

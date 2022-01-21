@@ -5,13 +5,17 @@ import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
+import { shouldClockIn } from '@/lib/shouldClockIn'
 import { useRootStore, useServices } from '@/modules/stores'
 import { QuestionIcon } from '@/ui/icons'
 import { pseudo } from '@/ui/utils/pseudo'
 
+import { TimeEntry } from '../models/TimeEntry'
+import { Timesheet } from '../models/Timesheet'
+import { isAddTimeEntryAllowed } from '../time-entries/isAddTimeEntryAllowed'
 import { useTimesheetDetails } from './useTimesheetDetails'
 
-export const NewTimeEntryButton = ({
+export const NewTimeEntryButtonComponent = ({
   timesheetId,
   isClockIn,
   isDisabled,
@@ -127,3 +131,47 @@ const IconBox = styled.div`
     width: 0.75rem;
   }
 `
+
+export function useGetNewTimeEntryButtonProps({
+  timesheetId,
+  timeEntriesData,
+}) {
+  const services = useServices('timeEntry', 'timesheet')
+
+  const { timesheet, timeEntries } = useTimesheetDetails(timesheetId)
+
+  const isClockIn = shouldClockIn(timeEntriesData)
+
+  const getNewTimeEntryButtonProps = () => ({
+    timesheetId,
+    isClockIn,
+    isDisabled: !isAddTimeEntryAllowed(timeEntriesData),
+    updateTimesheet: (updateData: Partial<Timesheet>) => {
+      services.timesheet.updateTimesheet({
+        id: timesheetId,
+        ...updateData,
+      })
+    },
+    onSuccess: () => {
+      timeEntries.mutate()
+      timesheet.mutate()
+    },
+  })
+
+  return getNewTimeEntryButtonProps
+}
+
+export const NewTimeEntryButton = ({
+  timesheetData,
+  timeEntriesData,
+}: {
+  timesheetData: Timesheet
+  timeEntriesData: TimeEntry[]
+}) => {
+  const getNewTimeEntryButtonProps = useGetNewTimeEntryButtonProps({
+    timesheetId: timesheetData.id,
+    timeEntriesData,
+  })
+
+  return <NewTimeEntryButtonComponent {...getNewTimeEntryButtonProps()} />
+}

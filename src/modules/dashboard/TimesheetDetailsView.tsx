@@ -1,12 +1,9 @@
 import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
-import { shouldClockIn } from '@/lib/shouldClockIn'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
-import { Timesheet } from '@/modules/models/Timesheet'
-import { useRootStore, useServices } from '@/modules/stores'
-import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
+import { useRootStore } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { HideForMobile, MobileOnly } from '@/ui/components/HideForMobile'
@@ -28,7 +25,6 @@ export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
 export const TimesheetDetailsView = observer(function TimesheetDetailsView({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) {
-  const services = useServices('timeEntry', 'timesheet')
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
   const { geolocationStore } = useRootStore()
 
@@ -40,48 +36,30 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     )
   }
 
-  const timesheetId = timesheet.data ? timesheet.data.id : null
+  const timesheetData = timesheet.data
   const timeEntriesData = timeEntries.data
 
-  if (!timesheetId || !timeEntriesData || !geolocationStore.isReady)
+  if (!timesheetData || !timeEntriesData || !geolocationStore.isReady)
     return <LoadingVStack />
-
-  const isClockIn = shouldClockIn(timeEntriesData)
-
-  const getNewTimeEntryButtonProps = () => ({
-    timesheetId,
-    isClockIn,
-    isDisabled: !isAddTimeEntryAllowed(timeEntriesData),
-    updateTimesheet: (updateData: Partial<Timesheet>) => {
-      services.timesheet.updateTimesheet({
-        id: timesheetId,
-        ...updateData,
-      })
-    },
-    onSuccess: () => {
-      timeEntries.mutate()
-      timesheet.mutate()
-    },
-  })
 
   return (
     <VStack minW="100%">
       <Flex align="center" minW="100%" py={2} pb={5} justify="space-between">
         <PayPeriodSelect
-          payPeriodEnd={query[2].payPeriodEnd}
+          payPeriodEnd={timesheetData.payPeriodEnd}
           onSelect={(newPayPeriodEnd) =>
             console.log('newPayPeriodEnd: ', newPayPeriodEnd)
           }
         />
         <HideForMobile>
-          <NewTimeEntryButton {...getNewTimeEntryButtonProps()} />
+          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
         </HideForMobile>
       </Flex>
       <>
-        {timeEntries.data && <TimesheetDetailsTable data={timeEntries.data} />}
+        <TimesheetDetailsTable data={timeEntriesData} />
       </>
       <MobileOnly>
-        <NewTimeEntryButton mobile {...getNewTimeEntryButtonProps()} />
+        <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
       </MobileOnly>
     </VStack>
   )
