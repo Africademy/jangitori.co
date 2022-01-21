@@ -1,6 +1,7 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
+import { prettyCalendarDate } from '@/lib/date/calendarDate'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { StatusTag } from '@/modules/reviewStatus'
 import { only } from '@/ui/utils/breakpoints'
@@ -11,20 +12,6 @@ export const TimesheetColumnLabel = {
   createdAt: 'Created At',
   updatedAt: 'Updated At',
   status: 'Status',
-}
-
-function normalizeDoubleDigitString(monthOrDayString: string): string {
-  return monthOrDayString.length === 1 || monthOrDayString[0] !== '0'
-    ? monthOrDayString
-    : monthOrDayString[1]
-}
-
-export function formatPayPeriodEnd(calendarDate: string): string {
-  const [yearString, monthString, dayString] = calendarDate.split('-')
-  const day = normalizeDoubleDigitString(dayString)
-  const month = normalizeDoubleDigitString(monthString)
-  const year = yearString.slice(2)
-  return [month, day, year].join('/')
 }
 
 const STh = ({ children, ...props }) => {
@@ -55,7 +42,7 @@ const TimesheetsTable = ({ data }: { data: Timesheet[] }) => {
       <Tbody>
         {data.map((item) => (
           <Tr key={item.id}>
-            <Td>{formatPayPeriodEnd(item.payPeriodEnd)}</Td>
+            <Td>{prettyCalendarDate(item.payPeriodEnd)}</Td>
             <Td>
               <StatusTag status={item.status} />
             </Td>

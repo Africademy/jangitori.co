@@ -16,7 +16,7 @@ type UUID = string
 
 type PrimaryKey<T = string> = T
 
-type CalendarDate = DateISOString
+type CalendarDate = `${string}-${string}-${string}`
 
 type Timestamp = DateISOString
 

@@ -1,7 +1,7 @@
 import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
-import { calendarDateToDate } from '@/lib/date/calendarDate'
+import { calendarDateToDate, prettyCalendarDate } from '@/lib/date/calendarDate'
 import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import {
@@ -50,7 +50,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
 
   const pages = [
     { name: 'Timesheets', href: '#', current: false },
-    { name: '[INSERT_ID]', href: '#', current: true },
+    { name: `${prettyCalendarDate(payPeriodEnd)}`, href: '#', current: true },
   ]
 
   return (

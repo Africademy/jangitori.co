@@ -1,3 +1,5 @@
+import format from 'date-fns/format'
+
 import { toDateString } from '@/lib/date'
 
 export interface CalendarDateObject {
@@ -16,8 +18,8 @@ export function isCalendarDateObject(o: any): o is CalendarDateObject {
   )
 }
 
-export function calendarDateToDate(date: string): Date {
-  const [year, month, day] = date.split('/').map((v) => parseInt(v))
+export function calendarDateToDate(date: CalendarDate): Date {
+  const [year, month, day] = date.split('-').map((v) => parseInt(v))
   return calendarDateObjectToDate({ year, month, day })
 }
 
@@ -62,4 +64,12 @@ export function toPgCalendarDateQuery(
 }
 
 export const truncateCalendarDate = (date: CalendarDate): string =>
-  date.split('/').slice(0, 2).join('/')
+  date.split('-').slice(0, 2).join('-')
+
+export function prettyCalendarDate(calendarDate: CalendarDate): string {
+  const date = calendarDateToDate(calendarDate)
+
+  const dateString = format(date, "MMM dd ''yy'")
+
+  return dateString
+}
