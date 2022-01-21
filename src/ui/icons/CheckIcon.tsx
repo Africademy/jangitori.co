@@ -1,4 +1,4 @@
-export const CheckIconSolid = (props) => {
+export const CheckIconSolid = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

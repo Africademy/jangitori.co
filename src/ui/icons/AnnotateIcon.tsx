@@ -1,4 +1,4 @@
-export const AnnotateIcon = (props) => {
+export const AnnotateIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
