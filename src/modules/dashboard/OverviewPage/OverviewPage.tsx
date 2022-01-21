@@ -83,8 +83,8 @@ export const OverviewPage = function OverviewPage({
       </PageHeading>
       <PageBody>
         <VStack gap={3}>
-          <CurrentPayPeriodSection />
           <CurrentTimesheetPreview employee={account.uid} />
+          <CurrentPayPeriodSection />
         </VStack>
       </PageBody>
     </>
