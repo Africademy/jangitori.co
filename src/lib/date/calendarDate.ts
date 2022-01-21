@@ -84,6 +84,16 @@ export function prettyCalendarDateAbbr(calendarDate: CalendarDate): string {
   return dateString
 }
 
+export function prettyCalendarDateAbbrMonth(
+  calendarDate: CalendarDate,
+): string {
+  const date = calendarDateToDate(calendarDate)
+
+  const dateString = format(date, 'MMM dd, yyyy')
+
+  return dateString
+}
+
 export function prettyCalendarDate(calendarDate: CalendarDate): string {
   const date = calendarDateToDate(calendarDate)
 
