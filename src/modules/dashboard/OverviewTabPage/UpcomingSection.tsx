@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
-import { CalendarIcon } from '@/ui/icons'
+import { CalendarIcon } from '@/ui/icons/CalendarIcon'
 
 import { OverviewTabCopy } from './OverviewTabCopy'
 import { PageSection } from './PageSection'

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 import { shouldClockIn } from '@/lib/shouldClockIn'
 import { useRootStore, useServices } from '@/modules/stores'
-import Typography from '@/ui/atoms/Typography/Typography'
+import { Typography } from '@/ui/atoms/Typography'
 
 import { TimeEntry } from '../models/TimeEntry'
 import { Timesheet } from '../models/Timesheet'

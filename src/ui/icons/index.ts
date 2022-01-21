@@ -1,5 +1,0 @@
-export * from './ArrowRightIcon'
-export * from './CalendarIcon'
-export * from './ChevronIcon'
-export * from './QuestionIcon'
-export * from './defaultIconStyle'

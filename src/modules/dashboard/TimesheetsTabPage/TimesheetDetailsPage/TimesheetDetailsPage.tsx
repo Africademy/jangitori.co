@@ -18,11 +18,11 @@ import {
   TimesheetStatusColor,
   TimesheetStatusLabel,
 } from '@/modules/timesheets/TimesheetStatus'
-import Typography from '@/ui/atoms/Typography/Typography'
+import { Typography } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { CalendarIconSolid } from '@/ui/icons'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
+import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
