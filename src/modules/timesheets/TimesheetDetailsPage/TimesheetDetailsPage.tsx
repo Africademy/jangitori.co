@@ -15,6 +15,7 @@ import {
   PageTitle,
   PageTopActions,
 } from '@/modules/dashboard/Page'
+import { ReviewStatus } from '@/modules/reviewStatus'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useDashboardStore, useRootStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
@@ -54,7 +55,12 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   if (!timesheetData || !timeEntriesData || !geolocationStore.isReady)
     return <LoadingVStack />
 
-  const { payPeriodEnd } = timesheetData
+  const { payPeriodEnd, status } = timesheetData
+
+  const title =
+    status === ReviewStatus.PENDING
+      ? 'Current Pay Period'
+      : `${prettyCalendarDate(payPeriodEnd)}`
 
   const pages = [
     {
@@ -63,7 +69,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
       current: false,
     },
     {
-      name: `${prettyCalendarDate(payPeriodEnd)}`,
+      name: title,
       href:
         routes.dashboardPage(role, 'timesheets') +
         `?payPeriodEnd=${query.payPeriodEnd}`,
@@ -84,13 +90,13 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         <VStack w="100%" align="start" gap={1}>
           <Breadcrumbs pages={pages} onLinkClick={handleLinkClick} />
           <Flex justify="space-between" w="100%">
-            <PageTitle>Timesheet Details</PageTitle>
+            <PageTitle>{title}</PageTitle>
             <StatusTag status={timesheetData.status} />
           </Flex>
           <VStack w="100%" align="start" gap={0}>
             <Meta
               leftIcon={CalendarIconSolid}
-              text={`Due ${prettyCalendarDateWithoutYear(payPeriodEnd)}`}
+              text={`Due on ${prettyCalendarDateWithoutYear(payPeriodEnd)}`}
             />
             <Meta
               leftIcon={CalculatorIconSolid}

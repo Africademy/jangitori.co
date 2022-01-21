@@ -1,13 +1,16 @@
 export const OverviewTabCopy = {
-  title: 'Home',
+  title: 'Overview',
+  LatestActivity: {
+    title: 'Latest',
+    CurrentTimesheetLink: 'View current timesheet',
+    OngoingShift: {
+      title: 'Ongoing shift',
+    },
+  },
   Upcoming: {
     title: 'Upcoming',
     PayPeriod: {
       title: 'Payday',
     },
-  },
-  LatestActivity: {
-    title: 'Latest',
-    CurrentTimesheetLink: 'View current timesheet',
   },
 }
