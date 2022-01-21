@@ -26,12 +26,12 @@ export class TimeClockStore {
     return this.request.data
   }
 
-  async startShift(date = new Date(), startLocation: Coordinates) {
+  async startShift(date = new Date(), clockInLocation: Coordinates) {
     const initialShift: Omit<Shift, 'id'> = {
       employee: this.root.invariantAccount.uid,
       date,
-      startTime: date,
-      startLocation,
+      clockInTime: date,
+      clockInLocation,
     }
 
     try {

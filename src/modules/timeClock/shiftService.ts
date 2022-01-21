@@ -7,10 +7,11 @@ export interface Shift {
   id: number
   employee: string
   date: Date
-  startTime: Date
-  startLocation: Coordinates
-  endTime?: Date
-  endLocation?: Coordinates
+  clockInTime: Date
+  clockInLocation: Coordinates
+  clockOutTime?: Date
+  clockOutLocation?: Coordinates
+  note?: string
 }
 
 export type ShiftsTableConfig = { schema: Shift; primaryKey: 'id' }
