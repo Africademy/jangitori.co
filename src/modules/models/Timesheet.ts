@@ -1,16 +1,11 @@
-export enum TimesheetStatus {
-  IN_PROGRESS = 'in-progress',
-  SUBMITTED = 'submitted',
-  APPROVED = 'approved',
-  CHANGE_REQUESTED = 'change-requested',
-}
+import { ReviewStatus } from '@/modules/reviewStatus'
 
 export interface Timesheet {
   id: Int8
   payPeriodEnd: CalendarDate
   employee: UUID
   hours: Float4
-  status: TimesheetStatus
+  status: ReviewStatus
   createdAt: Timestamp
   updatedAt: Timestamp
 }

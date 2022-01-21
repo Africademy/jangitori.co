@@ -1,7 +1,7 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
 import supabase from '@/lib/supabase'
-import { Timesheet, TimesheetStatus } from '@/modules/models/Timesheet'
+import { ReviewStatus, Timesheet } from '@/modules/models/Timesheet'
 import { TableKeys } from '@/modules/tables'
 
 export class TimesheetService {
@@ -45,7 +45,7 @@ export class TimesheetService {
       .insert({
         ...args,
         hours: 0,
-        status: TimesheetStatus.IN_PROGRESS,
+        status: ReviewStatus.IN_PROGRESS,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       })

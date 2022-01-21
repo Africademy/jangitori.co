@@ -1,4 +1,4 @@
-import { Flex, Heading, Tag, VStack } from '@chakra-ui/react'
+import { Flex, Heading, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
 import { mergeErrorMessages } from '@/lib/errors'
@@ -11,18 +11,16 @@ import {
   PageTopActions,
 } from '@/modules/dashboard/Page'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
+import { ReviewStatus, ReviewStatusColor } from '@/modules/reviewStatus'
 import { useRootStore } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
-import {
-  TimesheetStatusColor,
-  TimesheetStatusLabel,
-} from '@/modules/timesheets/TimesheetStatus'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
 import { Meta } from '@/ui/molecules/Meta'
+import { StatusTag } from '@/ui/molecules/StatusTag'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
@@ -51,12 +49,12 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
       <PageHeading>
         <Flex justify="space-between" pb={3}>
           <PageTitle>Timesheet</PageTitle>
-          <Tag colorScheme={TimesheetStatusColor[timesheetData.status]}>
-            <Flex display="flex" gap={1.5}>
-              <RefreshIconSolid />
-              {TimesheetStatusLabel[timesheetData.status]}
-            </Flex>
-          </Tag>
+          <StatusTag
+            leftIcon={RefreshIconSolid}
+            colorScheme={ReviewStatusColor[timesheetData.status]}
+          >
+            {ReviewStatus[timesheetData.status]}
+          </StatusTag>
         </Flex>
         <VStack align="flex-start" py={3} gap={2}>
           <Meta
