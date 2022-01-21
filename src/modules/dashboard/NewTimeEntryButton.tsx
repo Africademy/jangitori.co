@@ -1,10 +1,14 @@
-import { Button } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
+import { Button, Tooltip } from '@chakra-ui/react'
+import { css, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { useRootStore, useServices } from '../stores'
+import { useRootStore, useServices } from '@/modules/stores'
+import { QuestionIcon } from '@/ui/icons'
+import { pseudo } from '@/ui/utils/pseudo'
+
 import { useTimesheetDetails } from './useTimesheetDetails'
 
 export const NewTimeEntryButton = ({
@@ -68,24 +72,52 @@ export const NewTimeEntryButton = ({
   }
 
   return (
-    <Button
-      disabled={isBusy || isDisabled}
-      variant="solid"
-      colorScheme="blue"
-      size="md"
-      px={6}
-      onClick={handleNewTimeEntry}
-      _disabled={{
-        background: theme.colors.gray[200],
-        color: theme.colors.gray[500],
-      }}
-      _hover={{
-        _notDisabled: {
-          background: theme.colors.primary[700],
-        },
-      }}
-    >
-      {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
-    </Button>
+    <div className="flex items-center gap-3">
+      {!isDisabled && (
+        <Tooltip
+          label="You must wait at least 15 minutes between time punches."
+          fontSize="md"
+        >
+          <IconBox>
+            <QuestionIcon />
+          </IconBox>
+        </Tooltip>
+      )}
+      <Button
+        disabled={isBusy || isDisabled}
+        variant="solid"
+        colorScheme="blue"
+        size="md"
+        px={6}
+        onClick={handleNewTimeEntry}
+        _disabled={{
+          background: theme.colors.gray[200],
+          color: theme.colors.gray[500],
+        }}
+        _hover={{
+          _notDisabled: {
+            background: theme.colors.primary[700],
+          },
+        }}
+      >
+        {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
+      </Button>
+    </div>
   )
 }
+
+const IconBox = styled.div`
+  font-size: 1rem;
+  ${({ theme }) =>
+    css`
+      color: ${theme.colors.gray[500]};
+      ${pseudo('_hover')} {
+        color: ${theme.colors.gray[800]};
+      }
+    `}
+
+  svg {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+`

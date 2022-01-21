@@ -1,6 +1,4 @@
-import { Flex, Tooltip, VStack } from '@chakra-ui/react'
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
 import { shouldClockIn } from '@/lib/shouldClockIn'
@@ -12,8 +10,6 @@ import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllo
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
-import { QuestionIcon } from '@/ui/icons'
-import { pseudo } from '@/ui/utils/pseudo'
 
 import { NewTimeEntryButton } from './NewTimeEntryButton'
 import { PayPeriodSelect } from './PayPeriodSelect'
@@ -58,34 +54,22 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
             console.log('newPayPeriodEnd: ', newPayPeriodEnd)
           }
         />
-        {timeEntries.data && timesheetId !== null && (
-          <div className="flex items-center gap-3">
-            {!isAddTimeEntryAllowed(timeEntries.data) && (
-              <Tooltip
-                label="You must wait at least 15 minutes between time punches."
-                fontSize="md"
-              >
-                <IconBox>
-                  <QuestionIcon />
-                </IconBox>
-              </Tooltip>
-            )}
-            <NewTimeEntryButton
-              timesheetId={timesheetId}
-              isClockIn={isClockIn}
-              isDisabled={!isAddTimeEntryAllowed(timeEntries.data)}
-              updateTimesheet={(updateData: Partial<Timesheet>) => {
-                services.timesheet.updateTimesheet({
-                  id: timesheetId,
-                  ...updateData,
-                })
-              }}
-              onSuccess={() => {
-                timeEntries.mutate()
-                timesheet.mutate()
-              }}
-            />
-          </div>
+        {timesheetId !== null && (
+          <NewTimeEntryButton
+            timesheetId={timesheetId}
+            isClockIn={isClockIn}
+            isDisabled={!isAddTimeEntryAllowed(timeEntries.data)}
+            updateTimesheet={(updateData: Partial<Timesheet>) => {
+              services.timesheet.updateTimesheet({
+                id: timesheetId,
+                ...updateData,
+              })
+            }}
+            onSuccess={() => {
+              timeEntries.mutate()
+              timesheet.mutate()
+            }}
+          />
         )}
       </Flex>
       <>
@@ -94,19 +78,3 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
     </VStack>
   )
 })
-
-const IconBox = styled.div`
-  font-size: 1rem;
-  ${({ theme }) =>
-    css`
-      color: ${theme.colors.gray[500]};
-      ${pseudo('_hover')} {
-        color: ${theme.colors.gray[800]};
-      }
-    `}
-
-  svg {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-`
