@@ -1,4 +1,3 @@
-import Sentry from '@sentry/nextjs'
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
@@ -51,7 +50,6 @@ export class SignUpStore {
     logger.error(
       '❌ failed to fetch employee. Error: ' + (error as Error).message,
     )
-    Sentry.captureException(error)
     alert((error as Error).message)
     this.setError((error as Error).message)
   }
