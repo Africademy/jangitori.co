@@ -1,5 +1,3 @@
-import DashboardStore from './DashboardStore'
-
 export enum AdminTabKey {
   OVERVIEW = 'overview',
   TIMESHEETS = 'timesheets',
@@ -18,5 +16,3 @@ export const adminTabs = Object.entries(adminTabLabels).map(
     label: tabLabel,
   }),
 )
-
-export class AdminDashboardStore extends DashboardStore<AdminTabKey> {}

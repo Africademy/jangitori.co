@@ -18,7 +18,6 @@ export function getIndexOfTabKey<TabKey extends string>(
 
 export function getTabKeyForIndex<TabKey extends string>(
   index: number,
-  tabKeys: TabKey[],
 ): TabKey {
   const tabKey = Object.keys(tabKeys)[index]
 

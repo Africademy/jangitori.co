@@ -6,6 +6,7 @@ import {
   prettyCalendarDateWithoutYear,
 } from '@/lib/date/calendarDate'
 import { mergeErrorMessages } from '@/lib/errors'
+import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import {
   PageBody,
@@ -32,9 +33,9 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) {
   const { timesheet, timeEntries } = useTimesheetDetails(query)
-  const { geolocationStore } = useRootStore()
-
-  if (timesheet.error || timeEntries.error) {
+  const { geolocationStore, authStore } = useRootStore()
+  const role = authStore.account?.role
+  if (timesheet.error || timeEntries.error || !role) {
     return (
       <ErrorMessage>
         {mergeErrorMessages(timesheet.error, timeEntries.error)}
@@ -51,10 +52,14 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const { payPeriodEnd } = timesheetData
 
   const pages = [
-    { name: 'Timesheets', href: '#', current: false },
+    {
+      name: 'Timesheets',
+      href: routes.dashboardPage(role, 'timesheets'),
+      current: false,
+    },
     {
       name: `${prettyCalendarDate(payPeriodEnd)}`,
-      href: '#',
+      href: routes.timesheetDetailsPage(role, query),
       current: true,
     },
   ]

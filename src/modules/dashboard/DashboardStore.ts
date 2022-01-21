@@ -5,7 +5,7 @@ import { routes } from '@/lib/routes'
 import { RoleID } from '@/modules/models/Role'
 
 import { TimesheetDetailsQuery } from '../timesheets/timesheetDetailsQuery'
-import { getIndexOfTabKey, getTabKeyForIndex } from './tabs'
+import { getIndexOfTabKey } from './tabs'
 
 export default class DashboardStore<TabKey extends string = string> {
   tabIndex = 0
@@ -19,17 +19,17 @@ export default class DashboardStore<TabKey extends string = string> {
     this.tabIndex = value
   }
 
-  clearQueries() {
-    this.timesheetDetailsQuery = null
-  }
-
   setTabKey(key: TabKey) {
     const index = getIndexOfTabKey<TabKey>(key, this.props.tabKeys)
     this.setTab(index)
   }
 
+  clearQueries() {
+    this.timesheetDetailsQuery = null
+  }
+
   get tabKey(): TabKey {
-    return getTabKeyForIndex<TabKey>(this.tabIndex, this.props.tabKeys)
+    return this.props.tabKeys[this.tabIndex]
   }
 
   constructor(
@@ -52,10 +52,8 @@ export default class DashboardStore<TabKey extends string = string> {
         const currentUrl = Router.router?.asPath
         if (!currentUrl) throw new Error('Router.router was null')
 
-        const tabKey = getTabKeyForIndex<TabKey>(tabIndex, props.tabKeys)
-
         Router.router?.push(
-          routes.dashboardPage(this.props.role, tabKey),
+          routes.dashboardPage(this.props.role, this.tabKey),
           undefined,
           {
             shallow: true,

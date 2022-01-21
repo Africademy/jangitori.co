@@ -6,6 +6,7 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import {
+  EmployeeTabKey,
   employeeTabKeys,
   employeeTabs,
 } from '@/modules/dashboard/EmployeeDashboardPage'
@@ -18,7 +19,10 @@ const TimesheetsTabPage = dynamic(
 )
 const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
 
+import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
+import { RoleIDs } from '@/modules/models/Role'
+
 const EmployeeDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   const props: DashboardPageProps = { tabs: employeeTabs, account }
 
@@ -46,7 +50,13 @@ const EmployeeDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   )
 }
 
-EmployeeDashboardRoute.getLayout = getDashboardLayout(employeeTabKeys)
+EmployeeDashboardRoute.getLayout = getDashboardLayout(
+  () =>
+    new DashboardStore<EmployeeTabKey>({
+      tabKeys: employeeTabKeys,
+      role: RoleIDs.Employee,
+    }),
+)
 
 export default EmployeeDashboardRoute
 

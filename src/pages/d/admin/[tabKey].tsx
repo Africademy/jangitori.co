@@ -3,10 +3,13 @@ import dynamic from 'next/dynamic'
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { adminTabKeys, adminTabs } from '@/modules/dashboard/AdminDashboardPage'
+import {
+  AdminTabKey,
+  adminTabKeys,
+  adminTabs,
+} from '@/modules/dashboard/AdminDashboardPage'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
-import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
 
 const OverviewTabPage = dynamic(
   () => import('@/modules/dashboard/OverviewTabPage'),
@@ -15,6 +18,10 @@ const TimesheetsTabPage = dynamic(
   () => import('@/modules/dashboard/TimesheetsTabPage'),
 )
 const StyledTab = dynamic(() => import('@/modules/dashboard/StyledTab'))
+
+import DashboardStore from '@/modules/dashboard/DashboardStore'
+import { useTabsComponent } from '@/modules/dashboard/useTabsComponent'
+import { RoleIDs } from '@/modules/models/Role'
 
 const AdminDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   const props: DashboardPageProps = { tabs: adminTabs, account }
@@ -43,7 +50,13 @@ const AdminDashboardRoute = ({ account }: AuthenticatedPageProps) => {
   )
 }
 
-AdminDashboardRoute.getLayout = getDashboardLayout(adminTabKeys)
+AdminDashboardRoute.getLayout = getDashboardLayout(
+  () =>
+    new DashboardStore<AdminTabKey>({
+      tabKeys: adminTabKeys,
+      role: RoleIDs.Admin,
+    }),
+)
 
 export default AdminDashboardRoute
 

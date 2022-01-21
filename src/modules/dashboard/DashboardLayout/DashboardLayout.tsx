@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 import { LocalStoreProvider } from '@/lib/mobx/LocalStoreProvider'
-import { useMobXStore } from '@/lib/mobx/useMobXStore'
-import { RoleIDs } from '@/modules/models/Role'
 import { useRootStore } from '@/modules/stores'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
@@ -39,34 +37,20 @@ export function useSyncTabStateWithRoute<TabKey extends string>(
   }, [getTabKey, router.events, setTabKey])
 }
 
-export function useInitDashboardStore<TabKey extends string>(
-  tabKeys: TabKey[],
-) {
-  const dashboardStore = useMobXStore(
-    () =>
-      new DashboardStore({
-        role: RoleIDs.Employee,
-        tabKeys,
-      }),
-  )
+export interface DashboardLayoutProps {
+  initStore: () => DashboardStore
+}
 
-  useSyncTabStateWithRoute<TabKey>(
+const DashboardLayout = function DashboardLayout({
+  children,
+  initStore,
+}: React.PropsWithChildren<DashboardLayoutProps>) {
+  const dashboardStore = initStore()
+
+  useSyncTabStateWithRoute(
     () => dashboardStore.tabKey,
     dashboardStore.setTabKey,
   )
-
-  return dashboardStore
-}
-
-export interface DashboardLayoutProps<TabKey extends string> {
-  tabKeys: TabKey[]
-}
-
-const DashboardLayout = function DashboardLayout<TabKey extends string>({
-  children,
-  tabKeys,
-}: React.PropsWithChildren<DashboardLayoutProps<TabKey>>) {
-  const dashboardStore = useInitDashboardStore(tabKeys)
 
   return (
     <LocalStoreProvider localStore={dashboardStore}>
