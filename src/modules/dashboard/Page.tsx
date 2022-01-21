@@ -7,8 +7,8 @@ import { largerThan, only } from '@/ui/utils/breakpoints'
 const PageHeadingBox = styled.div`
   background: #fff;
   line-height: none !important;
-  width: 100vw;
-  height: 21vh;
+  width: 100%;
+  min-height: 21vh;
   padding: 1.75rem 1.5rem;
   display: flex;
   align-items: center;

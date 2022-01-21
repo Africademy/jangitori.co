@@ -54,7 +54,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   return (
     <>
       <PageHeading>
-        <Flex justify="space-between">
+        <Flex justify="space-between" py={3}>
           <PageTitle>Timesheet</PageTitle>
           <Tag colorScheme={TimesheetStatusColor[timesheetData.status]}>
             <Flex display="flex" gap={1.5}>
@@ -64,13 +64,17 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Tag>
         </Flex>
         <VStack align="flex-start" py={3} gap={2}>
-          <Flex gap={2}>
+          <Flex gap={2} align="center">
             <CalendarIconSolid />
-            <Typography>Period ends on {timesheetData.payPeriodEnd}</Typography>
+            <Typography lineHeight={1}>
+              Period ends on {timesheetData.payPeriodEnd}
+            </Typography>
           </Flex>
-          <Flex gap={2}>
+          <Flex gap={2} align="center">
             <CalculatorIconSolid />
-            <Typography>Worked {timesheetData.hours} hours</Typography>
+            <Typography lineHeight={1}>
+              Worked {timesheetData.hours} hours
+            </Typography>
           </Flex>
         </VStack>
 
