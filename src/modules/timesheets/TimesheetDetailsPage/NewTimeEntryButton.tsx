@@ -5,12 +5,12 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { shouldClockIn } from '@/lib/shouldClockIn'
+import { TimeEntry } from '@/modules/models/TimeEntry'
+import { Timesheet } from '@/modules/models/Timesheet'
 import { useRootStore, useServices } from '@/modules/stores'
+import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { Typography } from '@/ui/atoms/Typography'
 
-import { TimeEntry } from '../models/TimeEntry'
-import { Timesheet } from '../models/Timesheet'
-import { isAddTimeEntryAllowed } from '../time-entries/isAddTimeEntryAllowed'
 import { useTimesheetDetails } from './useTimesheetDetails'
 
 export const NewTimeEntryButtonComponent = ({

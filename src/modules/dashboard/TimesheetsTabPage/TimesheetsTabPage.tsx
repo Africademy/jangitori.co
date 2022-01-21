@@ -1,10 +1,9 @@
 import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
+import TimesheetDetailsPage from '@/modules/timesheets/TimesheetDetailsPage'
 import { isTimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
-
-import TimesheetDetailsPage from './TimesheetDetailsPage'
-import TimesheetsPage from './TimesheetsPage'
+import TimesheetsPage from '@/modules/timesheets/TimesheetsPage'
 
 export const TimesheetsTabPage = function TimesheetsTabPage(
   props: DashboardPageProps,

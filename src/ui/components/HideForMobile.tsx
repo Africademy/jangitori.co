@@ -1,4 +1,4 @@
-import { isMobile } from '../utils/isMobile'
+import { isMobile } from '@/ui/utils/isMobile'
 
 export const HideForMobile = ({ children }) => {
   if (isMobile()) return null

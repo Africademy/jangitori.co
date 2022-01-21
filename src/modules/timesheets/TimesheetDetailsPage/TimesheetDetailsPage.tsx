@@ -3,16 +3,16 @@ import { observer } from 'mobx-react-lite'
 
 import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { NewTimeEntryButton } from '@/modules/dashboard/NewTimeEntryButton'
 import {
   PageBody,
   PageHeading,
   PageTitle,
   PageTopActions,
 } from '@/modules/dashboard/Page'
-import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
+import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
+import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
@@ -20,7 +20,7 @@ import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
-import { TimesheetDetailsTable } from './TimesheetDetailsTable'
+import { TimesheetDetails } from './TimesheetDetails'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
@@ -67,7 +67,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
           Time Entries
         </Heading>
-        <TimesheetDetailsTable data={timeEntriesData} />
+        <TimesheetDetails data={timeEntriesData} />
       </PageBody>
     </>
   )

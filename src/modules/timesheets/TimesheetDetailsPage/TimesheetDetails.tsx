@@ -2,17 +2,18 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import format from 'date-fns/format'
 import React, { useMemo } from 'react'
 
-import { buildTimesheetDetailsRows } from '@/modules/dashboard/buildTimesheetDetailsRows'
 import { TimeEntry } from '@/modules/models/TimeEntry'
+
+import { buildTimesheetDetailsRows } from './buildTimesheetDetailsRows'
 
 const fields = ['start', 'end', 'total']
 
-export interface TimesheetDetailsTableProps {
+export interface TimesheetDetailsProps {
   data: TimeEntry[]
 }
 
-export const TimesheetDetailsTable: React.FunctionComponent<
-  TimesheetDetailsTableProps
+export const TimesheetDetails: React.FunctionComponent<
+  TimesheetDetailsProps
 > = ({ data }) => {
   const rows = useMemo(
     () =>

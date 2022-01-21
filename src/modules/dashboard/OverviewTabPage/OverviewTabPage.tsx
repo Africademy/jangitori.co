@@ -1,12 +1,12 @@
 import { mergeErrorMessages } from '@/lib/errors'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useRootStore } from '@/modules/stores'
+import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
 import { DashboardPageProps } from '../DashboardPageProps'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
-import { useTimesheetDetails } from '../useTimesheetDetails'
 import { SummarySection } from './SummarySection'
 import { UpcomingSection } from './UpcomingSection'
 import ViewTimesheetButton from './ViewTimesheetButton'
