@@ -35,8 +35,7 @@ const AdminDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
         {...getTabsProps({
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
-            dashboardStore.setTab(index)
-            dashboardStore.clearQueries()
+            dashboardStore.routeTo(index)
           },
         })}
       >

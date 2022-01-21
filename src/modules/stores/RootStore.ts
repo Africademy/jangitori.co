@@ -5,6 +5,7 @@ import { GeolocationStore } from '@/modules/geolocation/GeolocationStore'
 import { initServices, Services } from '@/modules/stores/services'
 
 import DashboardStore from '../dashboard/DashboardStore'
+import { getDashboardTabsForRole } from '../dashboard/tabs'
 import { Role } from '../models/Role'
 
 export class RootStore {
@@ -20,5 +21,13 @@ export class RootStore {
     const role = this.authStore.account?.role
     invariant(role, 'AuthStore account not found')
     return role
+  }
+
+  getDashboardTabs(): string[] {
+    const role = this.getAccountRole()
+
+    const tabs = getDashboardTabsForRole(role)
+
+    return tabs
   }
 }
