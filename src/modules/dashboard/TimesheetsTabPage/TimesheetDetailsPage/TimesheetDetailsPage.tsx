@@ -2,10 +2,22 @@ import { Button, Flex, Heading, Tag, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
+import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
+import { NewTimeEntryButton } from '@/modules/dashboard/NewTimeEntryButton'
+import {
+  PageBody,
+  PageHeading,
+  PageTitle,
+  PageTopActions,
+} from '@/modules/dashboard/Page'
 import { useTimesheetDetails } from '@/modules/dashboard/useTimesheetDetails'
 import { useRootStore } from '@/modules/stores'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
+import {
+  TimesheetStatusColor,
+  TimesheetStatusLabel,
+} from '@/modules/timesheets/TimesheetStatus'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { HideForMobile, MobileOnly } from '@/ui/components/HideForMobile'
@@ -14,22 +26,7 @@ import { CalendarIconSolid } from '@/ui/icons'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
 
-import {
-  TimesheetStatusColor,
-  TimesheetStatusLabel,
-} from '../timesheets/TimesheetStatus'
-import { NewTimeEntryButton } from './NewTimeEntryButton'
-import { PageBody, PageHeading, PageTitle, PageTopActions } from './Page'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
-
-export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
-  const filteredErrors: Error[] = errors.filter(
-    (error) => error instanceof Error,
-  ) as Error[]
-
-  const msg = filteredErrors.map((error) => error.message).join('\n')
-  return msg
-}
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,

@@ -1,34 +1,19 @@
-import useSWR from 'swr'
+import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
+import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
+import DashboardStore from '@/modules/dashboard/DashboardStore'
+import { isTimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
-import { Timesheet } from '@/modules/models/Timesheet'
-import { useServices } from '@/modules/stores'
-import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
-import { ErrorMessage } from '@/ui/components/ErrorMessage'
+import TimesheetDetailsPage from './TimesheetDetailsPage'
+import TimesheetsPage from './TimesheetsPage'
 
-import { DashboardPageProps } from '../DashboardPageProps'
-import { PageBody, PageHeading, PageTitle } from '../Page'
-import TimesheetsTable from './TimesheetsTable'
+export const TimesheetsTabPage = function TimesheetsTabPage(
+  props: DashboardPageProps,
+) {
+  const dashboardStore = useLocalMobXStore<DashboardStore>()
 
-export const TimesheetsTabPage = function TimesheetsTabPage({
-  account,
-}: DashboardPageProps) {
-  const services = useServices('timesheet')
+  if (isTimesheetQuery(dashboardStore.query)) {
+    return <TimesheetDetailsPage {...props} query={dashboardStore.query} />
+  }
 
-  const { data: timesheets, error } = useSWR<Timesheet[], Error>(
-    timesheetQueryKeys.list(account.uid),
-    async (): Promise<Timesheet[]> => {
-      return await services.timesheet.getTimesheetsByEmployee(account.uid)
-    },
-  )
-
-  if (error) return <ErrorMessage>{error.message}</ErrorMessage>
-
-  return (
-    <>
-      <PageHeading>
-        <PageTitle>Timesheets</PageTitle>
-      </PageHeading>
-      <PageBody>{timesheets && <TimesheetsTable data={timesheets} />}</PageBody>
-    </>
-  )
+  return <TimesheetsPage {...props} />
 }
