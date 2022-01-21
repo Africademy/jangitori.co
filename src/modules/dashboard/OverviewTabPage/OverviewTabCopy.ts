@@ -1,4 +1,4 @@
-export const OverviewPageCopy = {
+export const OverviewTabCopy = {
   title: 'Home',
   Upcoming: {
     title: 'Upcoming',

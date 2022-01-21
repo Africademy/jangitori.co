@@ -3,7 +3,7 @@ import React from 'react'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { CalendarIcon } from '@/ui/icons'
 
-import { OverviewPageCopy } from './OverviewPageCopy'
+import { OverviewTabCopy } from './OverviewTabCopy'
 import { PageSection } from './PageSection'
 import { Stat } from './Stat'
 
@@ -16,10 +16,10 @@ export const UpcomingSection: React.FunctionComponent<
 
   return (
     <PageSection
-      title={OverviewPageCopy.Upcoming.title}
+      title={OverviewTabCopy.Upcoming.title}
       body={
         <Stat
-          title={OverviewPageCopy.Upcoming.PayPeriod.title}
+          title={OverviewTabCopy.Upcoming.PayPeriod.title}
           data={payPeriodEnd}
           icon={<CalendarIcon />}
         />

@@ -17,11 +17,11 @@ export const TimesheetDetailsTable: React.FunctionComponent<
   const rows = useMemo(
     () =>
       buildTimesheetDetailsRows(data).map((entry) => ({
-        start: format(entry.start, 'h:m aaa'),
-        end: entry.end?.toLocaleString() ?? '--',
+        start: format(entry.start, 'h:mm aa'),
+        end: entry.end ? format(entry.end, 'h:mm aa') : '--',
         minutes: isNaN(entry.minutes)
           ? '0 minutes'
-          : `${entry.minutes} minutes`,
+          : `${(entry.minutes / 60).toFixed(2)} hrs`,
       })),
     [data],
   )

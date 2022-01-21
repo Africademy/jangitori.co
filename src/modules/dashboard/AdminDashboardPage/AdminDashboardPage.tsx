@@ -1,10 +1,12 @@
-import { Container, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Container, TabList, TabPanel, Tabs } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 
-const OverviewPage = dynamic(() => import('@/modules/dashboard/OverviewPage'))
+const OverviewTabPage = dynamic(
+  () => import('@/modules/dashboard/OverviewTabPage'),
+)
 
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 
 const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
@@ -15,15 +17,16 @@ import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
 import { RoleIDs } from '@/modules/models/Role'
-import { only } from '@/ui/utils/breakpoints'
 
-const TimesheetsView = dynamic(
-  () => import('@/modules/dashboard/TimesheetsView'),
+const TimesheetsTabPage = dynamic(
+  () => import('@/modules/dashboard/TimesheetsTabPage'),
 )
 
 export const AdminDashboardPage = observer(function AdminDashboardPage(
   props: DashboardPageProps,
 ) {
+  const theme = useTheme()
+
   const dashboardStore = useMobXStore(
     () =>
       new DashboardStore({
@@ -39,40 +42,42 @@ export const AdminDashboardPage = observer(function AdminDashboardPage(
 
   return (
     <LocalStoreProvider localStore={dashboardStore}>
-      <Container maxW="100vw" px={0}>
-        <Container
-          maxW="100%"
-          css={css`
-            min-width: 80vw;
-            ${only('mobile')} {
-              min-width: 100vw;
-              padding: 0;
-            }
-          `}
+      <Container
+        maxW="100%"
+        css={css`
+          min-width: 100vw;
+          padding: 0;
+        `}
+      >
+        <Tabs
+          isLazy
+          onChange={dashboardStore.setTab}
+          index={dashboardStore.tabIndex}
+          colorScheme="gray"
         >
-          <Tabs
-            isLazy
-            onChange={dashboardStore.setTab}
-            index={dashboardStore.tabIndex}
-            colorScheme="messenger"
+          <TabList
+            bg={'#fff'}
+            shadow="none"
+            px={8}
+            borderBottom={`0.8px solid ${theme.colors.gray[300]}`}
           >
-            <TabList>
-              {tabs.map((tab) => (
-                <StyledTab id={tab.id} key={tab.id}>
-                  {tab.label}
-                </StyledTab>
-              ))}
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <OverviewPage {...props} />
-              </TabPanel>
-              <TabPanel>
-                <TimesheetsView {...props} />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Container>
+            {tabs.map((tab, i) => (
+              <StyledTab
+                isSelected={dashboardStore.tabIndex === i}
+                id={tab.id}
+                key={tab.id}
+              >
+                {tab.label}
+              </StyledTab>
+            ))}
+          </TabList>
+          <TabPanel padding={0}>
+            <OverviewTabPage {...props} />
+          </TabPanel>
+          <TabPanel padding={0}>
+            <TimesheetsTabPage {...props} />
+          </TabPanel>
+        </Tabs>
       </Container>
     </LocalStoreProvider>
   )

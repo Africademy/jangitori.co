@@ -2,7 +2,9 @@ import { Container, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 import dynamic from 'next/dynamic'
 
-const OverviewPage = dynamic(() => import('@/modules/dashboard/OverviewPage'))
+const OverviewTabPage = dynamic(
+  () => import('@/modules/dashboard/OverviewTabPage'),
+)
 
 import { css, useTheme } from '@emotion/react'
 
@@ -16,7 +18,9 @@ import { tabLabels } from '@/modules/dashboard/tabs'
 import { useSyncTabStateWithRoute } from '@/modules/dashboard/useSyncTabStateWithRoute'
 import { RoleIDs } from '@/modules/models/Role'
 
-import { TimesheetsTabView } from '../TimesheetsTabView'
+const TimesheetsTabPage = dynamic(
+  () => import('@/modules/dashboard/TimesheetsTabPage'),
+)
 
 export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
   props: DashboardPageProps,
@@ -68,10 +72,10 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
           </TabList>
           <TabPanels>
             <TabPanel padding={0}>
-              <OverviewPage {...props} />
+              <OverviewTabPage {...props} />
             </TabPanel>
             <TabPanel padding={0}>
-              <TimesheetsTabView {...props} />
+              <TimesheetsTabPage {...props} />
             </TabPanel>
           </TabPanels>
         </Tabs>

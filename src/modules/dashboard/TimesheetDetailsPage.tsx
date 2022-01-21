@@ -1,4 +1,5 @@
-import { Flex, Tag, VStack } from '@chakra-ui/react'
+import { Button, Flex, Heading, Tag, VStack } from '@chakra-ui/react'
+import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -19,7 +20,6 @@ import {
 } from '../timesheets/TimesheetStatus'
 import { NewTimeEntryButton } from './NewTimeEntryButton'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from './Page'
-import { PayPeriodSelect } from './PayPeriodSelect'
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
 export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
@@ -34,6 +34,7 @@ export const mergeErrorMessages = (...errors: (Error | Falsy)[]): string => {
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) {
+  const theme = useTheme()
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
   const { geolocationStore } = useRootStore()
 
@@ -67,7 +68,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           <Flex gap={2} align="center">
             <CalendarIconSolid />
             <Typography lineHeight={1}>
-              Period ends on {timesheetData.payPeriodEnd}
+              Due on {timesheetData.payPeriodEnd}
             </Typography>
           </Flex>
           <Flex gap={2} align="center">
@@ -78,12 +79,13 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Flex>
         </VStack>
         <PageTopActions>
-          <PayPeriodSelect
-            payPeriodEnd={timesheetData.payPeriodEnd}
-            onSelect={(newPayPeriodEnd) =>
-              console.log('newPayPeriodEnd: ', newPayPeriodEnd)
-            }
-          />
+          <Button
+            color={'#fff'}
+            bg={theme.colors.indigo[600]}
+            disabled={timesheetData.status !== 'in-progress'}
+          >
+            Request to Edit
+          </Button>
           <HideForMobile>
             <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
           </HideForMobile>
@@ -91,6 +93,11 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
       </PageHeading>
 
       <PageBody>
+        <Flex justify="start" w="100%">
+          <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
+            Time Entries
+          </Heading>
+        </Flex>
         <TimesheetDetailsTable data={timeEntriesData} />
         <MobileOnly>
           <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
