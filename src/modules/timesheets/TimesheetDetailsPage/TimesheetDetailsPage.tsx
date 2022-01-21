@@ -1,7 +1,7 @@
-import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { Flex, VStack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
 
+import { calendarDateToDate } from '@/lib/date/calendarDate'
 import { mergeErrorMessages } from '@/lib/errors'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import {
@@ -10,6 +10,7 @@ import {
   PageTitle,
   PageTopActions,
 } from '@/modules/dashboard/Page'
+import { computePayPeriod } from '@/modules/payrolls/computePayPeriod'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
@@ -22,7 +23,6 @@ import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
 
 import { TimesheetCalendar } from './TimesheetCalendar'
-import { TimesheetDetails } from './TimesheetDetails'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
@@ -44,6 +44,8 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   if (!timesheetData || !timeEntriesData || !geolocationStore.isReady)
     return <LoadingVStack />
 
+  const { payPeriodEnd } = timesheetData
+
   return (
     <>
       <PageHeading>
@@ -52,10 +54,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           <StatusTag status={timesheetData.status} />
         </Flex>
         <VStack align="flex-start" py={3} gap={2}>
-          <Meta
-            leftIcon={CalendarIconSolid}
-            text={`Due ${timesheetData.payPeriodEnd}`}
-          />
+          <Meta leftIcon={CalendarIconSolid} text={`Due ${payPeriodEnd}`} />
           <Meta
             leftIcon={CalculatorIconSolid}
             text={`Total ${timesheetData.hours} hours`}
@@ -66,7 +65,9 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
         </PageTopActions>
       </PageHeading>
       <PageBody>
-        <TimesheetCalendar />
+        <TimesheetCalendar
+          payPeriod={computePayPeriod(calendarDateToDate(payPeriodEnd))}
+        />
       </PageBody>
     </>
   )
