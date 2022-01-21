@@ -158,7 +158,7 @@ const SButton = styled(Button)`
     css`
       font-weight: ${theme.fontWeights.medium};
       color: ${theme.colors.gray[700]};
-      border: 0.8px solid ${theme.colors.gray[200]};
+      border: 0.8px solid ${theme.colors.gray[300]};
       ${pseudo('_hover')} {
         box-shadow: ${theme.shadows.sm};
         border: 0.8px solid ${theme.colors.gray[300]};
