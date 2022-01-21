@@ -10,7 +10,6 @@ export const TimesheetColumnLabel = {
   payPeriodEnd: 'Payday',
   createdAt: 'Created At',
   updatedAt: 'Updated At',
-  hours: 'Hours',
   status: 'Status',
 }
 
@@ -50,7 +49,6 @@ const TimesheetsTable = ({ data }: { data: Timesheet[] }) => {
       <Thead>
         <Tr>
           <STh>{TimesheetColumnLabel['payPeriodEnd']}</STh>
-          <STh>{TimesheetColumnLabel['hours']}</STh>
           <STh>{TimesheetColumnLabel['status']}</STh>
         </Tr>
       </Thead>
@@ -58,7 +56,6 @@ const TimesheetsTable = ({ data }: { data: Timesheet[] }) => {
         {data.map((item) => (
           <Tr key={item.id}>
             <Td>{formatPayPeriodEnd(item.payPeriodEnd)}</Td>
-            <Td maxW="6rem">{item.hours}</Td>
             <Td>
               <StatusTag status={item.status} />
             </Td>

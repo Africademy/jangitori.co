@@ -1,6 +1,5 @@
 import { Button, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
-import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -18,11 +17,9 @@ export const NewTimeEntryButtonComponent = ({
   isClockIn,
   isDisabled,
   onSuccess,
-  updateTimesheet,
   wide = false,
 }) => {
   const services = useServices('timeEntry')
-  const { timeEntries } = useTimesheetDetails(timesheetId)
   const { geolocationStore } = useRootStore()
 
   const [isBusy, setIsBusy] = useState(false)
@@ -37,24 +34,6 @@ export const NewTimeEntryButtonComponent = ({
         location,
       })
 
-      const timeEntriesData = timeEntries.data
-      const lastEntry =
-        timeEntriesData && timeEntriesData.length
-          ? timeEntriesData[timeEntriesData.length - 1]
-          : null
-      if (!isClockIn || !lastEntry) return onSuccess(newEntry)
-
-      await updateTimesheet({
-        id: timesheetId,
-        hours: parseFloat(
-          (
-            differenceInMinutes(
-              new Date(newEntry.timestamp),
-              new Date(lastEntry.timestamp),
-            ) / 60
-          ).toFixed(2),
-        ),
-      })
       onSuccess(newEntry)
     } catch (error) {
       alert((error as Error).message)
@@ -137,9 +116,7 @@ export function useGetNewTimeEntryButtonProps({
   timesheetId,
   timeEntriesData,
 }) {
-  const services = useServices('timeEntry', 'timesheet')
-
-  const { timesheet, timeEntries } = useTimesheetDetails(timesheetId)
+  const { timeEntries } = useTimesheetDetails(timesheetId)
 
   const isClockIn = shouldClockIn(timeEntriesData)
 
@@ -147,15 +124,8 @@ export function useGetNewTimeEntryButtonProps({
     timesheetId,
     isClockIn,
     isDisabled: !isAddTimeEntryAllowed(timeEntriesData),
-    updateTimesheet: (updateData: Partial<Timesheet>) => {
-      services.timesheet.updateTimesheet({
-        id: timesheetId,
-        ...updateData,
-      })
-    },
     onSuccess: () => {
       timeEntries.mutate()
-      timesheet.mutate()
     },
   })
 

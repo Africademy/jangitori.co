@@ -45,7 +45,6 @@ export class TimesheetService {
       .from<Timesheet>(TableKeys.Timesheets)
       .insert({
         ...args,
-        hours: 0,
         status: ReviewStatus.PENDING,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -76,25 +75,6 @@ export class TimesheetService {
     if (error) throw error
 
     if (!data) throw new Error('Failed to update timesheet for id=' + id)
-
-    return data[0]
-  }
-
-  async updateTimesheetHours(args: { id: Timesheet['id']; hours: number }) {
-    const { data, error } = await this.client
-      .from<Timesheet>(TableKeys.Timesheets)
-      .update({ hours: args.hours })
-      .eq('id', args.id)
-
-    if (error) throw error
-
-    if (!data)
-      throw new Error(
-        'Failed to update timesheet for id=' +
-          args.id +
-          ' and hours=' +
-          args.hours,
-      )
 
     return data[0]
   }

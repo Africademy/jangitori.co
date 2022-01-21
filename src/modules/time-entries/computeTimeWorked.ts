@@ -9,3 +9,11 @@ export function computeMinutesWorked(timeEntries: TimeEntry[]): number {
     .reduce((total, entry) => total + entry)
   return millisecondsToMinutes(minutes)
 }
+
+export function computeHoursWorked(timeEntries: TimeEntry[]): number {
+  const minutes = computeMinutesWorked(timeEntries)
+
+  const hours = parseFloat((minutes / 60).toFixed(2))
+
+  return hours
+}

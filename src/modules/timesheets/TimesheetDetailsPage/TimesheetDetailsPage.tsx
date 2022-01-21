@@ -13,6 +13,7 @@ import {
 import { computePayPeriod } from '@/modules/payrolls/computePayPeriod'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useRootStore } from '@/modules/stores'
+import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
@@ -57,7 +58,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           <Meta leftIcon={CalendarIconSolid} text={`Due ${payPeriodEnd}`} />
           <Meta
             leftIcon={CalculatorIconSolid}
-            text={`Total ${timesheetData.hours} hours`}
+            text={`Total ${computeHoursWorked(timeEntriesData)} hours`}
           />
         </VStack>
         <PageTopActions>

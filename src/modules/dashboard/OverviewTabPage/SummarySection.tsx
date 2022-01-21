@@ -3,6 +3,7 @@ import parseISO from 'date-fns/parseISO'
 import React from 'react'
 
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
+import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
 import { Typography } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
@@ -61,7 +62,7 @@ export const SummarySection: React.FunctionComponent<SummarySectionProps> = ({
           />
           <Stat
             title={'Total time'}
-            data={`${timesheet.data.hours} hours`}
+            data={`${computeHoursWorked(timeEntries.data)} hours`}
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
