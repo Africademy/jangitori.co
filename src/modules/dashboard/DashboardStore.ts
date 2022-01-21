@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, transaction } from 'mobx'
+import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
 import { routes } from '@/lib/routes'
@@ -10,14 +10,6 @@ import { BaseTabKey, getDashboardTabsForRole, getTabKeyForIndex } from './tabs'
 export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
   tabIndex = 0
   timesheetDetailsQuery: TimesheetDetailsQuery | null = null
-
-  setTimesheetDetailsQuery(query: TimesheetDetailsQuery | null) {
-    this.timesheetDetailsQuery = query
-  }
-
-  setTab(value: number) {
-    this.tabIndex = value
-  }
 
   clearQueries() {
     this.timesheetDetailsQuery = null
@@ -33,7 +25,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
     return tabs[this.tabIndex]
   }
 
-  routeTo(tab: TabKey | number) {
+  routeTo(value: TabKey, filter?: TimesheetDetailsQuery) {
     if (!Router.router?.isReady) {
       console.log(
         '❗ WARNING: Router is not ready but called DashboardStore.routeTo()',
@@ -41,18 +33,20 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
     }
     const role = this.root.getAccountRole()
     const tabKeys = this.tabKeys
-    let path = ''
-    let newTabIndex = this.tabIndex
+    const tab = value
+
+    const filterUrl = filter ? `?payPeriodEnd=${filter.payPeriodEnd}` : ``
     if (typeof tab === 'number') {
-      newTabIndex = tab
-      path = getTabKeyForIndex(tab, tabKeys)
+      this.tabIndex = tab
+      this.clearQueries()
+      Router.router?.push(
+        routes.dashboardPage(role, getTabKeyForIndex(tab, tabKeys) + filterUrl),
+      )
     } else {
-      path = tab
-      newTabIndex = tabKeys.indexOf(tab)
+      this.tabIndex = tabKeys.indexOf(tab)
+      this.clearQueries()
+      Router.router?.push(routes.dashboardPage(role, tab) + filterUrl)
     }
-    this.setTab(newTabIndex)
-    this.clearQueries()
-    Router.router?.push(routes.dashboardPage(role, path))
   }
 
   constructor(private root: RootStore) {
@@ -60,14 +54,8 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
 
     makeAutoObservable(
       this,
-      { setTab: action.bound, routeTo: action.bound },
+      { routeTo: action.bound },
       { name: 'DashboardStore' },
     )
-  }
-
-  dispose() {
-    transaction(() => {
-      this.tabIndex = 0
-    })
   }
 }

@@ -3,7 +3,11 @@ import dynamic from 'next/dynamic'
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { AdminTabKey, adminTabs } from '@/modules/dashboard/AdminDashboardPage'
+import {
+  AdminTabKey,
+  adminTabKeys,
+  adminTabs,
+} from '@/modules/dashboard/AdminDashboardPage'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 
@@ -35,7 +39,7 @@ const AdminDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
         {...getTabsProps({
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
-            dashboardStore.routeTo(index)
+            dashboardStore.routeTo(adminTabKeys[index])
           },
         })}
       >

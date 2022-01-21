@@ -7,6 +7,7 @@ import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashb
 import { DashboardPageProps } from '@/modules/dashboard/DashboardPageProps'
 import {
   EmployeeTabKey,
+  employeeTabKeys,
   employeeTabs,
 } from '@/modules/dashboard/EmployeeDashboardPage'
 
@@ -38,7 +39,7 @@ const EmployeeDashboardRoute: NextPageWithLayout<AuthenticatedPageProps> =
         {...getTabsProps({
           tabIndex: dashboardStore.tabIndex,
           onChange: (index: number) => {
-            dashboardStore.setTab(index)
+            dashboardStore.routeTo(employeeTabKeys[index])
           },
         })}
       >
