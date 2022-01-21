@@ -1,7 +1,3 @@
-export const TimesheetsTabCopy = {
-  title: 'Timesheets',
-}
-
 export const InitialTimeClockCopy = {
   HoursToday: 'Hours worked today',
   StartShift: 'Start shift',

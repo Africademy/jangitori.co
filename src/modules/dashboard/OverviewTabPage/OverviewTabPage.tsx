@@ -5,8 +5,7 @@ import { Typography } from '@/ui/atoms/Typography'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
 import { DashboardPageProps } from '../DashboardPageProps'
-import { PageBody } from '../Page'
-import { InitialTimeClockCopy } from '../TimesheetsTabPage/TimesheetsTabCopy'
+import { InitialTimeClockCopy } from './TimeClockCopy'
 import ViewTimesheetButton from './ViewTimesheetButton'
 
 export const OverviewTabPage = ({ account }: DashboardPageProps) => {

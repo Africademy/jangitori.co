@@ -65,7 +65,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
       )
     }
 
-    Router.router?.push(href)
+    Router.router?.push(href, routes.dashboardPresented(href.split('/')[3]))
   }
 
   routeToTab(value: TabKey, filter?: TimesheetDetailsQuery) {
@@ -89,14 +89,14 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
       this.tabIndex = tab
 
       this.routeTo(
-        routes.dashboardPage(
+        routes.dashboardTab(
           account.role,
           getTabKeyForIndex(tab, tabKeys) + filterUrl,
         ),
       )
     } else {
       this.tabIndex = tabKeys.indexOf(tab)
-      this.routeTo(routes.dashboardPage(account.role, tab) + filterUrl)
+      this.routeTo(routes.dashboardTab(account.role, tab) + filterUrl)
     }
   }
 

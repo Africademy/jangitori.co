@@ -65,13 +65,13 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const pages = [
     {
       name: 'Timesheets',
-      href: routes.dashboardPage(role, 'timesheets'),
+      href: routes.dashboardTab(role, 'timesheets'),
       current: false,
     },
     {
       name: title,
       href:
-        routes.dashboardPage(role, 'timesheets') +
+        routes.dashboardTab(role, 'timesheets') +
         `?payPeriodEnd=${query.payPeriodEnd}`,
       current: true,
     },
@@ -80,7 +80,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const handleLinkClick = (url: string) => {
     console.log('handleLinkClick - url: ' + url)
 
-    router.push(url)
+    router.push(url, routes.dashboardPresented(url.split('/')[2]))
     dashboardStore.setView('timesheets')
   }
 

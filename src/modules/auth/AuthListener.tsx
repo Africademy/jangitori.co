@@ -37,7 +37,10 @@ const AuthListener = function AuthListener({ children }: AuthListenerProps) {
         const isAuthRequiredPath = isAuthRequiredPathname(router.pathname)
 
         if (!isAuthRequiredPath) {
-          router.push(routes.dashboardPage(authStore.account!.role, 'overview'))
+          router.push(
+            routes.dashboardActual(authStore.account!.role, 'overview'),
+            routes.dashboardPresented('overview'),
+          )
         }
       },
     ),

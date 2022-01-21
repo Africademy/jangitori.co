@@ -101,7 +101,10 @@ export class SignUpStore {
       )
 
       this.authStore.setAccount(updatedAccount)
-      Router.router?.push(routes.dashboardPage(updatedAccount.role, 'overview'))
+      Router.router?.push(
+        routes.dashboardTab(updatedAccount.role, 'overview'),
+        routes.dashboardPresented('overview'),
+      )
     } catch (error) {
       this.handleError(error)
     } finally {

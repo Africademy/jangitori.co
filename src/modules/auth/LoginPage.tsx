@@ -14,7 +14,6 @@ import { AuthFormVM } from './AuthForm/AuthFormVM'
 import { AuthPageProps } from './types'
 
 const fileLabel = 'modules/auth/LoginPage'
-const logger = createLogger({ fileLabel })
 
 const LoginPageCopy = {
   title: 'Sign in',
@@ -39,13 +38,12 @@ const LoginPage: React.FC<AuthPageProps> = () => {
       authFormVM.setIsLoading(true)
       const { authUser, session } = await authService.signIn(formData)
       const account = await accountService.getAccount(authUser.id)
-      const newRoute = routes.dashboardPage(account.role, 'overview')
-      logger.info(
-        `✅ logged in account for email ${account.email}. Redirecting to ${newRoute}`,
-      )
       authStore.setSession(session)
       authStore.setAccount(account)
-      router.push(newRoute)
+      router.push(
+        routes.dashboardActual(account.role, 'overview'),
+        routes.dashboardPresented('overview'),
+      )
     } catch (error) {
       alert((error as Error).message)
       authFormVM.setError((error as Error).message)
