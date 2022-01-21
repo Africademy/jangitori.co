@@ -11,7 +11,7 @@ interface Props {
 
 export function AppLayout({ children }: Props): ReactElement {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <CoreHead />
       {children}
       <Toaster
