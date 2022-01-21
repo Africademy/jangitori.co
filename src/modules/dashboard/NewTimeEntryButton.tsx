@@ -134,14 +134,21 @@ export function useGetNewTimeEntryButtonProps({
 export const NewTimeEntryButton = ({
   timesheetData,
   timeEntriesData,
+  wide = false,
 }: {
   timesheetData: Timesheet
   timeEntriesData: TimeEntry[]
+  wide?: boolean
 }) => {
   const getNewTimeEntryButtonProps = useGetNewTimeEntryButtonProps({
     timesheetId: timesheetData.id,
     timeEntriesData,
   })
 
-  return <NewTimeEntryButtonComponent {...getNewTimeEntryButtonProps()} />
+  return (
+    <NewTimeEntryButtonComponent
+      wide={wide}
+      {...getNewTimeEntryButtonProps()}
+    />
+  )
 }

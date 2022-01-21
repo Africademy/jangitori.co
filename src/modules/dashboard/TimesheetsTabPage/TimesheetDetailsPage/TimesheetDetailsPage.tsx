@@ -20,7 +20,7 @@ import {
 } from '@/modules/timesheets/TimesheetStatus'
 import Typography from '@/ui/atoms/Typography/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { HideForMobile, MobileOnly } from '@/ui/components/HideForMobile'
+import { HideForMobile } from '@/ui/components/HideForMobile'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalendarIconSolid } from '@/ui/icons'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
@@ -76,16 +76,17 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Flex>
         </VStack>
         <PageTopActions>
-          <Button
-            color={'#fff'}
-            bg={theme.colors.indigo[600]}
-            disabled={timesheetData.status !== 'in-progress'}
-          >
-            Request to Edit
-          </Button>
-          <HideForMobile>
-            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-          </HideForMobile>
+          <VStack w="100%">
+            <Button
+              color={'#fff'}
+              bg={theme.colors.indigo[600]}
+              disabled={timesheetData.status !== 'in-progress'}
+              w="100%"
+            >
+              Request to Edit
+            </Button>
+            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
+          </VStack>
         </PageTopActions>
       </PageHeading>
 
@@ -96,9 +97,6 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Heading>
         </Flex>
         <TimesheetDetailsTable data={timeEntriesData} />
-        <MobileOnly>
-          <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-        </MobileOnly>
       </PageBody>
     </>
   )
