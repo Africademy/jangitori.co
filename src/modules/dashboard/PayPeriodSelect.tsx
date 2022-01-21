@@ -33,7 +33,7 @@ export const PayPeriodSelect: React.FunctionComponent<PayPeriodSelectProps> = ({
           box-shadow: ${theme.shadows.sm};
 
           ${largerThan('mobile')} {
-            font-size: ${theme.fontSizes['lg']};
+            font-size: ${theme.fontSizes['md']};
           }
           ${isMobile() &&
           css`

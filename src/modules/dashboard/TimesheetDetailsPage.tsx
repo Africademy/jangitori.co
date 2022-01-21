@@ -77,7 +77,6 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
             </Typography>
           </Flex>
         </VStack>
-
         <PageTopActions>
           <PayPeriodSelect
             payPeriodEnd={timesheetData.payPeriodEnd}

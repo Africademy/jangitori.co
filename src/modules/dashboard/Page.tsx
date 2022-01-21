@@ -59,7 +59,7 @@ export const PageTitle = ({ children }) => (
 )
 
 const PageBodyBox = styled.div`
-  padding: 1.5rem 0.25rem;
+  padding: 1.5rem 1rem;
   ${largerThan('mobile')} {
     padding: 1.5rem;
   }
