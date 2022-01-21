@@ -36,7 +36,7 @@ export class TimesheetService {
 
   async getOrCreateTimesheet(args: {
     employee: string
-    payPeriodEnd: string
+    payPeriodEnd: CalendarDate
   }): Promise<Timesheet> {
     const timesheet = await this.getTimesheetByEmployeeAndPayPeriod(args)
     if (timesheet) return timesheet
