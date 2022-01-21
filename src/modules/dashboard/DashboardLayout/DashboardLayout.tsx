@@ -11,16 +11,7 @@ import { useRootStore } from '@/modules/stores'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import DashboardStore from '../DashboardStore'
-import { parseTabKeyQueryParam } from '../tabs'
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
-
-export function useCurrentTabKey<TabKey extends string>(tabKeys: TabKey[]) {
-  const router = useRouter()
-
-  const tabKey = parseTabKeyQueryParam<TabKey>(router.query, tabKeys)
-
-  return tabKey
-}
 
 export function useSyncTabStateWithRoute<TabKey extends string>(
   getTabKey: () => TabKey,
@@ -71,9 +62,7 @@ export interface DashboardLayoutProps<TabKey extends string> {
   tabKeys: TabKey[]
 }
 
-const DashboardLayout = observer(function DashboardLayout<
-  TabKey extends string,
->({
+const DashboardLayout = function DashboardLayout<TabKey extends string>({
   children,
   tabKeys,
 }: React.PropsWithChildren<DashboardLayoutProps<TabKey>>) {
@@ -89,7 +78,7 @@ const DashboardLayout = observer(function DashboardLayout<
       </Box>
     </LocalStoreProvider>
   )
-})
+}
 
 export const DashboardHeader = observer(function Header() {
   const { authStore } = useRootStore()
