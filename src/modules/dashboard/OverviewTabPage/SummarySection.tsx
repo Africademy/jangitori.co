@@ -2,6 +2,7 @@ import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import React from 'react'
 
+import { mergeErrorMessages } from '@/lib/errors'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
@@ -27,21 +28,24 @@ export const SummarySection: React.FunctionComponent<SummarySectionProps> = ({
     payPeriodEnd,
   })
 
-  if (timesheet.error) {
-    return <ErrorMessage>{timesheet.error.message}</ErrorMessage>
+  if (timesheet.error || timeEntries.error) {
+    return (
+      <ErrorMessage>
+        {mergeErrorMessages(timesheet.error, timeEntries.error)}
+      </ErrorMessage>
+    )
   }
 
-  if (timeEntries.error) {
-    return <ErrorMessage>{timeEntries.error.message}</ErrorMessage>
-  }
+  const timesheetData = timesheet.data
+  const timeEntriesData = timeEntries.data
 
-  if (!timesheet.data || !timeEntries.data) return <LoadingVStack numRows={3} />
+  if (!timesheetData || !timeEntriesData) return <LoadingVStack />
 
-  if (timeEntries.data.length === 0)
+  if (timeEntriesData.length === 0)
     return <Typography>{"You haven't clocked in yet"}</Typography>
 
   const lastClockedIn = parseISO(
-    timeEntries.data.sort(
+    timeEntriesData.sort(
       (a, b) =>
         parseISO(b.timestamp).getTime() - parseISO(a.timestamp).getTime(),
     )[0].timestamp,
@@ -62,7 +66,7 @@ export const SummarySection: React.FunctionComponent<SummarySectionProps> = ({
           />
           <Stat
             title={'Total time'}
-            data={`${computeHoursWorked(timeEntries.data)} hours`}
+            data={`${computeHoursWorked(timeEntriesData)} hours`}
             icon={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
