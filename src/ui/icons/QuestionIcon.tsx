@@ -1,4 +1,4 @@
-const defaultStyle = { height: '1.25rem', width: '1.25rem' }
+import { defaultIconStyle } from './defaultIconStyle'
 
 export const QuestionIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -6,7 +6,7 @@ export const QuestionIcon = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
-    style={defaultStyle}
+    style={defaultIconStyle}
     {...props}
   >
     <path

@@ -63,6 +63,22 @@ export class TimesheetService {
     return data[0]
   }
 
+  async updateTimesheet({
+    id,
+    ...updateData
+  }: { id: Timesheet['id'] } & Partial<Omit<Timesheet, 'id'>>) {
+    const { data, error } = await this.client
+      .from<Timesheet>(TableKeys.Timesheets)
+      .update(updateData)
+      .eq('id', id)
+
+    if (error) throw error
+
+    if (!data) throw new Error('Failed to update timesheet for id=' + id)
+
+    return data[0]
+  }
+
   async updateTimesheetHours(args: { id: Timesheet['id']; hours: number }) {
     const { data, error } = await this.client
       .from<Timesheet>(TableKeys.Timesheets)
