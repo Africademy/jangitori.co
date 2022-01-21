@@ -1,5 +1,4 @@
 import { Flex, Heading, Tag, VStack } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { mergeErrorMessages } from '@/lib/errors'
@@ -18,19 +17,18 @@ import {
   TimesheetStatusColor,
   TimesheetStatusLabel,
 } from '@/modules/timesheets/TimesheetStatus'
-import { Typography } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { RefreshIconSolid } from '@/ui/icons/RefreshIcon'
+import { Meta } from '@/ui/molecules/Meta'
 
 import { TimesheetDetailsTable } from './TimesheetDetailsTable'
 
 export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetQuery }) {
-  const theme = useTheme()
   const { timesheet, timeEntries } = useTimesheetDetails(query[2])
   const { geolocationStore } = useRootStore()
 
@@ -61,18 +59,14 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </Tag>
         </Flex>
         <VStack align="flex-start" py={3} gap={2}>
-          <Flex gap={2} align="center">
-            <CalendarIconSolid />
-            <Typography lineHeight={1}>
-              Due on {timesheetData.payPeriodEnd}
-            </Typography>
-          </Flex>
-          <Flex gap={2} align="center">
-            <CalculatorIconSolid />
-            <Typography lineHeight={1}>
-              Worked {timesheetData.hours} hours
-            </Typography>
-          </Flex>
+          <Meta
+            leftIcon={CalendarIconSolid}
+            text={`Due ${timesheetData.payPeriodEnd}`}
+          />
+          <Meta
+            leftIcon={CalculatorIconSolid}
+            text={`Total ${timesheetData.hours} hours`}
+          />
         </VStack>
         <PageTopActions>
           <VStack w="100%" gap={2}>
@@ -80,7 +74,6 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           </VStack>
         </PageTopActions>
       </PageHeading>
-
       <PageBody>
         <Flex justify="space-between" align="center" w="100%">
           <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
