@@ -1,28 +1,26 @@
 import { DashboardPageProps } from './DashboardPage/DashboardPage'
-import { initDashboardPage } from './DashboardPage/initDashboardPage'
-import OverviewTabPage from './OverviewTabPage'
-import TimesheetsTabPage from './TimesheetsTabPage'
+import DashboardStore from './DashboardStore'
 
-export const EmployeeTabKeys = {
-  overview: 'overview',
-  timesheets: 'timesheets',
+export enum EmployeeTabKey {
+  OVERVIEW = 'overview',
+  TIMESHEETS = 'timesheets',
 }
 
+export const employeeTabKeys = [
+  EmployeeTabKey.OVERVIEW,
+  EmployeeTabKey.TIMESHEETS,
+]
+
 export const employeeTabLabels = {
-  [EmployeeTabKeys.overview]: 'Overview',
-  [EmployeeTabKeys.timesheets]: 'Timesheets',
+  [EmployeeTabKey.OVERVIEW]: 'Overview',
+  [EmployeeTabKey.TIMESHEETS]: 'Timesheets',
 } as const
 
-export type EmployeeTabKey = 'overview' | 'timesheets'
-
-const employeeDashboardPageProps: Omit<DashboardPageProps, 'account'> = {
+export const employeeDashboardPageProps: Omit<DashboardPageProps, 'account'> = {
   tabs: Object.entries(employeeTabLabels).map(([tabKey, tabLabel]) => ({
     id: tabKey,
     label: tabLabel,
   })),
-  tabPanels: [OverviewTabPage, TimesheetsTabPage],
 }
 
-const EmployeeDashboardPage = initDashboardPage(employeeDashboardPageProps)
-
-export default EmployeeDashboardPage
+export class EmployeeDashboardStore extends DashboardStore<EmployeeTabKey> {}

@@ -1,28 +1,23 @@
 import { DashboardPageProps } from './DashboardPage/DashboardPage'
-import { initDashboardPage } from './DashboardPage/initDashboardPage'
-import OverviewTabPage from './OverviewTabPage'
-import TimesheetsTabPage from './TimesheetsTabPage'
+import DashboardStore from './DashboardStore'
 
-export const AdminTabKeys = {
-  overview: 'overview',
-  timesheets: 'timesheets',
+export enum AdminTabKey {
+  OVERVIEW = 'overview',
+  TIMESHEETS = 'timesheets',
 }
 
+export const adminTabKeys = [AdminTabKey.OVERVIEW, AdminTabKey.TIMESHEETS]
+
 export const adminTabLabels = {
-  [AdminTabKeys.overview]: 'Overview',
-  [AdminTabKeys.timesheets]: 'Timesheets',
+  [AdminTabKey.OVERVIEW]: 'Overview',
+  [AdminTabKey.TIMESHEETS]: 'Timesheets',
 } as const
 
-export type AdminTabKey = 'overview' | 'timesheets'
-
-const adminDashboardPageProps: Omit<DashboardPageProps, 'account'> = {
+export const adminDashboardPageProps: Omit<DashboardPageProps, 'account'> = {
   tabs: Object.entries(adminTabLabels).map(([tabKey, tabLabel]) => ({
     id: tabKey,
     label: tabLabel,
   })),
-  tabPanels: [OverviewTabPage, TimesheetsTabPage],
 }
 
-const AdminDashboardPage = initDashboardPage(adminDashboardPageProps)
-
-export default AdminDashboardPage
+export class AdminDashboardStore extends DashboardStore<AdminTabKey> {}

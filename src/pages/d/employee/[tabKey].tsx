@@ -2,19 +2,22 @@ import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 
-const EmployeeDashboardPage = dynamic(
-  () => import('@/modules/dashboard/EmployeeDashboardPage'),
-)
+const DashboardPage = dynamic(() => import('@/modules/dashboard/DashboardPage'))
 
 import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
-import { EmployeeTabKeys } from '@/modules/dashboard/EmployeeDashboardPage'
+import { DashboardPageProps } from '@/modules/dashboard/DashboardPage'
+import {
+  employeeDashboardPageProps,
+  employeeTabKeys,
+} from '@/modules/dashboard/EmployeeDashboardPage'
 
-const EmployeeDashboardRoute = (props: AuthenticatedPageProps) => {
-  return <EmployeeDashboardPage {...props} />
+const EmployeeDashboardRoute = ({ account }: AuthenticatedPageProps) => {
+  const props: DashboardPageProps = { ...employeeDashboardPageProps, account }
+  return <DashboardPage {...props} />
 }
 
-EmployeeDashboardRoute.getLayout = getDashboardLayout(EmployeeTabKeys)
+EmployeeDashboardRoute.getLayout = getDashboardLayout(employeeTabKeys)
 
 export default EmployeeDashboardRoute
 

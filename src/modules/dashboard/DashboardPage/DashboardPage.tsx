@@ -9,50 +9,67 @@ import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 
+import OverviewTabPage from '../OverviewTabPage'
+import TimesheetsTabPage from '../TimesheetsTabPage'
 import { TabButtonProps } from './TabButtonProps'
 
 export type DashboardPageProps = AuthenticatedPageProps<{
   tabs: TabButtonProps[]
-  tabPanels: React.ComponentType<DashboardPageProps>[]
 }>
 
-export const DashboardPage = observer(function EmployeeDashboardPage(
+export const DashboardPage = observer(function DashboardPage(
   props: DashboardPageProps,
 ) {
-  const { tabs, tabPanels } = props
+  const { tabs } = props
   const theme = useTheme()
   const dashboardStore = useLocalMobXStore<DashboardStore>()
 
+  const getTabsProps = () => {
+    return {
+      isLazy: true,
+      colorScheme: 'gray',
+      index: dashboardStore.tabIndex,
+      onChange: dashboardStore.setTab,
+    }
+  }
+
+  const getTabListProps = () => {
+    return {
+      bg: '#fff',
+      shadow: 'none',
+      px: 8,
+      borderBottom: `0.8px solid ${theme.colors.gray[300]}`,
+    }
+  }
+
+  const getTabProps = (tab: TabButtonProps, index: number) => {
+    return {
+      id: tab.id,
+      isSelected: dashboardStore.tabIndex === index,
+    }
+  }
+
+  const getTabPanelProps = () => {
+    return { p: 0 }
+  }
+
   return (
     <>
-      <Tabs
-        isLazy
-        onChange={dashboardStore.setTab}
-        index={dashboardStore.tabIndex}
-        colorScheme="gray"
-      >
-        <TabList
-          bg={'#fff'}
-          shadow="none"
-          px={8}
-          borderBottom={`0.8px solid ${theme.colors.gray[300]}`}
-        >
-          {tabs.map((tab, i) => (
-            <StyledTab
-              id={tab.id}
-              key={tab.id}
-              isSelected={dashboardStore.tabIndex === i}
-            >
+      <Tabs {...getTabsProps()}>
+        <TabList {...getTabListProps()}>
+          {tabs.map((tab, index) => (
+            <StyledTab key={tab.id} {...getTabProps(tab, index)}>
               {tab.label}
             </StyledTab>
           ))}
         </TabList>
         <TabPanels>
-          {tabPanels.map((TabPanelComp, i) => (
-            <TabPanel key={i} p={0}>
-              <TabPanelComp {...props} />
-            </TabPanel>
-          ))}
+          <TabPanel {...getTabPanelProps()}>
+            <OverviewTabPage {...props} />
+          </TabPanel>
+          <TabPanel {...getTabPanelProps()}>
+            <TimesheetsTabPage {...props} />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </>

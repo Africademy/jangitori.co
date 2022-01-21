@@ -4,21 +4,21 @@ import { normalizeQueryParam } from '@/lib/normalizeQueryParam'
 
 export const isTabKey = <TabKey extends string>(
   o: any,
-  tabKeys: Record<TabKey, TabKey>,
+  tabKeys: string[],
 ): o is TabKey => {
   return typeof o === 'string' && Object.values(tabKeys).includes(o)
 }
 
 export function getIndexOfTabKey<TabKey extends string>(
   key: TabKey,
-  tabKeys: Record<TabKey, TabKey>,
+  tabKeys: TabKey[],
 ): number {
   return Object.values(tabKeys).indexOf(key)
 }
 
 export function getTabKeyForIndex<TabKey extends string>(
   index: number,
-  tabKeys: Record<TabKey, TabKey>,
+  tabKeys: TabKey[],
 ): TabKey {
   const tabKey = Object.keys(tabKeys)[index]
 
@@ -33,7 +33,7 @@ export function getTabKeyForIndex<TabKey extends string>(
 
 export function parseTabKeyQueryParam<TabKey extends string>(
   query: ParsedUrlQuery,
-  tabKeys: Record<TabKey, TabKey>,
+  tabKeys: TabKey[],
 ): TabKey {
   const tabKey =
     'tabKey' in query ? normalizeQueryParam<TabKey>(query.tabKey) : null

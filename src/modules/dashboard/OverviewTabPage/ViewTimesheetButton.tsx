@@ -10,12 +10,13 @@ import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import DashboardStore from '../DashboardStore'
+import { EmployeeTabKey } from '../EmployeeDashboardPage'
 import { OverviewTabCopy } from './OverviewTabCopy'
 
 const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
   const { authStore } = useRootStore()
   const employee = authStore.account?.uid
-  const dashboardStore = useLocalMobXStore<DashboardStore>()
+  const dashboardStore = useLocalMobXStore<DashboardStore<EmployeeTabKey>>()
   const payPeriodEnd = usePayPeriodEnd()
 
   if (!employee) return null
@@ -27,7 +28,7 @@ const ViewTimesheetButton = observer(function ViewTimesheetButton({}) {
         payPeriodEnd,
       }),
     )
-    dashboardStore.setTabKey('timesheets')
+    dashboardStore.setTabKey(EmployeeTabKey.TIMESHEETS)
   }
 
   return (

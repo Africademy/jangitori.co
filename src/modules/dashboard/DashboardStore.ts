@@ -7,7 +7,7 @@ import { TimesheetsQuery } from '@/modules/timesheets/timesheetQueryKeys'
 
 import { getIndexOfTabKey, getTabKeyForIndex } from './tabs'
 
-export default class DashboardStore<TabKey extends string> {
+export default class DashboardStore<TabKey extends string = string> {
   tabIndex = 0
   query: TimesheetsQuery | null = null
 
@@ -31,7 +31,7 @@ export default class DashboardStore<TabKey extends string> {
   constructor(
     private props: {
       role: RoleID
-      tabKeys: Record<TabKey, TabKey>
+      tabKeys: TabKey[]
     },
   ) {
     this.tabIndex = 0

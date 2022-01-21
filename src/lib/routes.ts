@@ -1,4 +1,3 @@
-import { TabKey } from '@/modules/dashboard/tabs'
 import { RoleID } from '@/modules/models/Role'
 
 export const routes = {
@@ -6,7 +5,7 @@ export const routes = {
   auth: '/auth' as const,
   authPage: (view: 'login' | 'signup') => `${routes.auth}/${view}` as const,
   dashboard: `/d` as const,
-  dashboardPage: (role: RoleID, tab: TabKey) =>
+  dashboardPage: (role: RoleID, tab: string) =>
     `${routes.dashboard}/${role}/${tab}` as const,
 }
 

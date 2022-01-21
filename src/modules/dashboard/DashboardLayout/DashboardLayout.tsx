@@ -14,9 +14,7 @@ import DashboardStore from '../DashboardStore'
 import { parseTabKeyQueryParam } from '../tabs'
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
 
-export function useCurrentTabKey<TabKey extends string>(
-  tabKeys: Record<TabKey, TabKey>,
-) {
+export function useCurrentTabKey<TabKey extends string>(tabKeys: TabKey[]) {
   const router = useRouter()
 
   const tabKey = parseTabKeyQueryParam<TabKey>(router.query, tabKeys)
@@ -51,11 +49,11 @@ export function useSyncTabStateWithRoute<TabKey extends string>(
 }
 
 export function useInitDashboardStore<TabKey extends string>(
-  tabKeys: Record<TabKey, TabKey>,
+  tabKeys: TabKey[],
 ) {
   const dashboardStore = useMobXStore(
     () =>
-      new DashboardStore<TabKey>({
+      new DashboardStore({
         role: RoleIDs.Employee,
         tabKeys,
       }),
@@ -70,7 +68,7 @@ export function useInitDashboardStore<TabKey extends string>(
 }
 
 export interface DashboardLayoutProps<TabKey extends string> {
-  tabKeys: Record<TabKey, TabKey>
+  tabKeys: TabKey[]
 }
 
 const DashboardLayout = observer(function DashboardLayout<
