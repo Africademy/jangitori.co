@@ -60,17 +60,13 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
           />
         </VStack>
         <PageTopActions>
-          <VStack w="100%" gap={2}>
-            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
-          </VStack>
+          <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
         </PageTopActions>
       </PageHeading>
       <PageBody>
-        <Flex justify="space-between" align="center" w="100%">
-          <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
-            Time Entries
-          </Heading>
-        </Flex>
+        <Heading as="h5" size="md" textAlign="left" fontWeight="semibold">
+          Time Entries
+        </Heading>
         <TimesheetDetailsTable data={timeEntriesData} />
       </PageBody>
     </>
