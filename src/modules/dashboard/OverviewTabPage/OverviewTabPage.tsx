@@ -5,15 +5,13 @@ import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/u
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
-import { DashboardPageProps } from '../DashboardPageProps'
+import { DashboardPageProps } from '../DashboardPage'
 import { PageBody, PageHeading, PageTitle, PageTopActions } from '../Page'
 import { SummarySection } from './SummarySection'
 import { UpcomingSection } from './UpcomingSection'
 import ViewTimesheetButton from './ViewTimesheetButton'
 
-export const OverviewTabPage = function OverviewTabPage({
-  account,
-}: DashboardPageProps) {
+export const OverviewTabPage = ({ account }: DashboardPageProps) => {
   const payPeriodEnd = usePayPeriodEnd()
 
   const { timesheet, timeEntries } = useTimesheetDetails({

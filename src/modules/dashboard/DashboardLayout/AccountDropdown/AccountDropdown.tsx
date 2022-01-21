@@ -106,7 +106,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
           </div>
           <>
             {isOpen && (
-              <ul {...getMenuProps()} className="list-none relative">
+              <ul {...getMenuProps()} className="list-none absolute z-50">
                 {items.map((item, index) => (
                   <li
                     key={item.value}
