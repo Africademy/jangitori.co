@@ -1,5 +1,5 @@
 import { Box, Container, Flex } from '@chakra-ui/react'
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { useRootStore } from '@/modules/stores'
@@ -13,20 +13,28 @@ const DashboardLayout = function DashboardLayout({
   children,
 }: React.PropsWithChildren<DashboardLayoutProps>) {
   return (
-    <Box maxH="100vh">
+    <>
       <DashboardHeader />
       <Container maxW="100%" minW="100vw" p={0}>
         {children}
       </Container>
-    </Box>
+    </>
   )
 }
 
 export const DashboardHeader = observer(function Header() {
   const { authStore } = useRootStore()
-
+  const theme = useTheme()
   return (
-    <Flex justify="end" align="center" minW="100vw" py={5} bg="#fff" px={6}>
+    <Flex
+      justify="end"
+      align="center"
+      minW="100vw"
+      h={14}
+      bg="#fff"
+      px={6}
+      shadow={'md'}
+    >
       <Box
         css={css`
           ${largerThan('tablet')} {
