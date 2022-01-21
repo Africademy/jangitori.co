@@ -10,31 +10,31 @@ import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
 
-export function useSyncTabStateWithRoute<TabKey extends string>(
-  getTabKey: () => TabKey,
-  setTabKey: (key: TabKey) => void,
-) {
-  const router = useRouter()
+// export function useSyncTabStateWithRoute<TabKey extends string>(
+//   getTabKey: () => TabKey,
+//   setTabKey: (key: TabKey) => void,
+// ) {
+//   const router = useRouter()
 
-  useEffect(() => {
-    const handleRouteChangeComplete = (url: string) => {
-      const tabKey = getTabKey()
-      const newTabKey = url.split('/')[3] as TabKey
-      const shouldSetTab = newTabKey !== tabKey
-      if (shouldSetTab) {
-        setTabKey(newTabKey)
-      }
-    }
+//   useEffect(() => {
+//     const handleRouteChangeComplete = (url: string) => {
+//       const tabKey = getTabKey()
+//       const newTabKey = url.split('/')[3] as TabKey
+//       const shouldSetTab = newTabKey !== tabKey
+//       if (shouldSetTab) {
+//         setTabKey(newTabKey)
+//       }
+//     }
 
-    router.events.on('routeChangeComplete', handleRouteChangeComplete)
+//     router.events.on('routeChangeComplete', handleRouteChangeComplete)
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChangeComplete)
-    }
-  }, [getTabKey, router.events, setTabKey])
-}
+//     // If the component is unmounted, unsubscribe
+//     // from the event with the `off` method:
+//     return () => {
+//       router.events.off('routeChangeComplete', handleRouteChangeComplete)
+//     }
+//   }, [getTabKey, router.events, setTabKey])
+// }
 
 export interface DashboardLayoutProps {}
 
@@ -43,10 +43,10 @@ const DashboardLayout = function DashboardLayout({
 }: React.PropsWithChildren<DashboardLayoutProps>) {
   const { dashboardStore } = useRootStore()
 
-  useSyncTabStateWithRoute(
-    () => dashboardStore.tabKey,
-    dashboardStore.setTabKey,
-  )
+  // useSyncTabStateWithRoute(
+  //   () => dashboardStore.tabKey,
+  //   dashboardStore.setTabKey,
+  // )
 
   return (
     <LocalStoreProvider localStore={dashboardStore}>
