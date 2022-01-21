@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Flex, Heading, VStack } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -8,7 +8,7 @@ import { CalendarIcon } from '@/ui/icons'
 
 const StatWidget = dynamic(() => import('@/ui/components/StatWidget'))
 
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
 
@@ -16,9 +16,12 @@ import { useLocalMobXStore } from '@/lib/mobx/LocalStoreProvider'
 import DashboardStore from '@/modules/dashboard/DashboardStore'
 import { useRootStore } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
+import Typography from '@/ui/atoms/Typography/Typography'
 import { Section } from '@/ui/components/Section'
+import { only } from '@/ui/utils/breakpoints'
 import { pseudo } from '@/ui/utils/pseudo'
 
+import { Avatar } from '../DashboardLayout/AccountDropdown/Avatar'
 import { CurrentTimesheetPreview } from './CurrentTimesheetPreview'
 
 const OverviewPageCopy = {
@@ -39,19 +42,45 @@ export const OverviewPage = function OverviewPage({
   account,
 }: AuthenticatedPageProps) {
   const payPeriodEnd = usePayPeriodEnd()
+  const theme = useTheme()
 
   return (
     <>
       <PageHeading>
-        <Section.Top>
-          <SmallTitle>{OverviewPageCopy.LatestActivity.title}</SmallTitle>
-          <ViewTimesheetButton />
-        </Section.Top>
-        <Section.Body>
-          <CurrentTimesheetPreview employee={account.uid} />
-        </Section.Body>
+        <Flex align="center" gap={3}>
+          <Avatar
+            size="md"
+            lineHeight="none"
+            bg={theme.colors.gray[400]}
+            fontWeight={theme.fontWeights.bold}
+            name={`${account.firstName} ${account.lastName}`}
+          />
+          <VStack align="start" gap={0}>
+            <Heading
+              as="h3"
+              size="lg"
+              lineHeight={1}
+              fontWeight="medium"
+            >{`${account.firstName} ${account.lastName}`}</Heading>
+            <Typography
+              lineHeight={1}
+              textTransform="uppercase"
+              fontSize="sm"
+              fontWeight="medium"
+              color={theme.colors.gray[600]}
+            >
+              {account.role}
+            </Typography>
+          </VStack>
+        </Flex>
+        <ViewTimesheetButton />
       </PageHeading>
       <PageBody>
+        <Section>
+          <Section.Body>
+            <CurrentTimesheetPreview employee={account.uid} />
+          </Section.Body>
+        </Section>
         <Section>
           <Section.Top>
             <SmallTitle>{OverviewPageCopy.Upcoming.title}</SmallTitle>
@@ -67,8 +96,22 @@ export const OverviewPage = function OverviewPage({
 
 const PageHeading = styled.div`
   background: #fff;
+  line-height: none !important;
   min-width: 100vwh;
-  padding: 3rem 1.5rem;
+  height: 16vh;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  ${only('mobile')} {
+    flex-direction: column;
+    justify-content: start;
+  }
+  gap: 0.75rem;
+  ${({ theme }) =>
+    css`
+      border-bottom: 1px solid ${theme.colors.gray[200]};
+    `}
 `
 
 const PageBody = styled.div`
@@ -85,16 +128,15 @@ function getStatWidgetProps(payPeriodEnd: string) {
 
 const SButton = styled(Button)`
   opacity: 0.8;
+  height: 44px;
+  max-width: 220px;
   background: transparent;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: space-between;
   font-size: 1rem;
 
   ${({ theme }) =>
     css`
-      color: ${theme.colors.gray[900]};
+      font-weight: ${theme.fontWeights.medium};
+      color: ${theme.colors.gray[700]};
       border: 1px solid ${theme.colors.gray[200]};
       ${pseudo('_hover')} {
         box-shadow: ${theme.shadows.sm};

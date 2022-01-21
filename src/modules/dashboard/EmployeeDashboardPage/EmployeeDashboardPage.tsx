@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 
 const OverviewPage = dynamic(() => import('@/modules/dashboard/OverviewPage'))
 
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 
 const StyledTab = dynamic(() => import('@/ui/components/StyledTab'))
 
@@ -33,6 +33,7 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
     () => dashboardStore.tabKey,
     dashboardStore.setTabKey,
   )
+  const theme = useTheme()
 
   return (
     <LocalStoreProvider localStore={dashboardStore}>
@@ -49,7 +50,7 @@ export const EmployeeDashboardPage = observer(function EmployeeDashboardPage(
           index={dashboardStore.tabIndex}
           colorScheme="messenger"
         >
-          <TabList>
+          <TabList bg={'#fff'} shadow="none">
             {tabs.map((tab, i) => (
               <StyledTab id={tab.id} key={tab.id}>
                 {tab.label}

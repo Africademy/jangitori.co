@@ -17,14 +17,7 @@ const DashboardLayout = observer(function DashboardLayout({ children }) {
 
   return (
     <VStack>
-      <Flex
-        justify="end"
-        align="center"
-        minW="100vw"
-        py={3}
-        bg="white"
-        boxShadow="sm"
-      >
+      <Flex justify="end" align="center" minW="100vw" py={5} bg="#fff" px={12}>
         <Box
           css={css`
             ${largerThan('tablet')} {
