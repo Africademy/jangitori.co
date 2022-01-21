@@ -13,24 +13,33 @@ export const PageSection: React.FunctionComponent<PageSectionProps> = ({
 }) => {
   const theme = useTheme()
   return (
-    <Box
-      bg="#fff"
-      css={css`
-        border: 1px solid ${theme.colors.gray[200]};
-        border-radius: ${theme.radii.DEFAULT};
-        width: 100%;
-      `}
-      px={5}
-      py={6}
-    >
-      <Flex direction="column" gap={5}>
-        <Heading as="h4" size="md" fontWeight="medium" lineHeight={1}>
+    <>
+      <Flex direction="column" gap={5} minW="100%">
+        <Heading
+          as="h4"
+          size="md"
+          fontWeight="medium"
+          color={theme.colors.gray[700]}
+          lineHeight={1}
+        >
           {title}
         </Heading>
-        <VStack align="start" gap={1}>
-          {body}
-        </VStack>
+        <Box
+          bg="#fff"
+          css={css`
+            border: 0.8px solid ${theme.colors.gray[100]};
+            border-radius: ${theme.radii.md};
+            box-shadow: ${theme.shadows.sm};
+            width: 100%;
+          `}
+          px={5}
+          py={6}
+        >
+          <VStack align="start" gap={1}>
+            {body}
+          </VStack>
+        </Box>
       </Flex>
-    </Box>
+    </>
   )
 }
