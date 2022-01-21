@@ -17,5 +17,5 @@ export function computeHoursWorked(timeEntries: TimeEntry[]): number {
 
   const hours = parseFloat((minutes / 60).toFixed(2))
 
-  return hours
+  return Number.isNaN(hours) ? 0 : hours
 }
