@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@chakra-ui/react'
+import { Button, Flex, Tooltip } from '@chakra-ui/react'
 import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import differenceInMinutes from 'date-fns/differenceInMinutes'
@@ -17,6 +17,7 @@ export const NewTimeEntryButton = ({
   isDisabled,
   onSuccess,
   updateTimesheet,
+  mobile = false,
 }) => {
   const services = useServices('timeEntry')
   const { timeEntries } = useTimesheetDetails(timesheetId)
@@ -72,8 +73,13 @@ export const NewTimeEntryButton = ({
   }
 
   return (
-    <div className="flex items-center gap-3">
-      {isDisabled && (
+    <Flex
+      {...(mobile ? { minW: '100%', position: 'absolute', bottom: 32 } : {})}
+      alignItems="center"
+      gap={3}
+      px={6}
+    >
+      {isDisabled && !mobile && (
         <Tooltip
           label="You must wait at least 15 minutes between time punches."
           fontSize="md"
@@ -87,7 +93,7 @@ export const NewTimeEntryButton = ({
         disabled={isBusy || isDisabled}
         variant="solid"
         colorScheme="blue"
-        size="md"
+        {...(!mobile ? { size: 'md' } : { size: 'lg', minW: '100%' })}
         px={6}
         onClick={handleNewTimeEntry}
         _disabled={{
@@ -102,7 +108,7 @@ export const NewTimeEntryButton = ({
       >
         {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
       </Button>
-    </div>
+    </Flex>
   )
 }
 

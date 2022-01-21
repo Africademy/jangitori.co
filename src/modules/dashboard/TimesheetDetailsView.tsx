@@ -9,7 +9,7 @@ import { useRootStore, useServices } from '@/modules/stores'
 import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { TimesheetQuery } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { HideForMobile } from '@/ui/components/HideForMobile'
+import { HideForMobile, MobileOnly } from '@/ui/components/HideForMobile'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 
 import { NewTimeEntryButton } from './NewTimeEntryButton'
@@ -80,7 +80,9 @@ export const TimesheetDetailsView = observer(function TimesheetDetailsView({
       <>
         {timeEntries.data && <TimesheetDetailsTable data={timeEntries.data} />}
       </>
-      <NewTimeEntryButton {...getNewTimeEntryButtonProps()} />
+      <MobileOnly>
+        <NewTimeEntryButton mobile {...getNewTimeEntryButtonProps()} />
+      </MobileOnly>
     </VStack>
   )
 })

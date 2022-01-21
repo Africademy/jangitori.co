@@ -21,3 +21,9 @@ export const HideForMobile = ({ children }) => {
 
   return <>{children}</>
 }
+
+export const MobileOnly = ({ children }) => {
+  if (!isMobile()) return null
+
+  return <>{children}</>
+}
