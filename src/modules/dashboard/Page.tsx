@@ -41,7 +41,7 @@ export const PageTopActions = ({ children }) => (
   <Box
     css={css`
       ${only('mobile')} {
-        padding-top: 0.5rem;
+        padding-top: 0.75rem;
         display: flex;
         align-items: center;
         gap: 1rem;

@@ -81,7 +81,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
             />
           </VStack>
           <PageTopActions>
-            <NewTimeEntryButton wide {...{ timesheetData, timeEntriesData }} />
+            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
           </PageTopActions>
         </VStack>
       </PageHeading>

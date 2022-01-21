@@ -9,7 +9,7 @@ import { Timesheet } from '@/modules/models/Timesheet'
 import { useRootStore, useServices } from '@/modules/stores'
 import { isAddTimeEntryAllowed } from '@/modules/time-entries/isAddTimeEntryAllowed'
 import { Typography } from '@/ui/atoms/Typography'
-import { ClockIcon } from '@/ui/icons/ClockIcon'
+import { QuestionIcon } from '@/ui/icons/QuestionIcon'
 
 import { useTimesheetDetails } from './useTimesheetDetails'
 
@@ -59,36 +59,36 @@ export const NewTimeEntryButtonComponent = ({
   }
 
   return (
-    <VStack minW="100%">
-      <Button
-        minW="100%"
-        display="flex"
-        align="center"
-        gap={2}
-        disabled={isBusy || isDisabled}
-        variant="solid"
-        fontWeight="medium"
-        fontSize="sm"
-        bg={theme.colors.indigo[600]}
-        color={'#fff'}
-        size="md"
-        {...(!wide ? {} : { minW: '100%' })}
-        px={3}
-        onClick={handleNewTimeEntry}
-        _disabled={{
-          background: theme.colors.gray[200],
-          color: theme.colors.gray[500],
-        }}
-        _hover={{
-          _notDisabled: {
-            background: theme.colors.primary[700],
-          },
-        }}
-      >
-        <ClockIcon />
-        {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
-      </Button>
+    <VStack align="stretch" gap={2}>
       {isDisabled && <DisabledStateExplanation />}
+      <Flex align="center" gap={3}>
+        <Button
+          display="flex"
+          align="center"
+          gap={2}
+          px={5}
+          disabled={isBusy || isDisabled}
+          variant="solid"
+          fontWeight="medium"
+          bg={theme.colors.indigo[600]}
+          color={'#fff'}
+          size="md"
+          {...(!wide ? {} : { minW: '100%' })}
+          onClick={handleNewTimeEntry}
+          _disabled={{
+            background: theme.colors.gray[200],
+            color: theme.colors.gray[500],
+          }}
+          _hover={{
+            _notDisabled: {
+              background: theme.colors.primary[700],
+            },
+          }}
+        >
+          {/* <ClockIcon /> */}
+          {isBusy ? '...' : isClockIn ? 'Clock in' : 'Clock out'}
+        </Button>
+      </Flex>
     </VStack>
   )
 }
@@ -139,24 +139,30 @@ export const DisabledStateExplanation = () => {
   const theme = useTheme()
 
   return (
-    <Flex align="center" gap={2} py={2} minW="100%">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4 text-blue-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      <Typography fontSize="sm" color={theme.colors.blue[700]}>
+    <Flex align="center" gap={1.5} pt={3} py={1}>
+      <QuestionIcon className="h-4 w-4 text-blue-500 opacity-[0.7]" />
+      <Typography fontSize="sm" color={theme.colors.blue[700]} lineHeight={1}>
         Must wait at least 15 minutes between entries.
       </Typography>
     </Flex>
+  )
+}
+
+export const InfoIcon = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
   )
 }
