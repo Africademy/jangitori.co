@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next",
     "clean:dist": "rimraf .next ./tsconfig.tsbuildinfo",
-    "build": "yarn format && yarn lint --fix && yarn clean:dist && next build",
+    "build": "yarn format && yarn lint --fix && yarn clean:dist && yarn install && next build",
     "clean": "yarn clean:dist && rimraf yarn.lock node_modules && yarn cache clean",
     "refresh:all": "yarn clean && yarn install && yarn build",
     "start": "next start",
