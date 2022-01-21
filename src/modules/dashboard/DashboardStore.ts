@@ -19,6 +19,10 @@ export default class DashboardStore<TabKey extends string = string> {
     this.tabIndex = value
   }
 
+  clearQueries() {
+    this.timesheetDetailsQuery = null
+  }
+
   setTabKey(key: TabKey) {
     const index = getIndexOfTabKey<TabKey>(key, this.props.tabKeys)
     this.setTab(index)

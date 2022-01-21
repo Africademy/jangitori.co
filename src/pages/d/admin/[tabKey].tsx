@@ -26,7 +26,7 @@ const AdminDashboardRoute = ({ account }: AuthenticatedPageProps) => {
     <Tabs {...getTabsProps()}>
       <TabList {...getTabListProps()}>
         {adminTabs.map((tab, index) => (
-          <StyledTab key={tab.id} {...getTabProps(tab, index)}>
+          <StyledTab key={tab.id} {...getTabProps({ tab, index })}>
             {tab.label}
           </StyledTab>
         ))}

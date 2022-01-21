@@ -9,28 +9,33 @@ export function useTabsComponent() {
   const theme = useTheme()
   const dashboardStore = useLocalMobXStore<DashboardStore>()
 
-  const getTabsProps = () => {
+  const getTabsProps = (props = {}) => {
     return {
       isLazy: true,
       colorScheme: 'gray',
       index: dashboardStore.tabIndex,
-      onChange: dashboardStore.setTab,
+      onChange: (index: number) => {
+        dashboardStore.setTab(index)
+        dashboardStore.clearQueries()
+      },
+      ...props,
     }
   }
 
-  const getTabListProps = () => {
+  const getTabListProps = (props = {}) => {
     return {
       bg: '#fff',
       shadow: 'none',
       px: 8,
       borderBottom: `0.8px solid ${theme.colors.gray[300]}`,
+      ...props,
     }
   }
 
-  const getTabProps = (tab: TabButtonProps, index: number) => {
+  const getTabProps = (props: { tab: TabButtonProps; index: number }) => {
     return {
-      id: tab.id,
-      isSelected: dashboardStore.tabIndex === index,
+      id: props.tab.id,
+      isSelected: dashboardStore.tabIndex === props.index,
     }
   }
 

@@ -29,7 +29,7 @@ const EmployeeDashboardRoute = ({ account }: AuthenticatedPageProps) => {
     <Tabs {...getTabsProps()}>
       <TabList {...getTabListProps()}>
         {employeeTabs.map((tab, index) => (
-          <StyledTab key={tab.id} {...getTabProps(tab, index)}>
+          <StyledTab key={tab.id} {...getTabProps({ tab, index })}>
             {tab.label}
           </StyledTab>
         ))}
