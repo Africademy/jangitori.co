@@ -1,3 +1,4 @@
+import { when } from 'mobx'
 import { ReactNode, useEffect, useMemo } from 'react'
 
 import { initializeStore } from './initializeRootStore'
@@ -11,8 +12,13 @@ export default function RootStoreProvider({
   const store = useMemo(initializeStore, [])
 
   useEffect(() => {
-    store.locationStore.hydrate()
-  }, [store.locationStore])
+    store.locationStore.init()
+    store.authStore.init()
+    return when(
+      () => Boolean(store.authStore.account),
+      () => store.shiftStore.init(),
+    )
+  }, [])
 
   return (
     <RootStoreContext.Provider value={store}>

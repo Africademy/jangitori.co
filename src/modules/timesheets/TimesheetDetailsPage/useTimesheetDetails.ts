@@ -11,7 +11,7 @@ export function useTimesheetDetails(args: TimesheetDetailsQuery): {
   timesheet: SWRResponse<Timesheet, Error>
   timeEntries: SWRResponse<TimeEntry[], Error>
 } {
-  const services = useServices('timeEntry', 'timesheet')
+  const services = useServices()
 
   const timesheetSWR = useSWR<Timesheet, Error>(
     `/getOrCreateTimesheet?employee=${args.employee}&payPeriodEnd=${args.payPeriodEnd}`,

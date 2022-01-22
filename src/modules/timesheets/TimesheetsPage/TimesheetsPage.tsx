@@ -14,7 +14,7 @@ import TimesheetsTable from './TimesheetsTable'
 const BackButton = dynamic(() => import('@/ui/molecules/BackButton'))
 
 export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
-  const services = useServices('timesheet')
+  const services = useServices()
 
   const { data: timesheets, error } = useSWR<Timesheet[], Error>(
     timesheetQueryKeys.list(account.uid),

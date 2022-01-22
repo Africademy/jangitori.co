@@ -29,13 +29,13 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
   const router = useRouter()
 
   const { authStore } = useRootStore()
-  const services = useServices('auth')
+  const { auth: authService } = useServices()
   const [, setIsLoading] = useState(false)
 
   async function signOut() {
     setIsLoading(true)
     try {
-      await services.auth.signOut()
+      await authService.signOut()
       authStore.reset()
       router.push(routes.authPage('login'))
     } catch (error) {
@@ -91,7 +91,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
                 fontWeight={theme.fontWeights.bold}
                 name={fullName}
               />
-              <div className="hidden md:block h-full">
+              <div className="hidden h-full md:block">
                 <Text
                   color={theme.colors.gray[700]}
                   fontWeight={theme.fontWeights.semibold}
@@ -106,7 +106,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
           </div>
           <>
             {isOpen && (
-              <ul {...getMenuProps()} className="list-none absolute z-50">
+              <ul {...getMenuProps()} className="absolute z-50 list-none">
                 {items.map((item, index) => (
                   <li
                     key={item.value}
@@ -121,7 +121,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
                         highlightedIndex,
                       }),
                     })}
-                    className="bg-white rounded-md shadow-md p-3 divide-y divide-gray-300"
+                    className="p-3 bg-white divide-y divide-gray-300 rounded-md shadow-md"
                   >
                     <button>{item.value}</button>
                   </li>

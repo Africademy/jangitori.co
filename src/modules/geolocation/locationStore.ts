@@ -30,7 +30,7 @@ export class LocationStore {
    * Should be called in the browser otherwise we won't have access to
    * the Geolocation API.
    */
-  hydrate() {
+  init() {
     console.log('🌊 Hydrating LocationStore...')
     const currentCoords = this.geolocationPosition?.coords
     if (currentCoords) return

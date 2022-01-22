@@ -57,7 +57,7 @@ const confirmationFormFields: FormFieldProps[] = [
 
 export const SignUpPage = observer(function SignUpPage() {
   const { authStore } = useRootStore()
-  const services = useServices('auth', 'account')
+  const services = useServices()
 
   const signUpStore = useMobXStore(() => new SignUpStore(services, authStore))
 

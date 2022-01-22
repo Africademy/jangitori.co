@@ -6,7 +6,7 @@ import { ShiftStore } from '@/modules/shifts/shiftStore'
 import { initServices, Services } from '@/modules/stores/services'
 
 export class RootStore {
-  services: Services
+  services = initServices()
 
   authStore: AuthStore
 
@@ -14,9 +14,8 @@ export class RootStore {
 
   shiftStore: ShiftStore
 
-  constructor(services = initServices()) {
-    this.services = services
-
+  constructor() {
+    const services = this.services
     this.authStore = new AuthStore(this, pick(services, ['auth', 'account']))
     this.locationStore = new LocationStore()
     this.shiftStore = new ShiftStore(this, services.shift)

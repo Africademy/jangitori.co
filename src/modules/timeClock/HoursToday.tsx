@@ -1,33 +1,54 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
+import { observer } from 'mobx-react-lite'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { IError } from '@/lib/types/ApiResponse'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
-import { useAuthStore, useServices } from '../stores'
+import { Shift } from '../models/Shift'
+import { useRootStore, useServices } from '../stores'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
-export const HoursToday = () => {
+export function aggregateHours(data: Shift[]): number {
+  const totalHours = data.map((shift) => shift.hours).reduce((a, b) => a + b)
+
+  return totalHours
+}
+
+export function useTotalHoursToday(employee: string) {
+  const { shift: shiftService } = useRootStore().services
+
+  const [hours, setHours] = useState<number | undefined>(undefined)
+  const [error, setError] = useState<IError | undefined | null>(undefined)
+
+  useEffect(() => {
+    shiftService
+      .getShifts({
+        employee: employee,
+        date: new Date().toISOString(),
+      })
+      .then((shifts) => {
+        console.log('SHIFTS:', shifts)
+        return aggregateHours(shifts)
+      })
+      .then(setHours)
+      .catch(setError)
+  }, [employee, shiftService])
+
+  return { hours, error }
+}
+
+export const HoursToday = observer(function HoursToday() {
   const theme = useTheme()
 
-  const { shift: shiftService } = useServices()
-  const authStore = useAuthStore()
-  const employee = authStore.account
+  const employee = useCurrentUser().uid
 
-  const getTotalHours = async (date: Date = new Date()): Promise<number> => {
-    const totalHours = await shiftService.getTotalHoursForDate({
-      employee: employee!.uid,
-      date: date.toISOString(),
-    })
-    console.log('👌 GOT TOTAL HOURS: ' + totalHours)
-    return totalHours
-  }
+  const { shift: shiftService } = useRootStore().services
 
-  const { data: hours, error } = useSWR<number, Error>(
-    employee ? 'totalHoursToday' : null,
-    getTotalHours,
-  )
+  const { hours, error } = useTotalHoursToday(employee)
 
   return (
     <Box
@@ -45,9 +66,9 @@ export const HoursToday = () => {
         <Box fontWeight="semibold">{`${
           typeof hours === 'undefined' && typeof error === 'undefined'
             ? '---'
-            : hours
+            : `${hours}`
         }`}</Box>
       </Flex>
     </Box>
   )
-}
+})

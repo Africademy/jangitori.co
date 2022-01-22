@@ -16,7 +16,7 @@ export class AuthStore {
 
   setSession(value: Session | null) {
     this.session = value
-    this.reloadAccountForSession(value)
+    this.init()
   }
 
   setAccount(value: Account | null) {
@@ -33,7 +33,9 @@ export class AuthStore {
     return Boolean(this.account && this.session)
   }
 
-  private async reloadAccountForSession(session: Session | null) {
+  async init() {
+    const session = this.session
+
     if (!session) {
       this.setAccount(null)
       return
@@ -57,11 +59,10 @@ export class AuthStore {
   ) {
     this.accountService = services.account
     this.authService = services.auth
-
     const session = supabase.auth.session()
     this.session = session
     this.account = null
+
     makeAutoObservable(this, {}, { name: 'AuthStore' })
-    this.reloadAccountForSession(session)
   }
 }

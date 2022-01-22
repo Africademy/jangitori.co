@@ -19,10 +19,7 @@ const LoginPageCopy = {
 export const LoginPage: React.FC<AuthPageProps> = () => {
   const { authStore } = useRootStore()
   const router = useRouter()
-  const { auth: authService, account: accountService } = useServices(
-    'auth',
-    'account',
-  )
+  const { auth: authService, account: accountService } = useServices()
 
   const authFormVM = useMobXStore(() => new AuthFormVM())
 

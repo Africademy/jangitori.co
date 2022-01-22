@@ -26,12 +26,7 @@ export function useShiftStore() {
   return useRootStore().shiftStore
 }
 
-export function useServices<K extends keyof Services>(
-  ...keys: K[]
-): Pick<Services, K> {
+export function useServices(): Services {
   const { services } = useRootStore()
-
-  const result = {} as Pick<Services, K>
-  keys.forEach((key) => (result[key] = services[key]))
-  return result
+  return services
 }

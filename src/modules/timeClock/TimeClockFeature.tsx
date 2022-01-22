@@ -1,7 +1,5 @@
 import { Skeleton, Stack } from '@chakra-ui/react'
-import { when } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 
 import { useShiftStore } from '@/modules/stores'
 import { Redirect } from '@/ui/components/Redirect'
@@ -11,13 +9,6 @@ import { StartShift } from './StartShift'
 
 export const TimeClockFeature = observer(function TimeClockFeature() {
   const shiftStore = useShiftStore()
-
-  useEffect(() => {
-    return when(
-      () => shiftStore.step === ShiftStep.Initializing,
-      () => shiftStore.init(),
-    )
-  }, [])
 
   if (shiftStore.step === ShiftStep.Initializing)
     return (

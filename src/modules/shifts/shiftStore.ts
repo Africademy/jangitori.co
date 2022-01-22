@@ -26,15 +26,6 @@ export class ShiftStore {
     this.request = value
   }
 
-  async init() {
-    const account = this.root.authStore.invariantAccount
-    const response = await this.shiftService.findActiveShift({
-      employee: account.uid,
-    })
-    this.setRequest({ ...response, isLoading: false })
-    this.setStep(ShiftStep.Idle)
-  }
-
   reset() {
     this.request = { isLoading: false }
     this.setStep(ShiftStep.Idle)
@@ -42,6 +33,18 @@ export class ShiftStore {
 
   get shift(): Shift | undefined | null {
     return this.request.data
+  }
+
+  /**
+   * Must initialize after AuthStore is initialized
+   */
+  async init() {
+    const account = this.root.authStore.invariantAccount
+    const response = await this.shiftService.findActiveShift({
+      employee: account.uid,
+    })
+    this.setRequest({ ...response, isLoading: false })
+    this.setStep(ShiftStep.Idle)
   }
 
   async startShift(location: Coordinates) {
