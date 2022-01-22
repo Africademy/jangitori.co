@@ -1,20 +1,6 @@
 import supabase from '@/lib/supabase'
-
-import { Coordinates } from '../geolocation/Coordinates'
-import { TableKeys } from '../tables'
-
-export type TimeClockData = { timestamp: Timestamp; location: Coordinates }
-
-export interface Shift {
-  id: number
-  employee: string
-  date: CalendarDate
-  clockIn: TimeClockData
-  clockOut?: TimeClockData | null
-  note?: string
-}
-
-export type ShiftsTableConfig = { schema: Shift; primaryKey: 'id' }
+import { Shift } from '@/modules/models/Shift'
+import { TableKeys } from '@/modules/tables'
 
 export class ShiftService {
   constructor(private client = supabase) {}

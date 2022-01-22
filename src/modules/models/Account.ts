@@ -1,5 +1,4 @@
 import { UserType } from '@/lib/types/UserType'
-import { PrimaryKeyOf } from '@/modules/tables'
 
 import { RoleID } from './Role'
 
@@ -26,12 +25,4 @@ export type Account<R extends RoleID = RoleID> = OnboardedAccount<R> & {
   role: RoleID
 }
 
-export type AccountTableConfig = {
-  schema: Account
-  primaryKey: 'email'
-}
-
-export type AccountUpdateData = Omit<
-  Account,
-  PrimaryKeyOf<'accounts'> | 'updatedAt' | 'role'
->
+export type AccountUpdateData = Omit<Account, 'updatedAt' | 'role'>

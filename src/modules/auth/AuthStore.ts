@@ -1,5 +1,6 @@
 import { Session } from '@supabase/gotrue-js'
 import { makeAutoObservable } from 'mobx'
+import invariant from 'tiny-invariant'
 
 import supabase from '@/lib/supabase'
 import { Account } from '@/modules/models/Account'
@@ -16,6 +17,12 @@ export class AuthStore {
 
   setAccount(value: Account | null) {
     this.account = value
+  }
+
+  get invariantAccount(): Account {
+    const account = this.account
+    invariant(account, 'AuthStore account not found')
+    return account
   }
 
   get isAuthenticated(): boolean {

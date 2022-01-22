@@ -1,8 +1,10 @@
 import { makeAutoObservable } from 'mobx'
 
-import { Coordinates } from '../geolocation/Coordinates'
-import { RootStore } from '../stores'
-import { Shift, ShiftService } from './shiftService'
+import { Coordinates } from '@/modules/geolocation/Coordinates'
+import { Shift } from '@/modules/models/Shift'
+import { RootStore } from '@/modules/stores'
+
+import { ShiftService } from './shiftService'
 
 export enum RequestStatus {
   IDLE = 'idle',
@@ -32,7 +34,7 @@ export class ShiftStore {
       this.request = { isLoading: true }
       const date = new Date()
       const initialShift: Omit<Shift, 'id'> = {
-        employee: this.root.invariantAccount.uid,
+        employee: this.root.authStore.invariantAccount.uid,
         date: date.toISOString(),
         clockIn: { timestamp: date.toISOString(), location: location },
       }
@@ -55,7 +57,7 @@ export class ShiftStore {
     let found: Shift | null = null
     let error: IError | null = null
     try {
-      const account = this.root.invariantAccount
+      const account = this.root.authStore.invariantAccount
 
       found = await this.shiftService.findActiveShift({
         employee: account.uid,

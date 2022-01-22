@@ -1,10 +1,3 @@
-import { AccountTableConfig } from '@/modules/models/Account'
-import { RoleTableConfig } from '@/modules/models/Role'
-import { EntryTableConfig } from '@/modules/models/TimeEntry'
-import { TimesheetTableConfig } from '@/modules/models/Timesheet'
-
-import { ShiftsTableConfig } from './timeClock/shiftService'
-
 export enum TablesEnum {
   ACCOUNTS = 'Accounts',
   ROLES = 'Roles',
@@ -22,13 +15,3 @@ export const TableKeys = {
 } as const
 
 export type TableName = typeof TableKeys[keyof typeof TableKeys]
-
-export type TableConfigs = {
-  [TableKeys.Accounts]: AccountTableConfig
-  [TableKeys.Roles]: RoleTableConfig
-  [TableKeys.Timesheets]: TimesheetTableConfig
-  [TableKeys.TimeEntries]: EntryTableConfig
-  [TableKeys.Shifts]: ShiftsTableConfig
-}
-
-export type PrimaryKeyOf<T extends TableName> = TableConfigs[T]['primaryKey']

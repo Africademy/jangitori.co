@@ -16,8 +16,3 @@ export interface Role {
   id: PrimaryKey<RoleID>
   name: RoleID
 }
-
-export type RoleTableConfig = {
-  schema: Role
-  primaryKey: 'id'
-}

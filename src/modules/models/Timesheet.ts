@@ -8,8 +8,3 @@ export interface Timesheet {
   createdAt: Timestamp
   updatedAt: Timestamp
 }
-
-export type TimesheetTableConfig = {
-  schema: Timesheet
-  primaryKey: 'id'
-}

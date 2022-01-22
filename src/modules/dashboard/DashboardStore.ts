@@ -49,7 +49,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
   }
 
   get tabKeys(): TabKey[] {
-    const role = this.root.invariantAccount.role
+    const role = this.root.authStore.invariantAccount.role
     return getDashboardTabsForRole(role) as TabKey[]
   }
 
@@ -69,7 +69,7 @@ export default class DashboardStore<TabKey extends BaseTabKey = BaseTabKey> {
   }
 
   routeToTab(value: TabKey, filter?: TimesheetDetailsQuery) {
-    const account = this.root.invariantAccount
+    const account = this.root.authStore.invariantAccount
     const tabKeys = this.tabKeys
     const tab = value
     const payPeriodEnd = filter?.payPeriodEnd
