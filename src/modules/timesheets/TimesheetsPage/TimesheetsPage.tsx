@@ -1,11 +1,13 @@
+import { Box, Flex, Heading } from '@chakra-ui/react'
 import useSWR from 'swr'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { PageBody, PageHeading, PageTitle } from '@/modules/dashboard/Page'
+import { PageBody } from '@/modules/dashboard/Page'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
+import { ChevronLeftIcon } from '@/ui/icons/ChevronIcon'
 
 import TimesheetsTable from './TimesheetsTable'
 
@@ -23,9 +25,19 @@ export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
 
   return (
     <>
-      <PageHeading>
-        <PageTitle>Timesheets</PageTitle>
-      </PageHeading>
+      <Flex px={5} pt={8} pb={1} align="center" gap={3} justify="center">
+        <Box position="absolute" left={4}>
+          <ChevronLeftIcon className="w-6 h-6" strokeWidth={3} />
+        </Box>
+        <Heading
+          size="md"
+          fontWeight="medium"
+          lineHeight={1}
+          textAlign="center"
+        >
+          Timesheets
+        </Heading>
+      </Flex>
       <PageBody>{timesheets && <TimesheetsTable data={timesheets} />}</PageBody>
     </>
   )
