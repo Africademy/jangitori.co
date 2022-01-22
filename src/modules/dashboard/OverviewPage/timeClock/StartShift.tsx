@@ -2,14 +2,13 @@ import { Box, Container, Flex, Skeleton, Stack, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { useLocationStore } from '@/modules/stores'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
 import { TimeClockButton } from './TimeClockButton'
 
-export const StartShiftView = () => {
+export const StartShift = () => {
   return (
     <MapBackdrop>
       <Overlay>

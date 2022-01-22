@@ -2,10 +2,10 @@ import { Button } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 
 import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { EmployeeTabKey } from '@/modules/dashboard/EmployeeDashboardPage'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useDashboardStore } from '@/modules/stores'
 
-import { EmployeeTabKey } from '../EmployeeDashboardPage'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
 export const CurrentTimesheetButton = () => {

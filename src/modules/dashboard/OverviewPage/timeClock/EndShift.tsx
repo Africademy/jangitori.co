@@ -7,7 +7,7 @@ import { CurrentLocation } from '@/modules/emotion/CurrentLocation'
 import { TimeClockButton } from './TimeClockButton'
 import { EndShiftCopy } from './TimeClockCopy'
 
-export const EndShiftView = () => {
+export const EndShift = () => {
   return (
     <>
       <ShiftWorkTime />
