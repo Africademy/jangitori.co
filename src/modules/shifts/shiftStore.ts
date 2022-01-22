@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+import invariant from 'tiny-invariant'
 
 import { Coordinates } from '@/modules/geolocation/Coordinates'
 import { Shift } from '@/modules/models/Shift'
@@ -25,7 +26,7 @@ export interface RequestState<D, E extends IError = IError> {
 export class ShiftStore {
   request: RequestState<Shift> = {}
 
-  get shift(): Shift | Falsy {
+  get shift(): Shift | undefined | null {
     return this.request.data
   }
 
@@ -41,6 +42,27 @@ export class ShiftStore {
 
       /* Save new shift data remotely */
       const newShift = await this.shiftService.createShift(initialShift)
+
+      this.request = { ...this.request, data: newShift, error: null }
+    } catch (err) {
+      this.request = { ...this.request, data: null, error: err as IError }
+      console.error('Failed to start shift: ' + err)
+    } finally {
+      this.request = { ...this.request, isLoading: false }
+    }
+  }
+
+  async endShift(location: Coordinates) {
+    try {
+      this.request = { isLoading: true }
+
+      /* Save new shift data remotely */
+      const shiftId = this.shift?.id
+      invariant(shiftId, 'Initial shift data required')
+
+      const newShift = await this.shiftService.updateShift(shiftId, {
+        clockOut: { location, timestamp: new Date().toISOString() },
+      })
 
       this.request = { ...this.request, data: newShift, error: null }
     } catch (err) {

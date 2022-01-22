@@ -7,7 +7,7 @@ import { useLocationStore } from '@/modules/stores'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
-import { StartShiftButton } from './StartShiftButton'
+import { TimeClockButton } from './TimeClockButton'
 
 export const StartShiftView = () => {
   return (
@@ -46,7 +46,7 @@ export const TimeClockActions = observer(function TimeClockActions() {
   if (locationStore.coords)
     return (
       <VStack w="100%" px={5} gap={3}>
-        <StartShiftButton />
+        <TimeClockButton isClockIn={true} />
         <CurrentTimesheetButton employee={user.uid} />
       </VStack>
     )

@@ -16,8 +16,11 @@ export const OverviewPage = observer(function OverviewPage({
     shiftStore.loadCurrentShift()
   }, [shiftStore])
 
-  if (!shiftStore.request.isLoading && !shiftStore.shift)
-    return <StartShiftView />
+  if (shiftStore.request.isLoading) return null
 
-  return <EndShiftView />
+  if (!shiftStore.shift) return <StartShiftView />
+
+  if (!shiftStore.shift.clockOut) return <EndShiftView />
+
+  return <p>ENDED SHIFT</p>
 })

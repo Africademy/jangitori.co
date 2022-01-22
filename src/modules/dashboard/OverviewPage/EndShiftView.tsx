@@ -1,24 +1,22 @@
 import { VStack } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
+import { useTheme } from '@emotion/react'
 
-import { EndShiftButton } from './EndShiftButton'
+import { CurrentLocation } from '@/modules/emotion/CurrentLocation'
+
+import { TimeClockButton } from './TimeClockButton'
+import { EndShiftCopy } from './TimeClockCopy'
 
 export const EndShiftView = () => {
   return (
     <>
       <ShiftWorkTime />
       <VStack w="100%" gap={3}>
-        <EndShiftButton />
+        <TimeClockButton isClockIn={false} />
       </VStack>
     </>
   )
 }
-
-import { Box, Flex } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
-
-import { CurrentLocation } from '@/modules/emotion/CurrentLocation'
-
-import { EndShiftCopy } from './TimeClockCopy'
 
 export const ShiftWorkTime = () => {
   const theme = useTheme()

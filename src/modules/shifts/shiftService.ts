@@ -42,11 +42,25 @@ export class ShiftService {
 
     if (error) throw error
 
-    if (!data)
-      throw new Error(
-        'Failed to create Shift for initial shift data=' + initialData,
-      )
+    if (!data) throw new Error('Failed to create Shift')
 
     return data[0]
+  }
+
+  async updateShift(
+    id: Shift['id'],
+    updateData: Partial<Omit<Shift, 'id'>>,
+  ): Promise<Shift> {
+    const { data, error } = await this.client
+      .from<Shift>(TableKeys.Shifts)
+      .update(updateData)
+      .eq('id', id)
+      .single()
+
+    if (error) throw error
+
+    if (!data) throw new Error('Failed to update shift')
+
+    return data
   }
 }

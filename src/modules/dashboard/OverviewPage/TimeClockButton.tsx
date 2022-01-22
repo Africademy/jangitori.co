@@ -1,25 +1,29 @@
 import { Button } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
-import { observer } from 'mobx-react-lite'
+import React from 'react'
 
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
-import { InitialTimeClockCopy } from './TimeClockCopy'
+export interface TimeClockButtonProps {
+  isClockIn: boolean
+}
 
-export const StartShiftButton = observer(function StartShiftButton() {
+export const TimeClockButton = ({ isClockIn }: TimeClockButtonProps) => {
+  const theme = useTheme()
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
 
-  const theme = useTheme()
-
   const handleClick = () => {
-    shiftStore.startShift(locationStore.invariantCoords)
+    if (isClockIn) {
+      return shiftStore.startShift(locationStore.invariantCoords)
+    }
+    shiftStore.endShift(locationStore.invariantCoords)
   }
 
   return (
     <Button
       isLoading={shiftStore.request.isLoading}
-      loadingText={'Starting...'}
+      loadingText={isClockIn ? 'Starting...' : 'Ending...'}
       w="100%"
       py={6}
       // disabled={isBusy || isDisabled}
@@ -37,7 +41,7 @@ export const StartShiftButton = observer(function StartShiftButton() {
         },
       }}
     >
-      {InitialTimeClockCopy.StartShift}
+      {isClockIn ? 'Start Shift' : 'End Shift'}
     </Button>
   )
-})
+}
