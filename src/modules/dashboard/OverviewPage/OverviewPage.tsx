@@ -2,6 +2,7 @@ import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
+import { isProduction } from '@/lib/environment'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useLocationStore } from '@/modules/stores'
 import LoadingScreen from '@/ui/components/LoadingScreen'
@@ -15,13 +16,16 @@ export const OverviewPage = observer(function OverviewPage({
 }: AuthenticatedPageProps) {
   const locationStore = useLocationStore()
 
-  if (!locationStore.geolocationPosition) return <LoadingScreen />
+  if (!locationStore.coords) return <LoadingScreen />
 
   return (
     <>
       <MapBackdrop>
         <Overlay>
           <HoursToday />
+          {!isProduction() && (
+            <p>{`Current location: (${locationStore.coords.latitude}, ${locationStore.coords.longitude})`}</p>
+          )}
           <VStack
             w="100%"
             position="absolute"

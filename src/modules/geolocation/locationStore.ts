@@ -16,6 +16,10 @@ export class LocationStore {
     this.geolocationPosition = value
   }
 
+  get coords(): Coordinates | undefined {
+    return this.geolocationPosition?.coords
+  }
+
   get invariantCoords(): Coordinates {
     const geolocationPosition = this.geolocationPosition
     invariant(geolocationPosition, '🟠  GeolocationPosition was null.')
