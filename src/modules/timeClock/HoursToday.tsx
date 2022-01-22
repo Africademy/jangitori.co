@@ -42,7 +42,9 @@ export const HoursToday = () => {
           <ClockIconSolid />
           <Box>{InitialTimeClockCopy.HoursToday}</Box>
         </Flex>
-        <Box fontWeight="semibold">{'2hr 15min'}</Box>
+        <Box fontWeight="semibold">{`${
+          typeof hours === 'undefined' ? '---' : hours
+        }`}</Box>
       </Flex>
     </Box>
   )
