@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
 import { Coordinates } from '../geolocation/Coordinates'
-import { computePayPeriod } from '../payrolls/computePayPeriod'
 import { RootStore } from '../stores'
 import { Shift, ShiftService } from './shiftService'
 
@@ -34,9 +33,8 @@ export class ShiftStore {
       const date = new Date()
       const initialShift: Omit<Shift, 'id'> = {
         employee: this.root.invariantAccount.uid,
-        date,
-        clockInTime: date,
-        clockInLocation: location,
+        date: date.toISOString(),
+        clockIn: { timestamp: date.toISOString(), location: location },
       }
 
       /* Save new shift data remotely */
@@ -58,11 +56,9 @@ export class ShiftStore {
     let error: IError | null = null
     try {
       const account = this.root.invariantAccount
-      const payPeriodEnd = computePayPeriod().end
 
-      found = await this.shiftService.findShift({
+      found = await this.shiftService.findActiveShift({
         employee: account.uid,
-        payPeriodEnd,
       })
     } catch (err) {
       error = err as IError
