@@ -2,8 +2,8 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 
 import { TimeClockFeature } from './timeClock/TimeClockFeature'
 
-export const OverviewPage = function OverviewPage({
-  account,
-}: AuthenticatedPageProps) {
+export const OverviewPage = function OverviewPage(
+  props: AuthenticatedPageProps,
+) {
   return <TimeClockFeature />
 }
