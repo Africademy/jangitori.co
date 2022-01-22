@@ -24,7 +24,6 @@ const DashboardLayout = function DashboardLayout({
 
 export const DashboardHeader = observer(function Header() {
   const { authStore } = useRootStore()
-  const theme = useTheme()
   return (
     <Flex
       justify="end"

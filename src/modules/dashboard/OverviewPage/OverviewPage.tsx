@@ -1,3 +1,4 @@
+import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 
@@ -22,7 +23,6 @@ export const OverviewPage = observer(function OverviewPage({
 
   if (!shiftStore.shift.clockOut) return <EndShiftView />
 
-  shiftStore.reset()
-
+  runInAction(() => shiftStore.reset())
   return <p>ENDED SHIFT</p>
 })

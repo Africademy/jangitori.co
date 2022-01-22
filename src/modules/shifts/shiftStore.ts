@@ -26,13 +26,17 @@ export interface RequestState<D, E extends IError = IError> {
 export class ShiftStore {
   request: RequestState<Shift> = {}
 
+  setRequest(value: RequestState<Shift>) {
+    this.request = value
+  }
+
   get shift(): Shift | undefined | null {
     return this.request.data
   }
 
   async startShift(location: Coordinates) {
     try {
-      this.request = { isLoading: true }
+      this.setRequest({ isLoading: true })
       const date = new Date()
       const initialShift: Omit<Shift, 'id'> = {
         employee: this.root.authStore.invariantAccount.uid,
@@ -43,12 +47,12 @@ export class ShiftStore {
       /* Save new shift data remotely */
       const newShift = await this.shiftService.createShift(initialShift)
 
-      this.request = { ...this.request, data: newShift, error: null }
+      this.setRequest({ ...this.request, data: newShift, error: null })
     } catch (err) {
-      this.request = { ...this.request, data: null, error: err as IError }
+      this.setRequest({ ...this.request, data: null, error: err as IError })
       console.error('Failed to start shift: ' + err)
     } finally {
-      this.request = { ...this.request, isLoading: false }
+      this.setRequest({ ...this.request, isLoading: false })
     }
   }
 
@@ -57,7 +61,7 @@ export class ShiftStore {
     invariant(initialShift, 'Initial shift data required')
 
     try {
-      this.request = { isLoading: true }
+      this.setRequest({ isLoading: true })
 
       /* Save new shift data remotely */
       const shiftId = initialShift.id
@@ -66,21 +70,21 @@ export class ShiftStore {
         clockOut: { location, timestamp: new Date().toISOString() },
       })
 
-      this.request = { ...this.request, data: newShift, error: null }
+      this.setRequest({ ...this.request, data: newShift, error: null })
     } catch (err) {
-      this.request = {
+      this.setRequest({
         ...this.request,
         data: initialShift,
         error: err as IError,
-      }
+      })
       console.error('Failed to start shift: ' + err)
     } finally {
-      this.request = { ...this.request, isLoading: false }
+      this.setRequest({ ...this.request, isLoading: false })
     }
   }
 
   async loadCurrentShift() {
-    this.request = { isLoading: true }
+    this.setRequest({ isLoading: true })
 
     let found: Shift | null = null
     let error: IError | null = null
@@ -93,7 +97,7 @@ export class ShiftStore {
     } catch (err) {
       error = err as IError
     } finally {
-      this.request = { isLoading: false, data: found, error }
+      this.setRequest({ isLoading: false, data: found, error })
     }
   }
 
