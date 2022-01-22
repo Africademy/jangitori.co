@@ -41,13 +41,11 @@ export const BottomSection = ({ children }) => {
 export const TimeClockActions = observer(function TimeClockActions() {
   const locationStore = useLocationStore()
 
-  const user = useCurrentUser()
-
   if (locationStore.coords)
     return (
       <VStack w="100%" px={5} gap={3}>
         <TimeClockButton isClockIn={true} />
-        <CurrentTimesheetButton employee={user.uid} />
+        <CurrentTimesheetButton />
       </VStack>
     )
 

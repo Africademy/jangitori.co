@@ -1,13 +1,16 @@
 import { Button } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { useDashboardStore } from '@/modules/stores'
 
 import { EmployeeTabKey } from '../EmployeeDashboardPage'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
-export const CurrentTimesheetButton = ({ employee }: { employee: string }) => {
+export const CurrentTimesheetButton = () => {
+  const employee = useCurrentUser()
+
   const theme = useTheme()
 
   const dashboardStore = useDashboardStore()
@@ -15,7 +18,7 @@ export const CurrentTimesheetButton = ({ employee }: { employee: string }) => {
 
   const handleClick = () => {
     dashboardStore.routeToTab(EmployeeTabKey.TIMESHEETS, {
-      employee,
+      employee: employee.uid,
       payPeriodEnd,
     })
   }
