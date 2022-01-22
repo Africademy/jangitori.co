@@ -22,5 +22,7 @@ export const OverviewPage = observer(function OverviewPage({
 
   if (!shiftStore.shift.clockOut) return <EndShiftView />
 
+  shiftStore.reset()
+
   return <p>ENDED SHIFT</p>
 })

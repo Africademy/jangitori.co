@@ -97,6 +97,10 @@ export class ShiftStore {
     }
   }
 
+  reset() {
+    this.request = {}
+  }
+
   constructor(
     private root: RootStore,
     private shiftService = new ShiftService(),
