@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -6,7 +7,9 @@ import { useShiftStore } from '@/modules/stores'
 import { EndShiftView } from './EndShiftView'
 import { StartShiftView } from './StartShiftView'
 
-export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
+export const OverviewPage = observer(function OverviewPage({
+  account,
+}: AuthenticatedPageProps) {
   const shiftStore = useShiftStore()
 
   useEffect(() => {
@@ -17,4 +20,4 @@ export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
     return <StartShiftView />
 
   return <EndShiftView />
-}
+})
