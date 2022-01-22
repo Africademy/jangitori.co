@@ -6,23 +6,25 @@ import React from 'react'
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
 export interface TimeClockButtonProps {
-  isClockIn?: boolean
+  onEndShift?: () => void
 }
 
 export const TimeClockButton = observer(function TimeClockButton({
-  isClockIn: _isClockIn,
+  onEndShift,
 }: TimeClockButtonProps) {
   const theme = useTheme()
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
 
-  const isClockIn =
-    typeof _isClockIn === 'undefined' ? shiftStore.isClockIn : _isClockIn
+  const isClockIn = !Boolean(onEndShift)
 
-  const handleClick = () => {
-    isClockIn
-      ? shiftStore.startShift(locationStore.invariantCoords)
-      : shiftStore.endShift(locationStore.invariantCoords)
+  const handleClick = async () => {
+    if (isClockIn) return shiftStore.startShift(locationStore.invariantCoords)
+
+    const res = await shiftStore.endShift(locationStore.invariantCoords)
+    if (onEndShift) {
+      res && onEndShift()
+    }
   }
 
   return (

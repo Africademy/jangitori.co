@@ -1,6 +1,7 @@
 import { VStack } from '@chakra-ui/react'
 import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
+import { useRouter } from 'next/router'
 
 import { CurrentLocation } from '@/modules/emotion/CurrentLocation'
 
@@ -8,11 +9,15 @@ import { TimeClockButton } from './TimeClockButton'
 import { EndShiftCopy } from './TimeClockCopy'
 
 export const EndShift = () => {
+  const router = useRouter()
+
   return (
     <>
       <ShiftWorkTime />
       <VStack w="100%" gap={3}>
-        <TimeClockButton isClockIn={false} />
+        <TimeClockButton
+          onEndShift={() => router.push('/dashboard/employee/overview')}
+        />
       </VStack>
     </>
   )

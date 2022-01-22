@@ -43,7 +43,7 @@ export const TimeClockActions = observer(function TimeClockActions() {
   if (locationStore.coords)
     return (
       <VStack w="100%" px={5} gap={3}>
-        <TimeClockButton isClockIn={true} />
+        <TimeClockButton />
         <CurrentTimesheetButton />
       </VStack>
     )

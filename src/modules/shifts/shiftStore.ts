@@ -30,12 +30,6 @@ export class ShiftStore {
     this.request = value
   }
 
-  shouldReset = false
-
-  setShouldReset(value: boolean) {
-    this.shouldReset = value
-  }
-
   initialized = false
 
   async init() {
@@ -49,7 +43,6 @@ export class ShiftStore {
 
   reset() {
     this.request = {}
-    this.setShouldReset(false)
   }
 
   get shift(): Shift | undefined | null {
@@ -93,7 +86,9 @@ export class ShiftStore {
 
     this.setRequest({ ...response, isLoading: false })
 
-    this.setShouldReset(true)
+    response.data && this.reset()
+
+    return response.data
   }
 
   constructor(

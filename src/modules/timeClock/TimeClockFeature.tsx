@@ -18,13 +18,6 @@ export const TimeClockFeature = observer(function TimeClockFeature() {
     )
   }, [])
 
-  useEffect(() => {
-    return when(
-      () => shiftStore.shouldReset,
-      () => shiftStore.reset(),
-    )
-  }, [])
-
   if (!shiftStore.initialized)
     return (
       <Stack>
@@ -34,9 +27,9 @@ export const TimeClockFeature = observer(function TimeClockFeature() {
       </Stack>
     )
 
-  if (shiftStore.isClockIn) return <StartShift />
+  if (!shiftStore.shift) return <StartShift />
 
-  if (shiftStore.isClockOut)
+  if (!shiftStore.shift.clockOut)
     return <Redirect to={`/dashboard/employee/time-clock`} />
 
   return <Redirect to={`/dashboard/employee/overview`} />
