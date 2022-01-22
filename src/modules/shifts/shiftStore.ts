@@ -53,12 +53,14 @@ export class ShiftStore {
   }
 
   async endShift(location: Coordinates) {
+    const initialShift = this.request.data
+    invariant(initialShift, 'Initial shift data required')
+
     try {
       this.request = { isLoading: true }
 
       /* Save new shift data remotely */
-      const shiftId = this.shift?.id
-      invariant(shiftId, 'Initial shift data required')
+      const shiftId = initialShift.id
 
       const newShift = await this.shiftService.updateShift(shiftId, {
         clockOut: { location, timestamp: new Date().toISOString() },
@@ -66,7 +68,11 @@ export class ShiftStore {
 
       this.request = { ...this.request, data: newShift, error: null }
     } catch (err) {
-      this.request = { ...this.request, data: null, error: err as IError }
+      this.request = {
+        ...this.request,
+        data: initialShift,
+        error: err as IError,
+      }
       console.error('Failed to start shift: ' + err)
     } finally {
       this.request = { ...this.request, isLoading: false }
