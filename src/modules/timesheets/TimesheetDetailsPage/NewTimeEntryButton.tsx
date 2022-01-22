@@ -30,7 +30,7 @@ export const NewTimeEntryButtonComponent = ({
   const createNewEntry = async () => {
     setIsBusy(true)
     try {
-      const location = geolocationStore.getCoordinatesOrThrow()
+      const location = await getGeoLocation()
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheetId,
         location,

@@ -17,7 +17,7 @@ import {
 } from '@/modules/dashboard/Page'
 import { ReviewStatus } from '@/modules/reviewStatus'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
-import { useDashboardStore, useRootStore } from '@/modules/stores'
+import { useAuthStore, useDashboardStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
@@ -31,13 +31,13 @@ import { Meta } from '@/ui/molecules/Meta'
 import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
 import { TimeEntriesTable } from './TimeEntriesTable'
 
-export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
+export const TimesheetDetailsPage = function TimesheetDetailsPage({
   query,
 }: AuthenticatedPageProps & { query: TimesheetDetailsQuery }) {
   const router = useRouter()
 
   const { timesheet, timeEntries } = useTimesheetDetails(query)
-  const { geolocationStore, authStore } = useRootStore()
+  const authStore = useAuthStore()
   const dashboardStore = useDashboardStore()
 
   const role = authStore.account?.role
@@ -52,8 +52,7 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
   const timesheetData = timesheet.data
   const timeEntriesData = timeEntries.data
 
-  if (!timesheetData || !timeEntriesData || !geolocationStore.isReady)
-    return <LoadingVStack />
+  if (!timesheetData || !timeEntriesData) return <LoadingVStack />
 
   const { payPeriodEnd, status } = timesheetData
 
@@ -113,4 +112,4 @@ export const TimesheetDetailsPage = observer(function TimesheetDetailsPage({
       </PageBody>
     </>
   )
-})
+}
