@@ -10,19 +10,14 @@
     "start": "next start",
     "test:ts": "tsc",
     "lint": "eslint \"src/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "format": "yarn lint --fix && prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "analyze:unused": "next-unused",
     "analyze": "cross-env ANALYZE=true yarn run build",
-    "test:mocha": "TS_NODE_PROJECT=\"tsconfig.test.json\" ./node_modules/mocha/bin/mocha -r ts-node/register ./src/**/*.spec.ts",
-    "test:jest": "jest --clearCache && NODE_ENV=test jest",
     "test": "jest --clearCache && NODE_ENV=test jest",
-    "test:utils": "jest --clearCache && NODE_ENV=test jest --group=utils --watchAll",
-    "test:api": "jest --clearCache && NODE_ENV=test jest --group=api --watchAll",
     "deploy": "vercel --prod",
     "type-check": "tsc --pretty --noEmit"
   },
   "lint-staged": {
-
     "*.{ts,tsx,js}": [
       "yarn lint --max-warnings 0"
     ],
