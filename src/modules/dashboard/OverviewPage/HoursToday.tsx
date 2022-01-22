@@ -1,7 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 
-import { Typography } from '@/ui/atoms/Typography'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'

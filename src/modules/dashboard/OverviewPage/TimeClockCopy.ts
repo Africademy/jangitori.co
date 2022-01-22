@@ -4,10 +4,10 @@ export const InitialTimeClockCopy = {
   ViewTimesheet: 'View timesheet',
 }
 
-export const StartedShiftCopy = {
+export const EndShiftCopy = {
   Name: 'Time clock',
   ClockInLocation: 'Clocked in at',
-  HoursToday: 'Total hours for today',
+  WorkTime: 'Work time for this shift',
   AddNote: 'Add a note',
   EndShift: 'End Shift',
 }
