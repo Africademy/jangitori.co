@@ -15,16 +15,11 @@ import {
 } from '@/ui/components/Form'
 import { spacing } from '@/ui/utils/spacing'
 
+import { FormFieldProps } from './FormFieldProps'
+
 const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 
-export type FormFieldProps<K extends string | number | symbol = any> = {
-  id: K
-  type: string
-  label: string
-  placeholder: string
-}
-
-const AuthForm = function AuthForm<
+const SignUpForm = function SignUpForm<
   VM extends EmailPasswordCreds = EmailPasswordCreds,
   K extends keyof VM = keyof VM,
 >({
@@ -98,4 +93,4 @@ const AuthForm = function AuthForm<
   )
 }
 
-export default AuthForm
+export default SignUpForm

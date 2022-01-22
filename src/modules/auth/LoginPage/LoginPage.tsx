@@ -5,7 +5,7 @@ import { routes } from '@/lib/routes'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { useRootStore, useServices } from '@/modules/stores'
 
-import { AuthFormVM } from '../AuthForm/AuthFormVM'
+import { AuthFormVM } from '../AuthFormVM'
 import { AuthPageProps } from '../types'
 import LoginForm from './LoginForm'
 

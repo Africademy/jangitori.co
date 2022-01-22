@@ -12,7 +12,7 @@ import { Services } from '@/modules/stores/services'
 
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
 
-const fileLabel = 'layouts/auth/this'
+const fileLabel = 'modules/auth/SignUpPage/SignUpStore'
 const logger = createLogger({ fileLabel })
 
 export class SignUpStore {

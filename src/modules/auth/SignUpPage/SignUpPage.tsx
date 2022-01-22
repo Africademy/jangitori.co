@@ -12,8 +12,8 @@ import { spacing } from '@/ui/utils/spacing'
 
 const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 
-import { FormFieldProps } from './AuthForm/AuthForm'
-const AuthForm = dynamic(() => import('./AuthForm/AuthForm'))
+import { FormFieldProps } from './FormFieldProps'
+const SignUpForm = dynamic(() => import('./SignUpForm'))
 import dynamic from 'next/dynamic'
 
 import { useRootStore } from '@/modules/stores'
@@ -55,7 +55,7 @@ const confirmationFormFields: FormFieldProps[] = [
   defaultFields.lastName,
 ]
 
-const SignUpPage = observer(function SignUpPage() {
+export const SignUpPage = observer(function SignUpPage() {
   const { authStore } = useRootStore()
   const services = useServices('auth', 'account')
 
@@ -107,7 +107,7 @@ const SignUpPage = observer(function SignUpPage() {
 
   return (
     <SContainer>
-      <AuthForm
+      <SignUpForm
         fields={authFormFields}
         copy={SignUpPageCopy}
         vm={signUpStore.authCreds}
@@ -137,5 +137,3 @@ const SContainer = styled(Container)`
     }
   }
 `
-
-export default SignUpPage

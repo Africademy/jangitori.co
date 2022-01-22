@@ -6,7 +6,7 @@ import { ChangeEvent } from 'react'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
-import { AuthFormVM } from '../AuthForm/AuthFormVM'
+import { AuthFormVM } from '../AuthFormVM'
 import { AuthFormFieldName } from '../types'
 
 const LoginForm = observer(function LoginForm({

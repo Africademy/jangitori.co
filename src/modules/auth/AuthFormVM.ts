@@ -2,7 +2,7 @@ import { action, makeAutoObservable } from 'mobx'
 
 import { EmailPasswordCreds } from '@/modules/auth/types'
 
-import { AuthFormFieldName } from '../types'
+import { AuthFormFieldName } from './types'
 
 export class AuthFormVM {
   isLoading = false
