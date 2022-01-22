@@ -5,7 +5,10 @@ import { enforceAuthenticated } from '@/modules/auth/enforceAuthenticated'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
-import TimesheetDetailsPage from '@/modules/timesheets/TimesheetDetailsPage'
+
+const TimesheetDetailsPage = dynamic(
+  () => import('@/modules/timesheets/TimesheetDetailsPage'),
+)
 import { isTimesheetDetailsQuery } from '@/modules/timesheets/timesheetDetailsQuery'
 
 const TimesheetsPage = dynamic(
