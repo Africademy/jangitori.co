@@ -1,4 +1,5 @@
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading, IconButton } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -21,13 +22,25 @@ export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
     },
   )
 
+  const router = useRouter()
+
+  const goBack = () => {
+    router.back()
+  }
+
   if (error) return <ErrorMessage>{error.message}</ErrorMessage>
 
   return (
     <>
       <Flex px={5} pt={8} pb={1} align="center" gap={3} justify="center">
-        <Box position="absolute" left={4}>
-          <ChevronLeftIcon className="w-6 h-6" strokeWidth={3} />
+        <Box position="absolute" left={6}>
+          <IconButton
+            aria-label="Go back"
+            bg="transparent"
+            size="lg"
+            icon={<ChevronLeftIcon className="w-6 h-6" strokeWidth={3} />}
+            onClick={goBack}
+          />
         </Box>
         <Heading
           size="md"
