@@ -9,7 +9,10 @@ import {
 
 export const mockTimeEntry = (): TimeEntry => ({
   id: faker.datatype.number(),
-  location: {},
+  location: {
+    latitude: faker.address.latitude(),
+    longitude: faker.address.longitude(),
+  },
   timestamp: faker.datatype.datetime().toISOString(),
   timesheet: faker.datatype.number(),
 })

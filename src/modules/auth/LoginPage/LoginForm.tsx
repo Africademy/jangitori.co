@@ -6,10 +6,10 @@ import { ChangeEvent } from 'react'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
+import { AuthFormVM } from '../AuthForm/AuthFormVM'
 import { AuthFormFieldName } from '../types'
-import { AuthFormVM } from './AuthFormVM'
 
-const AuthFormCard = observer(function AuthFormCard({
+const LoginForm = observer(function LoginForm({
   copy,
   onSubmit,
   vm,
@@ -32,21 +32,13 @@ const AuthFormCard = observer(function AuthFormCard({
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
-      <div className="h-screen min-h-screen max-h-screen flex md:items-center justify-center px-4 sm:px-6 lg:px-8 pb-36 md:pb-20">
-        <div className="max-w-md w-full space-y-8 my-auto">
+      <div className="flex justify-center h-screen max-h-screen min-h-screen px-4 md:items-center sm:px-6 lg:px-8 pb-36 md:pb-20">
+        <div className="w-full max-w-md my-auto space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-3xl font-extrabold text-center text-gray-900">
               {copy.title}
             </h2>
-            <p className="mt-2 text-center text-lg  text-gray-600">
+            <p className="mt-2 text-lg text-center text-gray-600">
               {`${copy.question} `}
               <Link href={copy.actionHref}>
                 <a className="font-semibold text-indigo-600 hover:text-indigo-500">
@@ -59,7 +51,7 @@ const AuthFormCard = observer(function AuthFormCard({
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <ErrorMessage>{error ?? vm.error}</ErrorMessage>
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address
@@ -70,7 +62,7 @@ const AuthFormCard = observer(function AuthFormCard({
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   onChange={handleChange('email')}
                 />
@@ -85,7 +77,7 @@ const AuthFormCard = observer(function AuthFormCard({
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   onChange={handleChange('password')}
                 />
@@ -95,7 +87,7 @@ const AuthFormCard = observer(function AuthFormCard({
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 {vm.isLoading ? 'Loading...' : copy.title}
               </button>
@@ -107,4 +99,4 @@ const AuthFormCard = observer(function AuthFormCard({
   )
 })
 
-export default AuthFormCard
+export default LoginForm

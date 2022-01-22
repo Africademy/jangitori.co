@@ -1,19 +1,13 @@
 import { useRouter } from 'next/router'
 
-import { createLogger } from '@/lib/logger'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import { EmailPasswordCreds } from '@/modules/auth/types'
-
-const AuthFormCard = dynamic(() => import('./AuthForm/AuthFormCard'))
-import dynamic from 'next/dynamic'
-
 import { useRootStore, useServices } from '@/modules/stores'
 
-import { AuthFormVM } from './AuthForm/AuthFormVM'
-import { AuthPageProps } from './types'
-
-const fileLabel = 'modules/auth/LoginPage'
+import { AuthFormVM } from '../AuthForm/AuthFormVM'
+import { AuthPageProps } from '../types'
+import LoginForm from './LoginForm'
 
 const LoginPageCopy = {
   title: 'Sign in',
@@ -22,7 +16,7 @@ const LoginPageCopy = {
   actionHref: routes.authPage('signup'),
 }
 
-const LoginPage: React.FC<AuthPageProps> = () => {
+export const LoginPage: React.FC<AuthPageProps> = () => {
   const { authStore } = useRootStore()
   const router = useRouter()
   const { auth: authService, account: accountService } = useServices(
@@ -53,12 +47,6 @@ const LoginPage: React.FC<AuthPageProps> = () => {
   }
 
   return (
-    <AuthFormCard
-      copy={LoginPageCopy}
-      vm={authFormVM}
-      onSubmit={handleSubmit}
-    />
+    <LoginForm copy={LoginPageCopy} vm={authFormVM} onSubmit={handleSubmit} />
   )
 }
-
-export default LoginPage

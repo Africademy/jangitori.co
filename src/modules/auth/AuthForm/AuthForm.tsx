@@ -24,7 +24,7 @@ export type FormFieldProps<K extends string | number | symbol = any> = {
   placeholder: string
 }
 
-const AuthForm = function AuthFormCard<
+const AuthForm = function AuthForm<
   VM extends EmailPasswordCreds = EmailPasswordCreds,
   K extends keyof VM = keyof VM,
 >({
@@ -65,7 +65,7 @@ const AuthForm = function AuthFormCard<
         >
           {copy.title}
         </Heading>
-        <p className="mt-2 text-center text-lg  text-gray-600">
+        <p className="mt-2 text-lg text-center text-gray-600">
           {`${copy.question} `}
           <Link href={copy.actionHref}>
             <a className="font-semibold text-indigo-600 hover:text-indigo-500">
