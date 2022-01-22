@@ -39,10 +39,3 @@ export const StartShiftButton = observer(function StartShiftButton() {
     </Button>
   )
 })
-
-// options for current position
-const navigatorLocationOptions = {
-  enableHighAccuracy: true,
-  timeout: 7000,
-  maximumAge: 0,
-}
