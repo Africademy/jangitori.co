@@ -6,7 +6,6 @@ import { useEffect } from 'react'
 import { useShiftStore } from '@/modules/stores'
 import { Redirect } from '@/ui/components/Redirect'
 
-import { EndShift } from './EndShift'
 import { StartShift } from './StartShift'
 
 export const TimeClockFeature = observer(function TimeClockFeature() {
@@ -15,7 +14,7 @@ export const TimeClockFeature = observer(function TimeClockFeature() {
   useEffect(() => {
     return when(
       () => !shiftStore.initialized,
-      () => shiftStore.initialized,
+      () => shiftStore.init(),
     )
   }, [])
 
@@ -26,7 +25,7 @@ export const TimeClockFeature = observer(function TimeClockFeature() {
     )
   }, [])
 
-  if (shiftStore.initialized)
+  if (!shiftStore.initialized)
     return (
       <Stack>
         <Skeleton height="20px" />
