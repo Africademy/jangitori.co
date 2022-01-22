@@ -12,7 +12,6 @@ export const StartShiftButton = observer(function StartShiftButton() {
   const theme = useTheme()
 
   const handleClick = () => {
-    console.log('clicked Start shift button')
     timeClockStore.startShift()
   }
 
