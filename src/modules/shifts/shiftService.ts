@@ -21,8 +21,6 @@ export class ShiftService {
       .select('*')
       .match(args)
 
-    console.log('💜 GET HOURS RESPONSE: ', data)
-
     if (error) throw error
 
     return data ?? []
