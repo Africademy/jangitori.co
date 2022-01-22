@@ -1,6 +1,5 @@
-import { computed, makeAutoObservable } from 'mobx'
-
-import { isProduction } from '@/lib/environment'
+import { makeAutoObservable } from 'mobx'
+import invariant from 'tiny-invariant'
 
 import { Coordinates } from './Coordinates'
 
@@ -10,66 +9,55 @@ const options = {
   maximumAge: 0,
 }
 
-export class GeolocationStore {
+export class GeoLocationStore {
   geolocationPosition: GeolocationPosition | null = null
-
-  updatedAt: Date | null = null
 
   setGeolocationPosition(value: GeolocationPosition | null) {
     this.geolocationPosition = value
-    this.updatedAt = new Date()
   }
 
-  get coordinates(): Coordinates | null {
+  get invariantCoords(): Coordinates {
     const geolocationPosition = this.geolocationPosition
-    if (!geolocationPosition) {
-      console.warn('Could not get coordinates, GeolocationPosition was null.')
-      return null
-    }
-
-    !isProduction() &&
-      console.log('Got coordinates: ', geolocationPosition.coords)
+    invariant(geolocationPosition, '🟠  GeolocationPosition was null.')
 
     return geolocationPosition.coords
   }
 
-  getCoordinatesOrThrow = () =>
-    computed((): Coordinates => {
-      const geolocationPosition = this.geolocationPosition
-      if (!geolocationPosition) {
-        throw new Error(
-          'Could not get coordinates, GeolocationPosition was null.',
-        )
-      }
+  /**
+   * Should be called in the browser otherwise we won't have access to
+   * the Geolocation API.
+   */
+  hydrate() {
+    console.log('🌊 Hydrating GeoLocationStore...')
+    const currentCoords = this.geolocationPosition?.coords
+    if (currentCoords) return
 
-      !isProduction() &&
-        console.log('Got coordinates: ', geolocationPosition.coords)
-
-      return geolocationPosition.coords
-    }).get()
-
-  get isReady(): boolean {
-    return Boolean(this.geolocationPosition)
-  }
-
-  constructor() {
-    makeAutoObservable(this)
-
-    this.syncPosition()
-  }
-
-  private syncPosition() {
-    if (typeof navigator === 'undefined') return
+    if (!navigator || !('geolocation' in navigator)) return
 
     navigator.geolocation.watchPosition(
       (position) => {
-        const coords = position.coords
-        const currentCoords = this.coordinates
+        this.setGeolocationPosition(position)
+      },
+      (error) => {
+        console.log('Failed to get current position: ', error)
+      },
+      options,
+    )
+  }
+
+  streamGeoChanges() {
+    if (!navigator || !('geolocation' in navigator)) return
+
+    const currentCoords = this.geolocationPosition?.coords
+
+    navigator.geolocation.watchPosition(
+      (position) => {
         if (!currentCoords) return this.setGeolocationPosition(position)
 
+        const newCoords = position.coords
         if (
-          coords.latitude === currentCoords.latitude &&
-          coords.longitude === currentCoords.longitude
+          newCoords.latitude === currentCoords.latitude &&
+          newCoords.longitude === currentCoords.longitude
         )
           return
 
@@ -80,5 +68,9 @@ export class GeolocationStore {
       },
       options,
     )
+  }
+
+  constructor() {
+    makeAutoObservable(this)
   }
 }

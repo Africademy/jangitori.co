@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant'
 
 import { AuthStore } from '@/modules/auth/AuthStore'
-import { GeolocationStore } from '@/modules/geolocation/GeolocationStore'
+import { GeoLocationStore } from '@/modules/geolocation/geoLocationStore'
 import { initServices, Services } from '@/modules/stores/services'
 
 import DashboardStore from '../dashboard/DashboardStore'
@@ -14,7 +14,7 @@ export class RootStore {
   /* Domain Stores */
   authStore: AuthStore = new AuthStore(this)
 
-  geolocationStore: GeolocationStore = new GeolocationStore()
+  geolocationStore: GeoLocationStore = new GeoLocationStore()
 
   dashboardStore: DashboardStore = new DashboardStore(this)
 

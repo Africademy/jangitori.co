@@ -33,7 +33,7 @@ export const NewTimeEntryButtonComponent = ({
       console.log('👊 getGeoLocation() response: ', location)
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheetId,
-        location: geolocationStore.getCoordinatesOrThrow(),
+        location: geolocationStore.invariantCoords,
       })
 
       onSuccess(newEntry)

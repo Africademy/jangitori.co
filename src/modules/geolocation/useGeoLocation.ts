@@ -1,12 +1,65 @@
 import { useEffect, useState } from 'react'
 
-import { defaultGeoLocationOptions } from './defaultGeoLocationOptions'
-import { getGeoLocation } from './getGeoLocation'
-import {
-  GetGeoLocationOptions,
-  GetGeoLocationResult,
-  isGetGeoError,
-} from './types'
+export const defaultGeoLocationOptions = {
+  enableHighAccuracy: false,
+  maximumAge: 0,
+  timeout: Number.POSITIVE_INFINITY,
+  when: true,
+}
+
+export interface GetGeoLocationResult extends GeolocationPosition {
+  isError: boolean
+  message: string
+}
+
+export interface GetGeoErrorResult extends GetGeoLocationResult {
+  isError: true
+}
+
+export type GetGeoLocationOptions = {
+  enableHighAccuracy?: boolean
+  timeout?: number
+  maximumAge?: number
+  when?: boolean
+}
+
+export function isGetGeoError(o: any): o is GetGeoErrorResult {
+  return (
+    typeof o === 'object' &&
+    'isError' in o &&
+    typeof o.isError === 'boolean' &&
+    o.isError &&
+    'message' in o &&
+    typeof o.message === 'string'
+  )
+}
+
+export function getGeoLocation(
+  options: GetGeoLocationOptions = defaultGeoLocationOptions,
+): Promise<GetGeoLocationResult> {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          resolve({
+            isError: false,
+            message: '',
+            ...position,
+          })
+        },
+        (error) => {
+          reject({ isError: true, message: error.message })
+        },
+        options,
+      )
+    } else {
+      reject({
+        isError: true,
+        message: 'Geolocation is not supported for this Browser/OS.',
+      })
+    }
+  })
+}
 
 export function useGeoLocation(
   geoLocationOptions: GetGeoLocationOptions = defaultGeoLocationOptions,
@@ -15,7 +68,7 @@ export function useGeoLocation(
   const { when, enableHighAccuracy, timeout, maximumAge } = geoLocationOptions
 
   useEffect(() => {
-    async function getGeoCode() {
+    async function fetchGeo() {
       try {
         const value = await getGeoLocation({
           when,
@@ -29,7 +82,7 @@ export function useGeoLocation(
       }
     }
     if (when) {
-      getGeoCode()
+      fetchGeo()
     }
   }, [when, enableHighAccuracy, timeout, maximumAge])
 

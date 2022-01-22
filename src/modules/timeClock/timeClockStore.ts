@@ -29,7 +29,7 @@ export class TimeClockStore {
   async startShift(date = new Date()) {
     try {
       this.request = { isLoading: true }
-      const coords = this.root.geolocationStore.getCoordinatesOrThrow()
+      const coords = this.root.geolocationStore.invariantCoords
       console.log('USER GEO LOCATION: ', coords)
 
       const initialShift: Omit<Shift, 'id'> = {
