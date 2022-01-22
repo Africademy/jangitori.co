@@ -17,6 +17,7 @@ export const EndShiftButton = observer(function EndShiftButton() {
   return (
     <Button
       isLoading={shiftStore.request.isLoading}
+      loadingText={'Ending...'}
       w="100%"
       py={6}
       // disabled={isBusy || isDisabled}
