@@ -18,6 +18,7 @@ export const StartShiftButton = observer(function StartShiftButton() {
 
   return (
     <Button
+      isLoading={shiftStore.request.isLoading}
       w="100%"
       py={6}
       // disabled={isBusy || isDisabled}
@@ -35,9 +36,7 @@ export const StartShiftButton = observer(function StartShiftButton() {
         },
       }}
     >
-      {shiftStore.request.isLoading
-        ? 'Starting...'
-        : InitialTimeClockCopy.StartShift}
+      {InitialTimeClockCopy.StartShift}
     </Button>
   )
 })
