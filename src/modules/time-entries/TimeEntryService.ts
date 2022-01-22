@@ -21,7 +21,6 @@ export class TimeEntryService {
 
   async createEntry(args: Partial<TimeEntry>): Promise<TimeEntry> {
     const defaultTimeEntryData: Partial<TimeEntry> = {
-      location: {},
       timestamp: new Date().toLocaleString(),
     }
     const { data, error } = await this.client

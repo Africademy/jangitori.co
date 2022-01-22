@@ -13,7 +13,7 @@ export const StartShiftButton = observer(function StartShiftButton() {
 
   const handleClick = () => {
     console.log('clicked Start shift button')
-    timeClockStore.startShift(new Date(), { latitude: 0, longitude: 0 })
+    timeClockStore.startShift()
   }
 
   return (

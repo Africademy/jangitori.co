@@ -1,7 +1,9 @@
+import { Coordinates } from '../geolocation/Coordinates'
+
 export type TimeEntry = {
   id: PrimaryKey<Int8>
   timestamp: Timestamp
-  location: JSONB
+  location: Coordinates
   timesheet: number
 }
 

@@ -30,14 +30,15 @@ export const NewTimeEntryButtonComponent = ({
   const createNewEntry = async () => {
     setIsBusy(true)
     try {
-      const location = await getGeoLocation()
+      console.log('👊 getGeoLocation() response: ', location)
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheetId,
-        location,
+        location: geolocationStore.getCoordinatesOrThrow(),
       })
 
       onSuccess(newEntry)
     } catch (error) {
+      console.error('❗ Failed to get GeolocationPosition: ', error)
       alert((error as Error).message)
     } finally {
       setIsBusy(false)

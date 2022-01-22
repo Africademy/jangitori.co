@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react'
 
+import { defaultGeoLocationOptions } from './defaultGeoLocationOptions'
+import { getGeoLocation } from './getGeoLocation'
 import {
-  getGeoLocation,
+  GetGeoLocationOptions,
   GetGeoLocationResult,
-  GetGeoOptions,
   isGetGeoError,
-} from './getGeoLocation'
-
-const defaultGeoLocationOptions = {
-  enableHighAccuracy: false,
-  maximumAge: 0,
-  timeout: Number.POSITIVE_INFINITY,
-  when: true,
-}
+} from './types'
 
 export function useGeoLocation(
-  geoLocationOptions: GetGeoOptions = defaultGeoLocationOptions,
+  geoLocationOptions: GetGeoLocationOptions = defaultGeoLocationOptions,
 ): GetGeoLocationResult | null {
   const [geoObject, setGeoObject] = useState<GetGeoLocationResult | null>(null)
   const { when, enableHighAccuracy, timeout, maximumAge } = geoLocationOptions
@@ -24,10 +18,10 @@ export function useGeoLocation(
     async function getGeoCode() {
       try {
         const value = await getGeoLocation({
-          enableHighAccuracy,
-          maximumAge,
-          timeout,
           when,
+          enableHighAccuracy,
+          timeout,
+          maximumAge,
         })
         setGeoObject(value)
       } catch (error) {
