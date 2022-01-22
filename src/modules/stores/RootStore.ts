@@ -7,7 +7,7 @@ import { initServices, Services } from '@/modules/stores/services'
 import DashboardStore from '../dashboard/DashboardStore'
 import { getDashboardTabsForRole } from '../dashboard/tabs'
 import { Account } from '../models/Account'
-import { ShiftsStore } from '../timeClock/shiftsStore'
+import { ShiftStore } from '../timeClock/shiftStore'
 
 export class RootStore {
   services: Services = initServices()
@@ -18,7 +18,7 @@ export class RootStore {
 
   dashboardStore: DashboardStore = new DashboardStore(this)
 
-  shiftsStore: ShiftsStore = new ShiftsStore(this)
+  shiftStore: ShiftStore = new ShiftStore(this)
 
   get invariantAccount(): Account {
     const account = this.authStore.account

@@ -26,8 +26,8 @@ export function useDashboardStore() {
   return useRootStore().dashboardStore
 }
 
-export function useShiftsStore() {
-  return useRootStore().shiftsStore
+export function useShiftStore() {
+  return useRootStore().shiftStore
 }
 
 export function useServices<K extends keyof Services>(

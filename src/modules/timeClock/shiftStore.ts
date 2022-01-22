@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 
 import { Coordinates } from '../geolocation/Coordinates'
+import { computePayPeriod } from '../payrolls/computePayPeriod'
 import { RootStore } from '../stores'
 import { Shift, ShiftService } from './shiftService'
 
@@ -20,7 +21,7 @@ export interface RequestState<D, E extends IError = IError> {
   isLoading?: boolean
 }
 
-export class ShiftsStore {
+export class ShiftStore {
   request: RequestState<Shift> = {}
 
   get shift(): Shift | Falsy {
@@ -45,9 +46,28 @@ export class ShiftsStore {
     } catch (err) {
       this.request = { ...this.request, data: null, error: err as IError }
       console.error('Failed to start shift: ' + err)
-      alert((err as IError).message)
     } finally {
       this.request = { ...this.request, isLoading: false }
+    }
+  }
+
+  async loadCurrentShift() {
+    this.request = { isLoading: true }
+
+    let found: Shift | null = null
+    let error: IError | null = null
+    try {
+      const account = this.root.invariantAccount
+      const payPeriodEnd = computePayPeriod().end
+
+      found = await this.shiftService.findShift({
+        employee: account.uid,
+        payPeriodEnd,
+      })
+    } catch (err) {
+      error = err as IError
+    } finally {
+      this.request = { isLoading: false, data: found, error }
     }
   }
 

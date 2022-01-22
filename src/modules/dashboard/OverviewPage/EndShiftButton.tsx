@@ -6,14 +6,14 @@ import { useLocationStore, useShiftStore } from '@/modules/stores'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
-export const StartShiftButton = observer(function StartShiftButton() {
+export const EndShiftButton = observer(function EndShiftButton() {
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
 
   const theme = useTheme()
 
   const handleClick = () => {
-    shiftStore.startShift(locationStore.invariantCoords)
+    // shiftStore.endShift(locationStore.invariantCoords)
   }
 
   return (
@@ -36,8 +36,8 @@ export const StartShiftButton = observer(function StartShiftButton() {
       }}
     >
       {shiftStore.request.isLoading
-        ? 'Starting...'
-        : InitialTimeClockCopy.StartShift}
+        ? 'Ending...'
+        : InitialTimeClockCopy.EndShift}
     </Button>
   )
 })

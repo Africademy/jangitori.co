@@ -1,27 +1,40 @@
 import { Box, Container, Flex, Skeleton, Stack, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { useLocationStore } from '@/modules/stores'
+import { useLocationStore, useShiftStore } from '@/modules/stores'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
+import { EndShiftButton } from './EndShiftButton'
 import { HoursToday } from './HoursToday'
 import { StartShiftButton } from './StartShiftButton'
 
 export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
+  const shiftStore = useShiftStore()
+
+  useEffect(() => {
+    shiftStore.loadCurrentShift()
+  }, [shiftStore])
+
+  if (!shiftStore.request.isLoading && !shiftStore.shift)
+    return <InitialTimeClockView />
+
+  return <ShiftStartedView />
+}
+
+export const InitialTimeClockView = () => {
   return (
-    <>
-      <MapBackdrop>
-        <Overlay>
-          <HoursToday />
-          <BottomSection>
-            <TimeClockActions />
-          </BottomSection>
-        </Overlay>
-      </MapBackdrop>
-    </>
+    <MapBackdrop>
+      <Overlay>
+        <HoursToday />
+        <BottomSection>
+          <TimeClockActions />
+        </BottomSection>
+      </Overlay>
+    </MapBackdrop>
   )
 }
 
@@ -48,10 +61,10 @@ export const TimeClockActions = observer(function TimeClockActions() {
 
   if (locationStore.coords)
     return (
-      <Flex px={5} w="100%" gap={3} mx="auto">
+      <VStack w="100%" px={5} gap={3}>
         <StartShiftButton />
         <CurrentTimesheetButton employee={user.uid} />
-      </Flex>
+      </VStack>
     )
 
   return (
@@ -95,5 +108,16 @@ export const MapBackdrop = ({ children }) => {
     >
       {children}
     </Box>
+  )
+}
+
+export const ShiftStartedView = () => {
+  return (
+    <>
+      <HoursToday />
+      <VStack w="100%" gap={3}>
+        <EndShiftButton />
+      </VStack>
+    </>
   )
 }
