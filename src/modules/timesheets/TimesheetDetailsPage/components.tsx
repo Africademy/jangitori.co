@@ -1,4 +1,4 @@
-import { Box, Heading, VStack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
@@ -50,22 +50,4 @@ export const PageTopActions = ({ children }) => (
   >
     {children}
   </Box>
-)
-
-export const PageTitle = ({ children }) => (
-  <Heading as="h3" fontSize="26px" lineHeight={1} fontWeight="semibold">
-    {children}
-  </Heading>
-)
-
-const PageBodyBox = styled.div`
-  padding: 1.5rem 1rem;
-  ${largerThan('mobile')} {
-    padding: 1.5rem;
-  }
-`
-export const PageBody = ({ children }) => (
-  <PageBodyBox>
-    <VStack gap={3}>{children}</VStack>
-  </PageBodyBox>
 )

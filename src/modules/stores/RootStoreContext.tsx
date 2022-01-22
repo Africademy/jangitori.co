@@ -22,10 +22,6 @@ export function useAuthStore() {
   return useRootStore().authStore
 }
 
-export function useDashboardStore() {
-  return useRootStore().dashboardStore
-}
-
 export function useShiftStore() {
   return useRootStore().shiftStore
 }

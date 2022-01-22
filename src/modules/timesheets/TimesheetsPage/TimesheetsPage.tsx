@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { PageBody } from '@/modules/dashboard/Page'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
+import BasePadding from '@/ui/atoms/BasePadding'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
 import TimesheetsTable from './TimesheetsTable'
@@ -40,7 +40,9 @@ export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
           Timesheets
         </Heading>
       </Flex>
-      <PageBody>{timesheets && <TimesheetsTable data={timesheets} />}</PageBody>
+      <BasePadding>
+        {timesheets && <TimesheetsTable data={timesheets} />}
+      </BasePadding>
     </>
   )
 }

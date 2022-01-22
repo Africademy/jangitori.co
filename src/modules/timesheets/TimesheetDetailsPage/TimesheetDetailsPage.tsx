@@ -1,4 +1,5 @@
-import { Flex, VStack } from '@chakra-ui/react'
+import { Box, Flex, VStack } from '@chakra-ui/react'
+import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 
 import {
@@ -8,24 +9,21 @@ import {
 import { mergeErrorMessages } from '@/lib/errors'
 import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import {
-  PageBody,
-  PageHeading,
-  PageTitle,
-  PageTopActions,
-} from '@/modules/dashboard/Page'
 import { ReviewStatus } from '@/modules/reviewStatus'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
-import { useAuthStore, useDashboardStore } from '@/modules/stores'
+import { useAuthStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
 import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
+import BasePadding from '@/ui/atoms/BasePadding'
+import { H3 } from '@/ui/atoms/Typography'
 import Breadcrumbs from '@/ui/components/Breadcrumbs'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { LoadingVStack } from '@/ui/components/LoadingVStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
+import { largerThan, only } from '@/ui/utils/breakpoints'
 
 import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
 import { TimeEntriesTable } from './TimeEntriesTable'
@@ -37,7 +35,6 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
 
   const { timesheet, timeEntries } = useTimesheetDetails(query)
   const authStore = useAuthStore()
-  const dashboardStore = useDashboardStore()
 
   const role = authStore.account?.role
   if (timesheet.error || timeEntries.error || !role) {
@@ -79,7 +76,6 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
     console.log('handleLinkClick - url: ' + url)
 
     router.push(url, routes.dashboardPresented(url.split('/')[2]))
-    dashboardStore.setView('timesheets')
   }
 
   return (
@@ -88,7 +84,7 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
         <VStack w="100%" align="start" gap={1}>
           <Breadcrumbs pages={pages} onLinkClick={handleLinkClick} />
           <Flex justify="space-between" w="100%">
-            <PageTitle>{title}</PageTitle>
+            <H3>{title}</H3>
             <StatusTag status={timesheetData.status} />
           </Flex>
           <VStack w="100%" align="start" gap={0}>
@@ -101,14 +97,58 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
               text={`Total ${computeHoursWorked(timeEntriesData)} hours`}
             />
           </VStack>
-          <PageTopActions>
+          <Box
+            css={css`
+              ${only('mobile')} {
+                padding-top: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+              }
+            `}
+          >
             <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
-          </PageTopActions>
+          </Box>
         </VStack>
       </PageHeading>
-      <PageBody>
+      <BasePadding>
         <TimeEntriesTable data={timeEntriesData} />
-      </PageBody>
+      </BasePadding>
     </>
   )
 }
+
+import styled from '@emotion/styled'
+
+const PageHeadingBox = styled.div`
+  background: #fff;
+  line-height: none !important;
+  width: 100%;
+  min-height: 21vh;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) =>
+    css`
+      border-bottom: 0.8px solid ${theme.colors.gray[200]};
+    `};
+`
+
+const PageHeading = ({ children }) => (
+  <PageHeadingBox>
+    <Box
+      width="85vw"
+      mx="auto"
+      css={css`
+        ${largerThan('mobile')} {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      `}
+    >
+      {children}
+    </Box>
+  </PageHeadingBox>
+)
