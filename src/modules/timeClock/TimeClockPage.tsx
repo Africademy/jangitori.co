@@ -1,6 +1,6 @@
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 
-import { TimeClockFeature } from './components/TimeClockFeature'
+import { TimeClockFeature } from './TimeClockFeature'
 
 const TimeClockPage = function TimeClockPage({
   account,
