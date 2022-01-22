@@ -27,6 +27,7 @@ export const CurrentTimesheetButton = ({ employee }: { employee: string }) => {
       w="100%"
       shadow={'sm'}
       onClick={handleClick}
+      py={6}
     >
       {InitialTimeClockCopy.ViewTimesheet}
     </Button>

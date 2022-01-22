@@ -19,6 +19,7 @@ export const StartShiftButton = observer(function StartShiftButton() {
   return (
     <Button
       w="100%"
+      py={6}
       // disabled={isBusy || isDisabled}
       bg={theme.colors.indigo[600]}
       color={'#fff'}

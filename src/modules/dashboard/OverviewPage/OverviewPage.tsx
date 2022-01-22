@@ -3,7 +3,6 @@ import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { useCurrentUser } from '@/hooks/useCurrentUser'
-import { isProduction } from '@/lib/environment'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useLocationStore } from '@/modules/stores'
 
@@ -18,7 +17,6 @@ export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
         <Overlay>
           <HoursToday />
           <BottomSection>
-            <CurrentCoords />
             <TimeClockActions />
           </BottomSection>
         </Overlay>
@@ -29,34 +27,19 @@ export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
 
 export const BottomSection = ({ children }) => {
   return (
-    <Flex
+    <Box
       w="100%"
       position="absolute"
       bottom={0}
-      pt={8}
+      pt={5}
       bg={'#fff'}
       shadow="md"
       minH={72}
-      flexGrow={1}
-      direction="column"
-      px={5}
     >
       {children}
-    </Flex>
+    </Box>
   )
 }
-
-export const CurrentCoords = observer(function CurrentCoords() {
-  const locationStore = useLocationStore()
-
-  return (
-    <>
-      {!isProduction() && locationStore.coords && (
-        <p>{`Current location: (${locationStore.coords.latitude}, ${locationStore.coords.longitude})`}</p>
-      )}
-    </>
-  )
-})
 
 export const TimeClockActions = observer(function TimeClockActions() {
   const locationStore = useLocationStore()
@@ -65,10 +48,10 @@ export const TimeClockActions = observer(function TimeClockActions() {
 
   if (locationStore.coords)
     return (
-      <>
+      <Flex px={5} w="100%" gap={3} mx="auto">
         <StartShiftButton />
         <CurrentTimesheetButton employee={user.uid} />
-      </>
+      </Flex>
     )
 
   return (
