@@ -24,85 +24,76 @@ export interface RequestState<D, E extends IError = IError> {
 }
 
 export class ShiftStore {
-  request: RequestState<Shift> = {}
+  request: RequestState<Shift> = { isLoading: true }
 
   setRequest(value: RequestState<Shift>) {
     this.request = value
+  }
+
+  shouldReset = false
+
+  setShouldReset(value: boolean) {
+    this.shouldReset = value
+  }
+
+  initialized = false
+
+  async init() {
+    const account = this.root.authStore.invariantAccount
+    const response = await this.shiftService.findActiveShift({
+      employee: account.uid,
+    })
+    this.setRequest({ ...response, isLoading: false })
+    this.initialized = true
+  }
+
+  reset() {
+    this.request = {}
+    this.setShouldReset(false)
   }
 
   get shift(): Shift | undefined | null {
     return this.request.data
   }
 
+  get isClockIn(): boolean {
+    return !this.request.isLoading && this.request.data === null
+  }
+
+  get isClockOut(): boolean {
+    const { isLoading, data } = this.request
+
+    return !isLoading && data?.clockOut === null
+  }
+
   async startShift(location: Coordinates) {
-    try {
-      this.setRequest({ isLoading: true })
-      const date = new Date()
-      const initialShift: Omit<Shift, 'id'> = {
-        employee: this.root.authStore.invariantAccount.uid,
-        date: date.toISOString(),
-        clockIn: { timestamp: date.toISOString(), location: location },
-      }
-
-      /* Save new shift data remotely */
-      const newShift = await this.shiftService.createShift(initialShift)
-
-      this.setRequest({ ...this.request, data: newShift, error: null })
-    } catch (err) {
-      this.setRequest({ ...this.request, data: null, error: err as IError })
-      console.error('Failed to start shift: ' + err)
-    } finally {
-      this.setRequest({ ...this.request, isLoading: false })
+    const date = new Date()
+    const initialShift: Omit<Shift, 'id'> = {
+      employee: this.root.authStore.invariantAccount.uid,
+      date: date.toISOString(),
+      clockIn: { timestamp: date.toISOString(), location: location },
     }
+
+    this.request.isLoading = true
+
+    const response = await this.shiftService.createShift(initialShift)
+
+    this.setRequest({ ...response, isLoading: false })
   }
 
   async endShift(location: Coordinates) {
-    const initialShift = this.request.data
-    invariant(initialShift, 'Initial shift data required')
+    const shiftId = this.request.data?.id
+    invariant(typeof shiftId !== 'undefined', 'Initial shift data required')
 
-    try {
-      this.setRequest({ isLoading: true })
+    this.request.isLoading = true
 
-      /* Save new shift data remotely */
-      const shiftId = initialShift.id
+    const response = await this.shiftService.updateShift(shiftId, {
+      clockOut: { location, timestamp: new Date().toISOString() },
+    })
 
-      const newShift = await this.shiftService.updateShift(shiftId, {
-        clockOut: { location, timestamp: new Date().toISOString() },
-      })
+    this.setRequest({ ...response, isLoading: false })
 
-      this.setRequest({ ...this.request, data: newShift, error: null })
-    } catch (err) {
-      this.setRequest({
-        ...this.request,
-        data: initialShift,
-        error: err as IError,
-      })
-      console.error('Failed to start shift: ' + err)
-    } finally {
-      this.setRequest({ ...this.request, isLoading: false })
-    }
-  }
-
-  async loadCurrentShift() {
-    this.setRequest({ isLoading: true })
-
-    let found: Shift | null = null
-    let error: IError | null = null
-    try {
-      const account = this.root.authStore.invariantAccount
-
-      found = await this.shiftService.findActiveShift({
-        employee: account.uid,
-      })
-    } catch (err) {
-      error = err as IError
-    } finally {
-      this.setRequest({ isLoading: false, data: found, error })
-    }
-  }
-
-  reset() {
-    this.request = {}
+    this.setShouldReset(true)
   }
 
   constructor(

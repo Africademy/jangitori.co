@@ -1,25 +1,43 @@
-import { runInAction } from 'mobx'
+import { Skeleton, Stack } from '@chakra-ui/react'
+import { when } from 'mobx'
+import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 
 import { useShiftStore } from '@/modules/stores'
+import { Redirect } from '@/ui/components/Redirect'
 
 import { EndShift } from './EndShift'
 import { StartShift } from './StartShift'
 
-export const TimeClockFeature = () => {
+export const TimeClockFeature = observer(function TimeClockFeature() {
   const shiftStore = useShiftStore()
 
   useEffect(() => {
-    shiftStore.loadCurrentShift()
-  }, [shiftStore])
+    return when(
+      () => !shiftStore.initialized,
+      () => shiftStore.initialized,
+    )
+  }, [])
 
-  if (shiftStore.request.isLoading) return null
+  useEffect(() => {
+    return when(
+      () => shiftStore.shouldReset,
+      () => shiftStore.reset(),
+    )
+  }, [])
 
-  if (!shiftStore.shift) return <StartShift />
+  if (shiftStore.initialized)
+    return (
+      <Stack>
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+        <Skeleton height="20px" />
+      </Stack>
+    )
 
-  if (!shiftStore.shift.clockOut) return <EndShift />
+  if (shiftStore.isClockIn) return <StartShift />
 
-  runInAction(() => shiftStore.reset())
+  if (shiftStore.isClockOut) return <EndShift />
 
-  return null
-}
+  return <Redirect to={`/dashboard/employee/overview`} />
+})

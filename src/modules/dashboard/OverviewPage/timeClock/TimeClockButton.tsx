@@ -6,15 +6,18 @@ import React from 'react'
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
 export interface TimeClockButtonProps {
-  isClockIn: boolean
+  isClockIn?: boolean
 }
 
 export const TimeClockButton = observer(function TimeClockButton({
-  isClockIn,
+  isClockIn: _isClockIn,
 }: TimeClockButtonProps) {
   const theme = useTheme()
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
+
+  const isClockIn =
+    typeof _isClockIn === 'undefined' ? shiftStore.isClockIn : _isClockIn
 
   const handleClick = () => {
     isClockIn

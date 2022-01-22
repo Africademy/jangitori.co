@@ -1,5 +1,6 @@
 import { Box, Flex, VStack } from '@chakra-ui/react'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 
 import {
@@ -9,11 +10,11 @@ import {
 import { mergeErrorMessages } from '@/lib/errors'
 import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
+import { TimeClockButton } from '@/modules/dashboard/OverviewPage/timeClock/TimeClockButton'
 import { ReviewStatus } from '@/modules/reviewStatus'
 import { StatusTag } from '@/modules/reviewStatus/StatusTag'
 import { useAuthStore } from '@/modules/stores'
 import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
-import { NewTimeEntryButton } from '@/modules/timesheets/TimesheetDetailsPage/NewTimeEntryButton'
 import { useTimesheetDetails } from '@/modules/timesheets/TimesheetDetailsPage/useTimesheetDetails'
 import BasePadding from '@/ui/atoms/BasePadding'
 import { H3 } from '@/ui/atoms/Typography'
@@ -107,7 +108,7 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
               }
             `}
           >
-            <NewTimeEntryButton {...{ timesheetData, timeEntriesData }} />
+            <TimeClockButton />
           </Box>
         </VStack>
       </PageHeading>
@@ -117,8 +118,6 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
     </>
   )
 }
-
-import styled from '@emotion/styled'
 
 const PageHeadingBox = styled.div`
   background: #fff;

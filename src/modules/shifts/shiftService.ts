@@ -1,3 +1,5 @@
+import pick from 'lodash.pick'
+
 import supabase from '@/lib/supabase'
 import { Shift } from '@/modules/models/Shift'
 import { TableKeys } from '@/modules/tables'
@@ -5,21 +7,16 @@ import { TableKeys } from '@/modules/tables'
 export class ShiftService {
   constructor(private client = supabase) {}
 
-  async findShift(args: Partial<Shift>): Promise<Shift | null> {
-    const { data, error } = await this.client
+  async findShift(args: Partial<Shift>) {
+    return this.client
       .from<Shift>(TableKeys.Shifts)
       .select('*')
       .match(args)
-      .limit(1)
       .maybeSingle()
-
-    if (error) throw error
-
-    return data
   }
 
-  async findActiveShift(args: { employee: string }): Promise<Shift | null> {
-    const { data, error } = await this.client
+  async findActiveShift(args: { employee: string }) {
+    return this.client
       .from<Shift>(TableKeys.Shifts)
       .select('*')
       .match({
@@ -29,38 +26,22 @@ export class ShiftService {
       })
       .limit(1)
       .maybeSingle()
-
-    if (error) throw error
-
-    return data
   }
 
-  async createShift(initialData: Omit<Shift, 'id'>): Promise<Shift> {
-    const { data, error } = await this.client
+  async createShift(initialData: Omit<Shift, 'id'>) {
+    return this.client
       .from<Shift>(TableKeys.Shifts)
       .insert(initialData)
-
-    if (error) throw error
-
-    if (!data) throw new Error('Failed to create Shift')
-
-    return data[0]
+      .maybeSingle()
+      .then((res) => pick(res, ['data', 'error']))
   }
 
-  async updateShift(
-    id: Shift['id'],
-    updateData: Partial<Omit<Shift, 'id'>>,
-  ): Promise<Shift> {
-    const { data, error } = await this.client
+  async updateShift(id: Shift['id'], updateData: Partial<Omit<Shift, 'id'>>) {
+    return this.client
       .from<Shift>(TableKeys.Shifts)
       .update(updateData)
       .eq('id', id)
       .single()
-
-    if (error) throw error
-
-    if (!data) throw new Error('Failed to update shift')
-
-    return data
+      .then((res) => pick(res, ['data', 'error']))
   }
 }
