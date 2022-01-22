@@ -6,6 +6,7 @@ export interface Shift {
   id: number
   employee: string
   date: CalendarDate
+  hours: Float8
   clockIn: TimeClockData
   clockOut?: TimeClockData | null
   note?: string

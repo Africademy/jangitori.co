@@ -6,6 +6,10 @@ import supabase from '@/lib/supabase'
 import { Account } from '@/modules/models/Account'
 import { RootStore } from '@/modules/stores'
 
+import { AccountService } from '../accounts/AccountService'
+import { Services } from '../stores/services'
+import { AuthService } from './AuthService'
+
 export class AuthStore {
   session: Session | null
   account: Account | null
@@ -34,10 +38,8 @@ export class AuthStore {
       this.setAccount(null)
       return
     }
-    const authUser = await this.store.services.auth.getSessionUser(
-      session.access_token,
-    )
-    const account = await this.store.services.account.getAccount(authUser.id)
+    const authUser = await this.authService.getSessionUser(session.access_token)
+    const account = await this.accountService.getAccount(authUser.id)
     this.setAccount(account)
   }
 
@@ -46,7 +48,16 @@ export class AuthStore {
     this.account = null
   }
 
-  constructor(private store: RootStore) {
+  private accountService: AccountService
+  private authService: AuthService
+
+  constructor(
+    private root: RootStore,
+    services: Pick<Services, 'auth' | 'account'>,
+  ) {
+    this.accountService = services.account
+    this.authService = services.auth
+
     const session = supabase.auth.session()
     this.session = session
     this.account = null

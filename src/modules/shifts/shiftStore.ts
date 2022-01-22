@@ -64,6 +64,7 @@ export class ShiftStore {
     const initialShift: Omit<Shift, 'id'> = {
       employee: this.root.authStore.invariantAccount.uid,
       date: date.toISOString(),
+      hours: 0,
       clockIn: { timestamp: date.toISOString(), location: location },
     }
 
@@ -91,10 +92,7 @@ export class ShiftStore {
     return response.data
   }
 
-  constructor(
-    private root: RootStore,
-    private shiftService = new ShiftService(),
-  ) {
+  constructor(private root: RootStore, private shiftService: ShiftService) {
     makeAutoObservable(this)
   }
 }
