@@ -2,30 +2,30 @@ import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import useSWR from 'swr'
 
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
-import { useServices } from '../stores'
+import { useAuthStore, useServices } from '../stores'
 import { InitialTimeClockCopy } from './TimeClockCopy'
-
-export function useGetTotalHoursForDate() {
-  const { shift: shiftService } = useServices()
-
-  async function getTotalHours(date: Date = new Date()): Promise<number> {
-    const totalHours = await shiftService.getTotalHoursForDate(date)
-    console.log('👌 GOT TOTAL HOURS: ' + totalHours)
-    return totalHours
-  }
-
-  return getTotalHours
-}
 
 export const HoursToday = () => {
   const theme = useTheme()
 
-  const getTotalHours = useGetTotalHoursForDate()
+  const { shift: shiftService } = useServices()
+  const authStore = useAuthStore()
+  const employee = authStore.account
 
-  const { data: hours } = useSWR<number, Error>(
-    'totalHoursToday',
+  const getTotalHours = async (date: Date = new Date()): Promise<number> => {
+    const totalHours = await shiftService.getTotalHoursForDate({
+      employee: employee!.uid,
+      date: date.toISOString(),
+    })
+    console.log('👌 GOT TOTAL HOURS: ' + totalHours)
+    return totalHours
+  }
+
+  const { data: hours, error } = useSWR<number, Error>(
+    employee ? 'totalHoursToday' : null,
     getTotalHours,
   )
 
@@ -43,7 +43,9 @@ export const HoursToday = () => {
           <Box>{InitialTimeClockCopy.HoursToday}</Box>
         </Flex>
         <Box fontWeight="semibold">{`${
-          typeof hours === 'undefined' ? '---' : hours
+          typeof hours === 'undefined' && typeof error === 'undefined'
+            ? '---'
+            : hours
         }`}</Box>
       </Flex>
     </Box>

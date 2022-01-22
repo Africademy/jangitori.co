@@ -1,36 +1,30 @@
 import { makeAutoObservable } from 'mobx'
 import invariant from 'tiny-invariant'
 
+import { RequestState } from '@/lib/types/ApiResponse'
 import { Coordinates } from '@/modules/geolocation/Coordinates'
 import { Shift } from '@/modules/models/Shift'
 import { RootStore } from '@/modules/stores'
 
 import { ShiftService } from './shiftService'
 
-export enum RequestStatus {
-  IDLE = 'idle',
-  BUSY = 'busy',
-  ERROR = 'error',
+export enum ShiftStep {
+  Initializing,
+  Idle,
+  ClockedIn,
 }
-
-export interface IError {
-  message: string
-}
-
-export interface RequestState<D, E extends IError = IError> {
-  data?: D | null
-  error?: E | null
-  isLoading?: boolean
-}
-
 export class ShiftStore {
-  request: RequestState<Shift> = { isLoading: true }
+  step: ShiftStep = ShiftStep.Initializing
+
+  setStep(step: ShiftStep) {
+    this.step = step
+  }
+
+  request: RequestState<Shift> = {}
 
   setRequest(value: RequestState<Shift>) {
     this.request = value
   }
-
-  initialized = false
 
   async init() {
     const account = this.root.authStore.invariantAccount
@@ -38,25 +32,16 @@ export class ShiftStore {
       employee: account.uid,
     })
     this.setRequest({ ...response, isLoading: false })
-    this.initialized = true
+    this.setStep(ShiftStep.Idle)
   }
 
   reset() {
-    this.request = {}
+    this.request = { isLoading: false }
+    this.setStep(ShiftStep.Idle)
   }
 
   get shift(): Shift | undefined | null {
     return this.request.data
-  }
-
-  get isClockIn(): boolean {
-    return !this.request.isLoading && this.request.data === null
-  }
-
-  get isClockOut(): boolean {
-    const { isLoading, data } = this.request
-
-    return !isLoading && data?.clockOut === null
   }
 
   async startShift(location: Coordinates) {
@@ -73,6 +58,7 @@ export class ShiftStore {
     const response = await this.shiftService.createShift(initialShift)
 
     this.setRequest({ ...response, isLoading: false })
+    this.setStep(ShiftStep.ClockedIn)
   }
 
   async endShift(location: Coordinates) {

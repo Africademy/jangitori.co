@@ -33,7 +33,6 @@ export const TimeClockButton = observer(function TimeClockButton({
       loadingText={isClockIn ? 'Starting...' : 'Ending...'}
       w="100%"
       py={6}
-      // disabled={isBusy || isDisabled}
       bg={theme.colors.indigo[600]}
       color={'#fff'}
       size="md"

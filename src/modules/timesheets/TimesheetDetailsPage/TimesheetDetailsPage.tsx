@@ -61,13 +61,13 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
   const pages = [
     {
       name: 'Timesheets',
-      href: routes.dashboardTab(role, 'timesheets'),
+      href: routes.dashboardPage(role, 'timesheets'),
       current: false,
     },
     {
       name: title,
       href:
-        routes.dashboardTab(role, 'timesheets') +
+        routes.dashboardPage(role, 'timesheets') +
         `?payPeriodEnd=${query.payPeriodEnd}`,
       current: true,
     },
@@ -76,7 +76,7 @@ export const TimesheetDetailsPage = function TimesheetDetailsPage({
   const handleLinkClick = (url: string) => {
     console.log('handleLinkClick - url: ' + url)
 
-    router.push(url, routes.dashboardPresented(url.split('/')[2]))
+    router.push(url)
   }
 
   return (

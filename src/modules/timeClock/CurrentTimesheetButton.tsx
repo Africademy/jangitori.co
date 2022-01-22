@@ -18,7 +18,7 @@ export const CurrentTimesheetButton = () => {
   const router = useRouter()
   const handleClick = () => {
     router.push(
-      routes.dashboardActual(
+      routes.dashboardPage(
         employee.role,
         'timesheets' + `?payPeriodEnd=${payPeriodEnd}&employee=${employee.uid}`,
       ),

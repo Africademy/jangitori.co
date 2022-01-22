@@ -34,10 +34,7 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
       const account = await accountService.getAccount(authUser.id)
       authStore.setSession(session)
       authStore.setAccount(account)
-      router.push(
-        routes.dashboardActual(account.role, 'overview'),
-        routes.dashboardPresented('overview'),
-      )
+      router.push(routes.dashboardPage(account.role, 'overview'))
     } catch (error) {
       alert((error as Error).message)
       authFormVM.setError((error as Error).message)

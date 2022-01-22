@@ -11,13 +11,13 @@ configure({
   disableErrorBoundaries: false,
 })
 
-import { enableLogging } from 'mobx-logger'
+// import { enableLogging } from 'mobx-logger'
 
 import { RootStore } from './RootStore'
 
-if (isDevelopment()) {
-  enableLogging()
-}
+// if (isDevelopment()) {
+//   enableLogging()
+// }
 
 export let rootStoreInstance: RootStore
 

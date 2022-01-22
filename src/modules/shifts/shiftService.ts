@@ -15,18 +15,24 @@ export class ShiftService {
       .maybeSingle()
   }
 
-  async getTotalHoursForDate(date: Date): Promise<number> {
+  async getTotalHoursForDate(
+    args: Pick<Shift, 'employee' | 'date'>,
+  ): Promise<number> {
+    debugger
     const { data, error } = await this.client
       .from<Shift>(TableKeys.Shifts)
       .select('hours')
-      .eq('date', date.toISOString())
+      .match(args)
+
+    console.log('💜 GET HOURS RESPONSE: ', data)
 
     if (error) throw error
 
-    const totalHours =
-      data?.map((shift) => shift.hours).reduce((prev, curr) => prev + curr) ?? 0
+    const totalHours = data
+      ?.map((shift) => shift.hours)
+      .reduce((prev, curr) => prev + curr)
 
-    return totalHours
+    return totalHours ?? 0
   }
 
   async findActiveShift(args: { employee: string }) {

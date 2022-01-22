@@ -3,7 +3,7 @@ interface BaseResponse {
   statusCode?: number
 }
 
-export type UnsuccessfulResponse<TError extends IApiError = IApiError> =
+export type UnsuccessfulResponse<TError extends IError = IError> =
   BaseResponse & {
     data: null
     error: TError
@@ -14,10 +14,16 @@ export type SuccessfulResponse<D> = BaseResponse & {
   error: null
 }
 
-export interface IApiError {
+export interface IError {
   message: string
 }
 
-export type ApiResponse<Data, TError extends IApiError = IApiError> =
+export type ApiResponse<Data, TError extends IError = IError> =
   | SuccessfulResponse<Data>
   | UnsuccessfulResponse<TError>
+
+export interface RequestState<D, E extends IError = IError> {
+  data?: D | null
+  error?: E | null
+  isLoading?: boolean
+}
