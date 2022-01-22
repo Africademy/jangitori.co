@@ -4,8 +4,6 @@ import { observer } from 'mobx-react-lite'
 
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
-import { InitialTimeClockCopy } from './TimeClockCopy'
-
 export const EndShiftButton = observer(function EndShiftButton() {
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
@@ -35,9 +33,7 @@ export const EndShiftButton = observer(function EndShiftButton() {
         },
       }}
     >
-      {shiftStore.request.isLoading
-        ? 'Ending...'
-        : InitialTimeClockCopy.EndShift}
+      {shiftStore.request.isLoading ? 'Ending...' : 'End Shift'}
     </Button>
   )
 })

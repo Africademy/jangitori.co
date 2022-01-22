@@ -22,12 +22,18 @@
     "type-check": "tsc --pretty --noEmit"
   },
   "lint-staged": {
+
     "*.{ts,tsx,js}": [
       "yarn lint --max-warnings 0"
     ],
     "*.{ts,tsx,js,css,json,md,mdx}": [
       "yarn format && yarn lint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn type-check && lint-staged"
+    }
   },
   "next-unused": {
     "alias": {},
