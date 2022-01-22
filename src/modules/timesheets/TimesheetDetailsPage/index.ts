@@ -1,3 +1,3 @@
-import { TimesheetDetailsPage } from './TimesheetDetailsPage'
+import TimesheetPage from './TimesheetPage'
 
-export default TimesheetDetailsPage
+export default TimesheetPage

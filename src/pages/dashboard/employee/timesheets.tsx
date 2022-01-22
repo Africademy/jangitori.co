@@ -6,8 +6,8 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
 import { getDashboardLayout } from '@/modules/dashboard/DashboardLayout/getDashboardLayout'
 
-const TimesheetDetailsPage = dynamic(
-  () => import('@/modules/timesheets/TimesheetDetailsPage'),
+const TimesheetPage = dynamic(
+  () => import('@/modules/timesheets/TimesheetDetailsPage/TimesheetPage'),
 )
 import { isTimesheetDetailsQuery } from '@/modules/timesheets/timesheetDetailsQuery'
 
@@ -19,7 +19,7 @@ const TimesheetsRoute: NextPageWithLayout<AuthenticatedPageProps> = (props) => {
   const router = useRouter()
 
   if (isTimesheetDetailsQuery(router.query)) {
-    return <TimesheetDetailsPage {...props} query={router.query} />
+    return <TimesheetPage {...props} query={router.query} />
   }
   return <TimesheetsPage {...props} />
 }
