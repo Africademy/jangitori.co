@@ -5,17 +5,15 @@ import { radii } from './radii'
 import { shadows } from './shadows'
 import { typography } from './typography'
 
+const components = {}
+
 const myTheme = {
   colors,
   ...typography,
   shadows,
   radii,
+  components,
 }
-
-/**
- * Merge with my theme types
- */
-export type MyTheme = typeof myTheme
 
 export const theme = extendTheme(myTheme)
 

@@ -1,50 +1,82 @@
-import { Box, Container, Flex, VStack } from '@chakra-ui/react'
+import { Box, Container, Flex, Skeleton, Stack, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { isProduction } from '@/lib/environment'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useLocationStore } from '@/modules/stores'
-import LoadingScreen from '@/ui/components/LoadingScreen'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
 import { StartShiftButton } from './StartShiftButton'
 
-export const OverviewPage = observer(function OverviewPage({
-  account,
-}: AuthenticatedPageProps) {
-  const locationStore = useLocationStore()
-
-  if (!locationStore.coords) return <LoadingScreen />
-
+export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
   return (
     <>
       <MapBackdrop>
         <Overlay>
           <HoursToday />
-          {!isProduction() && (
-            <p>{`Current location: (${locationStore.coords.latitude}, ${locationStore.coords.longitude})`}</p>
-          )}
-          <VStack
-            w="100%"
-            position="absolute"
-            bottom={0}
-            pt={8}
-            bg={'#fff'}
-            shadow="md"
-            minH={72}
-            flexGrow={1}
-            display="flex"
-            direction="column"
-            px={5}
-          >
-            <StartShiftButton />
-            <CurrentTimesheetButton employee={account.uid} />
-          </VStack>
+          <BottomSection>
+            <CurrentCoords />
+            <TimeClockActions />
+          </BottomSection>
         </Overlay>
       </MapBackdrop>
     </>
+  )
+}
+
+export const BottomSection = ({ children }) => {
+  return (
+    <Flex
+      w="100%"
+      position="absolute"
+      bottom={0}
+      pt={8}
+      bg={'#fff'}
+      shadow="md"
+      minH={72}
+      flexGrow={1}
+      direction="column"
+      px={5}
+    >
+      {children}
+    </Flex>
+  )
+}
+
+export const CurrentCoords = observer(function CurrentCoords() {
+  const locationStore = useLocationStore()
+
+  return (
+    <>
+      {!isProduction() && locationStore.coords && (
+        <p>{`Current location: (${locationStore.coords.latitude}, ${locationStore.coords.longitude})`}</p>
+      )}
+    </>
+  )
+})
+
+export const TimeClockActions = observer(function TimeClockActions() {
+  const locationStore = useLocationStore()
+
+  const user = useCurrentUser()
+
+  if (locationStore.coords)
+    return (
+      <>
+        <StartShiftButton />
+        <CurrentTimesheetButton employee={user.uid} />
+      </>
+    )
+
+  return (
+    <Stack>
+      <Skeleton height="20px" />
+      <Skeleton height="20px" />
+      <Skeleton height="20px" />
+    </Stack>
   )
 })
 
