@@ -22,7 +22,7 @@ export const NewTimeEntryButtonComponent = ({
   wide = false,
 }) => {
   const services = useServices('timeEntry')
-  const { geolocationStore } = useRootStore()
+  const { locationStore } = useRootStore()
 
   const [isBusy, setIsBusy] = useState(false)
   const theme = useTheme()
@@ -33,7 +33,7 @@ export const NewTimeEntryButtonComponent = ({
       console.log('👊 getGeoLocation() response: ', location)
       const newEntry = await services.timeEntry.createEntry({
         timesheet: timesheetId,
-        location: geolocationStore.invariantCoords,
+        location: locationStore.invariantCoords,
       })
 
       onSuccess(newEntry)

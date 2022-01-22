@@ -1,14 +1,21 @@
 import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
+import { observer } from 'mobx-react-lite'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
+import { useLocationStore } from '@/modules/stores'
+import LoadingScreen from '@/ui/components/LoadingScreen'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
 import { StartShiftButton } from './StartShiftButton'
 
-export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
-  const theme = useTheme()
+export const OverviewPage = observer(function OverviewPage({
+  account,
+}: AuthenticatedPageProps) {
+  const locationStore = useLocationStore()
+
+  if (!locationStore.geolocationPosition) return <LoadingScreen />
 
   return (
     <>
@@ -35,7 +42,7 @@ export const OverviewPage = ({ account }: AuthenticatedPageProps) => {
       </MapBackdrop>
     </>
   )
-}
+})
 
 export const Overlay = ({ children }) => {
   return (

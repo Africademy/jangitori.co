@@ -11,8 +11,8 @@ export default function RootStoreProvider({
   const store = useMemo(initializeStore, [])
 
   useEffect(() => {
-    store.geolocationStore.hydrate()
-  }, [store.geolocationStore])
+    store.locationStore.hydrate()
+  }, [store.locationStore])
 
   return (
     <RootStoreContext.Provider value={store}>

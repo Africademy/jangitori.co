@@ -9,7 +9,7 @@ const options = {
   maximumAge: 0,
 }
 
-export class GeoLocationStore {
+export class LocationStore {
   geolocationPosition: GeolocationPosition | null = null
 
   setGeolocationPosition(value: GeolocationPosition | null) {
@@ -19,7 +19,6 @@ export class GeoLocationStore {
   get invariantCoords(): Coordinates {
     const geolocationPosition = this.geolocationPosition
     invariant(geolocationPosition, '🟠  GeolocationPosition was null.')
-
     return geolocationPosition.coords
   }
 
@@ -28,7 +27,7 @@ export class GeoLocationStore {
    * the Geolocation API.
    */
   hydrate() {
-    console.log('🌊 Hydrating GeoLocationStore...')
+    console.log('🌊 Hydrating LocationStore...')
     const currentCoords = this.geolocationPosition?.coords
     if (currentCoords) return
 

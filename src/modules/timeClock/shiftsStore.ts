@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
+import { Coordinates } from '../geolocation/Coordinates'
 import { RootStore } from '../stores'
 import { Shift, ShiftService } from './shiftService'
 
@@ -19,24 +20,22 @@ export interface RequestState<D, E extends IError = IError> {
   isLoading?: boolean
 }
 
-export class TimeClockStore {
+export class ShiftsStore {
   request: RequestState<Shift> = {}
 
   get shift(): Shift | Falsy {
     return this.request.data
   }
 
-  async startShift(date = new Date()) {
+  async startShift(location: Coordinates) {
     try {
       this.request = { isLoading: true }
-      const coords = this.root.geolocationStore.invariantCoords
-      console.log('USER GEO LOCATION: ', coords)
-
+      const date = new Date()
       const initialShift: Omit<Shift, 'id'> = {
         employee: this.root.invariantAccount.uid,
         date,
         clockInTime: date,
-        clockInLocation: coords,
+        clockInLocation: location,
       }
 
       /* Save new shift data remotely */

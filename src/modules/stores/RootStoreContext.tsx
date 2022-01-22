@@ -14,6 +14,10 @@ export function useRootStore() {
   return context
 }
 
+export function useLocationStore() {
+  return useRootStore().locationStore
+}
+
 export function useAuthStore() {
   return useRootStore().authStore
 }
@@ -22,8 +26,8 @@ export function useDashboardStore() {
   return useRootStore().dashboardStore
 }
 
-export function useTimeClockStore() {
-  return useRootStore().timeClockStore
+export function useShiftsStore() {
+  return useRootStore().shiftsStore
 }
 
 export function useServices<K extends keyof Services>(
