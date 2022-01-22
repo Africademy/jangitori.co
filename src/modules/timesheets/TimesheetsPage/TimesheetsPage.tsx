@@ -1,5 +1,5 @@
-import { Box, Flex, Heading, IconButton } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
+import { Box, Flex, Heading } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
@@ -8,9 +8,10 @@ import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { ChevronLeftIcon } from '@/ui/icons/ChevronIcon'
 
 import TimesheetsTable from './TimesheetsTable'
+
+const BackButton = dynamic(() => import('@/ui/molecules/BackButton'))
 
 export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
   const services = useServices('timesheet')
@@ -22,25 +23,13 @@ export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
     },
   )
 
-  const router = useRouter()
-
-  const goBack = () => {
-    router.back()
-  }
-
   if (error) return <ErrorMessage>{error.message}</ErrorMessage>
 
   return (
     <>
       <Flex px={5} pt={8} pb={1} align="center" gap={3} justify="center">
         <Box position="absolute" left={6}>
-          <IconButton
-            aria-label="Go back"
-            bg="transparent"
-            size="lg"
-            icon={<ChevronLeftIcon className="w-6 h-6" strokeWidth={3} />}
-            onClick={goBack}
-          />
+          <BackButton />
         </Box>
         <Heading
           size="md"

@@ -42,6 +42,7 @@
       "@/api/*": ["./src/api/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/hooks/*": ["./src/hooks/*"],
+      "@icons/*": ["./src/ui/icons/*"],
     },
     "incremental": true,
   },
