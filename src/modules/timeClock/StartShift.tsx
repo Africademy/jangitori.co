@@ -2,28 +2,39 @@ import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
+import { User } from '@/data/models/user'
 import { useLocationStore } from '@/modules/stores'
-import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 import LoadingStack from '@/ui/components/LoadingStack'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
 import { TimeClockButton } from './TimeClockButton'
 
-export const StartShift = () => {
-  const user = useCurrentUser()
+export const StartShift = observer(function StartShift({
+  employee,
+}: {
+  employee: User
+}) {
+  const locationStore = useLocationStore()
 
   return (
     <MapBackdrop>
       <Overlay>
-        <HoursToday employee={user.uid} />
+        <HoursToday employee={employee} />
         <BottomSection>
-          <TimeClockActions />
+          {locationStore.coords ? (
+            <VStack w="100%" px={5} gap={3}>
+              <TimeClockButton />
+              <CurrentTimesheetButton employee={employee} />
+            </VStack>
+          ) : (
+            <LoadingStack />
+          )}
         </BottomSection>
       </Overlay>
     </MapBackdrop>
   )
-}
+})
 
 export const BottomSection = ({ children }) => {
   return (
@@ -41,21 +52,7 @@ export const BottomSection = ({ children }) => {
   )
 }
 
-export const TimeClockActions = observer(function TimeClockActions() {
-  const locationStore = useLocationStore()
-
-  if (locationStore.coords)
-    return (
-      <VStack w="100%" px={5} gap={3}>
-        <TimeClockButton />
-        <CurrentTimesheetButton />
-      </VStack>
-    )
-
-  return <LoadingStack />
-})
-
-export const Overlay = ({ children }) => {
+const Overlay = ({ children }) => {
   return (
     <Container
       position="absolute"
@@ -73,7 +70,7 @@ export const Overlay = ({ children }) => {
   )
 }
 
-export const MapBackdrop = ({ children }) => {
+const MapBackdrop = ({ children }) => {
   const theme = useTheme()
   return (
     <Box

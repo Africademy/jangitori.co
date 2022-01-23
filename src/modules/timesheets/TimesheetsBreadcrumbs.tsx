@@ -1,9 +1,8 @@
 import router from 'next/router'
 
-import { toDateString } from '@/lib/date'
+import { RoleIds } from '@/data/models/role'
 import { routes } from '@/lib/routes'
-import { computePayPeriod } from '@/modules/payrolls/computePayPeriod'
-import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
+import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import Breadcrumbs from '@/ui/components/Breadcrumbs'
 
 const pages = ({ role, payPeriodEnd }) => [
@@ -22,8 +21,7 @@ const pages = ({ role, payPeriodEnd }) => [
 ]
 
 export const TimesheetsBreadcrumbs = () => {
-  const user = useCurrentUser()
-  const payPeriodEnd = toDateString(computePayPeriod().end)
+  const payPeriodEnd = usePayPeriodEnd()
 
   const handleLinkClick = (url: string) => {
     console.log('handleLinkClick - url: ' + url)
@@ -33,7 +31,7 @@ export const TimesheetsBreadcrumbs = () => {
 
   return (
     <Breadcrumbs
-      pages={pages({ role: user.role, payPeriodEnd })}
+      pages={pages({ role: RoleIds.Employee, payPeriodEnd })}
       onLinkClick={handleLinkClick}
     />
   )

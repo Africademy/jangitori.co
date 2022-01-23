@@ -2,15 +2,13 @@ import { Button } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { useRouter } from 'next/router'
 
+import { User } from '@/data/models/user'
 import { routes } from '@/lib/routes'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
-import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
-export const CurrentTimesheetButton = () => {
-  const employee = useCurrentUser()
-
+export const CurrentTimesheetButton = ({ employee }: { employee: User }) => {
   const theme = useTheme()
 
   const payPeriodEnd = usePayPeriodEnd()

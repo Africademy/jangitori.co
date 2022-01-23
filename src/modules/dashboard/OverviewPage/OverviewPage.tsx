@@ -4,5 +4,5 @@ import { TimeClockFeature } from '@/modules/timeClock/TimeClockFeature'
 export const OverviewPage = function OverviewPage(
   props: AuthenticatedPageProps,
 ) {
-  return <TimeClockFeature />
+  return <TimeClockFeature {...props} />
 }

@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
+import { User } from '@/data/models/user'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'
@@ -10,11 +11,11 @@ import { useTotalHoursToday } from './useTotalHoursToday'
 export const HoursToday = observer(function HoursToday({
   employee,
 }: {
-  employee: string
+  employee: User
 }) {
   const theme = useTheme()
 
-  const { hours, error } = useTotalHoursToday(employee)
+  const { hours, error } = useTotalHoursToday(employee.uid)
 
   return (
     <Box
