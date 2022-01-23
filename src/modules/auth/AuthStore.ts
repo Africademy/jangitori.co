@@ -16,7 +16,6 @@ export class AuthStore {
 
   setSession(value: Session | null) {
     this.session = value
-    this.init()
   }
 
   setUser(value: User | null) {

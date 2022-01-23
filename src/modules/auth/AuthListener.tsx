@@ -7,7 +7,7 @@ import { createLogger } from '@/lib/logger'
 import { isAuthRequiredPathname, routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
 import updateAuthCookie from '@/modules/auth/updateAuthCookie'
-import { useRootStore } from '@/modules/stores'
+import { useAuthStore } from '@/modules/stores'
 
 const logger = createLogger({ fileLabel: 'app/AuthListener' })
 
@@ -17,7 +17,7 @@ export interface AuthListenerProps {
 
 const AuthListener = function AuthListener({ children }: AuthListenerProps) {
   const router = useRouter()
-  const { authStore } = useRootStore()
+  const authStore = useAuthStore()
 
   useMountEffect(() => {
     const listener = supabase.auth.onAuthStateChange(async (event, session) => {
