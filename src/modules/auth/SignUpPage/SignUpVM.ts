@@ -8,23 +8,23 @@ import { UserService } from '@/data/users/userService'
 import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { routes } from '@/lib/routes'
 import { AuthStore } from '@/modules/auth/AuthStore'
-import { EmailPasswordCreds } from '@/modules/auth/types'
+import { initEmailPasswordCreds } from '@/modules/auth/helpers'
+import { EmailPasswordCreds, UserInfo } from '@/modules/auth/types'
 import { FormStore } from '@/modules/form/FormStore'
 
 import { ConfirmInfoVM } from './ConfirmInfoVM'
 import { SignUpSteps } from './constants'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
 import { StepperStore } from './StepperStore'
-import { UserInfo } from './types'
 
 export class SignUpVM {
   submitCredsVM = new FormStore<EmailPasswordCreds>(
-    { email: '', password: '' },
+    initEmailPasswordCreds(),
     this.onSubmitCreds,
   )
   confirmInfoVM = new ConfirmInfoVM(this)
 
-  emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
+  emailPasswordCreds: EmailPasswordCreds = initEmailPasswordCreds()
   initialUser: Whitelist | null = null
 
   stepper: StepperStore = new StepperStore([

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import AuthForm from '@/modules/auth/AuthForm'
+import { initEmailPasswordCreds } from '@/modules/auth/helpers'
 import { AuthPageProps, EmailPasswordCreds } from '@/modules/auth/types'
 import { FormStore } from '@/modules/form/FormStore'
 import { useRootStore, useServices } from '@/modules/stores'
@@ -21,10 +22,7 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
 
   const authFormVM = useMobXStore(
     () =>
-      new FormStore<EmailPasswordCreds>(
-        { email: '', password: '' },
-        handleSubmit,
-      ),
+      new FormStore<EmailPasswordCreds>(initEmailPasswordCreds(), handleSubmit),
   )
 
   async function handleSubmit(formData: EmailPasswordCreds) {
