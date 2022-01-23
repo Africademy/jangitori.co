@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 
+import { FormStore } from '@/lib/form/FormStore'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import AuthForm from '@/modules/auth/AuthForm'
 import { initEmailPasswordCreds } from '@/modules/auth/helpers'
 import { AuthPageProps, EmailPasswordCreds } from '@/modules/auth/types'
-import { FormStore } from '@/modules/form/FormStore'
 import { useRootStore, useServices } from '@/modules/stores'
 
 const LoginPageCopy = {

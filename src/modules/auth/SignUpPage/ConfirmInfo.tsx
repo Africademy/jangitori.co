@@ -2,10 +2,10 @@ import { Container, Heading } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { runInAction } from 'mobx'
 
+import { FormFieldProps } from '@/lib/form/FormFieldProps'
+import { FormStore } from '@/lib/form/FormStore'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
-import { FormFieldProps } from '@/modules/form/FormFieldProps'
-import { FormStore } from '@/modules/form/FormStore'
 import { Typography } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import {
