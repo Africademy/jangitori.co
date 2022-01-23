@@ -5,10 +5,10 @@ import {
 
 import { NextPageWithLayout } from '@/modules/core/types/NextPagePropsWithLayout'
 
-export interface MyAppInitialProps extends NextAppInitialProps {
+export interface CoreAppInitialProps extends NextAppInitialProps {
   initialState: any
 }
 
-export type MyAppProps = NextAppProps & {
+export type CoreAppProps = NextAppProps & {
   Component: NextPageWithLayout
 }

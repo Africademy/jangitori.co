@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export const CoreHead = () => {
+const CoreMeta = () => {
   return (
     <Head>
       <meta charSet="utf-8" />
@@ -11,3 +11,5 @@ export const CoreHead = () => {
     </Head>
   )
 }
+
+export default CoreMeta

@@ -3,9 +3,9 @@ import '@/modules/css/global.css'
 import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
 
-import { MyAppProps } from '@/app/MyAppProps'
+import { CoreAppProps } from '@/app/CoreAppProps'
 
-const AppLayout = dynamic(() => import('@/app/AppLayout'))
+const CoreLayout = dynamic(() => import('@/app/CoreLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
 const GoogleMapsProvider = dynamic(
   () => import('@/modules/googleMaps/GoogleMapsProvider'),
@@ -21,21 +21,21 @@ import { theme } from '@/modules/emotion/theme'
 
 const GlobalStyles = dynamic(() => import('@/modules/emotion/GlobalStyles'))
 
-export default function MyApp({ Component, pageProps }: MyAppProps) {
+export default function CoreApp({ Component, pageProps }: CoreAppProps) {
   const getLayout = Component.getLayout || ((page: ReactElement) => page)
 
   return (
-    <RootStoreProvider>
-      <ChakraProvider resetCSS theme={theme}>
-        <GlobalStyles />
+    <ChakraProvider resetCSS theme={theme}>
+      <GlobalStyles />
+      <RootStoreProvider>
         <AuthListener>
-          <AppLayout>
+          <CoreLayout>
             <GoogleMapsProvider>
               {getLayout(<Component {...pageProps} />)}
             </GoogleMapsProvider>
-          </AppLayout>
+          </CoreLayout>
         </AuthListener>
-      </ChakraProvider>
-    </RootStoreProvider>
+      </RootStoreProvider>
+    </ChakraProvider>
   )
 }
