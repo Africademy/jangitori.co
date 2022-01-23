@@ -5,7 +5,7 @@ import React from 'react'
 
 import { mergeErrorMessages } from '@/lib/errors'
 import { StatusTag } from '@/modules/reviewStatus'
-import { computeHoursWorked } from '@/modules/time-entries/computeTimeWorked'
+import { computeHoursWorked } from '@/modules/timeClock/computeTimeWorked'
 import { TimeClockButton } from '@/modules/timeClock/TimeClockButton'
 import { H3 } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'

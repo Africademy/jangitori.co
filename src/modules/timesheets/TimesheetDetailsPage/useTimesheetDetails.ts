@@ -3,7 +3,7 @@ import useSWR, { SWRResponse } from 'swr'
 import { TimeEntry } from '@/modules/models/TimeEntry'
 import { Timesheet } from '@/modules/models/Timesheet'
 import { useServices } from '@/modules/stores'
-import { timeEntryQueryKeys } from '@/modules/time-entries/timeEntryQueryKeys'
+import { timeEntryQueryKeys } from '@/modules/timeClock/timeEntryQueryKeys'
 
 import { TimesheetDetailsQuery } from '../timesheetDetailsQuery'
 
@@ -23,7 +23,8 @@ export function useTimesheetDetails(args: TimesheetDetailsQuery): {
   const entriesSWR = useSWR<TimeEntry[], Error>(
     timesheetSWR.data ? timeEntryQueryKeys.detail(args) : null,
     async () => {
-      return await services.timeEntry.getTimeEntries(timesheetSWR.data!.id)
+      // return await services.shift.getShifts(args)
+      return await Promise.resolve([])
     },
   )
 

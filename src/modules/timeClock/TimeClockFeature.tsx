@@ -22,7 +22,7 @@ export const TimeClockFeature = observer(function TimeClockFeature() {
   if (shiftStore.step === ShiftStep.Idle) return <StartShift />
 
   if (shiftStore.step === ShiftStep.ClockedIn)
-    return <Redirect to={`/dashboard/employee/time-clock`} />
+    return <Redirect to={`/dashboard/employee/timeClock`} />
 
   return <Redirect to={`/dashboard/employee/overview`} />
 })
