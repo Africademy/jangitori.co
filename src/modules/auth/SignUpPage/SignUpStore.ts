@@ -2,33 +2,32 @@ import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 import invariant from 'tiny-invariant'
 
+import { User } from '@/data/models/user'
 import { Whitelist } from '@/data/models/whitelist'
 import { UserService } from '@/data/users/userService'
 import { WhitelistService } from '@/data/whitelists/whitelistService'
-import { createLogger } from '@/lib/logger'
+import { logger } from '@/infra/logger'
 import { routes } from '@/lib/routes'
 import { waitFor } from '@/lib/waitFor'
 import { AuthService } from '@/modules/auth/AuthService'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 
+import { SignUpSteps } from './constants'
+import { RequestStore } from './RequestStore'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
+import { StepperStore } from './StepperStore'
 import { UserInfo } from './types'
 
-const fileLabel = 'modules/auth/SignUpPage/SignUpStore'
-const logger = createLogger({ fileLabel })
-
-export enum SignUpSteps {
-  Auth,
-  Confirm,
-}
 export class SignUpStore {
   emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
   initialUser: Whitelist | null = null
 
-  currentStep: SignUpSteps = SignUpSteps.Auth
-  error: string | null = null
-  isLoading = false
+  request: RequestStore = new RequestStore()
+  stepper: StepperStore = new StepperStore([
+    SignUpSteps.Auth,
+    SignUpSteps.Confirm,
+  ])
 
   get userInfo(): UserInfo | null {
     const initialUser = this.initialUser
@@ -47,31 +46,12 @@ export class SignUpStore {
     return initialUser
   }
 
-  get isConfirmDisabled(): boolean {
-    return (
-      !Object.values(this.emailPasswordCreds).every(Boolean) ||
-      !Object.values(this.invariantInitialUser).every(Boolean)
-    )
-  }
-
   setEmailPasswordCreds(value: EmailPasswordCreds) {
     this.emailPasswordCreds = value
   }
 
-  onChange(field: keyof EmailPasswordCreds, value: string) {
-    this.emailPasswordCreds[field] = value
-  }
-
   setInitialUserInfo(value: Whitelist) {
     this.initialUser = value
-  }
-
-  setError(val: string | null) {
-    this.error = val
-  }
-
-  setIsLoading(val: boolean) {
-    this.isLoading = val
   }
 
   handleError(error: unknown) {
@@ -79,12 +59,11 @@ export class SignUpStore {
       '❌ failed to fetch employee. Error: ' + (error as Error).message,
     )
     alert((error as Error).message)
-    this.setError((error as Error).message)
+    this.request.setError((error as Error).message)
   }
 
-  async onSubmitUserCredentials({ email }: EmailPasswordCreds) {
-    this.setIsLoading(true)
-    this.setError(null)
+  async onSubmitCreds({ email }: EmailPasswordCreds) {
+    this.request.start()
     try {
       /* Get existing user data */
       const whitelist = await this.whitelistService.findWhitelist({
@@ -92,7 +71,7 @@ export class SignUpStore {
       })
       if (!whitelist) throw new UnauthorizedUserCredentialsError()
 
-      const initialUser = await this.userService.getUser({ email })
+      const initialUser = await this.userService.findUser({ email })
 
       /* Check if user is already registered */
       if (initialUser) {
@@ -100,42 +79,48 @@ export class SignUpStore {
       }
 
       this.setInitialUserInfo(whitelist)
-      this.currentStep = SignUpSteps.Confirm
+      this.stepper.increment()
     } catch (error) {
       this.handleError(error)
     } finally {
-      this.setIsLoading(false)
+      this.request.setBusy(false)
     }
   }
 
-  async onSubmitConfirmation(event: React.FormEvent) {
-    event.preventDefault()
+  async onConfirmInfo(userInfo: UserInfo) {
+    const userToCreate = {
+      ...this.invariantInitialUser,
+      ...userInfo,
+      updatedAt: new Date().toISOString(),
+    }
 
-    const formData = this.emailPasswordCreds
-    const initialUser = this.invariantInitialUser
-
-    this.setError(null)
-    this.setIsLoading(true)
+    this.request.setError(null)
+    this.request.setBusy(true)
     try {
       /* Register user with email and password */
-      const { authUser } = await this.authService.signUp(formData)
-      logger.info(`✅ registered user for email ${formData.email}`)
-      await waitFor(500)
+      const { authUser } = await this.authService
+        .signUp(this.emailPasswordCreds)
+        .then(async (res) => {
+          await waitFor(300)
+          return res
+        })
 
       /* Write any changes to user info to DB */
       const user = await this.userService.createUser({
-        ...initialUser,
-        updatedAt: new Date().toISOString(),
         uid: authUser.id,
+        ...userToCreate,
       })
 
-      this.authStore.setUser(user)
-      Router.router?.push(routes.dashboardPage(user.role, 'overview'))
+      this.onSuccess(user)
     } catch (error) {
       this.handleError(error)
-    } finally {
-      this.setIsLoading(false)
+      this.request.setBusy(false)
     }
+  }
+
+  onSuccess = (user: User) => {
+    this.authStore.setUser(user)
+    Router.router?.push(routes.dashboardPage(user.role, 'overview'))
   }
 
   constructor(
@@ -145,11 +130,8 @@ export class SignUpStore {
     private userService: UserService = UserService.instance(),
   ) {
     makeAutoObservable(this, {
-      onChange: action.bound,
-      setIsLoading: action.bound,
-      setError: action.bound,
-      onSubmitUserCredentials: action.bound,
-      onSubmitConfirmation: action.bound,
+      onSubmitCreds: action.bound,
+      onConfirmInfo: action.bound,
     })
   }
 }

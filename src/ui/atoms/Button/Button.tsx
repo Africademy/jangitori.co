@@ -12,7 +12,7 @@ export type BtnVariant = 'primary' | 'secondary' | 'default'
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
   variant?: BtnVariant
-  isLoading?: boolean
+  busy?: boolean
   disabled?: boolean | Falsy
 }
 
@@ -89,12 +89,12 @@ const StyledButton = styled.button<ButtonProps>`
 
 const Button = forwardRef(
   (
-    { isLoading = false, disabled = false, children, ...props }: ButtonProps,
+    { busy = false, disabled = false, children, ...props }: ButtonProps,
     ref: Ref<HTMLButtonElement>,
   ) => {
     return (
       <StyledButton ref={ref} disabled={Boolean(disabled)} {...props}>
-        {isLoading ? 'Loading...' : children}
+        {busy ? 'Loading...' : children}
       </StyledButton>
     )
   },

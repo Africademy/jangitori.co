@@ -25,5 +25,5 @@ export type ApiResponse<Data, TError extends IError = IError> =
 export interface RequestState<D, E extends IError = IError> {
   data?: D | null
   error?: E | null
-  isLoading?: boolean
+  busy?: boolean
 }

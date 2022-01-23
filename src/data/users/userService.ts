@@ -29,7 +29,19 @@ export class UserService {
     return data
   }
 
-  getUser = async (args: Partial<User>): Promise<User> => {
+  async findUser(args: Partial<User>): Promise<User | null> {
+    const { data, error } = await this.client
+      .from<User>(USERS_TABLE)
+      .select('*')
+      .match(args)
+      .limit(1)
+
+    if (error) throw error
+
+    return data ? data[0] : null
+  }
+
+  async getUser(args: Partial<User>): Promise<User> {
     const { data, error } = await this.client
       .from<User>(USERS_TABLE)
       .select('*')

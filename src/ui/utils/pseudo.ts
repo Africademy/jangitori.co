@@ -113,10 +113,10 @@ export const pseudoSelectors = {
    */
   _valid: '&[data-valid], &[data-state=valid]',
   /**
-   * Styles for CSS Selector `&[aria-busy=true]` or `&[data-isLoading=true]`.
-   * Useful for styling isLoading states
+   * Styles for CSS Selector `&[aria-busy=true]` or `&[data-busy=true]`.
+   * Useful for styling busy states
    */
-  _loading: '&[data-isLoading], &[aria-busy=true]',
+  _loading: '&[data-busy], &[aria-busy=true]',
   /**
    * Styles to apply when the ARIA attribute `aria-selected` is `true`
    *

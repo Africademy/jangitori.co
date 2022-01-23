@@ -30,10 +30,10 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
 
   const { authStore } = useRootStore()
   const { auth: authService } = useServices()
-  const [, setIsLoading] = useState(false)
+  const [, setBusy] = useState(false)
 
   async function signOut() {
-    setIsLoading(true)
+    setBusy(true)
     try {
       await authService.signOut()
       authStore.reset()
@@ -42,7 +42,7 @@ export const AccountDropdown: React.FunctionComponent<AccountDropdownProps> = ({
       logger.error(error)
       alert(`Failed to sign out: ${(error as Error).message}`)
     } finally {
-      setIsLoading(false)
+      setBusy(false)
     }
   }
 

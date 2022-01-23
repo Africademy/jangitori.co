@@ -5,7 +5,7 @@ export class FormStore<
 > {
   data: Data
   error: string | null = null
-  isLoading = false
+  busy = false
 
   constructor(initialData: Data) {
     this.data = initialData

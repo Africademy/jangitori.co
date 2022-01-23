@@ -27,7 +27,7 @@ export class ShiftStore {
   }
 
   reset() {
-    this.request = { isLoading: false }
+    this.request = { busy: false }
     this.setStep(ShiftStep.Idle)
   }
 
@@ -43,7 +43,7 @@ export class ShiftStore {
     const response = await this.shiftService.findActiveShift({
       employee: user.uid,
     })
-    this.setRequest({ ...response, isLoading: false })
+    this.setRequest({ ...response, busy: false })
     this.setStep(ShiftStep.Idle)
   }
 
@@ -56,11 +56,11 @@ export class ShiftStore {
       clockIn: { timestamp: date.toISOString(), location: location },
     }
 
-    this.request.isLoading = true
+    this.request.busy = true
 
     const response = await this.shiftService.createShift(initialShift)
 
-    this.setRequest({ ...response, isLoading: false })
+    this.setRequest({ ...response, busy: false })
     this.setStep(ShiftStep.ClockedIn)
   }
 
@@ -68,13 +68,13 @@ export class ShiftStore {
     const shiftId = this.request.data?.id
     invariant(typeof shiftId !== 'undefined', 'Initial shift data required')
 
-    this.request.isLoading = true
+    this.request.busy = true
 
     const response = await this.shiftService.updateShift(shiftId, {
       clockOut: { location, timestamp: new Date().toISOString() },
     })
 
-    this.setRequest({ ...response, isLoading: false })
+    this.setRequest({ ...response, busy: false })
 
     response.data && this.reset()
 

@@ -5,13 +5,13 @@ import { EmailPasswordCreds } from '@/modules/auth/types'
 import { AuthFormFieldName } from './types'
 
 export class AuthFormVM {
-  isLoading = false
+  busy = false
   error: string | null = null
   email = ''
   password = ''
 
-  setIsLoading(val: boolean) {
-    this.isLoading = val
+  setBusy(val: boolean) {
+    this.busy = val
   }
 
   setError(val: string | null) {
@@ -32,7 +32,7 @@ export class AuthFormVM {
   }
 
   reset() {
-    this.isLoading = false
+    this.busy = false
     this.error = null
     this.email = ''
     this.password = ''

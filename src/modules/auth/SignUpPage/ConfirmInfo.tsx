@@ -36,12 +36,12 @@ const confirmationFormFields: FormFieldProps[] = [
   defaultFields.lastName,
 ]
 
-export interface ConfirmUserInfoProps {
+export interface ConfirmInfoProps {
   onConfirm: (userInfo: UserInfo) => void
   userInfo: UserInfo
 }
 
-export const ConfirmUserInfo: React.FunctionComponent<ConfirmUserInfoProps> = ({
+export const ConfirmInfo: React.FunctionComponent<ConfirmInfoProps> = ({
   userInfo,
   onConfirm,
 }) => {
@@ -82,10 +82,7 @@ export const ConfirmUserInfo: React.FunctionComponent<ConfirmUserInfoProps> = ({
           ))}
         </FormFields>
         <ErrorMessage>{form.error}</ErrorMessage>
-        <FormSubmit
-          disabled={form.isConfirmDisabled}
-          isLoading={form.isLoading}
-        >
+        <FormSubmit disabled={form.isConfirmDisabled} busy={form.busy}>
           {ConfirmationFormCopy.submitCaption}
         </FormSubmit>
       </Form>

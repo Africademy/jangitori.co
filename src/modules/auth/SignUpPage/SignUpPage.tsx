@@ -1,20 +1,22 @@
-import { useRouter } from 'next/router'
-
-import { User } from '@/data/models/user'
-import { routes } from '@/lib/routes'
+import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { useAuthStore } from '@/modules/stores'
+import LoadingStack from '@/ui/components/LoadingStack'
 
-import { SignUp } from './SignUp'
+import AuthForm from '../AuthForm'
+import { ConfirmInfo } from './ConfirmInfo'
+import { SignUpAuthFormCopy, SignUpSteps } from './constants'
+import { SignUpStore } from './SignUpStore'
 
 export const SignUpPage = function SignUpPage() {
   const authStore = useAuthStore()
 
-  const router = useRouter()
+  const vm = useMobXStore(() => new SignUpStore(authStore))
 
-  const handleSuccess = (user: User) => {
-    authStore.setUser(user)
-    router.push(routes.dashboardPage(user.role, 'overview'))
+  if (vm.stepper.step === SignUpSteps.Auth) {
+    return <AuthForm copy={SignUpAuthFormCopy} onSubmit={vm.onSubmitCreds} />
   }
 
-  return <SignUp onSuccess={handleSuccess} />
+  if (!vm.userInfo) return <LoadingStack />
+
+  return <ConfirmInfo userInfo={vm.userInfo} onConfirm={vm.onConfirmInfo} />
 }

@@ -25,7 +25,7 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
   async function handleSubmit(formData: EmailPasswordCreds) {
     try {
       authFormVM.setError(null)
-      authFormVM.setIsLoading(true)
+      authFormVM.setBusy(true)
       const { authUser, session } = await authService.signIn(formData)
       const user = await userService.getUser({ uid: authUser.id })
       authStore.setSession(session)
@@ -35,7 +35,7 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
       alert((error as Error).message)
       authFormVM.setError((error as Error).message)
     } finally {
-      authFormVM.setIsLoading(false)
+      authFormVM.setBusy(false)
     }
   }
 

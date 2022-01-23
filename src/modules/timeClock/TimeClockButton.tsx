@@ -29,7 +29,7 @@ export const TimeClockButton = observer(function TimeClockButton({
 
   return (
     <Button
-      isLoading={shiftStore.request.isLoading}
+      busy={shiftStore.request.busy}
       loadingText={isClockIn ? 'Starting...' : 'Ending...'}
       w="100%"
       py={6}
