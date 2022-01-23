@@ -5,7 +5,7 @@ export const SignUpSteps = {
   Confirm: 'confirm',
 } as const
 
-export const SignUpAuthFormCopy = {
+export const SubmitCredsCopy = {
   title: 'Sign up',
   question: 'Already have an user?',
   action: 'Sign in.',

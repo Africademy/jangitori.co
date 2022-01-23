@@ -1,21 +1,26 @@
 import { observer } from 'mobx-react-lite'
 
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
+import AuthForm from '@/modules/auth/AuthForm'
 import { useAuthStore } from '@/modules/stores'
 import LoadingStack from '@/ui/components/LoadingStack'
 
-import AuthForm from '../AuthForm'
 import { ConfirmInfo } from './ConfirmInfo'
-import { SignUpAuthFormCopy, SignUpSteps } from './constants'
-import { SignUpStore } from './SignUpStore'
+import { SignUpSteps, SubmitCredsCopy } from './constants'
+import { SignUpVM } from './SignUpVM'
 
 export const SignUpPage = observer(function SignUpPage() {
   const authStore = useAuthStore()
 
-  const vm = useMobXStore(() => new SignUpStore(authStore))
+  const vm = useMobXStore(() => new SignUpVM(authStore))
 
   if (vm.stepper.step === SignUpSteps.Auth) {
-    return <AuthForm copy={SignUpAuthFormCopy} onSubmit={vm.onSubmitCreds} />
+    return (
+      <AuthForm
+        copy={SubmitCredsCopy}
+        onSubmit={vm.submitCredsVM.onSubmitCreds}
+      />
+    )
   }
 
   if (!vm.userInfo) return <LoadingStack />

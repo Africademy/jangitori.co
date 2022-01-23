@@ -5,7 +5,6 @@ import invariant from 'tiny-invariant'
 import { User } from '@/data/models/user'
 import { Whitelist } from '@/data/models/whitelist'
 import { UserService } from '@/data/users/userService'
-import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { logger } from '@/infra/logger'
 import { routes } from '@/lib/routes'
 import { waitFor } from '@/lib/waitFor'
@@ -15,11 +14,12 @@ import { EmailPasswordCreds } from '@/modules/auth/types'
 
 import { SignUpSteps } from './constants'
 import { RequestStore } from './RequestStore'
-import { UnauthorizedUserCredentialsError } from './signUpErrors'
 import { StepperStore } from './StepperStore'
+import { SubmitCredsVM } from './SubmitCredsVM'
 import { UserInfo } from './types'
 
-export class SignUpStore {
+export class SignUpVM {
+  submitCredsVM = new SubmitCredsVM(this)
   emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
   initialUser: Whitelist | null = null
 
@@ -55,36 +55,9 @@ export class SignUpStore {
   }
 
   handleError(error: unknown) {
-    logger.error(
-      '❌ failed to fetch employee. Error: ' + (error as Error).message,
-    )
+    logger.error('❌ Error: ' + (error as Error).message)
     alert((error as Error).message)
     this.request.setError((error as Error).message)
-  }
-
-  async onSubmitCreds({ email }: EmailPasswordCreds) {
-    this.request.start()
-    try {
-      /* Get existing user data */
-      const whitelist = await this.whitelistService.findWhitelist({
-        email,
-      })
-      if (!whitelist) throw new UnauthorizedUserCredentialsError()
-
-      const initialUser = await this.userService.findUser({ email })
-
-      /* Check if user is already registered */
-      if (initialUser) {
-        throw new Error('Already registered an user for this email.')
-      }
-
-      this.setInitialUser(whitelist)
-      this.stepper.increment()
-    } catch (error) {
-      this.handleError(error)
-    } finally {
-      this.request.setBusy(false)
-    }
   }
 
   async onConfirmInfo(userInfo: UserInfo) {
@@ -126,11 +99,9 @@ export class SignUpStore {
   constructor(
     private authStore: AuthStore,
     private authService: AuthService = AuthService.instance(),
-    private whitelistService: WhitelistService = WhitelistService.instance(),
     private userService: UserService = UserService.instance(),
   ) {
     makeAutoObservable(this, {
-      onSubmitCreds: action.bound,
       onConfirmInfo: action.bound,
     })
   }

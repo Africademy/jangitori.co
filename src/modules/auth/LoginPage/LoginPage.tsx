@@ -4,8 +4,7 @@ import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import AuthForm from '@/modules/auth/AuthForm'
 import { AuthFormVM } from '@/modules/auth/AuthFormVM'
-import { EmailPasswordCreds } from '@/modules/auth/types'
-import { AuthPageProps } from '@/modules/auth/types'
+import { AuthPageProps, EmailPasswordCreds } from '@/modules/auth/types'
 import { useRootStore, useServices } from '@/modules/stores'
 
 const LoginPageCopy = {
