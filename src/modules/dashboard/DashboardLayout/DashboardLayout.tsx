@@ -1,14 +1,17 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 
 import { useAuthStore } from '@/modules/stores'
 import { Row } from '@/ui/atoms/Flex'
-import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
+import { spacing } from '@/ui/utils/spacing'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
 
 export interface DashboardLayoutProps {}
+
+const subPaths = ['timesheets', 'timeClock']
 
 const DashboardLayout = function DashboardLayout({
   children,
@@ -25,30 +28,41 @@ const DashboardLayout = function DashboardLayout({
   )
 }
 
+const pageNames = {
+  timeClock: 'Time Clock',
+  timesheets: 'Timesheets',
+}
+
 export const DashboardHeader = observer(function Header() {
   const authStore = useAuthStore()
+  const router = useRouter()
+  const subPath = router.asPath.split('/')[3]
+  const isSubPath = subPaths.includes(subPath)
+
   return (
     <Row
-      justifyContent="end"
+      position="relative"
+      justifyContent="space-between"
       minWidth="100vw"
       height={14}
       background="#fff"
       px={6}
     >
-      <Box
+      {isSubPath && (
+        <Heading size="md" fontWeight="medium" color="gray.700">
+          {pageNames[subPath]}
+        </Heading>
+      )}
+      <div
         css={css`
-          ${largerThan('tablet')} {
-            max-width: 80%;
-          }
-          ${smallerThan('desktop')} {
-            max-width: 95%;
-          }
+          position: absolute;
+          right: ${spacing(5)};
         `}
       >
         {authStore.user && (
           <AccountDropdown {...getAccountDropdownProps(authStore.user)} />
         )}
-      </Box>
+      </div>
     </Row>
   )
 })
