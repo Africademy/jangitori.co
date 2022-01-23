@@ -7,7 +7,7 @@ export const SignUpSteps = {
 
 export const SubmitCredsCopy = {
   title: 'Sign up',
-  question: 'Already have an user?',
+  question: 'Already have an account?',
   action: 'Sign in.',
   actionHref: routes.authPage('login'),
 }

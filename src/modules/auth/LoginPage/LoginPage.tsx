@@ -10,7 +10,7 @@ import { useRootStore, useServices } from '@/modules/stores'
 
 const LoginPageCopy = {
   title: 'Sign in',
-  question: "Don't have an user?",
+  question: "Don't have an account?",
   action: 'Sign up.',
   actionHref: routes.authPage('signup'),
 }
