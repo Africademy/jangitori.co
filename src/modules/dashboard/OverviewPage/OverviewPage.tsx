@@ -1,12 +1,11 @@
-import Link from 'next/link'
+import { Center, Heading } from '@chakra-ui/react'
+import { css } from '@emotion/react'
 
-import { RoleIds } from '@/data/models/role'
-import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { Col } from '@/ui/atoms/Flex'
 import Padding from '@/ui/atoms/Padding'
-import { ClockIcon } from '@/ui/icons/ClockIcon'
 
+import { GoToTimeClock } from './GoToTimeClock'
 import { LastClockedIn } from './LastClockedIn'
 import { TotalHoursForCurrentPayPeriod } from './TotalHoursForCurrentPayPeriod'
 
@@ -14,27 +13,29 @@ export const OverviewPage = function OverviewPage(
   props: AuthenticatedPageProps,
 ) {
   return (
-    <>
-      <Padding px={12} py={6}>
-        <TimeClockLink />
+    <div
+      css={css`
+        min-height: 100vh;
+        min-width: 100vw;
+        position: relative;
+      `}
+    >
+      <Padding px={12} py={5}>
+        <Col gap={5}>
+          <Heading size="md" fontWeight="normal" textAlign="left">
+            Hello, {props.user.firstName + ' ' + props.user.lastName}.
+          </Heading>
+        </Col>
       </Padding>
       <Padding px={12} py={5}>
-        <Col gap={3}>
+        <Col gap={3} flex={1}>
           <LastClockedIn employee={props.user} />
           <TotalHoursForCurrentPayPeriod employee={props.user} />
         </Col>
       </Padding>
-    </>
-  )
-}
-
-const TimeClockLink = () => {
-  return (
-    <Link href={routes.dashboardPage(RoleIds.Employee, 'timeClock')}>
-      <a className="flex items-center justify-center w-9/12 min-h-[2.5rem] gap-3 py-2 mx-auto bg-blue-100 rounded-full hover:bg-blue-200 active:bg-blue-300">
-        <ClockIcon className="text-blue-700" />
-        <span className="font-medium text-gray-700">Time Clock</span>
-      </a>
-    </Link>
+      <Center mt={'3rem'}>
+        <GoToTimeClock />
+      </Center>
+    </div>
   )
 }

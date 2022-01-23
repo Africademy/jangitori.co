@@ -39,10 +39,12 @@ const globalStyles = css`
   html {
     font-size: 16px;
     height: 100vh;
+    width: 100vw;
   }
 
   body.ijan {
     height: 100%;
+    width: 100%;
     font-family: ${typography.fonts.body};
     font-weight: ${typography.fontWeights.normal};
     line-height: ${typography.lineHeights.none};

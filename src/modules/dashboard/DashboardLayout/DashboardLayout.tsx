@@ -14,10 +14,14 @@ const DashboardLayout = function DashboardLayout({
   children,
 }: React.PropsWithChildren<DashboardLayoutProps>) {
   return (
-    <>
+    <div
+      css={css`
+        min-height: 100%;
+      `}
+    >
       <DashboardHeader />
-      {children}
-    </>
+      <Box bg={'gray.50'}>{children}</Box>
+    </div>
   )
 }
 
