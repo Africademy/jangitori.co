@@ -82,7 +82,7 @@ const globalStyles = css`
   }
 
   p {
-    line-height: ${typography.lineHeights.none} !important;
+    line-height: ${typography.lineHeights.none};
   }
 
   h1,
@@ -91,9 +91,15 @@ const globalStyles = css`
   h4,
   h5,
   h6 {
-    font-family: ${typography.fonts.heading} !important;
-    font-weight: ${typography.fontWeights.medium} !important;
-    line-height: ${typography.lineHeights.heading} !important;
+    font-family: ${typography.fonts.heading};
+    font-weight: ${typography.fontWeights.medium};
+    line-height: ${typography.lineHeights.heading};
+  }
+
+  .stat > dl {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `
 

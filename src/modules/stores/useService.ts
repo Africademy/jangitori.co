@@ -1,3 +1,4 @@
+import { ShiftService } from '../shifts/shiftService'
 import { useRootStore } from './RootStoreContext'
 import { Services } from './services'
 
@@ -12,4 +13,8 @@ export function useAuthService() {
 
 export function useUserService() {
   return useRootStore().services.user
+}
+
+export function useShiftService(): ShiftService {
+  return useServices().shift
 }

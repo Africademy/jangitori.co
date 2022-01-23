@@ -8,6 +8,12 @@ import { Redirect } from '@/ui/components/Redirect'
 
 import { StartShift } from './StartShift'
 
+export const employeeRoutes = {
+  timeClock: 'timeClock',
+  overview: 'overview',
+  timesheets: 'timesheets',
+}
+
 export const TimeClockFeature = observer(function TimeClockFeature({
   user: employee,
 }: AuthenticatedPageProps) {
@@ -19,7 +25,7 @@ export const TimeClockFeature = observer(function TimeClockFeature({
     return <StartShift employee={employee} />
 
   if (shiftStore.step === ShiftStep.ClockedIn)
-    return <Redirect to={`/dashboard/employee/timeClock`} />
+    return <Redirect to={employeeRoutes.timeClock} />
 
-  return <Redirect to={`/dashboard/employee/overview`} />
+  return <Redirect to={employeeRoutes.overview} />
 })
