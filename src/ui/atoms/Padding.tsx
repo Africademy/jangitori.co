@@ -12,6 +12,24 @@ const basePadding = css`
   }
 `
 
+export type IPad = Record<
+  | 'p'
+  | 'padding'
+  | 'pt'
+  | 'paddingTop'
+  | 'pb'
+  | 'paddingBottom'
+  | 'pl'
+  | 'paddingLeft'
+  | 'pr'
+  | 'paddingRight'
+  | 'py'
+  | 'paddingY'
+  | 'px'
+  | 'paddingX',
+  number
+>
+
 const SPadding = styled.div<PaddingProps>`
   ${basePadding}
   ${padding}

@@ -1,9 +1,10 @@
-import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 
 import { RoleIds } from '@/data/models/role'
 import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
+import { Col } from '@/ui/atoms/Col'
 import Padding from '@/ui/atoms/Padding'
 import { ClockIcon } from '@/ui/icons/ClockIcon'
 
@@ -16,22 +17,20 @@ export const OverviewPage = function OverviewPage(
   return (
     <>
       <Padding px={12}>
-        <VStack w="100%">
+        <Col gap={6}>
           <Flex justify="start" w="100%">
             <Heading size="md" fontWeight="medium" textAlign="left">
               Overview
             </Heading>
           </Flex>
           <TimeClockLink />
-        </VStack>
+        </Col>
       </Padding>
       <Padding px={12}>
-        <VStack w="100%" gap={5}>
-          <VStack w="100%" gap={3}>
-            <LastClockedIn employee={props.user} />
-            <TotalHoursForCurrentPayPeriod employee={props.user} />
-          </VStack>
-        </VStack>
+        <Col gap={6}>
+          <LastClockedIn employee={props.user} />
+          <TotalHoursForCurrentPayPeriod employee={props.user} />
+        </Col>
       </Padding>
     </>
   )
