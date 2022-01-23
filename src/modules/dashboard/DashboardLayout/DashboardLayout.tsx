@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 import { useAuthStore } from '@/modules/stores'
 import { Row } from '@/ui/atoms/Flex'
+import BackButton from '@/ui/molecules/BackButton'
 import { spacing } from '@/ui/utils/spacing'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
@@ -49,9 +50,21 @@ export const DashboardHeader = observer(function Header() {
       px={6}
     >
       {isSubPath && (
-        <Heading size="md" fontWeight="medium" color="gray.700">
-          {pageNames[subPath]}
-        </Heading>
+        <>
+          <Box position="absolute">
+            <BackButton />
+          </Box>
+          <Row justifyContent="center" width="100%">
+            <Heading
+              size="md"
+              fontWeight="medium"
+              color="gray.700"
+              textAlign="center"
+            >
+              {pageNames[subPath]}
+            </Heading>
+          </Row>
+        </>
       )}
       <div
         css={css`

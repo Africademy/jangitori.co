@@ -14,7 +14,7 @@ const BackButton = () => {
     <IconButton
       aria-label="Go back"
       bg="transparent"
-      size="lg"
+      size="sm"
       icon={<ChevronLeftIcon className="w-6 h-6" strokeWidth={3} />}
       onClick={goBack}
     />
