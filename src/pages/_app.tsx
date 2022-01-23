@@ -7,6 +7,9 @@ import { MyAppProps } from '@/app/MyAppProps'
 
 const AppLayout = dynamic(() => import('@/app/AppLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
+const GoogleMapsProvider = dynamic(
+  () => import('@/modules/googleMaps/GoogleMapsProvider'),
+)
 
 const RootStoreProvider = dynamic(
   () => import('@/modules/stores/RootStoreProvider'),
@@ -26,7 +29,11 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
       <ChakraProvider resetCSS theme={theme}>
         <GlobalStyles />
         <AuthListener>
-          <AppLayout>{getLayout(<Component {...pageProps} />)}</AppLayout>
+          <AppLayout>
+            <GoogleMapsProvider>
+              {getLayout(<Component {...pageProps} />)}
+            </GoogleMapsProvider>
+          </AppLayout>
         </AuthListener>
       </ChakraProvider>
     </RootStoreProvider>
