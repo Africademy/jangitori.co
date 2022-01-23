@@ -1,10 +1,9 @@
-import { Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 
 import { RoleIds } from '@/data/models/role'
 import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { Col, StyledFlex } from '@/ui/atoms/Flex'
+import { Col } from '@/ui/atoms/Flex'
 import Padding from '@/ui/atoms/Padding'
 import { ClockIcon } from '@/ui/icons/ClockIcon'
 
@@ -16,10 +15,10 @@ export const OverviewPage = function OverviewPage(
 ) {
   return (
     <>
-      <Padding px={12}>
+      <Padding px={12} py={6}>
         <TimeClockLink />
       </Padding>
-      <Padding px={12}>
+      <Padding px={12} py={5}>
         <Col gap={3}>
           <LastClockedIn employee={props.user} />
           <TotalHoursForCurrentPayPeriod employee={props.user} />
