@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import AuthForm from '@/modules/auth/AuthForm'
 import { useAuthStore } from '@/modules/stores'
-import LoadingStack from '@/ui/components/LoadingStack'
 
 import { ConfirmInfo } from './ConfirmInfo'
 import { SignUpSteps, SubmitCredsCopy } from './constants'
@@ -23,7 +22,5 @@ export const SignUpPage = observer(function SignUpPage() {
     )
   }
 
-  if (!vm.userInfo) return <LoadingStack />
-
-  return <ConfirmInfo userInfo={vm.userInfo} onConfirm={vm.onConfirmInfo} />
+  return <ConfirmInfo vm={vm.confirmInfoVM} />
 })

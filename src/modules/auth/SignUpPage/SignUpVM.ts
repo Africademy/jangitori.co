@@ -1,19 +1,15 @@
-import { action, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 import invariant from 'tiny-invariant'
 
 import { User } from '@/data/models/user'
 import { Whitelist } from '@/data/models/whitelist'
-import { UserService } from '@/data/users/userService'
-import { logger } from '@/infra/logger'
 import { routes } from '@/lib/routes'
-import { waitFor } from '@/lib/waitFor'
-import { AuthService } from '@/modules/auth/AuthService'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 
+import { ConfirmInfoVM } from './ConfirmInfoVM'
 import { SignUpSteps } from './constants'
-import { RequestStore } from './RequestStore'
 import { StepperStore } from './StepperStore'
 import { SubmitCredsVM } from './SubmitCredsVM'
 import { UserInfo } from './types'
@@ -23,7 +19,6 @@ export class SignUpVM {
   emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
   initialUser: Whitelist | null = null
 
-  request: RequestStore = new RequestStore()
   stepper: StepperStore = new StepperStore([
     SignUpSteps.Auth,
     SignUpSteps.Confirm,
@@ -40,6 +35,12 @@ export class SignUpVM {
     }
   }
 
+  get invariantUserInfo(): UserInfo {
+    const userInfo = this.userInfo
+    invariant(userInfo)
+    return userInfo
+  }
+
   get invariantInitialUser(): Whitelist {
     const initialUser = this.initialUser
     invariant(initialUser)
@@ -54,55 +55,21 @@ export class SignUpVM {
     this.initialUser = value
   }
 
-  handleError(error: unknown) {
-    logger.error('❌ Error: ' + (error as Error).message)
-    alert((error as Error).message)
-    this.request.setError((error as Error).message)
-  }
-
-  async onConfirmInfo(userInfo: UserInfo) {
-    const userToCreate = {
-      ...this.invariantInitialUser,
-      ...userInfo,
-      updatedAt: new Date().toISOString(),
-    }
-
-    this.request.setError(null)
-    this.request.setBusy(true)
-    try {
-      /* Register user with email and password */
-      const { authUser } = await this.authService
-        .signUp(this.emailPasswordCreds)
-        .then(async (res) => {
-          await waitFor(300)
-          return res
-        })
-
-      /* Write any changes to user info to DB */
-      const user = await this.userService.createUser({
-        uid: authUser.id,
-        ...userToCreate,
-      })
-
-      this.onSuccess(user)
-    } catch (error) {
-      this.handleError(error)
-      this.request.setBusy(false)
-    }
-  }
-
   onSuccess = (user: User) => {
     this.authStore.setUser(user)
     Router.router?.push(routes.dashboardPage(user.role, 'overview'))
   }
 
-  constructor(
-    private authStore: AuthStore,
-    private authService: AuthService = AuthService.instance(),
-    private userService: UserService = UserService.instance(),
-  ) {
-    makeAutoObservable(this, {
-      onConfirmInfo: action.bound,
-    })
+  _confirmInfoVM: ConfirmInfoVM | null = null
+
+  get confirmInfoVM(): ConfirmInfoVM {
+    if (!this._confirmInfoVM) {
+      this._confirmInfoVM = new ConfirmInfoVM(this)
+    }
+    return this._confirmInfoVM
+  }
+
+  constructor(private authStore: AuthStore) {
+    makeAutoObservable(this, {})
   }
 }

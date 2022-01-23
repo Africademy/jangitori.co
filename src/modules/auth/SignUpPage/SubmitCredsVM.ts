@@ -18,7 +18,9 @@ export class SubmitCredsVM {
     this.request.setError((error as Error).message)
   }
 
-  async onSubmitCreds({ email }: EmailPasswordCreds) {
+  async onSubmitCreds(emailPasswordCreds: EmailPasswordCreds) {
+    const { email } = emailPasswordCreds
+
     this.request.start()
     try {
       /* Get existing user data */
@@ -35,6 +37,7 @@ export class SubmitCredsVM {
       }
 
       this.signUpVM.setInitialUser(whitelist)
+      this.signUpVM.setEmailPasswordCreds(emailPasswordCreds)
       this.signUpVM.stepper.increment()
     } catch (error) {
       this.handleError(error)

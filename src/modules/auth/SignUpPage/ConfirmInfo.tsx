@@ -20,7 +20,7 @@ import LabeledInput from '@/ui/components/Input/LabeledInput'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
-import { UserInfo } from './types'
+import { ConfirmInfoVM } from './ConfirmInfoVM'
 
 const ConfirmationFormCopy = {
   title: 'Confirm Information',
@@ -37,15 +37,13 @@ const confirmationFormFields: FormFieldProps[] = [
 ]
 
 export interface ConfirmInfoProps {
-  onConfirm: (userInfo: UserInfo) => void
-  userInfo: UserInfo
+  vm: ConfirmInfoVM
 }
 
 export const ConfirmInfo: React.FunctionComponent<ConfirmInfoProps> = ({
-  userInfo,
-  onConfirm,
+  vm,
 }) => {
-  const form = useMobXStore(() => new FormStore(userInfo))
+  const form = useMobXStore(() => new FormStore(vm.userInfo))
 
   const handleChange =
     (field: FieldID) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +52,7 @@ export const ConfirmInfo: React.FunctionComponent<ConfirmInfoProps> = ({
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault()
-    onConfirm(form.data)
+    vm.onConfirmInfo(form.data)
   }
 
   return (
@@ -82,7 +80,7 @@ export const ConfirmInfo: React.FunctionComponent<ConfirmInfoProps> = ({
           ))}
         </FormFields>
         <ErrorMessage>{form.error}</ErrorMessage>
-        <FormSubmit disabled={form.isConfirmDisabled} busy={form.busy}>
+        <FormSubmit disabled={form.isConfirmDisabled} isLoading={form.busy}>
           {ConfirmationFormCopy.submitCaption}
         </FormSubmit>
       </Form>
