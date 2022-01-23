@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { flex, layout, space } from 'styled-system'
+import { flexbox, layout, space } from 'styled-system'
 
 import { gap } from '@/ui/utils/spacing'
 
@@ -11,7 +11,7 @@ const baseFlexStyles = css`
 export const StyledFlex = styled.div`
   ${layout}
   ${space}
-  ${flex}
+  ${flexbox}
   ${gap}
   ${baseFlexStyles}
 `

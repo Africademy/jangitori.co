@@ -4,7 +4,7 @@ import React from 'react'
 import { User } from '@/data/models/user'
 import { useTotalHoursForCurrentPayPeriod } from '@/modules/timesheets/hooks/useTotalHoursForCurrentPayPeriod'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { BasicStat } from '@/ui/components/Stat'
+import { StatCard } from '@/ui/components/Stat'
 
 export interface TotalHoursForCurrentPayPeriodProps {
   employee: User
@@ -20,7 +20,7 @@ export const TotalHoursForCurrentPayPeriod: React.FunctionComponent<
   if (typeof totalHours === 'undefined') return <Spinner />
 
   return (
-    <BasicStat
+    <StatCard
       label="Total hours this pay period"
       data={totalHours ? totalHours : '0'}
     />

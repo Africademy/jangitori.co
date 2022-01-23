@@ -1,16 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React from 'react'
-import { padding, PaddingProps } from 'styled-system'
+import { padding } from 'styled-system'
 
 import { largerThan } from '@/ui/utils/breakpoints'
 
-const basePadding = css`
-  padding: 1.5rem 1rem;
-  ${largerThan('mobile')} {
-    padding: 1.5rem;
-  }
-`
+const basePadding = css``
 
 export type IPad = Record<
   | 'p'
@@ -30,16 +24,9 @@ export type IPad = Record<
   number
 >
 
-const SPadding = styled.div<PaddingProps>`
+export const Padding = styled.div`
   ${basePadding}
   ${padding}
 `
-
-export const Padding: React.FunctionComponent<PaddingProps> = ({
-  children,
-  ...props
-}) => {
-  return <SPadding {...props}>{children}</SPadding>
-}
 
 export default Padding

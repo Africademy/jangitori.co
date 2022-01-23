@@ -2,6 +2,7 @@
 import { SystemProps } from '@chakra-ui/react'
 import { Interpolation } from '@emotion/react'
 import {} from '@emotion/react/types/css-prop' // See https://github.com/emotion-js/emotion/pull/1941
+import { PaddingProps } from 'styled-system'
 
 import { Theme as AppTheme } from '@/modules/theme/theme'
 
@@ -12,7 +13,7 @@ declare module '@emotion/react' {
 }
 
 declare module 'react' {
-  interface Attributes extends SystemProps {
+  interface Attributes extends SystemProps, PaddingProps {
     styles?: Styling
     css?: Interpolation<AppTheme>
   }

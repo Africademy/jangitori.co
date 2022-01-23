@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { useAuthStore } from '@/modules/stores'
-import { StyledFlex } from '@/ui/atoms/Flex'
+import { Row } from '@/ui/atoms/Flex'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
@@ -24,7 +24,7 @@ const DashboardLayout = function DashboardLayout({
 export const DashboardHeader = observer(function Header() {
   const authStore = useAuthStore()
   return (
-    <StyledFlex
+    <Row
       justifyContent="end"
       minWidth="100vw"
       height={14}
@@ -45,7 +45,7 @@ export const DashboardHeader = observer(function Header() {
           <AccountDropdown {...getAccountDropdownProps(authStore.user)} />
         )}
       </Box>
-    </StyledFlex>
+    </Row>
   )
 })
 
