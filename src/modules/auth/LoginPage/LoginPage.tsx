@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
+import AuthForm from '@/modules/auth/AuthForm'
+import { AuthFormVM } from '@/modules/auth/AuthFormVM'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { useRootStore, useServices } from '@/modules/stores'
 
-import { AuthFormVM } from '../AuthFormVM'
 import { AuthPageProps } from '../types'
-import LoginForm from './LoginForm'
 
 const LoginPageCopy = {
   title: 'Sign in',
@@ -41,6 +41,6 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
   }
 
   return (
-    <LoginForm copy={LoginPageCopy} vm={authFormVM} onSubmit={handleSubmit} />
+    <AuthForm copy={LoginPageCopy} vm={authFormVM} onSubmit={handleSubmit} />
   )
 }

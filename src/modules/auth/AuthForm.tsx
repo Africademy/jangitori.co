@@ -6,10 +6,10 @@ import { ChangeEvent } from 'react'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
-import { AuthFormVM } from '../AuthFormVM'
-import { AuthFormFieldName } from '../types'
+import { AuthFormVM } from './AuthFormVM'
+import { AuthFormFieldName } from './types'
 
-const LoginForm = observer(function LoginForm({
+const AuthForm = observer(function AuthForm({
   copy,
   onSubmit,
   vm,
@@ -99,4 +99,4 @@ const LoginForm = observer(function LoginForm({
   )
 })
 
-export default LoginForm
+export default AuthForm
