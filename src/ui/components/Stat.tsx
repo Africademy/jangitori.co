@@ -6,8 +6,6 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 
-import { Padding } from '../atoms/Padding'
-
 export interface StatProps {
   label: string
   data: any
@@ -31,9 +29,9 @@ export const StatCard: React.FunctionComponent<StatProps> = ({
 }) => {
   return (
     <Box bg="white" shadow="sm" borderRadius="md">
-      <Padding px={5} py={4}>
+      <Box px={5} py={4}>
         <BasicStat label={label} data={data} />
-      </Padding>
+      </Box>
     </Box>
   )
 }

@@ -1,9 +1,8 @@
-import { Center, Heading } from '@chakra-ui/react'
+import { Box, Center, Heading } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { Col } from '@/ui/atoms/Flex'
-import Padding from '@/ui/atoms/Padding'
 
 import { GoToTimeClock } from './GoToTimeClock'
 import { LastClockedIn } from './LastClockedIn'
@@ -20,19 +19,19 @@ export const OverviewPage = function OverviewPage(
         position: relative;
       `}
     >
-      <Padding px={12} py={5}>
+      <Box px={12} py={5}>
         <Col gap={5}>
           <Heading size="md" fontWeight="normal" textAlign="left">
             Hello, {props.user.firstName + ' ' + props.user.lastName}.
           </Heading>
         </Col>
-      </Padding>
-      <Padding px={12} py={5}>
+      </Box>
+      <Box px={12} py={5}>
         <Col gap={3} flex={1}>
           <LastClockedIn employee={props.user} />
           <TotalHoursForCurrentPayPeriod employee={props.user} />
         </Col>
-      </Padding>
+      </Box>
       <Center mt={'3rem'}>
         <GoToTimeClock />
       </Center>

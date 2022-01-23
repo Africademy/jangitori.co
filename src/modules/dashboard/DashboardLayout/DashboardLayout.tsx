@@ -1,18 +1,10 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
-import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 
-import { useAuthStore } from '@/modules/stores'
-import { Row } from '@/ui/atoms/Flex'
-import BackButton from '@/ui/molecules/BackButton'
-import { spacing } from '@/ui/utils/spacing'
-
-import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
+import { DashboardBottomNav } from './DashboardBottomNav'
+import { DashboardHeader } from './DashboardHeader'
 
 export interface DashboardLayoutProps {}
-
-const subPaths = ['timesheets', 'timeClock']
 
 const DashboardLayout = function DashboardLayout({
   children,
@@ -21,63 +13,21 @@ const DashboardLayout = function DashboardLayout({
     <div
       css={css`
         min-height: 100%;
+        position: relative;
       `}
     >
       <DashboardHeader />
-      <Box bg={'gray.50'}>{children}</Box>
+      <Box
+        bg={'gray.50'}
+        css={css`
+          height: calc(90vh);
+        `}
+      >
+        {children}
+      </Box>
+      <DashboardBottomNav />
     </div>
   )
 }
-
-const pageNames = {
-  timeClock: 'Time Clock',
-  timesheets: 'Timesheets',
-}
-
-export const DashboardHeader = observer(function Header() {
-  const authStore = useAuthStore()
-  const router = useRouter()
-  const subPath = router.asPath.split('/')[3]
-  const isSubPath = subPaths.includes(subPath)
-
-  return (
-    <Row
-      position="relative"
-      justifyContent="space-between"
-      minWidth="100vw"
-      height={14}
-      background="#fff"
-      px={6}
-    >
-      {isSubPath && (
-        <>
-          <Box position="absolute">
-            <BackButton />
-          </Box>
-          <Row justifyContent="center" width="100%">
-            <Heading
-              size="md"
-              fontWeight="medium"
-              color="gray.700"
-              textAlign="center"
-            >
-              {pageNames[subPath]}
-            </Heading>
-          </Row>
-        </>
-      )}
-      <div
-        css={css`
-          position: absolute;
-          right: ${spacing(5)};
-        `}
-      >
-        {authStore.user && (
-          <AccountDropdown {...getAccountDropdownProps(authStore.user)} />
-        )}
-      </div>
-    </Row>
-  )
-})
 
 export default DashboardLayout
