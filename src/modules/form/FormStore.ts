@@ -8,8 +8,7 @@ export class FormStore<Data extends { [k: string]: string }> {
 
   _onSubmit: (data: Data) => Promise<void>
 
-  async onSubmit(e: React.FormEvent): Promise<void> {
-    e.preventDefault()
+  async onSubmit(): Promise<void> {
     const data = this.data
     this.request.start()
     try {
@@ -31,14 +30,8 @@ export class FormStore<Data extends { [k: string]: string }> {
     makeAutoObservable(this, {
       onSubmit: action.bound,
       _onSubmit: false,
-      handleChange: false,
     })
   }
-
-  handleChange = (field: keyof Data) =>
-    action((event: React.ChangeEvent<HTMLInputElement>) => {
-      this.onChange(field, event.currentTarget.value)
-    })
 
   onChange(field: keyof Data, value: string) {
     this.data[field] = value as Data[keyof Data]

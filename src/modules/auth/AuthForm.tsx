@@ -18,6 +18,11 @@ const AuthForm = observer(function AuthForm<
       vm.onChange(field, event.currentTarget.value)
     }
 
+  const handleSubmit: React.FormEventHandler = (e) => {
+    e.preventDefault()
+    vm.onSubmit()
+  }
+
   return (
     <>
       <div className="flex justify-center h-screen max-h-screen min-h-screen px-4 md:items-center sm:px-6 lg:px-8 pb-36 md:pb-20">
@@ -36,7 +41,7 @@ const AuthForm = observer(function AuthForm<
             </p>
           </div>
 
-          <form className="mt-8 space-y-6" onSubmit={vm.onSubmit}>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <ErrorMessage>{vm.request.error?.message}</ErrorMessage>
             <div className="-space-y-px rounded-md shadow-sm">
