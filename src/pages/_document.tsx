@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
@@ -6,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
-        <body className={classnames('ijan')}>
+        <body className={'ijan'}>
           <Main />
           <NextScript />
         </body>

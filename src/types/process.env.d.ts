@@ -13,8 +13,7 @@ declare global {
       NEXT_PUBLIC_SUPABASE_URL: string
       NEXT_PUBLIC_SUPABASE_API_KEY: string
       NEXT_PUBLIC_APP_STAGE: string
-      // SENTRY_DSN: string
-      // NEXT_PUBLIC_SENTRY_DSN: string
+      NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: string
     }
   }
 }

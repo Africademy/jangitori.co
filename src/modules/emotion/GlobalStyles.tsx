@@ -89,6 +89,10 @@ const globalStyles = css`
     background-color: ${colors.gray[50]};
   }
 
+  #map {
+    height: 100%;
+  }
+
   li {
     list-style-type: none;
   }
