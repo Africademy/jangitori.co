@@ -3,50 +3,16 @@ import { css, Global } from '@emotion/react'
 import { pseudo } from '@/ui/utils/pseudo'
 
 import { colors } from './colors'
+import { overrides } from './overrides'
 import { typography } from './typography'
 import { utilities } from './utilities'
 import { cssVariables } from './variables'
 
-const overrideAutofillStyles = css`
-  input:-webkit-autofill,
-  textarea:-webkit-autofill,
-  select:-webkit-autofill {
-    -webkit-box-shadow: unset !important;
-    -webkit-text-fill-color: unset !important;
-  }
-
-  input:-internal-autofill-selected {
-    background-color: unset !important;
-    color: unset !important;
-  }
-
-  &:focus-visible {
-    outline: unset !important;
-  }
-
-  input[type='email']:focus {
-    outline: unset !important;
-    outline-offset: unset !important;
-    box-shadow: unset !important;
-  }
-`
-
-const overrideScrollbarStyles = css`
-  ::-webkit-scrollbar {
-    width: 0.5rem;
-    background-color: transparent;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-`
-
 const globalStyles = css`
   ${cssVariables}
   ${utilities}
-  ${overrideScrollbarStyles}
-  ${overrideAutofillStyles}
+  ${overrides}
+
   
   *,
   *::after,

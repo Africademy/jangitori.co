@@ -17,9 +17,9 @@ const RootStoreProvider = dynamic(
 
 import { ChakraProvider } from '@chakra-ui/provider'
 
-import { theme } from '@/modules/emotion/theme'
+import { theme } from '@/modules/theme/theme'
 
-const GlobalStyles = dynamic(() => import('@/modules/emotion/GlobalStyles'))
+const GlobalStyles = dynamic(() => import('@/modules/theme/GlobalStyles'))
 
 export default function CoreApp({ Component, pageProps }: CoreAppProps) {
   const getLayout = Component.getLayout || ((page: ReactElement) => page)

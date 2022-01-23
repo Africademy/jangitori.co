@@ -3,7 +3,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { useRouter } from 'next/router'
 
-import { CurrentLocation } from '@/modules/emotion/CurrentLocation'
+import { CurrentLocation } from '@/modules/geolocation/CurrentLocation'
 
 import { TimeClockButton } from './TimeClockButton'
 import { EndShiftCopy } from './TimeClockCopy'
