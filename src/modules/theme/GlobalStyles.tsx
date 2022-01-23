@@ -23,17 +23,6 @@ const globalStyles = css`
     font-smoothing: antialiased;
   }
 
-  * {
-    transition-property: background-color, border-color, color, fill, stroke,
-      opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  html {
-    font-size: 16px;
-  }
-
   html,
   body {
     padding: 0;
@@ -41,8 +30,8 @@ const globalStyles = css`
   }
 
   html {
+    font-size: 16px;
     height: 100vh;
-    background-color: ${colors.gray[50]};
   }
 
   #__next {
@@ -53,6 +42,11 @@ const globalStyles = css`
     margin: 0;
     position: relative;
     background-color: ${colors.gray[50]};
+
+    transition-property: background-color, border-color, color, fill, stroke,
+      opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
   }
 
   #map {
