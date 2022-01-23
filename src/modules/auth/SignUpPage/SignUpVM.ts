@@ -7,11 +7,13 @@ import { Whitelist } from '@/data/models/whitelist'
 import { UserService } from '@/data/users/userService'
 import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { routes } from '@/lib/routes'
+import { waitFor } from '@/lib/waitFor'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { initEmailPasswordCreds } from '@/modules/auth/helpers'
 import { EmailPasswordCreds, UserInfo } from '@/modules/auth/types'
 import { FormStore } from '@/modules/form/FormStore'
 
+import { AuthService } from '../AuthService'
 import { ConfirmInfoVM } from './ConfirmInfoVM'
 import { SignUpSteps } from './constants'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
@@ -86,6 +88,30 @@ export class SignUpVM {
     this.setInitialUser(whitelist)
     this.setEmailPasswordCreds(emailPasswordCreds)
     this.stepper.increment()
+  }
+
+  async onConfirmInfo(userInfo: UserInfo) {
+    const userToCreate = {
+      ...this.invariantInitialUser,
+      ...userInfo,
+      updatedAt: new Date().toISOString(),
+    }
+
+    /* Register user with email and password */
+    const { authUser } = await AuthService.instance()
+      .signUp(this.emailPasswordCreds)
+      .then(async (res) => {
+        await waitFor(300)
+        return res
+      })
+
+    /* Write any changes to user info to DB */
+    const user = await UserService.instance().createUser({
+      uid: authUser.id,
+      ...userToCreate,
+    })
+
+    this.onSuccess(user)
   }
 
   constructor(private authStore: AuthStore) {

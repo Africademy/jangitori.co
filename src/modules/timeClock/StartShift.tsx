@@ -36,7 +36,7 @@ export const StartShift = observer(function StartShift({
   )
 })
 
-export const BottomSection = ({ children }) => {
+const BottomSection = ({ children }) => {
   return (
     <Box
       w="100%"

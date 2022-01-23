@@ -9,14 +9,14 @@ import { Redirect } from '@/ui/components/Redirect'
 import { StartShift } from './StartShift'
 
 export const TimeClockFeature = observer(function TimeClockFeature({
-  user,
+  user: employee,
 }: AuthenticatedPageProps) {
   const shiftStore = useShiftStore()
 
   if (shiftStore.step === ShiftStep.Initializing) return <LoadingStack />
 
   if (shiftStore.step === ShiftStep.Idle)
-    return <StartShift employee={user.uid} />
+    return <StartShift employee={employee} />
 
   if (shiftStore.step === ShiftStep.ClockedIn)
     return <Redirect to={`/dashboard/employee/timeClock`} />

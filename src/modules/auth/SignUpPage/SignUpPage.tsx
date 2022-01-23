@@ -23,5 +23,5 @@ export const SignUpPage = observer(function SignUpPage() {
     )
   }
 
-  return <ConfirmInfo vm={vm.confirmInfoVM} />
+  return <ConfirmInfo vm={vm.confirmInfoVM} onConfirm={vm.onConfirmInfo} />
 })

@@ -5,9 +5,9 @@ import { logger } from '@/infra/logger'
 import { waitFor } from '@/lib/waitFor'
 
 import { AuthService } from '../AuthService'
+import { UserInfo } from '../types'
 import { RequestStore } from './RequestStore'
 import { SignUpVM } from './SignUpVM'
-import { UserInfo } from './types'
 
 export class ConfirmInfoVM {
   request: RequestStore = new RequestStore()
