@@ -15,7 +15,8 @@
     "analyze": "cross-env ANALYZE=true yarn run build",
     "test": "jest --clearCache && NODE_ENV=test jest",
     "deploy": "vercel --prod",
-    "type-check": "rimraf ./tsconfig.tsbuildinfo && tsc --pretty --noEmit"
+    "type-check": "rimraf ./tsconfig.tsbuildinfo && tsc --pretty --noEmit",
+    "check": "yarn type-check && yarn build"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
