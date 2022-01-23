@@ -7,9 +7,6 @@ import { CoreAppProps } from '@/app/CoreAppProps'
 
 const CoreLayout = dynamic(() => import('@/app/CoreLayout'))
 const AuthListener = dynamic(() => import('@/modules/auth/AuthListener'))
-const GoogleMapsProvider = dynamic(
-  () => import('@/modules/googleMaps/GoogleMapsProvider'),
-)
 
 const RootStoreProvider = dynamic(
   () => import('@/modules/stores/RootStoreProvider'),
@@ -29,11 +26,7 @@ export default function CoreApp({ Component, pageProps }: CoreAppProps) {
       <GlobalStyles />
       <RootStoreProvider>
         <AuthListener>
-          <CoreLayout>
-            <GoogleMapsProvider>
-              {getLayout(<Component {...pageProps} />)}
-            </GoogleMapsProvider>
-          </CoreLayout>
+          <CoreLayout>{getLayout(<Component {...pageProps} />)}</CoreLayout>
         </AuthListener>
       </RootStoreProvider>
     </ChakraProvider>
