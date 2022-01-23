@@ -7,3 +7,5 @@ export interface Whitelist {
   role: RoleId
   email: string
 }
+
+export const WHITELISTS_TABLE = 'whitelists' as const

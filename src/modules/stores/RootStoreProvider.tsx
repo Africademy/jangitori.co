@@ -15,7 +15,7 @@ export default function RootStoreProvider({
     store.locationStore.init()
     store.authStore.init()
     return when(
-      () => Boolean(store.authStore.account),
+      () => Boolean(store.authStore.user),
       () => store.shiftStore.init(),
     )
   }, [])

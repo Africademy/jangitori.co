@@ -1,5 +1,5 @@
-import { Account } from '@/data/models/account'
+import { User } from '@/data/models/user'
 
 export type AuthenticatedPageProps<P = {}> = {
-  account: Account
+  user: User
 } & P

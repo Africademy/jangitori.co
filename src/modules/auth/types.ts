@@ -1,7 +1,7 @@
-import { Account } from '@/data/models/account'
+import { User } from '@/data/models/user'
 import { PageProps } from '@/modules/core/types/PageProps'
 
-export type AuthPageProps = PageProps<{ account?: Account }>
+export type AuthPageProps = PageProps<{ user?: User }>
 
 export interface EmailPasswordCreds {
   email: string

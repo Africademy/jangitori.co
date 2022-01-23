@@ -2,10 +2,9 @@ import router from 'next/router'
 
 import { toDateString } from '@/lib/date'
 import { routes } from '@/lib/routes'
-import { useCurrentUser } from '@/modules/accounts/hooks/useCurrentUser'
+import { computePayPeriod } from '@/modules/payrolls/computePayPeriod'
+import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 import Breadcrumbs from '@/ui/components/Breadcrumbs'
-
-import { computePayPeriod } from '../payrolls/computePayPeriod'
 
 const pages = ({ role, payPeriodEnd }) => [
   {

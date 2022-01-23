@@ -1,7 +1,7 @@
 import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
 
-import { isBrowser, isDevelopment, isServer } from '@/lib/environment'
+import { isBrowser, isServer } from '@/lib/environment'
 
 enableStaticRendering(isServer())
 

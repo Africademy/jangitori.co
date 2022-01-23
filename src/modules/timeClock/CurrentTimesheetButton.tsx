@@ -3,8 +3,8 @@ import { useTheme } from '@emotion/react'
 import { useRouter } from 'next/router'
 
 import { routes } from '@/lib/routes'
-import { useCurrentUser } from '@/modules/accounts/hooks/useCurrentUser'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
+import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'
 

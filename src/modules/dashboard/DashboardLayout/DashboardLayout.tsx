@@ -44,8 +44,8 @@ export const DashboardHeader = observer(function Header() {
           }
         `}
       >
-        {authStore.account && (
-          <AccountDropdown {...getAccountDropdownProps(authStore.account)} />
+        {authStore.user && (
+          <AccountDropdown {...getAccountDropdownProps(authStore.user)} />
         )}
       </Box>
     </Flex>

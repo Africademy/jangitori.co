@@ -2,9 +2,7 @@ import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPagePr
 
 import { EndShift } from './EndShift'
 
-const TimeClockPage = function TimeClockPage({
-  account,
-}: AuthenticatedPageProps) {
+const TimeClockPage = function TimeClockPage({ user }: AuthenticatedPageProps) {
   return <EndShift />
 }
 

@@ -1,8 +1,8 @@
-import { Account } from '@/data/models/account'
 import { Timesheet } from '@/data/models/timesheet'
+import { User } from '@/data/models/user'
 
 export type TimesheetDetailsQuery = {
-  employee: Account['uid']
+  employee: User['uid']
   payPeriodEnd: Timesheet['payPeriodEnd']
 }
 

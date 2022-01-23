@@ -1,15 +1,17 @@
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
+import invariant from 'tiny-invariant'
 
-import { AccountUpdateData } from '@/data/models/account'
+import { Whitelist } from '@/data/models/whitelist'
+import { UserService } from '@/data/users/userService'
+import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { createLogger } from '@/lib/logger'
 import { routes } from '@/lib/routes'
 import { waitFor } from '@/lib/waitFor'
-import { AccountService } from '@/modules/accounts/AccountService'
+import { AuthService } from '@/modules/auth/AuthService'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 
-import { AuthService } from '../AuthService'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
 
 const fileLabel = 'modules/auth/SignUpPage/SignUpStore'
@@ -21,16 +23,22 @@ export enum SignUpStep {
 }
 export class SignUpStore {
   authCreds: EmailPasswordCreds = { email: '', password: '' }
-  initialAccount: Partial<AccountUpdateData> = {}
+  initialUser: Whitelist | null = null
 
   currentStep: SignUpStep = SignUpStep.Auth
   error: string | null = null
   isLoading = false
 
+  get invariantInitialUser(): Whitelist {
+    const initialUser = this.initialUser
+    invariant(initialUser)
+    return initialUser
+  }
+
   get isConfirmDisabled(): boolean {
     return (
       !Object.values(this.authCreds).every(Boolean) ||
-      !Object.values(this.initialAccount).every(Boolean)
+      !Object.values(this.invariantInitialUser).every(Boolean)
     )
   }
 
@@ -38,8 +46,8 @@ export class SignUpStore {
     this.authCreds[field] = value
   }
 
-  setInitialAccountInfo(value: Partial<AccountUpdateData>) {
-    this.initialAccount = value
+  setInitialUserInfo(value: Whitelist) {
+    this.initialUser = value
   }
 
   setError(val: string | null) {
@@ -62,16 +70,21 @@ export class SignUpStore {
     this.setIsLoading(true)
     this.setError(null)
     try {
-      /* Get existing account data */
-      const initialAccount = await this.accountService.getAccountByEmail(email)
-      if (!initialAccount) throw new UnauthorizedUserCredentialsError()
+      /* Get existing user data */
+      const whitelist = await this.whitelistService.findWhitelist({
+        email,
+      })
+      if (!whitelist) throw new UnauthorizedUserCredentialsError()
+
+      const initialUser = await this.userService.getUser({ email })
+
       /* Check if user is already registered */
-      if (initialAccount.uid !== null) {
-        throw new Error('Already registered an account for this email.')
+      if (initialUser) {
+        throw new Error('Already registered an user for this email.')
       }
 
-      this.setInitialAccountInfo(initialAccount)
-      this.currentStep += 1
+      this.setInitialUserInfo(whitelist)
+      this.currentStep = SignUpStep.Confirm
     } catch (error) {
       this.handleError(error)
     } finally {
@@ -83,27 +96,25 @@ export class SignUpStore {
     event.preventDefault()
 
     const formData = this.authCreds
-    const initialAccount = this.initialAccount
+    const initialUser = this.invariantInitialUser
 
     this.setError(null)
     this.setIsLoading(true)
     try {
-      /* Register account with email and password */
-      const authUser = await this.authService.signUp(formData)
-      logger.info(`✅ registered account for email ${formData.email}`)
+      /* Register user with email and password */
+      const { authUser } = await this.authService.signUp(formData)
+      logger.info(`✅ registered user for email ${formData.email}`)
       await waitFor(500)
 
-      /* Write any changes to account info to DB */
-      const updatedAccount = await this.accountService.updateAccountByEmail(
-        formData.email,
-        {
-          ...initialAccount,
-          uid: authUser.id,
-        },
-      )
+      /* Write any changes to user info to DB */
+      const user = await this.userService.createUser({
+        ...initialUser,
+        updatedAt: new Date().toISOString(),
+        uid: authUser.id,
+      })
 
-      this.authStore.setAccount(updatedAccount)
-      Router.router?.push(routes.dashboardPage(updatedAccount.role, 'overview'))
+      this.authStore.setUser(user)
+      Router.router?.push(routes.dashboardPage(user.role, 'overview'))
     } catch (error) {
       this.handleError(error)
     } finally {
@@ -114,7 +125,8 @@ export class SignUpStore {
   constructor(
     private authStore: AuthStore,
     private authService: AuthService = AuthService.instance(),
-    private accountService: AccountService = AccountService.instance(),
+    private whitelistService: WhitelistService = WhitelistService.instance(),
+    private userService: UserService = UserService.instance(),
   ) {
     makeAutoObservable(this, {
       onChange: action.bound,

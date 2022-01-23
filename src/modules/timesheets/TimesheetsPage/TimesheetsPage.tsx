@@ -13,13 +13,13 @@ import TimesheetsTable from './TimesheetsTable'
 
 const BackButton = dynamic(() => import('@/ui/molecules/BackButton'))
 
-export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
+export const TimesheetsPage = ({ user }: AuthenticatedPageProps) => {
   const services = useServices()
 
   const { data: timesheets, error } = useSWR<Timesheet[], Error>(
-    timesheetQueryKeys.list(account.uid),
+    timesheetQueryKeys.list(user.uid),
     async (): Promise<Timesheet[]> => {
-      return await services.timesheet.getTimesheetsByEmployee(account.uid)
+      return await services.timesheet.getTimesheetsByEmployee(user.uid)
     },
   )
 

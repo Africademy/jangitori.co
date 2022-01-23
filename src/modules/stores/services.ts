@@ -1,12 +1,12 @@
+import { UserService } from '@/data/users/userService'
 import supabase from '@/lib/supabase'
-import { AccountService } from '@/modules/accounts/AccountService'
 import { AuthService } from '@/modules/auth/AuthService'
 import { ShiftService } from '@/modules/shifts/shiftService'
 import { TimesheetService } from '@/modules/timesheets/TimesheetService'
 
 export type Services = {
   auth: AuthService
-  account: AccountService
+  user: UserService
   timesheet: TimesheetService
   shift: ShiftService
 }
@@ -14,7 +14,7 @@ export type Services = {
 export const initServices = (): Services => {
   return {
     auth: AuthService.instance(),
-    account: AccountService.instance(),
+    user: UserService.instance(),
     timesheet: new TimesheetService(supabase),
     shift: new ShiftService(supabase),
   }

@@ -2,66 +2,66 @@ import { Session } from '@supabase/gotrue-js'
 import { makeAutoObservable } from 'mobx'
 import invariant from 'tiny-invariant'
 
-import { Account } from '@/data/models/account'
+import { User } from '@/data/models/user'
+import { UserService } from '@/data/users/userService'
 import supabase from '@/lib/supabase'
 import { RootStore } from '@/modules/stores'
+import { Services } from '@/modules/stores/services'
 
-import { AccountService } from '../accounts/AccountService'
-import { Services } from '../stores/services'
 import { AuthService } from './AuthService'
 
 export class AuthStore {
   session: Session | null
-  account: Account | null
+  user: User | null
 
   setSession(value: Session | null) {
     this.session = value
     this.init()
   }
 
-  setAccount(value: Account | null) {
-    this.account = value
+  setUser(value: User | null) {
+    this.user = value
   }
 
-  get invariantAccount(): Account {
-    const account = this.account
-    invariant(account, 'AuthStore account not found')
-    return account
+  get invariantUser(): User {
+    const user = this.user
+    invariant(user, 'AuthStore user not found')
+    return user
   }
 
   get isAuthenticated(): boolean {
-    return Boolean(this.account && this.session)
+    return Boolean(this.user && this.session)
   }
 
   async init() {
     const session = this.session
 
     if (!session) {
-      this.setAccount(null)
+      this.setUser(null)
       return
     }
     const authUser = await this.authService.getSessionUser(session.access_token)
-    const account = await this.accountService.getAccount(authUser.id)
-    this.setAccount(account)
+    const user = await this.userService.getUser({ uid: authUser.id })
+    this.setUser(user)
   }
 
   reset() {
     this.session = null
-    this.account = null
+    this.user = null
   }
 
-  private accountService: AccountService
+  private userService: UserService
   private authService: AuthService
 
   constructor(
     private root: RootStore,
-    services: Pick<Services, 'auth' | 'account'>,
+    services: Pick<Services, 'auth' | 'user'>,
   ) {
-    this.accountService = services.account
+    this.userService = services.user
     this.authService = services.auth
     const session = supabase.auth.session()
     this.session = session
-    this.account = null
+    this.user = null
 
     makeAutoObservable(this, {}, { name: 'AuthStore' })
   }

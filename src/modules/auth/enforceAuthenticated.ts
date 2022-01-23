@@ -1,12 +1,12 @@
 import { GetServerSideProps } from 'next'
 
-import { Account } from '@/data/models/account'
+import { User } from '@/data/models/user'
 import { Tables } from '@/data/tables'
 import { routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
 
 export interface AuthRequiredProps {
-  account: Account
+  user: User
 }
 
 export type GetAuthRequiredSSProps = GetServerSideProps<AuthRequiredProps>
@@ -22,23 +22,23 @@ export const enforceAuthenticated =
         redirect: { destination: routes.authPage('login'), permanent: false },
       }
 
-    let account: Account | null = null
+    let user: User | null = null
 
     const { data, error } = await supabase
-      .from<Account>(Tables.ACCOUNTS)
+      .from<User>(Tables.USERS)
       .select('*')
       .eq('uid', authUser.id)
       .maybeSingle()
 
     if (error) throw error
 
-    account = data
+    user = data
 
-    if (!account)
+    if (!user)
       return {
         props: {},
         redirect: { destination: routes.authPage('login'), permanent: false },
       }
 
-    return { props: { account } }
+    return { props: { user } }
   }

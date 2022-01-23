@@ -11,7 +11,7 @@ import { useRootStore, useServices } from '@/modules/stores'
 import { Avatar } from './Avatar'
 
 const logger = createLogger({
-  fileLabel: 'modules/dashboard/dashboard-layout/account-dropdown',
+  fileLabel: 'modules/dashboard/dashboard-layout/user-dropdown',
 })
 
 interface Item {

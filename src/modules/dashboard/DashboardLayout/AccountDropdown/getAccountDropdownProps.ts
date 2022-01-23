@@ -1,12 +1,12 @@
-import { GenericAccount, getFullName } from '@/lib/types/GenericAccount'
+import { GenericUser, getFullName } from '@/lib/types/GenericUser'
 
 import { AccountDropdownProps } from './AccountDropdown'
 
-export function getAccountDropdownProps<U extends GenericAccount>(
-  account: U,
+export function getAccountDropdownProps<U extends GenericUser>(
+  user: U,
 ): AccountDropdownProps {
   return {
-    fullName: getFullName(account),
-    role: account.role,
+    fullName: getFullName(user),
+    role: user.role,
   }
 }

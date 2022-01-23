@@ -2,7 +2,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
-import { useCurrentUser } from '@/modules/accounts/hooks/useCurrentUser'
+import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'

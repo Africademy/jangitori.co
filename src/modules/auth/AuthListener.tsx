@@ -32,12 +32,12 @@ const AuthListener = function AuthListener({ children }: AuthListenerProps) {
 
   useMountEffect(() =>
     when(
-      () => authStore.account !== null,
+      () => authStore.user !== null,
       () => {
         const isAuthRequiredPath = isAuthRequiredPathname(router.pathname)
 
         if (!isAuthRequiredPath) {
-          router.push(routes.dashboardPage(authStore.account!.role, 'overview'))
+          router.push(routes.dashboardPage(authStore.user!.role, 'overview'))
         }
       },
     ),
@@ -45,7 +45,7 @@ const AuthListener = function AuthListener({ children }: AuthListenerProps) {
 
   useMountEffect(() =>
     when(
-      () => authStore.account === null,
+      () => authStore.user === null,
       () => {
         const isAuthRequiredPath = isAuthRequiredPathname(router.pathname)
 

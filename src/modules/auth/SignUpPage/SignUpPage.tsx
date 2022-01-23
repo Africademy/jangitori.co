@@ -5,24 +5,17 @@ import { observer } from 'mobx-react-lite'
 
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
-import {
-  useAccountService,
-  useAuthService,
-  useAuthStore,
-} from '@/modules/stores'
+import { useAuthStore } from '@/modules/stores'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 
-import { FormFieldProps } from './FormFieldProps'
-const SignUpForm = dynamic(() => import('./SignUpForm'))
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 
+import AuthForm from '@/modules/auth/AuthForm'
 import { AuthFormVM } from '@/modules/auth/AuthFormVM'
-import { EmailPasswordCreds } from '@/modules/auth/types'
 import { Typography } from '@/ui/atoms/Typography'
 import {
   Form,
@@ -33,8 +26,8 @@ import {
 } from '@/ui/components/Form'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 
-import AuthForm from '../AuthForm'
 import { SignUpAuthFormCopy, SignUpStep } from './constants'
+import { FormFieldProps } from './FormFieldProps'
 import { SignUpStore } from './SignUpStore'
 
 export const ConfirmationFormCopy = {
@@ -53,10 +46,6 @@ const confirmationFormFields: FormFieldProps[] = [
 
 export const SignUpPage = observer(function SignUpPage() {
   const authStore = useAuthStore()
-  const authService = useAuthService()
-  const accountService = useAccountService()
-
-  const router = useRouter()
 
   const authFormVM = useMobXStore(() => new AuthFormVM())
 
@@ -65,11 +54,12 @@ export const SignUpPage = observer(function SignUpPage() {
   const handleChange =
     (field: FieldID) => (event: React.ChangeEvent<HTMLInputElement>) => {
       runInAction(
-        () => (signUpStore.initialAccount[field] = event.target.value),
+        () => (signUpStore.invariantInitialUser[field] = event.target.value),
       )
     }
 
   if (signUpStore.currentStep === SignUpStep.Auth) {
+    const initialUser = signUpStore.invariantInitialUser
     return (
       <SContainer>
         <Form onSubmit={signUpStore.onSubmitConfirmation}>
@@ -89,7 +79,7 @@ export const SignUpPage = observer(function SignUpPage() {
                   required
                   placeholder={field.placeholder}
                   onChange={handleChange(field.id)}
-                  value={signUpStore.initialAccount[field.id]}
+                  value={initialUser[field.id]}
                 />
               </FormField>
             ))}
@@ -106,29 +96,12 @@ export const SignUpPage = observer(function SignUpPage() {
     )
   }
 
-  async function handleSubmitAuthForm(formData: EmailPasswordCreds) {
-    try {
-      authFormVM.setError(null)
-      authFormVM.setIsLoading(true)
-      const { authUser, session } = await authService.signIn(formData)
-      const account = await accountService.getAccount(authUser.id)
-      authStore.setSession(session)
-      authStore.setAccount(account)
-      router.push(routes.dashboardPage(account.role, 'overview'))
-    } catch (error) {
-      alert((error as Error).message)
-      authFormVM.setError((error as Error).message)
-    } finally {
-      authFormVM.setIsLoading(false)
-    }
-  }
-
   return (
     <SContainer>
       <AuthForm
         copy={SignUpAuthFormCopy}
         vm={authFormVM}
-        onSubmit={handleSubmitAuthForm}
+        onSubmit={signUpStore.onSubmitUserCredentials}
       />
     </SContainer>
   )

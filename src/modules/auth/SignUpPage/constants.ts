@@ -7,7 +7,7 @@ export enum SignUpStep {
 
 export const SignUpAuthFormCopy = {
   title: 'Sign up',
-  question: 'Already have an account?',
+  question: 'Already have an user?',
   action: 'Sign in.',
   actionHref: routes.authPage('login'),
 }

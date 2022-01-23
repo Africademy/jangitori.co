@@ -219,7 +219,7 @@ export const pseudoSelectors = {
   _rtl: '[dir=rtl] &',
   /**
    * Styles for CSS Selector `@media (prefers-color-scheme: dark)`
-   * used when the account has requested the system
+   * used when the user has requested the system
    * use a light or dark color theme.
    */
   _mediaDark: '@media (prefers-color-scheme: dark)',

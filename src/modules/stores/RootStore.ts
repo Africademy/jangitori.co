@@ -16,7 +16,7 @@ export class RootStore {
 
   constructor() {
     const services = this.services
-    this.authStore = new AuthStore(this, pick(services, ['auth', 'account']))
+    this.authStore = new AuthStore(this, pick(services, ['auth', 'user']))
     this.locationStore = new LocationStore()
     this.shiftStore = new ShiftStore(this, services.shift)
   }

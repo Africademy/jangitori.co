@@ -1,3 +1,3 @@
-import { Account } from '@/data/models/account'
+import { User } from '@/data/models/user'
 
-export type PageProps<P extends {} = {}> = { account?: Account } & P
+export type PageProps<P extends {} = {}> = { user?: User } & P

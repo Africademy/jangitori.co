@@ -13,7 +13,7 @@ export interface WaitForAuthProps {
 export const WaitForAuth = observer(function WaitForAuth({ children }) {
   const { authStore } = useRootStore()
 
-  if (!authStore.account) return <LoadingScreen />
+  if (!authStore.user) return <LoadingScreen />
 
   return <>{children}</>
 })

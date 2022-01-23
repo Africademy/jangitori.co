@@ -1,7 +1,7 @@
-import { ACCOUNTS_TABLE } from './models/account'
+import { USERS_TABLE } from '@/data/models/user'
 
 export const Tables = {
-  ACCOUNTS: ACCOUNTS_TABLE,
+  USERS: USERS_TABLE,
   ROLES: 'roles',
   TIMESHEETS: 'timesheets',
   SHIFTS: 'shifts',

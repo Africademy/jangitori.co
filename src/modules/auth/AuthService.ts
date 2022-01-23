@@ -58,16 +58,18 @@ export class AuthService {
     return { authUser, session }
   }
 
-  signUp = async (creds: UserCredentials): Promise<AuthUser> => {
+  signUp = async (
+    creds: UserCredentials,
+  ): Promise<{ authUser: AuthUser; session: Session }> => {
     const { session } = await this.client.auth
       .signUp(creds)
       .then(handleResponse)
 
     if (!session) throw new NullResponsePropertyError('session')
 
-    const authAccount = await this.getSessionUser(session.access_token)
+    const authUser = await this.getSessionUser(session.access_token)
 
-    return authAccount
+    return { authUser, session }
   }
 
   signOut = async (): Promise<void> => {
