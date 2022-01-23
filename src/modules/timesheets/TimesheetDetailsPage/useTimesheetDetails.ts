@@ -1,7 +1,7 @@
 import useSWR, { SWRResponse } from 'swr'
 
-import { TimeEntry } from '@/modules/models/TimeEntry'
-import { Timesheet } from '@/modules/models/Timesheet'
+import { TimeEntry } from '@/data/models/timeEntry'
+import { Timesheet } from '@/data/models/timesheet'
 import { useServices } from '@/modules/stores'
 import { timeEntryQueryKeys } from '@/modules/timeClock/timeEntryQueryKeys'
 

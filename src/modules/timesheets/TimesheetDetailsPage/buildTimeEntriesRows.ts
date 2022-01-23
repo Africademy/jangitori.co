@@ -1,7 +1,7 @@
 import differenceInMinutes from 'date-fns/differenceInMinutes'
 import parseISO from 'date-fns/parseISO'
 
-import { TimeEntry } from '@/modules/models/TimeEntry'
+import { TimeEntry } from '@/data/models/timeEntry'
 
 export interface TimesheetDetailsRow {
   start: Date

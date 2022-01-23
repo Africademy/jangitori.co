@@ -1,6 +1,8 @@
 import { UserType } from '@/lib/types/UserType'
 
-import { RoleID } from './Role'
+import { RoleId } from './role'
+
+export const ACCOUNTS_TABLE = 'accounts' as const
 
 export type BaseAccount<R extends string = string> = {
   firstName: string
@@ -21,8 +23,8 @@ export interface InitialAccount<R extends string = string>
   uid: null
 }
 
-export type Account<R extends RoleID = RoleID> = OnboardedAccount<R> & {
-  role: RoleID
+export type Account<R extends RoleId = RoleId> = OnboardedAccount<R> & {
+  role: RoleId
 }
 
 export type AccountUpdateData = Omit<Account, 'updatedAt' | 'role'>

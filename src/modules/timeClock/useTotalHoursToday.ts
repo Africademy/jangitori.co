@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 
-import { Shift } from '../models/Shift'
-import { useRootStore } from '../stores'
+import { Shift } from '@/data/models/shift'
+import { useRootStore } from '@/modules/stores'
 
 function aggregateHours(data: Shift[]): number {
   return data.map((shift) => shift.hours).reduce((a, b) => a + b)

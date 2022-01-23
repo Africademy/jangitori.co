@@ -1,9 +1,9 @@
 import { makeAutoObservable } from 'mobx'
 import invariant from 'tiny-invariant'
 
+import { Shift } from '@/data/models/shift'
 import { RequestState } from '@/lib/types/ApiResponse'
 import { Coordinates } from '@/modules/geolocation/Coordinates'
-import { Shift } from '@/modules/models/Shift'
 import { RootStore } from '@/modules/stores'
 
 import { ShiftService } from './shiftService'

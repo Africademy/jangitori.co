@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next'
 
+import { Account } from '@/data/models/account'
+import { Tables } from '@/data/tables'
 import { routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
-import { Account } from '@/modules/models/Account'
-import { TableKeys } from '@/modules/tables'
 
 export interface AuthRequiredProps {
   account: Account
@@ -25,7 +25,7 @@ export const enforceAuthenticated =
     let account: Account | null = null
 
     const { data, error } = await supabase
-      .from<Account>(TableKeys.Accounts)
+      .from<Account>(Tables.ACCOUNTS)
       .select('*')
       .eq('uid', authUser.id)
       .maybeSingle()

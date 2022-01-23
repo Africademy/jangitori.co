@@ -1,16 +1,16 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
+import { Timesheet } from '@/data/models/timesheet'
+import { Tables } from '@/data/tables'
 import supabase from '@/lib/supabase'
-import { Timesheet } from '@/modules/models/Timesheet'
 import { ReviewStatus } from '@/modules/reviewStatus'
-import { TableKeys } from '@/modules/tables'
 
 export class TimesheetService {
   constructor(private client: SupabaseClient = supabase) {}
 
   async getTimesheetsByEmployee(employee: string): Promise<Timesheet[]> {
     const { data, error } = await this.client
-      .from<Timesheet>(TableKeys.Timesheets)
+      .from<Timesheet>(Tables.TIMESHEETS)
       .select('*')
       .eq('employee', employee)
       .order('payPeriodEnd', { ascending: true })
@@ -23,7 +23,7 @@ export class TimesheetService {
     payPeriodEnd: string
   }): Promise<Timesheet | null> {
     const { data, error } = await this.client
-      .from<Timesheet>(TableKeys.Timesheets)
+      .from<Timesheet>(Tables.TIMESHEETS)
       .select('*')
       .match(args)
       .limit(1)
@@ -42,7 +42,7 @@ export class TimesheetService {
     if (timesheet) return timesheet
 
     const { data, error } = await this.client
-      .from<Timesheet>(TableKeys.Timesheets)
+      .from<Timesheet>(Tables.TIMESHEETS)
       .insert({
         ...args,
         status: ReviewStatus.PENDING,
@@ -68,7 +68,7 @@ export class TimesheetService {
     ...updateData
   }: { id: Timesheet['id'] } & Partial<Omit<Timesheet, 'id'>>) {
     const { data, error } = await this.client
-      .from<Timesheet>(TableKeys.Timesheets)
+      .from<Timesheet>(Tables.TIMESHEETS)
       .update(updateData)
       .eq('id', id)
 

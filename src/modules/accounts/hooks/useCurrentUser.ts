@@ -1,6 +1,6 @@
 import invariant from 'tiny-invariant'
 
-import { Account } from '@/modules/models/Account'
+import { Account } from '@/data/models/account'
 import { useRootStore } from '@/modules/stores'
 
 export function useCurrentUser(): Account {

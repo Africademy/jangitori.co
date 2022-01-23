@@ -1,11 +1,11 @@
-import { RoleID } from '@/modules/models/Role'
+import { RoleId } from '@/data/models/role'
 
 export const routes = {
   landing: '/' as const,
   auth: '/auth' as const,
   authPage: (view: 'login' | 'signup') => `${routes.auth}/${view}` as const,
   dashboard: `/dashboard` as const,
-  dashboardPage: (role: RoleID, subPath: string) =>
+  dashboardPage: (role: RoleId, subPath: string) =>
     `${routes.dashboard}/${role}/${subPath}` as const,
 }
 

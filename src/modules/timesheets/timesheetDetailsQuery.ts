@@ -1,5 +1,5 @@
-import { Account } from '../models/Account'
-import { Timesheet } from '../models/Timesheet'
+import { Account } from '@/data/models/account'
+import { Timesheet } from '@/data/models/timesheet'
 
 export type TimesheetDetailsQuery = {
   employee: Account['uid']

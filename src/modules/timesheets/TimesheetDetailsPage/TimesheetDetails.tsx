@@ -2,7 +2,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import format from 'date-fns/format'
 import React, { useMemo } from 'react'
 
-import { TimeEntry } from '@/modules/models/TimeEntry'
+import { TimeEntry } from '@/data/models/timeEntry'
 
 import { buildTimeEntriesRows } from './buildTimeEntriesRows'
 

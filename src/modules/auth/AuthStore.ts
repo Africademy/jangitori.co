@@ -2,8 +2,8 @@ import { Session } from '@supabase/gotrue-js'
 import { makeAutoObservable } from 'mobx'
 import invariant from 'tiny-invariant'
 
+import { Account } from '@/data/models/account'
 import supabase from '@/lib/supabase'
-import { Account } from '@/modules/models/Account'
 import { RootStore } from '@/modules/stores'
 
 import { AccountService } from '../accounts/AccountService'

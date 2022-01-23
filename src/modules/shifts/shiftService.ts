@@ -1,15 +1,15 @@
 import pick from 'lodash.pick'
 
+import { Shift } from '@/data/models/shift'
+import { Tables } from '@/data/tables'
 import supabase from '@/lib/supabase'
-import { Shift } from '@/modules/models/Shift'
-import { TableKeys } from '@/modules/tables'
 
 export class ShiftService {
   constructor(private client = supabase) {}
 
   async findShift(args: Partial<Shift>) {
     return this.client
-      .from<Shift>(TableKeys.Shifts)
+      .from<Shift>(Tables.SHIFTS)
       .select('*')
       .match(args)
       .maybeSingle()
@@ -17,7 +17,7 @@ export class ShiftService {
 
   async getShifts(args: Pick<Shift, 'employee' | 'date'>): Promise<Shift[]> {
     const { data, error } = await this.client
-      .from<Shift>(TableKeys.Shifts)
+      .from<Shift>(Tables.SHIFTS)
       .select('*')
       .match(args)
 
@@ -28,7 +28,7 @@ export class ShiftService {
 
   async findActiveShift(args: { employee: string }) {
     return this.client
-      .from<Shift>(TableKeys.Shifts)
+      .from<Shift>(Tables.SHIFTS)
       .select('*')
       .match({
         ...args,
@@ -41,7 +41,7 @@ export class ShiftService {
 
   async createShift(initialData: Omit<Shift, 'id'>) {
     return this.client
-      .from<Shift>(TableKeys.Shifts)
+      .from<Shift>(Tables.SHIFTS)
       .insert(initialData)
       .maybeSingle()
       .then((res) => pick(res, ['data', 'error']))
@@ -49,7 +49,7 @@ export class ShiftService {
 
   async updateShift(id: Shift['id'], updateData: Partial<Omit<Shift, 'id'>>) {
     return this.client
-      .from<Shift>(TableKeys.Shifts)
+      .from<Shift>(Tables.SHIFTS)
       .update(updateData)
       .eq('id', id)
       .single()

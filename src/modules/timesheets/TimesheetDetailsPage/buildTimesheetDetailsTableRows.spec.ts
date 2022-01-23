@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { TimeEntry } from '@/modules/models/TimeEntry'
+import { TimeEntry } from '@/data/models/timeEntry'
 
 import {
   buildTimeEntriesRows,

@@ -1,4 +1,4 @@
-import { Account } from '@/modules/models/Account'
+import { Account } from '@/data/models/account'
 
 export type AuthenticatedPageProps<P = {}> = {
   account: Account

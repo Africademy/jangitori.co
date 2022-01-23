@@ -5,7 +5,11 @@ import { observer } from 'mobx-react-lite'
 
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
-import { useServices } from '@/modules/stores'
+import {
+  useAccountService,
+  useAuthService,
+  useAuthStore,
+} from '@/modules/stores'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
@@ -15,8 +19,10 @@ const LabeledInput = dynamic(() => import('@/ui/components/Input/LabeledInput'))
 import { FormFieldProps } from './FormFieldProps'
 const SignUpForm = dynamic(() => import('./SignUpForm'))
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
-import { useRootStore } from '@/modules/stores'
+import { AuthFormVM } from '@/modules/auth/AuthFormVM'
+import { EmailPasswordCreds } from '@/modules/auth/types'
 import { Typography } from '@/ui/atoms/Typography'
 import {
   Form,
@@ -27,21 +33,11 @@ import {
 } from '@/ui/components/Form'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 
+import AuthForm from '../AuthForm'
+import { SignUpAuthFormCopy, SignUpStep } from './constants'
 import { SignUpStore } from './SignUpStore'
 
-const SignUpPageCopy = {
-  title: 'Sign up',
-  question: 'Already have an account?',
-  action: 'Sign in.',
-  actionHref: routes.authPage('login'),
-}
-
-const authFormFields: FormFieldProps[] = [
-  defaultFields.email,
-  defaultFields.password,
-]
-
-const ConfirmationFormCopy = {
+export const ConfirmationFormCopy = {
   title: 'Confirm Information',
   subtitle:
     'Before finishing up, make sure the information we have for you is correct.',
@@ -56,10 +52,15 @@ const confirmationFormFields: FormFieldProps[] = [
 ]
 
 export const SignUpPage = observer(function SignUpPage() {
-  const { authStore } = useRootStore()
-  const services = useServices()
+  const authStore = useAuthStore()
+  const authService = useAuthService()
+  const accountService = useAccountService()
 
-  const signUpStore = useMobXStore(() => new SignUpStore(services, authStore))
+  const router = useRouter()
+
+  const authFormVM = useMobXStore(() => new AuthFormVM())
+
+  const signUpStore = useMobXStore(() => new SignUpStore(authStore))
 
   const handleChange =
     (field: FieldID) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +69,7 @@ export const SignUpPage = observer(function SignUpPage() {
       )
     }
 
-  if (signUpStore.currentStep === 1) {
+  if (signUpStore.currentStep === SignUpStep.Auth) {
     return (
       <SContainer>
         <Form onSubmit={signUpStore.onSubmitConfirmation}>
@@ -105,16 +106,29 @@ export const SignUpPage = observer(function SignUpPage() {
     )
   }
 
+  async function handleSubmitAuthForm(formData: EmailPasswordCreds) {
+    try {
+      authFormVM.setError(null)
+      authFormVM.setIsLoading(true)
+      const { authUser, session } = await authService.signIn(formData)
+      const account = await accountService.getAccount(authUser.id)
+      authStore.setSession(session)
+      authStore.setAccount(account)
+      router.push(routes.dashboardPage(account.role, 'overview'))
+    } catch (error) {
+      alert((error as Error).message)
+      authFormVM.setError((error as Error).message)
+    } finally {
+      authFormVM.setIsLoading(false)
+    }
+  }
+
   return (
     <SContainer>
-      <SignUpForm
-        fields={authFormFields}
-        copy={SignUpPageCopy}
-        vm={signUpStore.authCreds}
-        onChange={signUpStore.onChange}
-        error={signUpStore.error}
-        isLoading={signUpStore.isLoading}
-        onSubmit={signUpStore.onSubmitUserCredentials}
+      <AuthForm
+        copy={SignUpAuthFormCopy}
+        vm={authFormVM}
+        onSubmit={handleSubmitAuthForm}
       />
     </SContainer>
   )

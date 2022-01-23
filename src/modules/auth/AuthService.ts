@@ -1,4 +1,5 @@
 import { Session, User as AuthUser, UserCredentials } from '@supabase/gotrue-js'
+import { SupabaseClient } from '@supabase/supabase-js'
 
 import { NullResponsePropertyError } from '@/lib/errors'
 import { createLogger } from '@/lib/logger'
@@ -19,7 +20,17 @@ function handleResponse<
 }
 
 export class AuthService {
-  constructor(private client = supabase) {}
+  private constructor(private client: SupabaseClient = supabase) {}
+
+  private static _instance: AuthService | null = null
+
+  static instance(): AuthService {
+    if (this._instance) return this._instance
+
+    this._instance = new AuthService()
+
+    return this._instance
+  }
 
   getSessionUser = async (sessionAccessToken: string): Promise<AuthUser> => {
     const { data, error } = await this.client.auth.api.getUser(

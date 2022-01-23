@@ -1,15 +1,29 @@
 import { SupabaseClient } from '@supabase/supabase-js'
 
+import {
+  Account,
+  ACCOUNTS_TABLE,
+  AccountUpdateData,
+} from '@/data/models/account'
 import { NullResponsePropertyError } from '@/lib/errors'
-import { Account, AccountUpdateData } from '@/modules/models/Account'
-import { TableKeys } from '@/modules/tables'
+import supabase from '@/lib/supabase'
 
 export class AccountService {
-  constructor(private supabase: SupabaseClient) {}
+  private constructor(private client: SupabaseClient = supabase) {}
+
+  private static _instance: AccountService | null = null
+
+  static instance(): AccountService {
+    if (this._instance) return this._instance
+
+    this._instance = new AccountService()
+
+    return this._instance
+  }
 
   getAccountByEmail = async (email: string): Promise<Account | null> => {
-    const { data, error } = await this.supabase
-      .from<Account>(TableKeys.Accounts)
+    const { data, error } = await this.client
+      .from<Account>(ACCOUNTS_TABLE)
       .select('*')
       .eq('email', email)
       .maybeSingle()
@@ -19,8 +33,8 @@ export class AccountService {
   }
 
   getAccountByphone = async (phone: string): Promise<Account | null> => {
-    const { data, error } = await this.supabase
-      .from<Account>(TableKeys.Accounts)
+    const { data, error } = await this.client
+      .from<Account>(ACCOUNTS_TABLE)
       .select('*')
       .eq('phone', phone)
       .maybeSingle()
@@ -30,8 +44,8 @@ export class AccountService {
   }
 
   getAccount = async (uid: string): Promise<Account> => {
-    const { data, error } = await this.supabase
-      .from<Account>(TableKeys.Accounts)
+    const { data, error } = await this.client
+      .from<Account>(ACCOUNTS_TABLE)
       .select('*')
       .eq('uid', uid)
       .maybeSingle()
@@ -47,8 +61,8 @@ export class AccountService {
     email: string,
     updateData: Partial<AccountUpdateData>,
   ): Promise<Account> => {
-    const { data, error } = await this.supabase
-      .from<Account>(TableKeys.Accounts)
+    const { data, error } = await this.client
+      .from<Account>(ACCOUNTS_TABLE)
       .update(updateData)
       .eq('email', email)
       .maybeSingle()

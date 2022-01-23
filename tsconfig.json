@@ -37,6 +37,7 @@
     "paths": {
       "@/app/*": ["./src/app/*"],
       "@/configs/*": ["./src/configs/*"],
+      "@/data/*": ["./src/data/*"],
       "@/modules/*": ["./src/modules/*"],
       "@/ui/*": ["./src/ui/*"],
       "@/lib/*": ["./src/lib/*"],
@@ -45,8 +46,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
   "exclude": [
     "node_modules",

@@ -13,8 +13,8 @@ export type Services = {
 
 export const initServices = (): Services => {
   return {
-    auth: new AuthService(supabase),
-    account: new AccountService(supabase),
+    auth: AuthService.instance(),
+    account: AccountService.instance(),
     timesheet: new TimesheetService(supabase),
     shift: new ShiftService(supabase),
   }

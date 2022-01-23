@@ -4,15 +4,15 @@ export enum RolesEnum {
   SUPERVISOR = 'Supervisor',
 }
 
-export const RoleIDs = {
+export const RoleIds = {
   [RolesEnum.ADMIN]: 'admin',
   [RolesEnum.EMPLOYEE]: 'employee',
   [RolesEnum.SUPERVISOR]: 'supervisor',
 } as const
 
-export type RoleID = typeof RoleIDs[RolesEnum]
+export type RoleId = typeof RoleIds[RolesEnum]
 
 export interface Role {
-  id: PrimaryKey<RoleID>
-  name: RoleID
+  id: PrimaryKey<RoleId>
+  name: RoleId
 }

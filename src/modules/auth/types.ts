@@ -1,5 +1,5 @@
+import { Account } from '@/data/models/account'
 import { PageProps } from '@/modules/core/types/PageProps'
-import { Account } from '@/modules/models/Account'
 
 export type AuthPageProps = PageProps<{ account?: Account }>
 

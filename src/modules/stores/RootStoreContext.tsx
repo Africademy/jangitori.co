@@ -30,3 +30,11 @@ export function useServices(): Services {
   const { services } = useRootStore()
   return services
 }
+
+export function useAuthService() {
+  return useRootStore().services.auth
+}
+
+export function useAccountService() {
+  return useRootStore().services.account
+}

@@ -1,6 +1,6 @@
 import millisecondsToMinutes from 'date-fns/millisecondsToMinutes'
 
-import { TimeEntry } from '@/modules/models/TimeEntry'
+import { TimeEntry } from '@/data/models/timeEntry'
 import { buildTimeEntriesRows } from '@/modules/timesheets/TimesheetDetailsPage/buildTimeEntriesRows'
 
 export function computeMinutesWorked(timeEntries: TimeEntry[]): number {

@@ -1,24 +1,29 @@
 import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 
+import { AccountUpdateData } from '@/data/models/account'
 import { createLogger } from '@/lib/logger'
 import { routes } from '@/lib/routes'
 import { waitFor } from '@/lib/waitFor'
+import { AccountService } from '@/modules/accounts/AccountService'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
-import { AccountUpdateData } from '@/modules/models/Account'
-import { Services } from '@/modules/stores/services'
 
+import { AuthService } from '../AuthService'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
 
 const fileLabel = 'modules/auth/SignUpPage/SignUpStore'
 const logger = createLogger({ fileLabel })
 
+export enum SignUpStep {
+  Auth,
+  Confirm,
+}
 export class SignUpStore {
   authCreds: EmailPasswordCreds = { email: '', password: '' }
   initialAccount: Partial<AccountUpdateData> = {}
 
-  currentStep = 0
+  currentStep: SignUpStep = SignUpStep.Auth
   error: string | null = null
   isLoading = false
 
@@ -58,9 +63,7 @@ export class SignUpStore {
     this.setError(null)
     try {
       /* Get existing account data */
-      const initialAccount = await this.services.account.getAccountByEmail(
-        email,
-      )
+      const initialAccount = await this.accountService.getAccountByEmail(email)
       if (!initialAccount) throw new UnauthorizedUserCredentialsError()
       /* Check if user is already registered */
       if (initialAccount.uid !== null) {
@@ -86,12 +89,12 @@ export class SignUpStore {
     this.setIsLoading(true)
     try {
       /* Register account with email and password */
-      const authUser = await this.services.auth.signUp(formData)
+      const authUser = await this.authService.signUp(formData)
       logger.info(`✅ registered account for email ${formData.email}`)
       await waitFor(500)
 
       /* Write any changes to account info to DB */
-      const updatedAccount = await this.services.account.updateAccountByEmail(
+      const updatedAccount = await this.accountService.updateAccountByEmail(
         formData.email,
         {
           ...initialAccount,
@@ -109,8 +112,9 @@ export class SignUpStore {
   }
 
   constructor(
-    private services: Pick<Services, 'auth' | 'account'>,
     private authStore: AuthStore,
+    private authService: AuthService = AuthService.instance(),
+    private accountService: AccountService = AccountService.instance(),
   ) {
     makeAutoObservable(this, {
       onChange: action.bound,
