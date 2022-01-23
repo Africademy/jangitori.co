@@ -3,13 +3,11 @@ import { when } from 'mobx'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
-import { createLogger } from '@/lib/logger'
+import { logger } from '@/infra/logger'
 import { isAuthRequiredPathname, routes } from '@/lib/routes'
 import supabase from '@/lib/supabase'
 import updateAuthCookie from '@/modules/auth/updateAuthCookie'
 import { useAuthStore } from '@/modules/stores'
-
-const logger = createLogger({ fileLabel: 'app/AuthListener' })
 
 export interface AuthListenerProps {
   children: ReactNode

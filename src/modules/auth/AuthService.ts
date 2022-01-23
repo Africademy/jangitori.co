@@ -1,11 +1,8 @@
 import { Session, User as AuthUser, UserCredentials } from '@supabase/gotrue-js'
 import { SupabaseClient } from '@supabase/supabase-js'
 
-import { NullResponsePropertyError } from '@/lib/errors'
-import { createLogger } from '@/lib/logger'
+import { logger } from '@/infra/logger'
 import supabase from '@/lib/supabase'
-
-const logger = createLogger({ fileLabel: 'modules/auth/auth-service' })
 
 function handleResponse<
   Err extends { message: string } = { message: string },

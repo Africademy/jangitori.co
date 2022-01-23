@@ -4,15 +4,11 @@ import Downshift, { GetRootPropsOptions } from 'downshift'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-import { createLogger } from '@/lib/logger'
+import { logger } from '@/infra/logger'
 import { routes } from '@/lib/routes'
 import { useRootStore, useServices } from '@/modules/stores'
 
 import { Avatar } from './Avatar'
-
-const logger = createLogger({
-  fileLabel: 'modules/dashboard/dashboard-layout/user-dropdown',
-})
 
 interface Item {
   value: string

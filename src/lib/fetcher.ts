@@ -1,8 +1,5 @@
-import { createLogger } from '@/lib/logger'
+import { logger } from '@/infra/logger'
 
-const logger = createLogger({
-  fileLabel: 'lib/fetcher',
-})
 export async function fetcher<JSON = any>(
   input: RequestInfo,
   init?: RequestInit,
