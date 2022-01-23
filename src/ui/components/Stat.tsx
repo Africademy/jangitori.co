@@ -11,7 +11,7 @@ export const BasicStat: React.FunctionComponent<StatProps> = ({
   data,
 }) => {
   return (
-    <ExternalStat className="stat">
+    <ExternalStat className="stat" w="100%">
       <StatLabel>{label}</StatLabel>
       <StatNumber>{`${data}`}</StatNumber>
     </ExternalStat>

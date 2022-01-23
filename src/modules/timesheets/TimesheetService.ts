@@ -78,4 +78,19 @@ export class TimesheetService {
 
     return data[0]
   }
+
+  async getTotalHours(args: {
+    employee: string
+    payPeriodEnd: string
+  }): Promise<number> {
+    const { data, error } = await this.client
+      .from<Timesheet>(Tables.TIMESHEETS)
+      .select('totalHours')
+      .match(args)
+      .maybeSingle()
+
+    if (error) throw error
+
+    return data?.totalHours ?? 0
+  }
 }
