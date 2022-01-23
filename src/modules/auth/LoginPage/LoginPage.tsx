@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import AuthForm from '@/modules/auth/AuthForm'
-import { AuthFormVM } from '@/modules/auth/AuthFormVM'
 import { AuthPageProps, EmailPasswordCreds } from '@/modules/auth/types'
+import { FormStore } from '@/modules/form/FormStore'
 import { useRootStore, useServices } from '@/modules/stores'
 
 const LoginPageCopy = {
@@ -19,26 +19,21 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
   const router = useRouter()
   const { auth: authService, user: userService } = useServices()
 
-  const authFormVM = useMobXStore(() => new AuthFormVM())
+  const authFormVM = useMobXStore(
+    () =>
+      new FormStore<EmailPasswordCreds>(
+        { email: '', password: '' },
+        handleSubmit,
+      ),
+  )
 
   async function handleSubmit(formData: EmailPasswordCreds) {
-    try {
-      authFormVM.setError(null)
-      authFormVM.setBusy(true)
-      const { authUser, session } = await authService.signIn(formData)
-      const user = await userService.getUser({ uid: authUser.id })
-      authStore.setSession(session)
-      authStore.setUser(user)
-      router.push(routes.dashboardPage(user.role, 'overview'))
-    } catch (error) {
-      alert((error as Error).message)
-      authFormVM.setError((error as Error).message)
-    } finally {
-      authFormVM.setBusy(false)
-    }
+    const { authUser, session } = await authService.signIn(formData)
+    const user = await userService.getUser({ uid: authUser.id })
+    authStore.setSession(session)
+    authStore.setUser(user)
+    router.push(routes.dashboardPage(user.role, 'overview'))
   }
 
-  return (
-    <AuthForm copy={LoginPageCopy} vm={authFormVM} onSubmit={handleSubmit} />
-  )
+  return <AuthForm copy={LoginPageCopy} vm={authFormVM} />
 }

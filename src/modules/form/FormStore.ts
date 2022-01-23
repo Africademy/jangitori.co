@@ -1,22 +1,46 @@
-import { makeAutoObservable } from 'mobx'
+import { action, makeAutoObservable } from 'mobx'
 
-export class FormStore<
-  Data extends Record<string, string> = Record<string, string>,
-> {
+import { RequestStore } from '@/modules/auth/SignUpPage/RequestStore'
+
+export class FormStore<Data extends { [k: string]: string }> {
   data: Data
-  error: string | null = null
-  busy = false
+  request: RequestStore = new RequestStore()
 
-  constructor(initialData: Data) {
-    this.data = initialData
-    makeAutoObservable(this)
+  _onSubmit: (data: Data) => Promise<void>
+
+  async onSubmit(e: React.FormEvent): Promise<void> {
+    e.preventDefault()
+    const data = this.data
+    this.request.start()
+    try {
+      await this._onSubmit(data)
+    } catch (error) {
+      this.request.setError(error)
+    } finally {
+      this.request.setBusy(false)
+    }
   }
 
   get isConfirmDisabled(): boolean {
     return !Object.values(this.data).every(Boolean)
   }
 
-  onChange(field: keyof Data, value: Data[keyof Data]) {
-    this.data[field] = value
+  constructor(initialData: Data, onSubmit: (data: Data) => Promise<void>) {
+    this.data = initialData
+    this._onSubmit = onSubmit
+    makeAutoObservable(this, {
+      onSubmit: action.bound,
+      _onSubmit: false,
+      handleChange: false,
+    })
+  }
+
+  handleChange = (field: keyof Data) =>
+    action((event: React.ChangeEvent<HTMLInputElement>) => {
+      this.onChange(field, event.currentTarget.value)
+    })
+
+  onChange(field: keyof Data, value: string) {
+    this.data[field] = value as Data[keyof Data]
   }
 }

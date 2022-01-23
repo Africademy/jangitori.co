@@ -1,34 +1,22 @@
-import { runInAction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import { ChangeEvent } from 'react'
 
-import { EmailPasswordCreds } from '@/modules/auth/types'
+import { FormStore } from '@/modules/form/FormStore'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
-import { AuthFormVM } from './AuthFormVM'
-import { AuthFormFieldName } from './types'
-
-const AuthForm = observer(function AuthForm({
+const AuthForm = observer(function AuthForm<
+  Data extends { [k: string]: string },
+>({
   copy,
-  onSubmit,
-  vm = new AuthFormVM(),
-  error,
+  vm,
 }: {
   copy: { title: string; question: string; action: string; actionHref: string }
-  vm?: AuthFormVM
-  error?: string | Falsy
-  onSubmit: (formData: EmailPasswordCreds) => void
+  vm: FormStore<Data>
 }) {
   const handleChange =
-    (field: AuthFormFieldName) => (event: ChangeEvent<HTMLInputElement>) => {
+    (field: keyof Data) => (event: React.ChangeEvent<HTMLInputElement>) => {
       vm.onChange(field, event.currentTarget.value)
     }
-
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
-    runInAction(() => onSubmit({ email: vm.email, password: vm.password }))
-  }
 
   return (
     <>
@@ -48,9 +36,9 @@ const AuthForm = observer(function AuthForm({
             </p>
           </div>
 
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-8 space-y-6" onSubmit={vm.onSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <ErrorMessage>{error ?? vm.error}</ErrorMessage>
+            <ErrorMessage>{vm.request.error?.message}</ErrorMessage>
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -89,7 +77,7 @@ const AuthForm = observer(function AuthForm({
                 type="submit"
                 className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                {vm.busy ? 'Loading...' : copy.title}
+                {vm.request.busy ? 'Loading...' : copy.title}
               </button>
             </div>
           </form>

@@ -15,10 +15,7 @@ export const SignUpPage = observer(function SignUpPage() {
 
   if (vm.stepper.step === SignUpSteps.Auth) {
     return (
-      <AuthForm
-        copy={SubmitCredsCopy}
-        onSubmit={vm.submitCredsVM.onSubmitCreds}
-      />
+      <AuthForm copy={SubmitCredsCopy} onSubmit={vm.submitCredsVM.onSubmit} />
     )
   }
 

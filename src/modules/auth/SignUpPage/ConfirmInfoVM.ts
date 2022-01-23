@@ -19,7 +19,7 @@ export class ConfirmInfoVM {
   handleError(error: unknown) {
     logger.error('❌ Error: ' + (error as Error).message)
     alert((error as Error).message)
-    this.request.setError((error as Error).message)
+    this.request.setError(error)
   }
 
   async onConfirmInfo(userInfo: UserInfo) {

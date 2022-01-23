@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx'
 
 export class RequestStore {
-  error: string | null = null
+  error: Error | null = null
   busy = false
 
-  setError(val: string | null) {
-    this.error = val
+  setError(val: unknown | null) {
+    this.error = val === null ? null : (val as Error)
   }
 
   setBusy(val: boolean) {
