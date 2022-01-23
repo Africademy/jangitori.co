@@ -18,7 +18,7 @@ export const OverviewPage = function OverviewPage(
     <>
       <Padding px={12}>
         <Col gap={6}>
-          <Flex justify="start" w="100%">
+          <Flex w="100%">
             <Heading size="md" fontWeight="medium" textAlign="left">
               Overview
             </Heading>
