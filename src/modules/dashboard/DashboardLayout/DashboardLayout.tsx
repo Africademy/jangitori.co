@@ -1,8 +1,9 @@
-import { Box, Container, Flex } from '@chakra-ui/react'
-import { css, useTheme } from '@emotion/react'
+import { Box } from '@chakra-ui/react'
+import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
-import { useRootStore } from '@/modules/stores'
+import { useAuthStore } from '@/modules/stores'
+import { StyledFlex } from '@/ui/atoms/Flex'
 import { largerThan, smallerThan } from '@/ui/utils/breakpoints'
 
 import AccountDropdown, { getAccountDropdownProps } from './AccountDropdown'
@@ -15,24 +16,20 @@ const DashboardLayout = function DashboardLayout({
   return (
     <>
       <DashboardHeader />
-      <Container maxW="100%" minW="100vw" p={0}>
-        {children}
-      </Container>
+      {children}
     </>
   )
 }
 
 export const DashboardHeader = observer(function Header() {
-  const { authStore } = useRootStore()
+  const authStore = useAuthStore()
   return (
-    <Flex
-      justify="end"
-      align="center"
-      minW="100vw"
-      h={14}
-      bg="#fff"
+    <StyledFlex
+      justifyContent="end"
+      minWidth="100vw"
+      height={14}
+      background="#fff"
       px={6}
-      shadow={'md'}
     >
       <Box
         css={css`
@@ -48,7 +45,7 @@ export const DashboardHeader = observer(function Header() {
           <AccountDropdown {...getAccountDropdownProps(authStore.user)} />
         )}
       </Box>
-    </Flex>
+    </StyledFlex>
   )
 })
 

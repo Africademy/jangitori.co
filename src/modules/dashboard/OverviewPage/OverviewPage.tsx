@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { RoleIds } from '@/data/models/role'
 import { routes } from '@/lib/routes'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
-import { Col } from '@/ui/atoms/Col'
+import { Col } from '@/ui/atoms/Flex'
 import Padding from '@/ui/atoms/Padding'
 import { ClockIcon } from '@/ui/icons/ClockIcon'
 

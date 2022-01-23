@@ -1,3 +1,7 @@
+import { css } from '@emotion/react'
+
+import { StyledProps } from '@/lib/styled/types'
+
 export const rem = (px: number): string => `${px / 16}rem`
 
 const spacings = {
@@ -55,3 +59,10 @@ export const spacing = (...args: (Space | number)[]) => {
 
   return res
 }
+
+export type GapProps = { gap?: number }
+
+export const gap = ({ gap = 0 }: StyledProps<GapProps>) =>
+  css`
+    gap: ${rem(gap * 3)};
+  `

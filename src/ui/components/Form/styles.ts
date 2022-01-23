@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 
-import { StyledProps } from '@/lib/emotion/types'
+import { StyledProps } from '@/lib/styled/types'
 import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
