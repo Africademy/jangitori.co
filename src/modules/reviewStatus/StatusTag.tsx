@@ -36,7 +36,6 @@ export const StatusTag = ({ status }: StatusTagProps) => {
       borderRadius={theme.radii['3xl']}
       fontSize="sm"
       px={3}
-      lineHeight={1}
     >
       <Flex
         display="flex"

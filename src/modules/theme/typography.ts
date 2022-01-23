@@ -27,7 +27,6 @@ const lineHeights = {
 }
 
 const fontWeights = {
-  light: 300,
   normal: 400,
   medium: 500,
   semibold: 600,
@@ -40,7 +39,4 @@ export const typography = {
   fontSizes,
   lineHeights,
   fontWeights,
-  text: {
-    heading: { fontSize: fontSizes['2xl'], fontWeight: fontWeights.bold },
-  },
 }

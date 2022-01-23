@@ -82,7 +82,7 @@ const globalStyles = css`
   }
 
   p {
-    line-height: ${typography.lineHeights.body};
+    line-height: ${typography.lineHeights.none} !important;
   }
 
   h1,
@@ -91,9 +91,9 @@ const globalStyles = css`
   h4,
   h5,
   h6 {
-    font-family: ${typography.fonts.heading};
-    font-weight: ${typography.fontWeights.medium};
-    line-height: ${typography.lineHeights.heading};
+    font-family: ${typography.fonts.heading} !important;
+    font-weight: ${typography.fontWeights.medium} !important;
+    line-height: ${typography.lineHeights.heading} !important;
   }
 `
 

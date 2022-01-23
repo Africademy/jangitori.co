@@ -24,9 +24,7 @@ export const Meta = ({ leftIcon: LeftIcon, text }: MetaProps) => {
       `}
     >
       <LeftIcon />
-      <Typography lineHeight={1} fontSize={theme.fontSizes.sm}>
-        {text}
-      </Typography>
+      <Typography fontSize={theme.fontSizes.sm}>{text}</Typography>
     </Flex>
   )
 }

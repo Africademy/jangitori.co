@@ -31,12 +31,7 @@ export const TimesheetsPage = ({ account }: AuthenticatedPageProps) => {
         <Box position="absolute" left={6}>
           <BackButton />
         </Box>
-        <Heading
-          size="md"
-          fontWeight="medium"
-          lineHeight={1}
-          textAlign="center"
-        >
+        <Heading size="md" fontWeight="medium" textAlign="center">
           Timesheets
         </Heading>
       </Flex>

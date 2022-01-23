@@ -81,10 +81,8 @@ export const ShiftWorkTime = () => {
         justify="space-between"
         align="center"
       >
-        <Box lineHeight={1}>Total hours for today</Box>
-        <Box fontWeight="semibold" lineHeight={1}>
-          {'01:45:00'}
-        </Box>
+        <Box>Total hours for today</Box>
+        <Box fontWeight="semibold">{'01:45:00'}</Box>
       </Flex>
     </>
   )
