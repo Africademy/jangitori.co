@@ -50,7 +50,7 @@ export class SignUpStore {
     this.emailPasswordCreds = value
   }
 
-  setInitialUserInfo(value: Whitelist) {
+  setInitialUser(value: Whitelist) {
     this.initialUser = value
   }
 
@@ -78,7 +78,7 @@ export class SignUpStore {
         throw new Error('Already registered an user for this email.')
       }
 
-      this.setInitialUserInfo(whitelist)
+      this.setInitialUser(whitelist)
       this.stepper.increment()
     } catch (error) {
       this.handleError(error)
