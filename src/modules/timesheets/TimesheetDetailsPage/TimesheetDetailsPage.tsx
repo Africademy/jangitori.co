@@ -6,7 +6,7 @@ import React from 'react'
 import { mergeErrorMessages } from '@/lib/errors'
 import { StatusTag } from '@/modules/reviewStatus'
 import { computeHoursWorked } from '@/modules/timeClock/computeTimeWorked'
-import { TimeClockButton } from '@/modules/timeClock/TimeClockButton'
+import { ShiftToggleButton } from '@/modules/timeClock/ShiftToggleButton'
 import { H3 } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 import LoadingStack from '@/ui/components/LoadingStack'
@@ -74,7 +74,7 @@ const TimesheetDetailsPage: React.FunctionComponent<
               }
             `}
           >
-            <TimeClockButton />
+            <ShiftToggleButton />
           </Box>
         </VStack>
       </PageHeading>

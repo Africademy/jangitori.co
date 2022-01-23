@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import { CurrentLocation } from '@/modules/geolocation/CurrentLocation'
 
-import { TimeClockButton } from './TimeClockButton'
+import { ShiftToggleButton } from './ShiftToggleButton'
 import { EndShiftCopy } from './TimeClockCopy'
 
 export const EndShift = () => {
@@ -15,7 +15,7 @@ export const EndShift = () => {
     <>
       <ShiftWorkTime />
       <VStack w="100%" gap={3}>
-        <TimeClockButton
+        <ShiftToggleButton
           onEndShift={() => router.push('/dashboard/employee/overview')}
         />
       </VStack>

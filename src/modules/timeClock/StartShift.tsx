@@ -8,7 +8,7 @@ import LoadingStack from '@/ui/components/LoadingStack'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
-import { TimeClockButton } from './TimeClockButton'
+import { ShiftToggleButton } from './ShiftToggleButton'
 
 export const StartShift = observer(function StartShift({
   employee,
@@ -24,7 +24,7 @@ export const StartShift = observer(function StartShift({
         <BottomSection>
           {locationStore.coords ? (
             <VStack w="100%" px={5} gap={3}>
-              <TimeClockButton />
+              <ShiftToggleButton />
               <CurrentTimesheetButton employee={employee} />
             </VStack>
           ) : (

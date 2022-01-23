@@ -68,6 +68,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.1.1",
+    "styled-system": "^5.1.5",
     "swr": "^1.1.2",
     "tiny-invariant": "^1.2.0"
   },
@@ -90,6 +91,7 @@
     "@types/pino": "^7.0.5",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/styled-system": "^5.1.15",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "@zeit/next-source-maps": "^0.0.3",

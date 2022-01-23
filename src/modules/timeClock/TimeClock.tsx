@@ -14,7 +14,7 @@ export const employeeRoutes = {
   timesheets: 'timesheets',
 }
 
-export const TimeClockFeature = observer(function TimeClockFeature({
+export const TimeClock = observer(function TimeClock({
   user: employee,
 }: AuthenticatedPageProps) {
   const shiftStore = useShiftStore()

@@ -5,13 +5,13 @@ import React from 'react'
 
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
-export interface TimeClockButtonProps {
+export interface ShiftToggleButtonProps {
   onEndShift?: () => void
 }
 
-export const TimeClockButton = observer(function TimeClockButton({
+export const ShiftToggleButton = observer(function ShiftToggleButton({
   onEndShift,
-}: TimeClockButtonProps) {
+}: ShiftToggleButtonProps) {
   const theme = useTheme()
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()

@@ -6,7 +6,7 @@ import { Timesheet } from '@/data/models/timesheet'
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { useServices } from '@/modules/stores'
 import { timesheetQueryKeys } from '@/modules/timesheets/timesheetQueryKeys'
-import BasePadding from '@/ui/atoms/BasePadding'
+import Padding from '@/ui/atoms/Padding'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
 import TimesheetsTable from './TimesheetsTable'
@@ -35,9 +35,7 @@ export const TimesheetsPage = ({ user }: AuthenticatedPageProps) => {
           Timesheets
         </Heading>
       </Flex>
-      <BasePadding>
-        {timesheets && <TimesheetsTable data={timesheets} />}
-      </BasePadding>
+      <Padding>{timesheets && <TimesheetsTable data={timesheets} />}</Padding>
     </>
   )
 }
