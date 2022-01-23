@@ -13,21 +13,33 @@ import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
+import { UserInfo } from './types'
 
 const fileLabel = 'modules/auth/SignUpPage/SignUpStore'
 const logger = createLogger({ fileLabel })
 
-export enum SignUpStep {
+export enum SignUpSteps {
   Auth,
   Confirm,
 }
 export class SignUpStore {
-  authCreds: EmailPasswordCreds = { email: '', password: '' }
+  emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
   initialUser: Whitelist | null = null
 
-  currentStep: SignUpStep = SignUpStep.Auth
+  currentStep: SignUpSteps = SignUpSteps.Auth
   error: string | null = null
   isLoading = false
+
+  get userInfo(): UserInfo | null {
+    const initialUser = this.initialUser
+    if (!initialUser) return null
+    return {
+      email: initialUser.email,
+      phone: initialUser.phone,
+      firstName: initialUser.firstName,
+      lastName: initialUser.lastName,
+    }
+  }
 
   get invariantInitialUser(): Whitelist {
     const initialUser = this.initialUser
@@ -37,13 +49,17 @@ export class SignUpStore {
 
   get isConfirmDisabled(): boolean {
     return (
-      !Object.values(this.authCreds).every(Boolean) ||
+      !Object.values(this.emailPasswordCreds).every(Boolean) ||
       !Object.values(this.invariantInitialUser).every(Boolean)
     )
   }
 
+  setEmailPasswordCreds(value: EmailPasswordCreds) {
+    this.emailPasswordCreds = value
+  }
+
   onChange(field: keyof EmailPasswordCreds, value: string) {
-    this.authCreds[field] = value
+    this.emailPasswordCreds[field] = value
   }
 
   setInitialUserInfo(value: Whitelist) {
@@ -84,7 +100,7 @@ export class SignUpStore {
       }
 
       this.setInitialUserInfo(whitelist)
-      this.currentStep = SignUpStep.Confirm
+      this.currentStep = SignUpSteps.Confirm
     } catch (error) {
       this.handleError(error)
     } finally {
@@ -95,7 +111,7 @@ export class SignUpStore {
   async onSubmitConfirmation(event: React.FormEvent) {
     event.preventDefault()
 
-    const formData = this.authCreds
+    const formData = this.emailPasswordCreds
     const initialUser = this.invariantInitialUser
 
     this.setError(null)

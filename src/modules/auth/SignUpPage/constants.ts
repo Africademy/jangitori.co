@@ -1,9 +1,9 @@
 import { routes } from '@/lib/routes'
 
-export enum SignUpStep {
-  Auth,
-  Confirm,
-}
+export const SignUpSteps = {
+  Auth: 'auth',
+  Confirm: 'confirm',
+} as const
 
 export const SignUpAuthFormCopy = {
   title: 'Sign up',

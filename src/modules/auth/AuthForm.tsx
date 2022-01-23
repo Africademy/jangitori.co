@@ -12,11 +12,11 @@ import { AuthFormFieldName } from './types'
 const AuthForm = observer(function AuthForm({
   copy,
   onSubmit,
-  vm,
+  vm = new AuthFormVM(),
   error,
 }: {
   copy: { title: string; question: string; action: string; actionHref: string }
-  vm: AuthFormVM
+  vm?: AuthFormVM
   error?: string | Falsy
   onSubmit: (formData: EmailPasswordCreds) => void
 }) {
