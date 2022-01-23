@@ -1,8 +1,9 @@
-import { Box, Container, Flex, Skeleton, Stack, VStack } from '@chakra-ui/react'
+import { Box, Container, Flex, VStack } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { useLocationStore } from '@/modules/stores'
+import LoadingStack from '@/ui/components/LoadingStack'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
 import { HoursToday } from './HoursToday'
@@ -48,13 +49,7 @@ export const TimeClockActions = observer(function TimeClockActions() {
       </VStack>
     )
 
-  return (
-    <Stack>
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-      <Skeleton height="20px" />
-    </Stack>
-  )
+  return <LoadingStack />
 })
 
 export const Overlay = ({ children }) => {

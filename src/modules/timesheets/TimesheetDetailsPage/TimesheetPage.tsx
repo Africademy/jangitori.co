@@ -9,7 +9,7 @@ import { computeHoursWorked } from '@/modules/timeClock/computeTimeWorked'
 import { TimeClockButton } from '@/modules/timeClock/TimeClockButton'
 import { H3 } from '@/ui/atoms/Typography'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
-import { LoadingVStack } from '@/ui/components/LoadingVStack'
+import LoadingStack from '@/ui/components/LoadingStack'
 import { CalculatorIconSolid } from '@/ui/icons/CalculatorIcon'
 import { CalendarIconSolid } from '@/ui/icons/CalendarIcon'
 import { Meta } from '@/ui/molecules/Meta'
@@ -43,7 +43,7 @@ const TimesheetPage: React.FunctionComponent<TimesheetPageProps> = ({
   const timesheetData = timesheet.data
   const timeEntriesData = timeEntries.data
 
-  if (!timesheetData || !timeEntriesData) return <LoadingVStack />
+  if (!timesheetData || !timeEntriesData) return <LoadingStack />
 
   return (
     <>

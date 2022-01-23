@@ -6,7 +6,7 @@ import { waitFor } from '@/lib/waitFor'
 import AuthForm from '@/modules/auth/AuthForm'
 import { EmailPasswordCreds } from '@/modules/auth/types'
 import { useAuthService, useAuthStore, useUserService } from '@/modules/stores'
-import { LoadingVStack } from '@/ui/components/LoadingVStack'
+import LoadingStack from '@/ui/components/LoadingStack'
 
 import { ConfirmUserInfo } from './ConfirmUserInfo'
 import { SignUpAuthFormCopy, SignUpSteps } from './constants'
@@ -72,7 +72,7 @@ export const SignUp = observer(function SignUp({
     }
   }
 
-  if (!signUpStore.userInfo) return <LoadingVStack />
+  if (!signUpStore.userInfo) return <LoadingStack />
 
   return (
     <ConfirmUserInfo
