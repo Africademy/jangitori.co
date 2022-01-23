@@ -9,9 +9,11 @@ const AuthForm = observer(function AuthForm<
 >({
   copy,
   vm,
+  onSubmit,
 }: {
   copy: { title: string; question: string; action: string; actionHref: string }
   vm: FormStore<Data>
+  onSubmit?: (data: Data) => any
 }) {
   const handleChange =
     (field: keyof Data) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +22,7 @@ const AuthForm = observer(function AuthForm<
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault()
-    vm.onSubmit()
+    onSubmit ? onSubmit(vm.data) : vm.onSubmit()
   }
 
   return (

@@ -1,21 +1,29 @@
-import { makeAutoObservable } from 'mobx'
+import { action, makeAutoObservable } from 'mobx'
 import Router from 'next/router'
 import invariant from 'tiny-invariant'
 
 import { User } from '@/data/models/user'
 import { Whitelist } from '@/data/models/whitelist'
+import { UserService } from '@/data/users/userService'
+import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { routes } from '@/lib/routes'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { EmailPasswordCreds } from '@/modules/auth/types'
+import { FormStore } from '@/modules/form/FormStore'
 
 import { ConfirmInfoVM } from './ConfirmInfoVM'
 import { SignUpSteps } from './constants'
+import { UnauthorizedUserCredentialsError } from './signUpErrors'
 import { StepperStore } from './StepperStore'
-import { SubmitCredsVM } from './SubmitCredsVM'
 import { UserInfo } from './types'
 
 export class SignUpVM {
-  submitCredsVM = new SubmitCredsVM(this)
+  submitCredsVM = new FormStore<EmailPasswordCreds>(
+    { email: '', password: '' },
+    this.onSubmitCreds,
+  )
+  confirmInfoVM = new ConfirmInfoVM(this)
+
   emailPasswordCreds: EmailPasswordCreds = { email: '', password: '' }
   initialUser: Whitelist | null = null
 
@@ -60,16 +68,30 @@ export class SignUpVM {
     Router.router?.push(routes.dashboardPage(user.role, 'overview'))
   }
 
-  _confirmInfoVM: ConfirmInfoVM | null = null
+  async onSubmitCreds(emailPasswordCreds: EmailPasswordCreds) {
+    const { email } = emailPasswordCreds
+    /* Get existing user data */
+    const whitelist = await WhitelistService.instance().findWhitelist({
+      email,
+    })
+    if (!whitelist) throw new UnauthorizedUserCredentialsError()
 
-  get confirmInfoVM(): ConfirmInfoVM {
-    if (!this._confirmInfoVM) {
-      this._confirmInfoVM = new ConfirmInfoVM(this)
+    const initialUser = await UserService.instance().findUser({ email })
+
+    /* Check if user is already registered */
+    if (initialUser) {
+      throw new Error('Already registered an user for this email.')
     }
-    return this._confirmInfoVM
+
+    this.setInitialUser(whitelist)
+    this.setEmailPasswordCreds(emailPasswordCreds)
+    this.stepper.increment()
   }
 
   constructor(private authStore: AuthStore) {
-    makeAutoObservable(this, {})
+    makeAutoObservable(this, {
+      onSubmitCreds: action.bound,
+      setInitialUser: action.bound,
+    })
   }
 }
