@@ -1,6 +1,5 @@
 import { action, makeAutoObservable } from 'mobx'
 
-import { UserService } from '@/data/users/userService'
 import { WhitelistService } from '@/data/whitelists/whitelistService'
 import { logger } from '@/infra/logger'
 import { EmailPasswordCreds } from '@/modules/auth/types'
@@ -29,13 +28,6 @@ export class SubmitCredsVM {
       })
       if (!whitelist) throw new UnauthorizedUserCredentialsError()
 
-      const initialUser = await this.userService.findUser({ email })
-
-      /* Check if user is already registered */
-      if (initialUser) {
-        throw new Error('Already registered an user for this email.')
-      }
-
       this.signUpVM.setInitialUser(whitelist)
       this.signUpVM.setEmailPasswordCreds(emailPasswordCreds)
       this.signUpVM.stepper.increment()
@@ -49,7 +41,6 @@ export class SubmitCredsVM {
   constructor(
     private signUpVM: SignUpVM,
     private whitelistService: WhitelistService = WhitelistService.instance(),
-    private userService: UserService = UserService.instance(),
   ) {
     makeAutoObservable(this, {
       onSubmitCreds: action.bound,
