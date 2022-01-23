@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 
-import { baseCardStyles } from '@/ui/components/Card/styles'
 import { largerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
@@ -10,7 +9,8 @@ import {
   FormHeader,
   FormSubmit,
   FormSubtitle,
-} from './Form.components'
+} from './components'
+import { baseCardStyles } from './styles'
 
 const StyledForm = styled.form`
   ${baseCardStyles}

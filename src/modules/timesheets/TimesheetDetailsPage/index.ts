@@ -1,3 +1,3 @@
-import TimesheetPage from './TimesheetPage'
+import TimesheetDetailsPage from './TimesheetDetailsPage'
 
-export default TimesheetPage
+export default TimesheetDetailsPage

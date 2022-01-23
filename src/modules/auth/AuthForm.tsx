@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 
-import { FormStore } from '@/lib/form/FormStore'
+import { FormStore } from '@/lib/mobx/FormStore'
 import { ErrorMessage } from '@/ui/components/ErrorMessage'
 
 const AuthForm = observer(function AuthForm<

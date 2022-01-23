@@ -9,12 +9,13 @@ const WideButton = dynamic(() => import('@/ui/atoms/Button/WideButton'))
 
 import dynamic from 'next/dynamic'
 
+import { IComponent, ParentComponentProps } from '@/ui/types'
+
 import {
   baseCardFooterStyles,
   baseCardHeaderStyles,
   baseCardSubtitleStyles,
-} from '@/ui/components/Card/styles'
-import { IComponent, ParentComponentProps } from '@/ui/types'
+} from './styles'
 
 export const FormSubmit: IComponent<ButtonProps> = ({ children, ...props }) => {
   return (

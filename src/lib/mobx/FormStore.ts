@@ -1,6 +1,6 @@
 import { action, makeAutoObservable } from 'mobx'
 
-import { RequestStore } from '@/lib/request/RequestStore'
+import { RequestStore } from '@/lib/mobx/RequestStore'
 
 export class FormStore<Data extends { [k: string]: string }> {
   data: Data

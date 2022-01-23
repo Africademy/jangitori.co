@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { runInAction } from 'mobx'
 
 import { FormFieldProps } from '@/lib/form/FormFieldProps'
-import { FormStore } from '@/lib/form/FormStore'
+import { FormStore } from '@/lib/mobx/FormStore'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import { Typography } from '@/ui/atoms/Typography'

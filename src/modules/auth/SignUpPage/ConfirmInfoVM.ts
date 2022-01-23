@@ -4,7 +4,7 @@ import { UserService } from '@/data/users/userService'
 import { logger } from '@/infra/logger'
 import { waitFor } from '@/lib/waitFor'
 
-import { RequestStore } from '../../../lib/request/RequestStore'
+import { RequestStore } from '../../../lib/mobx/RequestStore'
 import { AuthService } from '../AuthService'
 import { UserInfo } from '../types'
 import { SignUpVM } from './SignUpVM'

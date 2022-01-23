@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { FormStore } from '@/lib/form/FormStore'
+import { FormStore } from '@/lib/mobx/FormStore'
 import { useMobXStore } from '@/lib/mobx/useMobXStore'
 import { routes } from '@/lib/routes'
 import AuthForm from '@/modules/auth/AuthForm'

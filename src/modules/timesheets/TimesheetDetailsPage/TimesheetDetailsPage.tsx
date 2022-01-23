@@ -20,13 +20,13 @@ import { TimesheetsBreadcrumbs } from '../TimesheetsBreadcrumbs'
 import { PageHeading } from './components'
 import { useTimesheetDetails } from './useTimesheetDetails'
 
-export interface TimesheetPageProps {
+export interface TimesheetDetailsPageProps {
   query: TimesheetDetailsQuery
 }
 
-const TimesheetPage: React.FunctionComponent<TimesheetPageProps> = ({
-  query: { employee, payPeriodEnd },
-}) => {
+const TimesheetDetailsPage: React.FunctionComponent<
+  TimesheetDetailsPageProps
+> = ({ query: { employee, payPeriodEnd } }) => {
   const { timesheet, timeEntries } = useTimesheetDetails({
     employee,
     payPeriodEnd,
@@ -82,4 +82,4 @@ const TimesheetPage: React.FunctionComponent<TimesheetPageProps> = ({
   )
 }
 
-export default TimesheetPage
+export default TimesheetDetailsPage

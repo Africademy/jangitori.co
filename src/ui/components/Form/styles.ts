@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 
 import { StyledProps } from '@/lib/emotion/types'
+import { smallerThan } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 export const baseCardStyles = ({ theme }: StyledProps) =>
@@ -21,8 +22,6 @@ export const baseCardHeaderStyles = css`
   flex-direction: column;
   gap: ${spacing(2)};
 `
-
-import { smallerThan } from '@/ui/utils/breakpoints'
 
 export const baseCardSubtitleStyles = css`
   font-size: 1.125rem;

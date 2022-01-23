@@ -6,18 +6,18 @@ import { User } from '@/data/models/user'
 import { Whitelist } from '@/data/models/whitelist'
 import { UserService } from '@/data/users/userService'
 import { WhitelistService } from '@/data/whitelists/whitelistService'
-import { FormStore } from '@/lib/form/FormStore'
+import { FormStore } from '@/lib/mobx/FormStore'
 import { routes } from '@/lib/routes'
 import { waitFor } from '@/lib/waitFor'
 import { AuthStore } from '@/modules/auth/AuthStore'
 import { initEmailPasswordCreds } from '@/modules/auth/helpers'
 import { EmailPasswordCreds, UserInfo } from '@/modules/auth/types'
 
+import { StepperStore } from '../../../lib/mobx/StepperStore'
 import { AuthService } from '../AuthService'
 import { ConfirmInfoVM } from './ConfirmInfoVM'
 import { SignUpSteps } from './constants'
 import { UnauthorizedUserCredentialsError } from './signUpErrors'
-import { StepperStore } from './StepperStore'
 
 export class SignUpVM {
   submitCredsVM = new FormStore<EmailPasswordCreds>(
