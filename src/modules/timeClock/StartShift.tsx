@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { useLocationStore } from '@/modules/stores'
+import { useCurrentUser } from '@/modules/users/hooks/useCurrentUser'
 import LoadingStack from '@/ui/components/LoadingStack'
 
 import { CurrentTimesheetButton } from './CurrentTimesheetButton'
@@ -10,10 +11,12 @@ import { HoursToday } from './HoursToday'
 import { TimeClockButton } from './TimeClockButton'
 
 export const StartShift = () => {
+  const user = useCurrentUser()
+
   return (
     <MapBackdrop>
       <Overlay>
-        <HoursToday />
+        <HoursToday employee={user.uid} />
         <BottomSection>
           <TimeClockActions />
         </BottomSection>
