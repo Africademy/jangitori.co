@@ -23,6 +23,13 @@ const globalStyles = css`
     font-smoothing: antialiased;
   }
 
+  * {
+    transition-property: background-color, border-color, color, fill, stroke,
+      opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
   html,
   body {
     padding: 0;
@@ -34,19 +41,23 @@ const globalStyles = css`
     height: 100vh;
   }
 
+  body.ijan {
+    height: 100%;
+    font-family: ${typography.fonts.body};
+    font-weight: ${typography.fontWeights.normal};
+    line-height: ${typography.lineHeights.none};
+    color: ${colors.gray[900]};
+    background: #fff;
+  }
+
   #__next {
-    min-height: 100vh;
-    min-width: 100vw !important;
+    height: 100%;
+    width: 100%;
     overflow: auto;
     padding: 0;
     margin: 0;
     position: relative;
     background-color: ${colors.gray[50]};
-
-    transition-property: background-color, border-color, color, fill, stroke,
-      opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
   }
 
   #map {
@@ -70,16 +81,8 @@ const globalStyles = css`
     }
   }
 
-  // Apply active font to all elements
-
-  body.ijan {
-    height: 100%;
-    font-family: ${typography.fonts.body};
-    font-weight: ${typography.fontWeights.normal};
-    line-height: ${typography.lineHeights.base};
-    color: ${colors.gray[800]};
-    background: ${colors.gray[50]};
-    transition-property: background-color;
+  p {
+    line-height: ${typography.lineHeights.body};
   }
 
   h1,
@@ -90,7 +93,7 @@ const globalStyles = css`
   h6 {
     font-family: ${typography.fonts.heading};
     font-weight: ${typography.fontWeights.medium};
-    line-height: ${typography.lineHeights.shorter};
+    line-height: ${typography.lineHeights.heading};
   }
 `
 
