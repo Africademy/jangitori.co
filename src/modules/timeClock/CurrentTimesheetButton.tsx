@@ -2,8 +2,8 @@ import { Button } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import { useRouter } from 'next/router'
 
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { routes } from '@/lib/routes'
+import { useCurrentUser } from '@/modules/accounts/hooks/useCurrentUser'
 import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'

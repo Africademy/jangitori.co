@@ -1,6 +1,7 @@
 import { IconButton } from '@chakra-ui/react'
-import { ChevronLeftIcon } from '@icons/ChevronIcon'
 import { useRouter } from 'next/router'
+
+import { ChevronLeftIcon } from '@/ui/icons/ChevronIcon'
 
 const BackButton = () => {
   const router = useRouter()

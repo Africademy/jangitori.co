@@ -1,6 +1,7 @@
-import { environment } from '@configs/environment'
 import { GoogleApiWrapper, IProvidedProps } from 'google-maps-react'
 import React from 'react'
+
+import { environment } from '@/configs/environment'
 
 export type PropsWithGoogleMaps = IProvidedProps
 

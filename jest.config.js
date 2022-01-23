@@ -32,6 +32,7 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/app/(.*)$': '<rootDir>/src/app/$1',
     '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/configs/(.*)$': '<rootDir>/src/configs/$1',
     '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
   },

@@ -1,8 +1,8 @@
 import router from 'next/router'
 
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { toDateString } from '@/lib/date'
 import { routes } from '@/lib/routes'
+import { useCurrentUser } from '@/modules/accounts/hooks/useCurrentUser'
 import Breadcrumbs from '@/ui/components/Breadcrumbs'
 
 import { computePayPeriod } from '../payrolls/computePayPeriod'

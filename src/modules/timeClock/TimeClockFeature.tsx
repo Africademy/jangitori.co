@@ -1,10 +1,10 @@
 import { Skeleton, Stack } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 
+import { ShiftStep } from '@/modules/shifts/shiftStore'
 import { useShiftStore } from '@/modules/stores'
 import { Redirect } from '@/ui/components/Redirect'
 
-import { ShiftStep } from '../shifts/shiftStore'
 import { StartShift } from './StartShift'
 
 export const TimeClockFeature = observer(function TimeClockFeature() {

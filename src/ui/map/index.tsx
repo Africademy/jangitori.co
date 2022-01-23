@@ -1,7 +1,8 @@
-import { environment } from '@configs/environment'
 import styled from '@emotion/styled'
 import GoogleMapReact from 'google-map-react'
 import React from 'react'
+
+import { environment } from '@/configs/environment'
 
 const AnyReactComponent = ({
   text,
