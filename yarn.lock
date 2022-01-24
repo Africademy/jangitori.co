@@ -366,7 +366,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.9.2":
   version: 7.16.7
   resolution: "@babel/runtime@npm:7.16.7"
   dependencies:
@@ -7650,6 +7650,7 @@ __metadata:
     styled-system: ^5.1.5
     swr: ^1.1.2
     tailwindcss: ^3.0.8
+    tiny-heroicons: ^1.0.0
     tiny-invariant: ^1.2.0
     ts-jest: 26.5.6
     ts-node: ^10.4.0
@@ -11968,6 +11969,18 @@ __metadata:
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: a38c3e059853c494af95d50c072b83f8b676a9ba2818dcc5b108ef252230735c54e0185437618596c790bbba8fcdaef5b290405981ffa09dce67b1f1bf190cbd
+  languageName: node
+  linkType: hard
+
+"tiny-heroicons@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tiny-heroicons@npm:1.0.0"
+  dependencies:
+    "@babel/runtime": ^7.16.7
+  peerDependencies:
+    react: ^16.8 || ^17.0
+    react-dom: ^16.8 || ^17.0
+  checksum: 84e4f9b1cef456567f8de7399c1ca6700e1859c514c1db66888ac446fd1cf03c4d04c21f78bcd5b628eef6b8748817138e8c415b71d9ca59e3275f662f6379ce
   languageName: node
   linkType: hard
 

@@ -1,5 +1,6 @@
 import { Box, Center, Heading } from '@chakra-ui/react'
 import { css } from '@emotion/react'
+import { QuestionOutlineIcon } from 'tiny-heroicons'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { Col } from '@/ui/atoms/Flex'
@@ -24,6 +25,7 @@ export const OverviewPage = function OverviewPage(
           <Heading size="md" fontWeight="normal" textAlign="left">
             Hello, {props.user.firstName + ' ' + props.user.lastName}.
           </Heading>
+          <QuestionOutlineIcon />
         </Col>
       </Box>
       <Box px={12} py={5}>
