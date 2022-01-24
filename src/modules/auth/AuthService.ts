@@ -2,6 +2,7 @@ import { Session, User as AuthUser, UserCredentials } from '@supabase/gotrue-js'
 import { SupabaseClient } from '@supabase/supabase-js'
 
 import { logger } from '@/infra/logger'
+import { NullResponsePropertyError } from '@/lib/errors'
 import supabase from '@/lib/supabase'
 
 function handleResponse<

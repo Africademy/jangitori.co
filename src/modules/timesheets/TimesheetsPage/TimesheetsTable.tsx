@@ -2,9 +2,11 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 
 import { Timesheet } from '@/data/models/timesheet'
-import { prettyCalendarDate } from '@/lib/date/calendarDate'
 import { StatusTag } from '@/modules/reviewStatus'
 import { only } from '@/ui/utils/breakpoints'
+
+import { prettyCalendarDate } from './prettyCalendarDate'
+
 export const timesheetsTableFields = ['payPeriodEnd', 'hours', 'status']
 
 export const TimesheetColumnLabel = {
