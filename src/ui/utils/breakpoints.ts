@@ -10,7 +10,6 @@ export const minWidths: { [k in BreakpointName]: string } = {
   tablet: breakpointRemScale[1],
   desktop: breakpointRemScale[2],
 }
-
 export const maxWidths: { [k in BreakpointName]: string } = {
   sm: breakpointRemScale[1],
   md: breakpointRemScale[2],
@@ -26,8 +25,23 @@ export function below(bp: BreakpointName) {
   return `@media screen and (max-width: ${maxWidths[bp]})`
 }
 
+const nextIndex = {
+  sm: 1,
+  md: 2,
+  lg: 3,
+  xl: 4,
+  '2xl': 5,
+  mobile: 1,
+  tablet: 2,
+  desktop: 3,
+}
+
 export function above(bp: BreakpointName) {
-  return `@media screen and (min-width: ${minWidths[bp]})`
+  if (bp === '2xl' || bp === 'desktop') {
+    return `@media screen and (min-width: ${minWidths[bp]})`
+  }
+
+  return `@media screen and (min-width: ${breakpointRemScale[nextIndex[bp]]})`
 }
 
 export function only(bp: BreakpointName) {
