@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import classnames from 'classnames'
 
-import { smallerThan } from '@/ui/utils/breakpoints'
+import { below } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 export interface ErrorMessageProps {
@@ -51,7 +51,7 @@ const SFlex = styled(Flex)`
     css`
       color: ${theme.colors.red[600]};
       font-size: ${theme.fontSizes.md};
-      ${smallerThan('tablet')} {
+      ${below('tablet')} {
         font-size: ${theme.fontSizes.sm};
       }
       line-height: 1.5;

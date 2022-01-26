@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
 import { StyledProps } from '@/lib/styled/types'
-import { smallerThan } from '@/ui/utils/breakpoints'
+import { below } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 export const baseCardStyles = ({ theme }: StyledProps) =>
@@ -26,7 +26,7 @@ export const baseCardHeaderStyles = css`
 export const baseCardSubtitleStyles = css`
   font-size: 1.125rem;
   line-height: 1.5;
-  ${smallerThan('md')} {
+  ${below('md')} {
     font-size: 1rem;
   }
 `

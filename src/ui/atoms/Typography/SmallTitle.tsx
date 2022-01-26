@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactNode } from 'react'
 
-import { largerThan } from '@/ui/utils/breakpoints'
+import { above } from '@/ui/utils/breakpoints'
 
 export interface SmallTitleProps {
   children: ReactNode
@@ -21,7 +21,7 @@ const Title = styled.h3`
       font-weight: ${theme.fontWeights.medium};
       color: ${theme.colors.gray[700]};
 
-      ${largerThan('sm')} {
+      ${above('sm')} {
         font-size: ${theme.fontSizes.lg};
       }
     `}

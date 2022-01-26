@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 
+import { breakpoints } from './breakpoints'
 import { colors } from './colors'
 import { radii } from './radii'
 import { shadows } from './shadows'
@@ -15,6 +16,7 @@ const myTheme = {
   radii,
   components,
   space,
+  breakpoints,
 }
 
 export const theme = extendTheme(myTheme)

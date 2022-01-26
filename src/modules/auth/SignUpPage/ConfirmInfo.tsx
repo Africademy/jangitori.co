@@ -17,7 +17,7 @@ import {
 } from '@/ui/components/Form'
 import { defaultFields, FieldID } from '@/ui/components/Form/defaultFields'
 import LabeledInput from '@/ui/components/Input/LabeledInput'
-import { smallerThan } from '@/ui/utils/breakpoints'
+import { below } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 import { UserInfo } from '../types'
@@ -95,7 +95,7 @@ export const ConfirmInfo: React.FunctionComponent<ConfirmInfoProps> = ({
 }
 
 const SContainer = styled(Container)`
-  ${smallerThan('md')} {
+  ${below('md')} {
     padding-left: 0;
     padding-right: 0;
     min-height: 100vh;
@@ -105,7 +105,7 @@ const SContainer = styled(Container)`
     padding: ${spacing(12, 8)};
     margin: ${spacing('auto')};
     max-width: 36rem;
-    ${smallerThan('md')} {
+    ${below('md')} {
       min-height: 100%;
       margin: 0;
     }

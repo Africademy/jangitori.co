@@ -1,19 +1,19 @@
 import { css } from '@emotion/react'
 
-import { largerThan } from '@/ui/utils/breakpoints'
+import { above } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 export const utilities = css`
   .h-header {
     height: ${spacing(14)};
-    ${largerThan('md')} {
+    ${above('md')} {
       height: ${spacing(16)};
     }
   }
 
   .py-header-item {
     padding: ${spacing(5)};
-    ${largerThan('md')} {
+    ${above('md')} {
       padding: ${spacing(3)};
     }
   }

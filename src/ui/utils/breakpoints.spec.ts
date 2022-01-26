@@ -1,34 +1,35 @@
-import { BreakpointAlias, largerThan, only, smallerThan } from './breakpoints'
+import { above, below, only } from './breakpoints'
 
 /**
  * @group unit
  * @group utils
  */
 describe('Breakpoints helper functions', () => {
-  describe('largerThan', () => {
+  describe('above', () => {
     it('should get the identifier LARGER than given a breakpoint alias', () => {
-      const breakpointAlias: BreakpointAlias = 'mobile'
-      const result = largerThan(breakpointAlias)
+      const breakpointName = 'mobile'
+      const result = above(breakpointName)
+      const expected = `@media screen and (min-width: 0rem)`
 
-      expect(result).toEqual(`@media screen and (min-width: 0px)`)
+      expect(result).toEqual(expected)
     })
   })
-  describe('smallerThan', () => {
+  describe('below', () => {
     it('should get the identifier SMALLER than given a breakpoint alias', () => {
-      const breakpointAlias: BreakpointAlias = 'mobile'
-      const result = smallerThan(breakpointAlias)
+      const breakpointName = 'mobile'
+      const result = below(breakpointName)
+      const expected = `@media screen and (max-width: 30rem)`
 
-      expect(result).toEqual(`@media screen and (max-width: 480px)`)
+      expect(result).toEqual(expected)
     })
   })
   describe('only', () => {
     it('should get the identifier exactly for given a breakpoint alias', () => {
-      const breakpointAlias: BreakpointAlias = 'mobile'
-      const result = only(breakpointAlias)
+      const breakpointName = 'mobile'
+      const result = only(breakpointName)
+      const expected = `@media screen and (min-width: 0rem) and (max-width: 30rem)`
 
-      expect(result).toEqual(
-        `@media screen and (min-width: 0px) and (max-width: 480px)`,
-      )
+      expect(result).toEqual(expected)
     })
   })
 })

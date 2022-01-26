@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-import { largerThan } from '@/ui/utils/breakpoints'
+import { above } from '@/ui/utils/breakpoints'
 import { spacing } from '@/ui/utils/spacing'
 
 import {
@@ -16,7 +16,7 @@ const StyledForm = styled.form`
   ${baseCardStyles}
   min-width: 100%;
   gap: ${spacing(3)};
-  ${largerThan('mobile')} {
+  ${above('mobile')} {
     min-width: 40rem;
     height: min-content;
   }

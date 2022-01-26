@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { largerThan, only } from '@/ui/utils/breakpoints'
+import { above, only } from '@/ui/utils/breakpoints'
 
 const PageHeadingBox = styled.div`
   background: #fff;
@@ -25,7 +25,7 @@ export const PageHeading = ({ children }) => (
       width="85vw"
       mx="auto"
       css={css`
-        ${largerThan('mobile')} {
+        ${above('mobile')} {
           display: flex;
           align-items: center;
           justify-content: space-between;
