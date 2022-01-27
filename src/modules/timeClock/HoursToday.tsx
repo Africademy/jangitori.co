@@ -1,5 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 
 import { User } from '@/data/models/user'
@@ -13,29 +11,21 @@ export const HoursToday = observer(function HoursToday({
 }: {
   employee: User
 }) {
-  const theme = useTheme()
-
   const { hours, error } = useTotalHoursToday(employee.id)
 
   return (
-    <Box
-      shadow={theme.shadows.md}
-      borderRadius={theme.radii.lg}
-      bg={'#fff'}
-      p={3}
-      w="80%"
-    >
-      <Flex align="center" justify="space-between" gap={6}>
-        <Flex align="center" gap={2}>
+    <div className="bg-white rounded-md shadow-md px-5 py-3">
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
           <ClockIconSolid />
-          <Box>{InitialTimeClockCopy.HoursToday}</Box>
-        </Flex>
-        <Box fontWeight="semibold">{`${
-          typeof hours === 'undefined' && typeof error === 'undefined'
+          <span>{InitialTimeClockCopy.HoursToday}</span>
+        </div>
+        <div className="font-semibold">{`${
+          typeof hours === 'undefined' || typeof error === 'undefined'
             ? '---'
             : `${hours}`
-        }`}</Box>
-      </Flex>
-    </Box>
+        }`}</div>
+      </div>
+    </div>
   )
 })

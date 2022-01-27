@@ -1,7 +1,4 @@
-import { Button } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
 
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
@@ -12,7 +9,6 @@ export interface ShiftToggleButtonProps {
 export const ShiftToggleButton = observer(function ShiftToggleButton({
   onEndShift,
 }: ShiftToggleButtonProps) {
-  const theme = useTheme()
   const shiftStore = useShiftStore()
   const locationStore = useLocationStore()
 
@@ -28,26 +24,11 @@ export const ShiftToggleButton = observer(function ShiftToggleButton({
   }
 
   return (
-    <Button
-      isLoading={shiftStore.request.busy}
-      loadingText={isClockIn ? 'Starting...' : 'Ending...'}
-      w="100%"
-      py={6}
-      bg={theme.colors.indigo[600]}
-      color={'#fff'}
-      size="md"
+    <button
+      className="bg-primary-600 text-white shadow-md rounded-xl py-3 flex-1 w-full font-medium text-lg"
       onClick={handleClick}
-      _disabled={{
-        background: theme.colors.gray[200],
-        color: theme.colors.gray[500],
-      }}
-      _hover={{
-        _notDisabled: {
-          background: theme.colors.indigo[700],
-        },
-      }}
     >
       {isClockIn ? 'Start Shift' : 'End Shift'}
-    </Button>
+    </button>
   )
 })

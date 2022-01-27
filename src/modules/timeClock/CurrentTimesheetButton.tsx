@@ -1,5 +1,3 @@
-import { Button } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
 import { useRouter } from 'next/router'
 
 import { User } from '@/data/models/user'
@@ -9,8 +7,6 @@ import { usePayPeriodEnd } from '@/modules/payrolls/usePayPeriodEnd'
 import { InitialTimeClockCopy } from './TimeClockCopy'
 
 export const CurrentTimesheetButton = ({ employee }: { employee: User }) => {
-  const theme = useTheme()
-
   const payPeriodEnd = usePayPeriodEnd()
 
   const router = useRouter()
@@ -24,15 +20,11 @@ export const CurrentTimesheetButton = ({ employee }: { employee: User }) => {
   }
 
   return (
-    <Button
-      bg={'white'}
-      border={`0.7px solid ${theme.colors.gray[200]}`}
-      w="100%"
-      shadow={'sm'}
+    <button
       onClick={handleClick}
-      py={6}
+      className="bg-white shadow-md rounded-xl py-3 flex-1 w-full font-medium text-lg"
     >
       {InitialTimeClockCopy.ViewTimesheet}
-    </Button>
+    </button>
   )
 }
