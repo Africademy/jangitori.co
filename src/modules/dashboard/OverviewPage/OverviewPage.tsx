@@ -22,7 +22,7 @@ export const OverviewPage = function OverviewPage(
     >
       <Box px={12} py={5}>
         <Col gap={5}>
-          <Heading size="md" fontWeight="normal" textAlign="left">
+          <Heading as="h1" size="md" fontWeight="normal" textAlign="left">
             Hello, {props.user.firstName + ' ' + props.user.lastName}.
           </Heading>
           <QuestionOutlineIcon />
