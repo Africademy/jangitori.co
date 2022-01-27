@@ -27,7 +27,7 @@ export const enforceAuthenticated =
     const { data, error } = await supabase
       .from<User>(Tables.USERS)
       .select('*')
-      .eq('uid', authUser.id)
+      .eq('id', authUser.id)
       .maybeSingle()
 
     if (error) throw error

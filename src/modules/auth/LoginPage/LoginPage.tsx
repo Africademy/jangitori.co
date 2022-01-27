@@ -27,7 +27,7 @@ export const LoginPage: React.FC<AuthPageProps> = () => {
 
   async function handleSubmit(formData: EmailPasswordCreds) {
     const { authUser, session } = await authService.signIn(formData)
-    const user = await userService.getUser({ uid: authUser.id })
+    const user = await userService.getUser({ id: authUser.id })
     authStore.setSession(session)
     authStore.setUser(user)
     router.push(routes.dashboardPage(user.role, 'overview'))

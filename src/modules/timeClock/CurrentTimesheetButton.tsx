@@ -18,7 +18,7 @@ export const CurrentTimesheetButton = ({ employee }: { employee: User }) => {
     router.push(
       routes.dashboardPage(
         employee.role,
-        'timesheets' + `?payPeriodEnd=${payPeriodEnd}&employee=${employee.uid}`,
+        'timesheets' + `?payPeriodEnd=${payPeriodEnd}&employee=${employee.id}`,
       ),
     )
   }

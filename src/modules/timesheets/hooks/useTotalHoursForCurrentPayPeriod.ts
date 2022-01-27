@@ -8,7 +8,7 @@ export function useTotalHoursForCurrentPayPeriod(employee: User) {
 
   return useSWR<number, Error>('totalHoursForCurrentPayPeriod', () =>
     timesheetService.getTotalHours({
-      employee: employee.uid,
+      employee: employee.id,
       payPeriodEnd: new Date().toISOString(),
     }),
   )

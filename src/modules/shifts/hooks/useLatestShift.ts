@@ -10,7 +10,7 @@ export function useLatestShift(
   const shiftService = useShiftService()
   return useSWR<Shift | null, Error>('latestShift', async () => {
     const { data, error } = await shiftService.findActiveShift({
-      employee: employee.uid,
+      employee: employee.id,
     })
 
     if (error) throw error

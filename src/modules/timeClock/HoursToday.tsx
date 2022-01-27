@@ -15,7 +15,7 @@ export const HoursToday = observer(function HoursToday({
 }) {
   const theme = useTheme()
 
-  const { hours, error } = useTotalHoursToday(employee.uid)
+  const { hours, error } = useTotalHoursToday(employee.id)
 
   return (
     <Box

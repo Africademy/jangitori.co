@@ -1,7 +1,7 @@
 import { RoleId } from '@/data/models/role'
 
 export type User<R extends RoleId = RoleId> = {
-  uid: string
+  id: string
   firstName: string
   lastName: string
   role: R

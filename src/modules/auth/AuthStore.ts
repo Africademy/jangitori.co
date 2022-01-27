@@ -40,7 +40,7 @@ export class AuthStore {
       return
     }
     const authUser = await this.authService.getSessionUser(session.access_token)
-    const user = await this.userService.getUser({ uid: authUser.id })
+    const user = await this.userService.getUser({ id: authUser.id })
     this.setUser(user)
   }
 

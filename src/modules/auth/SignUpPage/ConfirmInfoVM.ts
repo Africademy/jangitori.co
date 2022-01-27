@@ -42,7 +42,7 @@ export class ConfirmInfoVM {
 
       /* Write any changes to user info to DB */
       const user = await this.userService.createUser({
-        uid: authUser.id,
+        id: authUser.id,
         ...userToCreate,
       })
 

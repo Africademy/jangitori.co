@@ -2,7 +2,7 @@ import { Timesheet } from '@/data/models/timesheet'
 import { User } from '@/data/models/user'
 
 export type TimesheetDetailsQuery = {
-  employee: User['uid']
+  employee: User['id']
   payPeriodEnd: Timesheet['payPeriodEnd']
 }
 

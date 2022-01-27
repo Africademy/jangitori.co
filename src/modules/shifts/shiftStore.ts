@@ -41,7 +41,7 @@ export class ShiftStore {
   async init() {
     const user = this.root.authStore.invariantUser
     const response = await this.shiftService.findActiveShift({
-      employee: user.uid,
+      employee: user.id,
     })
     this.setRequest({ ...response, busy: false })
     this.setStep(ShiftStep.Idle)
@@ -50,7 +50,7 @@ export class ShiftStore {
   async startShift(location: Coordinates) {
     const date = new Date()
     const initialShift: Omit<Shift, 'id'> = {
-      employee: this.root.authStore.invariantUser.uid,
+      employee: this.root.authStore.invariantUser.id,
       date: date.toISOString(),
       hours: 0,
       clockIn: { timestamp: date.toISOString(), location: location },

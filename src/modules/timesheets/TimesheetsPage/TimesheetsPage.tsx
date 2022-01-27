@@ -17,9 +17,9 @@ export const TimesheetsPage = ({ user }: AuthenticatedPageProps) => {
   const services = useServices()
 
   const { data: timesheets, error } = useSWR<Timesheet[], Error>(
-    timesheetQueryKeys.list(user.uid),
+    timesheetQueryKeys.list(user.id),
     async (): Promise<Timesheet[]> => {
-      return await services.timesheet.getTimesheetsByEmployee(user.uid)
+      return await services.timesheet.getTimesheetsByEmployee(user.id)
     },
   )
 

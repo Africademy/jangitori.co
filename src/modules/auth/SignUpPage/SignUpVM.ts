@@ -120,7 +120,7 @@ export class SignUpVM {
 
     /* Write any changes to user info to DB */
     const user = await UserService.instance().createUser({
-      uid: authUser.id,
+      id: authUser.id,
       ...userToCreate,
     })
 
