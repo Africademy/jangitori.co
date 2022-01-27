@@ -39,12 +39,17 @@ export class ShiftStore {
    * Must initialize after AuthStore is initialized
    */
   async init() {
+    this.setStep(ShiftStep.Initializing)
+    this.setRequest({ busy: true })
     const user = this.root.authStore.invariantUser
     const response = await this.shiftService.findActiveShift({
       employee: user.id,
     })
+    const isClockedIn =
+      Boolean(response.data?.clockIn) && response.data?.clockOut === null
+    const currentStep = isClockedIn ? ShiftStep.ClockedIn : ShiftStep.Idle
     this.setRequest({ ...response, busy: false })
-    this.setStep(ShiftStep.Idle)
+    this.setStep(currentStep)
   }
 
   async startShift(location: Coordinates) {

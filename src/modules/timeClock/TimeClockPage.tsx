@@ -35,13 +35,9 @@ const TimeClockPage = observer(function TimeClock({
     return <StartShift employee={employee} />
   }
 
-  if (shiftStore.step === ShiftStep.ClockedIn) {
-    console.log('Step: CLOCKED_IN')
+  console.log('Step: CLOCKED_IN')
 
-    return <EndShift />
-  }
-
-  return <LoadingStack />
+  return <EndShift />
 })
 
 export default TimeClockPage
