@@ -1,6 +1,4 @@
-import { VStack } from '@chakra-ui/react'
-import { Box, Flex } from '@chakra-ui/react'
-import { useTheme } from '@emotion/react'
+import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { CurrentLocation } from '@/modules/geolocation/CurrentLocation'
@@ -12,48 +10,26 @@ export const EndShift = () => {
   const router = useRouter()
 
   return (
-    <>
+    <div className="layout flex flex-col gap-5 py-5">
       <ShiftWorkTime />
-      <div className="w-full flex flex-col gap-3">
-        <ShiftToggleButton
-          onEndShift={() => router.push('/dashboard/employee/overview')}
-        />
-      </div>
-    </>
+      <ShiftToggleButton
+        onEndShift={() => router.push('/dashboard/employee/overview')}
+      />
+    </div>
   )
 }
 
 export const ShiftWorkTime = () => {
-  const theme = useTheme()
-
   return (
     <>
-      <VStack
-        shadow={theme.shadows.md}
-        borderRadius={theme.radii.lg}
-        bg={'#fff'}
-        py={3}
-        w="90%"
-        mx="auto"
-        mt={5}
-      >
-        <Flex direction="column" w="100%" textAlign="center" align="center">
-          <Flex align="center" gap={2}>
-            <Box>{EndShiftCopy.WorkTime}</Box>
-          </Flex>
+      <div className="bg-white rounded-lg shadow-md">
+        <div className="flex flex-col gap-2 items-center text-center py-5">
+          <Box>{EndShiftCopy.WorkTime}</Box>
           <Box fontWeight="semibold" fontSize="5xl">
             {'01:45:00'}
           </Box>
-        </Flex>
-        <Flex
-          align="center"
-          w="100%"
-          gap={2}
-          borderTop={`1px solid ${theme.colors.gray[200]}`}
-          pt={2}
-          fontSize="sm"
-          px={5}
-        >
+        </div>
+        <div className="flex items-center gap-2 py-2 border-t border-gray-200 px-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-[1.25em] w-[1.25em]"
@@ -67,23 +43,16 @@ export const ShiftWorkTime = () => {
             />
           </svg>
 
-          <Flex align="center" gap={1}>
-            <>{EndShiftCopy.ClockInLocation}</> <CurrentLocation />
-          </Flex>
-        </Flex>
-      </VStack>
-      <Flex
-        w="90%"
-        mx="auto"
-        py={4}
-        fontSize="sm"
-        px={5}
-        justify="space-between"
-        align="center"
-      >
+          <div className="flex items-center gap-1">
+            <span>{EndShiftCopy.ClockInLocation}</span>
+            <CurrentLocation />
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
         <Box>Total hours for today</Box>
         <Box fontWeight="semibold">{'01:45:00'}</Box>
-      </Flex>
+      </div>
     </>
   )
 }
