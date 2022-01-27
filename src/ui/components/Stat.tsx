@@ -1,9 +1,3 @@
-import {
-  Box,
-  Stat as ExternalStat,
-  StatLabel,
-  StatNumber,
-} from '@chakra-ui/react'
 import React from 'react'
 
 export interface StatProps {
@@ -16,10 +10,10 @@ export const BasicStat: React.FunctionComponent<StatProps> = ({
   data,
 }) => {
   return (
-    <ExternalStat className="stat" w="100%">
-      <StatLabel>{label}</StatLabel>
-      <StatNumber>{`${data}`}</StatNumber>
-    </ExternalStat>
+    <div className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+      <dt className="text-sm font-medium text-gray-500 truncate">{label}</dt>
+      <dd className="mt-1 text-3xl font-semibold text-gray-900">{`${data}`}</dd>
+    </div>
   )
 }
 
@@ -27,11 +21,5 @@ export const StatCard: React.FunctionComponent<StatProps> = ({
   label,
   data,
 }) => {
-  return (
-    <Box bg="white" shadow="sm" borderRadius="md">
-      <Box px={5} py={4}>
-        <BasicStat label={label} data={data} />
-      </Box>
-    </Box>
-  )
+  return <BasicStat label={label} data={data} />
 }
