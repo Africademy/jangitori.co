@@ -16,15 +16,13 @@ export const StartShift = observer(function StartShift({
   const locationStore = useLocationStore()
 
   return (
-    <div className="layout py-5 h-full max-h-full">
+    <div className="layout py-5 flex-1 min-h-main flex flex-col gap-6">
       <HoursToday employee={employee} />
       <>
         {locationStore.coords ? (
-          <div className="px-4 py-5 sm:p-6 w-full">
-            <div className="flex flex-col items-center w-full gap-3">
-              <ShiftToggleButton />
-              <CurrentTimesheetButton employee={employee} />
-            </div>
+          <div className="flex flex-col items-center w-full gap-3">
+            <ShiftToggleButton />
+            <CurrentTimesheetButton employee={employee} />
           </div>
         ) : (
           <LoadingStack />

@@ -9,7 +9,7 @@
 
 @layer utilities {
   .min-h-main {
-    @apply min-h-[calc(100vh - var(--header-height))];
+    min-height: calc(100vh - var(--header-height));
   }
 
   .layout {
