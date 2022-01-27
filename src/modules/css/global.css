@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --header-height: 82px;
+  --header-height: 56px;
+  --main-height: calc(100vh - var(--header-height));
 }
 
 @layer utilities {

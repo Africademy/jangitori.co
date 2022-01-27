@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 import { DashboardBottomNav } from './DashboardBottomNav'
 import { DashboardHeader } from './DashboardHeader'
@@ -10,24 +10,21 @@ const DashboardLayout = function DashboardLayout({
   children,
 }: React.PropsWithChildren<DashboardLayoutProps>) {
   return (
-    <div
-      css={css`
-        min-height: 100%;
-        position: relative;
-      `}
-    >
+    <>
       <DashboardHeader />
-      <Box
-        bg={'gray.50'}
-        css={css`
-          height: calc(90vh);
-        `}
-      >
-        {children}
-      </Box>
+      <Main>{children}</Main>
       <DashboardBottomNav />
-    </div>
+    </>
   )
 }
+
+const Main = styled.main(
+  ({ theme }) =>
+    css`
+      width: 100%;
+      min-height: var(--main-height);
+      background: ${theme.colors.gray[50]};
+    `,
+)
 
 export default DashboardLayout
