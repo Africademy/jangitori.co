@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 
 import { AuthenticatedPageProps } from '@/modules/core/types/AuthenticatedPageProps'
 import { ShiftStep } from '@/modules/shifts/shiftStore'
 import { useShiftStore } from '@/modules/stores'
 import LoadingStack from '@/ui/components/LoadingStack'
-import { Redirect } from '@/ui/components/Redirect'
 
+import { EndShift } from './EndShift'
 import { StartShift } from './StartShift'
 
 export const employeeRoutes = {
@@ -19,15 +20,28 @@ const TimeClockPage = observer(function TimeClock({
 }: AuthenticatedPageProps) {
   const shiftStore = useShiftStore()
 
-  if (shiftStore.step === ShiftStep.Initializing) return <LoadingStack />
+  useEffect(() => {
+    shiftStore.init()
+  }, [])
 
-  if (shiftStore.step === ShiftStep.Idle)
+  if (shiftStore.step === ShiftStep.Initializing) {
+    console.log('Step: INITIALIZING')
+
+    return <LoadingStack />
+  }
+  if (shiftStore.step === ShiftStep.Idle) {
+    console.log('Step: IDLE')
+
     return <StartShift employee={employee} />
+  }
 
-  if (shiftStore.step === ShiftStep.ClockedIn)
-    return <Redirect to={employeeRoutes.timeClock} />
+  if (shiftStore.step === ShiftStep.ClockedIn) {
+    console.log('Step: CLOCKED_IN')
 
-  return <Redirect to={employeeRoutes.overview} />
+    return <EndShift />
+  }
+
+  return <LoadingStack />
 })
 
 export default TimeClockPage

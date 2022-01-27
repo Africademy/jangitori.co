@@ -14,11 +14,11 @@ export const EndShift = () => {
   return (
     <>
       <ShiftWorkTime />
-      <VStack w="100%" gap={3}>
+      <div className="w-full flex flex-col gap-3">
         <ShiftToggleButton
           onEndShift={() => router.push('/dashboard/employee/overview')}
         />
-      </VStack>
+      </div>
     </>
   )
 }
