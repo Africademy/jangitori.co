@@ -65,25 +65,38 @@ export class SignUpVM {
     this.initialUser = value
   }
 
-  onSuccess = (user: User) => {
+  onSuccess(user: User) {
     this.authStore.setUser(user)
     Router.router?.push(routes.dashboardPage(user.role, 'overview'))
   }
 
   async onSubmitCreds(emailPasswordCreds: EmailPasswordCreds) {
+    this.submitCredsVM.request.setBusy(true)
+    this.submitCredsVM.request.setError(null)
+
     const { email } = emailPasswordCreds
     /* Get existing user data */
     const whitelist = await WhitelistService.instance().findWhitelist({
       email,
     })
-    if (!whitelist) throw new UnauthorizedUserCredentialsError()
+
+    if (!whitelist) {
+      const error = new UnauthorizedUserCredentialsError()
+      this.submitCredsVM.request.setError(error)
+      this.submitCredsVM.request.setBusy(false)
+      return
+    }
 
     const initialUser = await UserService.instance().findUser({ email })
 
     /* Check if user is already registered */
     if (initialUser) {
-      throw new Error('Already registered an user for this email.')
+      const error = new Error('Already registered an user for this email.')
+      this.submitCredsVM.request.setError(error)
+      this.submitCredsVM.request.setBusy(false)
+      return
     }
+    this.submitCredsVM.request.setBusy(false)
 
     this.setInitialUser(whitelist)
     this.setEmailPasswordCreds(emailPasswordCreds)
