@@ -1,12 +1,10 @@
-import { observer } from 'mobx-react-lite'
-
 import { User } from '@/data/models/user'
 import { ClockIconSolid } from '@/ui/icons/ClockIcon'
 
 import { InitialTimeClockCopy } from './TimeClockCopy'
 import { useTotalHoursToday } from './useTotalHoursToday'
 
-export const HoursToday = observer(function HoursToday({
+export const HoursToday = function HoursToday({
   employee,
 }: {
   employee: User
@@ -28,4 +26,4 @@ export const HoursToday = observer(function HoursToday({
       </div>
     </div>
   )
-})
+}
