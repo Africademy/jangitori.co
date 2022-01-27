@@ -1,12 +1,10 @@
-import { observer } from 'mobx-react-lite'
-
 import { useLocationStore, useShiftStore } from '@/modules/stores'
 
 export interface ShiftToggleButtonProps {
   onEndShift?: () => void
 }
 
-export const ShiftToggleButton = observer(function ShiftToggleButton({
+export const ShiftToggleButton = function ShiftToggleButton({
   onEndShift,
 }: ShiftToggleButtonProps) {
   const shiftStore = useShiftStore()
@@ -31,4 +29,4 @@ export const ShiftToggleButton = observer(function ShiftToggleButton({
       {isClockIn ? 'Start Shift' : 'End Shift'}
     </button>
   )
-})
+}
