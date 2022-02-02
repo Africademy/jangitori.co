@@ -21,6 +21,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "useDefineForClassFields": true,
+    "typeRoots": ["node_modules/@types"],
     "types": [
       "@emotion/react/types/css-prop", "jest","mocha"
     ],

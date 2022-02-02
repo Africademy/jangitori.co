@@ -11,3 +11,5 @@ export interface Shift {
   clockOut?: TimeClockData | null
   note?: string
 }
+
+export const SHIFTS_TABLE = 'shifts' as const

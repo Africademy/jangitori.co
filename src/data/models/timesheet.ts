@@ -9,3 +9,5 @@ export interface Timesheet {
   createdAt: Timestamp
   updatedAt: Timestamp
 }
+
+export const TIMESHEETS_TABLE = 'timesheets' as const

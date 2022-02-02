@@ -16,3 +16,6 @@ export interface Role {
   id: PrimaryKey<RoleId>
   name: RoleId
 }
+
+
+export const ROLES_TABLE = 'roles' as const

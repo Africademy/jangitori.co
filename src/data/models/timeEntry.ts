@@ -6,3 +6,6 @@ export type TimeEntry = {
   location: Coordinates
   timesheet: number
 }
+
+
+export const TIME_ENTRIES_TABLE = 'time-entries' as const
